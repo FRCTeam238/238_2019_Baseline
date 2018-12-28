@@ -1,0 +1,147 @@
+[
+
+  {
+    "CommandName": "NewDriveForward",
+    "ParameterNames": [
+	  "Distance",
+      "Speed"
+    ]
+  },
+  
+  {
+    "CommandName": "ShiftHigh",
+    "ParameterNames": []
+  }, 
+  {
+    "CommandName": "ShiftLow",
+    "ParameterNames": []
+  }, 
+  {
+    "CommandName": "ScoreScale",
+    "ParameterNames": []
+  },
+  
+  {
+    "CommandName": "WristAngle",
+    "ParameterNames": [
+		"Angle"
+	]
+  },
+  
+  {
+    "CommandName": "ElevatorSwitchHeight",
+    "ParameterNames": [
+		"Height"
+	]
+  },
+  {
+    "CommandName": "ElevatorScaleHeight",
+    "ParameterNames": [
+		"Height"
+	]
+  },
+  {
+    "CommandName": "ElevatorBottomHeight",
+    "ParameterNames": []
+  },
+
+  {
+    "CommandName": "ScoreSwitch",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "ElevatorUp",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "ElevatorDown",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "ExtendWrist",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "IntakeIn",
+    "ParameterNames": []
+  },
+
+  {
+    "CommandName": "IntakeOut",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "CollectorIn",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "CollectorOut",
+    "ParameterNames": []
+  },  
+  {
+    "CommandName": "ScoreScaleOpposite",
+    "ParameterNames": []
+  },
+  {
+    "CommandName": "DriveForward",
+    "ParameterNames": [
+	  "Target",
+      "Speed",
+	  "RollValue",
+	  "UltraSonicDistance"
+    ]
+  },
+  {
+    "CommandName": "DriveBackwards",
+    "ParameterNames": [
+      "Target",
+      "Speed"
+    ]
+  },
+  {
+    "CommandName": "TurnLeft",
+    "ParameterNames": [
+      "Target",
+      "Speed",
+      "Other"
+    ]
+  },
+  {
+    "CommandName": "TurnRight",
+    "ParameterNames": [
+      "Target",
+      "Speed",
+      "Other"
+    ]
+  },
+  {
+    "CommandName": "IntakeInAdv",
+    "ParameterNames": [
+      "delay(MILLIS)",
+      "Speed(Voltage)",
+      "time(MILLIS)"
+    ]
+  },
+    {
+    "CommandName": "Turn",
+    "ParameterNames": [
+      "Target(Degrees from start)",
+      "Speed(Voltage)",
+      "Time(MILLIS)"
+    ]
+  },
+  {
+	"CommandName": "Delay",
+	"ParameterNames": [
+		"delay"
+	]
+  },
+  {
+    "CommandName": "Finished",
+    "ParameterNames": []
+  },
+    {
+    "CommandName": "ScoreSwitchEnd",
+    "ParameterNames": []
+  }
+]
