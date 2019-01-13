@@ -4,6 +4,7 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Robot;
 
 public class NoDriverCommand extends AbstractCommand {
 	
@@ -14,9 +15,9 @@ public class NoDriverCommand extends AbstractCommand {
 		
 	}
 	
-	public NoDriverCommand(Drivetrain myRobotDrive, boolean isShifter){
+	public NoDriverCommand(Robot myRobot, boolean isShifter){
 		
-		this.myRobotDrive = myRobotDrive;
+		this.myRobotDrive = myRobot.myDriveTrain;
 		this.shifter = isShifter;
 	}
 

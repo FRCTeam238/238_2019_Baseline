@@ -8,6 +8,7 @@ import org.usfirst.frc.team238.commands.CommandTankDrive;
 import org.usfirst.frc.team238.commands.NoDriverCommand;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 
@@ -37,15 +38,14 @@ public class DriverCommandFactory
 	 * @param myFuelHandler
 	 * @return
 	 */
-	public HashMap<Integer, Command> createDriverLeftCommands(Drivetrain driveTrain, 
-			Navigation myNavigation)
+	public HashMap<Integer, Command> createDriverLeftCommands(Robot myRobot)
 	{
 		
-		NoDriveCommand = new NoDriverCommand(driveTrain, true);
+		NoDriveCommand = new NoDriverCommand(myRobot, true);
 		
 		driverLeftCommands.put(0, NoDriveCommand);
 		
-		commandShiftHigh = new CommandShiftHigh(driveTrain);
+		commandShiftHigh = new CommandShiftHigh(myRobot);
 		
 		driverLeftCommands.put(1, commandShiftHigh);
 
@@ -66,11 +66,10 @@ public class DriverCommandFactory
 	 * @param myFuelHandler
 	 * @return
 	 */
-	public HashMap<Integer, Command> createDriverRightCommands(Drivetrain driveTrain, 
-			Navigation myNavigation)
+	public HashMap<Integer, Command> createDriverRightCommands(Robot myRobot)
 	{
 	  
-		NoDriveCommand  = new NoDriverCommand(driveTrain, false);
+		NoDriveCommand  = new NoDriverCommand(myRobot, false);
 		driverRightCommands.put(0, NoDriveCommand);
 		
 		//commandShiftLow = new CommandShiftLow(driveTrain);
@@ -86,10 +85,10 @@ public class DriverCommandFactory
 	 * @param myRobotDrive
 	 * @return
 	 */
-	public HashMap<Integer, Command> createDriverCommands(Drivetrain theDT)
+	public HashMap<Integer, Command> createDriverCommands(Robot myRobot)
 	{
 		
-	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theDT);
+	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(myRobot);
 		
 		driverCommands.put(0, cmdToDriveTheRobot);
 		

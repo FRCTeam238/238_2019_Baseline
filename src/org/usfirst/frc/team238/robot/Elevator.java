@@ -77,10 +77,6 @@ public class Elevator
         elevatorMasterTalon.config_kP(0, 0.004, 0);
         elevatorMasterTalon.setInverted(false);
         
-        //elevatorMasterTalon.config
-      
-       
-        
         solenoid = new DoubleSolenoid(6, 7);
         
         climbMode = false;

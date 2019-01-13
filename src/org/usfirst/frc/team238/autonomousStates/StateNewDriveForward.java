@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class StateNewDriveForward implements AutonomousState {
 
-    CommandAutonLine DriveForwardCommand;
+  CommandAutonLine DriveForwardCommand;
   int                 count = 0;
   String              parameters[];
 

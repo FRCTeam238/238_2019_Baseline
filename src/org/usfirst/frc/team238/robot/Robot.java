@@ -7,20 +7,18 @@
 
 package org.usfirst.frc.team238.robot;
 
-import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-import com.ctre.phoenix.motorcontrol.VelocityMeasPeriod;
-import com.ctre.phoenix.motorcontrol.ControlMode;
+
 
 import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,7 +27,6 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.core.AutonomousController;
 import org.usfirst.frc.team238.core.AutonomousDataHandler;
-import org.usfirst.frc.team238.core.AutonomousPlay;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Navigation;
@@ -37,10 +34,7 @@ import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
 import RealBot.TrajectoryFactory;
 import RealBot.Trajectory;
-import org.usfirst.frc.team238.robot.Elevator;
-import org.usfirst.frc.team238.robot.IntakeWrist;
 
-import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 
 /**
@@ -55,7 +49,6 @@ public class Robot extends IterativeRobot
 
 
 	private static int count = 1;
-	double[] dataFromVision;
 		
 	TalonSRX leftMasterDrive; 
 	VictorSPX leftDriveFollower1;
@@ -69,30 +62,22 @@ public class Robot extends IterativeRobot
 	Preferences myPreferences;
 	ControlBoard myControlBoard;
 	CommandController theMCP;
-	DifferentialDrive myRobotDrive;
-	Navigation myNavigation;
-	Drivetrain myDriveTrain;
+	public Navigation myNavigation;
+	public Drivetrain myDriveTrain;
 	DriverStation myDriverstation;
 	Logger myLogger;
-	DriverStation myDriverStation;
-	TrajectoryIntepreter theTrajectoryIntepreter;
-	Elevator theElevator;
-	IntakeWrist theIntake;
-	Ramp theRamp;
+	public TrajectoryIntepreter theTrajectoryIntepreter;
 	
 	//There shouldn't be two of these
 	Alliance myAllianceTeam;
 		
-		// Autonomous Mode Support
+	// Autonomous Mode Support
 	String autoMode;
-	/*AutonomousDrive autonomousDrive;*/
-	private AutonomousDataHandler myAutonomousDataHandler;
-		//private TargetingDataHandler myTargetingData;
-	private AutonomousController theMACP;
 	
+	private AutonomousDataHandler myAutonomousDataHandler;
+	private AutonomousController theMACP;
+
 	SendableChooser<String> autonomousSaveChooser;
-	//SendableChooser<String> targetingStateParamsUpdate;
-	//SendableChooser<String> targetingSaveChooser;
 	SendableChooser<String> aModeSelector;
 	SendableChooser<String> autonomousStateParamsUpdate;
 	
@@ -100,9 +85,6 @@ public class Robot extends IterativeRobot
 	{
 		try 
 		{
-			// only use checkForSmartDashboardChanges function in init methods
-			// or you will smoke the roborio into a useless pile of silicon
-			//checkForSmartDashboardChanges(CrusaderCommon.PREFVALUE_OP_AUTO, CrusaderCommon.PREFVALUE_OP_AUTO_DEFAULT);
 			
 			Logger.Log("Robot(): disabledInit:");
 		
@@ -131,7 +113,6 @@ public class Robot extends IterativeRobot
 				count = 0;
 
 				myDriveTrain.resetEncoders();
-				theElevator.getEncoderTicks();
 				
 				
 				//int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
@@ -166,11 +147,7 @@ public class Robot extends IterativeRobot
 	  
 		try 
 		{
-			System.out.println("RobotInit()");
-			
-			//RM SmartDashboard.putBoolean("Output Log to File", true);
-		   
-		  	//RM SmartDashboard.putBoolean("Debug", true);
+			Logger.Log("Starting RobotInit()");
 			
 			myRobot = Robot.this; 
 		
@@ -182,9 +159,6 @@ public class Robot extends IterativeRobot
 
 			Logger.Log("Robot(): robotInit(): Fully Initialized");
 			
-			//RM SmartDashboard.putBoolean("Output Log to File", false);
-		   
-			//RM SmartDashboard.putBoolean("Debug", false);
 		} 
 		catch (Exception ex) 
 		{
@@ -192,57 +166,112 @@ public class Robot extends IterativeRobot
 			Logger.Log("Robot(): robotInit() Exception : "+ex);
 		}
 	}
-	public void initOldStyleAutoModeDashboard() {
-	    SmartDashboard.putNumber("Chosen Auto Mode", 0);
-	  //Create a new SendableChooser for the save function
-        autonomousSaveChooser = new SendableChooser<String>();
-        autonomousSaveChooser.addDefault("do nothing", "0");
-        autonomousSaveChooser.addObject("drive ten feet", "1");
-        autonomousSaveChooser.addObject("Primary", "2");
-        autonomousSaveChooser.addObject("Switch", "3");
-        SmartDashboard.putData("AutoModes", autonomousSaveChooser);
-	    
-      //RM SmartDashboard.putData("Edit State Params", autonomousStateParamsUpdate);
-        //RM SmartDashboard.putData("Save Changes", autonomousSaveChooser);     
-        //RM SmartDashboard.putBoolean("Update Params", false);
-        //RM SmartDashboard.putBoolean("Save to Amode238", false);
-        //RM SmartDashboard.putBoolean("Read Amode238", false);
-        
-        SmartDashboard.putNumber("TICKS PER INCH", 1627);
-
-        //Sendable Chooser for the state update function
-        autonomousStateParamsUpdate = new SendableChooser<String>();
-        autonomousStateParamsUpdate.addDefault("As Received", "0");
-        autonomousStateParamsUpdate.addObject("UPDATE", "1");
-    
-	}
+	
 	public void initSmartDashboardObjects()
 	{
-		  
+		 
 		  SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
 		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
 		  SmartDashboard.putString("P or S", "nothing");
 		  
 		  aModeSelector = new SendableChooser<String>();
 	
-		  //Sendable Chooser for the state update function
+		  //SendableChooser for the state update function
 		  autonomousStateParamsUpdate = new SendableChooser<String>();
 		  autonomousStateParamsUpdate.addDefault("As Received", "0");
 		  autonomousStateParamsUpdate.addObject("UPDATE", "1");
+		  
+		  SmartDashboard.putBoolean("Output Log to File", false);		   
+		  SmartDashboard.putBoolean("Debug", false);
+		  Logger.Log("InitSmartDashboard Objects Successful");
 	  
 	}
-
-	/*
-	 * This autonomous (along with the chooser code above) shows how to select
-	 * between different autonomous modes using the dashboard. The sendable
-	 * chooser code works with the Java SmartDashboard. If you prefer the
-	 * LabVIEW Dashboard, remove all of the chooser code and uncomment the
-	 * getString line to get the auto name from the text box below the Gyro
-	 *
-	 * <p>You can add additional auto modes by adding additional comparisons to
-	 * the switch structure below with additional strings. If using the
-	 * SendableChooser make sure to add them to the chooser code above as well.
+	/**
+	 * Initializes Talons
 	 */
+	public void initTalons()
+	{
+		leftMasterDrive = new TalonSRX(15);  
+		leftDriveFollower1 = new VictorSPX(14);  
+		leftDriveFollower2 = new VictorSPX(13);
+		
+		leftMasterDrive.setInverted(true);
+        leftDriveFollower1.setInverted(true);
+        leftDriveFollower2.setInverted(true);
+		
+		
+		leftDriveFollower1.follow(leftMasterDrive); 
+        leftDriveFollower2.follow(leftMasterDrive);        
+       
+        leftMasterDrive.setNeutralMode(NeutralMode.Brake);
+        leftDriveFollower1.setNeutralMode(NeutralMode.Brake);
+        leftDriveFollower2.setNeutralMode(NeutralMode.Brake);
+        
+		rightMasterDrive = new TalonSRX(0);  
+		rightDriveFollower1 = new VictorSPX(1);
+		rightDriveFollower2 = new VictorSPX(2);		
+		
+		rightDriveFollower1.follow(rightMasterDrive); 
+		rightDriveFollower2.follow(rightMasterDrive); 
+		
+		rightMasterDrive.setNeutralMode(NeutralMode.Brake);
+		rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
+        rightDriveFollower2.setNeutralMode(NeutralMode.Brake);
+        
+        rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
+        leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
+		Logger.Log("initTalons Is Sucessful!");
+	}
+	
+	/**
+	 * Initializes everything in the Robot package
+	 */
+	public void initRobotObjects()
+	{
+		myNavigation = new Navigation();
+		myNavigation.init();
+		
+		myDriveTrain = new Drivetrain(myControlBoard);
+		myDriveTrain.init(leftMasterDrive, rightMasterDrive);
+		
+		myControlBoard = new ControlBoard();
+		myControlBoard.controlBoardInit();
+		
+		myDriveTrain.resetEncoders();
+		
+		Logger.Log("initRobotObjects Is Sucessful!");	
+	}
+	
+	/**
+	 * Initializes everything in the Core package
+	 */
+	public void initCoreObjects()
+	{
+		myLogger = new Logger();
+		theMCP = new CommandController();
+		
+		ArrayList<Trajectory> trajectories = new ArrayList<>();
+		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
+		HashMap<String, Runnable> markers = new HashMap<>();
+		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
+		theMCP.init(myRobot);
+		
+		
+		//The handler that handles everything JSON related 
+		myAutonomousDataHandler = new AutonomousDataHandler();
+		
+	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
+		myAutonomousDataHandler.init(theMCP);
+		
+		//Controller Object for autonomous
+		theMACP = new AutonomousController(); 
+		
+		//Gives the newly read JSON data to the AutonomousController for processing
+		theMACP.setAutonomousControllerData(myAutonomousDataHandler);
+		
+		Logger.Log("initCoreObjects Is Sucessful!");	
+	}
+	
 	@Override
 	public void autonomousInit() 
 	{
@@ -352,12 +381,6 @@ public class Robot extends IterativeRobot
 			Logger.Log("Robot(): autonomousPeriodic() Exception: "+ex);
 		}
 		
-		//RM SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
-        //RM SmartDashboard.putNumber("Right Encoder", rightFrontDrive.getSelectedSensorPosition(0));   
-	    //System.out.println("ELEVATOR TICKS:" +theElevator.getEncoderTicks());
-		//int currentYaw = (int) myNavigation.getYaw();           
-        //RM SmartDashboard.putNumber("AutonomousPeriodic: The CurrentYaw ", currentYaw);   
-	    
 	}
 	
 	public void teleopInit() 
@@ -383,7 +406,7 @@ public class Robot extends IterativeRobot
 	    
 		HashMap<Integer,Integer[]> commandValues;	
 		
-		SmartDashboard.putNumber("Left Encoder", theElevator.getEncoderTicks());        
+		      
 		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
 		
 		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
@@ -407,19 +430,6 @@ public class Robot extends IterativeRobot
 			Logger.Log("Robot(): teleopPeriodic() Exception: "+ e);
 		}
 		
-		//System.out.println("ANGLE:" + myNavigation.getYaw());
-        /*
-        leftMasterDrive.set(ControlMode.PercentOutput, -0.5); 
-        leftDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
-        rightMasterDrive.set(ControlMode.PercentOutput, -0.5);; 
-        rightDriveFollower1.set(ControlMode.PercentOutput, -0.5);; 
-        */
-		//SmartDashboard.putNumber("Left Encoder", leftMasterDrive.getSelectedSensorPosition(0));
-        //theElevator.getEncoderTicks();
-        //myDriveTrain.getEncoderTicks();
-        //System.out.println("Speed: " + speedLeft + " " + speedRight);
-
-			
 	}
 
 	/**
@@ -439,100 +449,9 @@ public class Robot extends IterativeRobot
 		
 	}
 	
-	/**
-	 * Initializes Talons
-	 */
-	public void initTalons()
-	{
-		leftMasterDrive = new TalonSRX(15);  
-		leftDriveFollower1 = new VictorSPX(14);  
-		leftDriveFollower2 = new VictorSPX(13);
-		
-		leftMasterDrive.setInverted(true);
-        leftDriveFollower1.setInverted(true);
-        leftDriveFollower2.setInverted(true);
-		
-		
-		leftDriveFollower1.follow(leftMasterDrive); 
-        leftDriveFollower2.follow(leftMasterDrive);        
-       
-        leftMasterDrive.setNeutralMode(NeutralMode.Brake);
-        leftDriveFollower1.setNeutralMode(NeutralMode.Brake);
-        leftDriveFollower2.setNeutralMode(NeutralMode.Brake);
-        
-		rightMasterDrive = new TalonSRX(0);  
-		rightDriveFollower1 = new VictorSPX(1);
-		rightDriveFollower2 = new VictorSPX(2);		
-		
-		rightDriveFollower1.follow(rightMasterDrive); 
-		rightDriveFollower2.follow(rightMasterDrive); 
-		
-		rightMasterDrive.setNeutralMode(NeutralMode.Brake);
-		rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
-        rightDriveFollower2.setNeutralMode(NeutralMode.Brake);
-        
-        rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
-        leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
-		Logger.Log("initTalons Is Sucessful!");
-	}
 	
-	/**
-	 * Initializes everything in the Robot package
-	 */
-	public void initRobotObjects()
-	{
-		myNavigation = new Navigation();
-		myNavigation.init();
-		
-		myDriveTrain = new Drivetrain(myControlBoard);
-		myDriveTrain.init(leftMasterDrive, rightMasterDrive);
-		
-		myControlBoard = new ControlBoard();
-		myControlBoard.controlBoardInit();
-		
-		theIntake = new IntakeWrist();
-		theIntake.init();
-		
-		theElevator = new Elevator();
-		theElevator.init();
-		
-		theRamp = new Ramp();
-		theRamp.init();
-		
-		myDriveTrain.resetEncoders();
-		
-		Logger.Log("initRobotObjects Is Sucessful!");	
-	}
 	
-	/**
-	 * Initializes everything in the Core package
-	 */
-	public void initCoreObjects()
-	{
-		myLogger = new Logger();
-		theMCP = new CommandController();
-		
-		ArrayList<Trajectory> trajectories = new ArrayList<>();
-		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
-		HashMap<String, Runnable> markers = new HashMap<>();
-		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
-		theMCP.init(myDriveTrain, myNavigation, myRobot, theTrajectoryIntepreter, theElevator, theIntake, theRamp);
-		
-		
-		//The handler that handles everything JSON related 
-		myAutonomousDataHandler = new AutonomousDataHandler();
-		
-	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
-		myAutonomousDataHandler.init(theMCP);
-		
-		//Controller Object for autonomous
-		theMACP = new AutonomousController(); 
-		
-		//Gives the newly read JSON data to the AutonomousController for processing
-		theMACP.setAutonomousControllerData(myAutonomousDataHandler);
-		
-		Logger.Log("iniCoreObjects Is Sucessful!");	
-	}
+	
 	
 	public void autoModeUpdateAndRead()
 	{

@@ -5,7 +5,6 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
-import org.usfirst.frc.team238.robot.Ramp;
 import org.usfirst.frc.team238.robot.Robot;
 import RealBot.TrajectoryIntepreter;
 
@@ -38,15 +37,14 @@ public class CommandController
 	 * @param theFuelHandler
 	 * @param myClimber
 	 * @param myRobot
+	 *
 	 */
-	public void  init(Drivetrain driveTrain,
-	    Navigation myNavigation, Robot myRobot,
-	    TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake, Ramp  ramp)
+	public void  init(Robot myRobot)
 	{
 
-		setupOperatorCommands(myNavigation, driveTrain,myRobot,theIntepreter, elevator, intake, ramp);
-		setupDriverCommands(driveTrain, myNavigation);
-		setupAutonomousCommands(driveTrain, myNavigation, myRobot,elevator,intake);
+		setupOperatorCommands(myRobot);
+		setupDriverCommands(myRobot);
+		setupAutonomousCommands(myRobot);
 		
 		//Doesn't get used
 		//commandValue = new HashMap<Integer, Command>(8);
@@ -71,12 +69,12 @@ public class CommandController
 	 * @param myRobot
 	 * @param theFuelHandler
 	 */
-	private void setupAutonomousCommands(Drivetrain driveTrain, Navigation myNavigation,
-	    Robot myRobot, Elevator elevator, IntakeWrist intake)
+
+	private void setupAutonomousCommands(Robot myRobot)
 	{
 		theRouge = new AutonomousCmdFactory();
 		theRouge.init();
-		autoCmdList = theRouge.createAutonomousCommands(driveTrain, myNavigation,myRobot,elevator,intake);
+		autoCmdList = theRouge.createAutonomousCommands(myRobot);
 		
 	}
 	
@@ -94,15 +92,14 @@ public class CommandController
 	 * @param myVision
 	 * @param myFuelHandler
 	 */
-	private void setupDriverCommands(Drivetrain driveTrain,
-	    Navigation myNavigation)
+	private void setupDriverCommands(Robot myRobot)
 	{
 		theDriverCommandFactory = new DriverCommandFactory();
 		theDriverCommandFactory.init();
 		
-		driverLeftCmdList = theDriverCommandFactory.createDriverLeftCommands(driveTrain,myNavigation);
-		driverRightCmdList = theDriverCommandFactory.createDriverRightCommands(driveTrain,myNavigation);
-		driverCmdList = theDriverCommandFactory.createDriverCommands(driveTrain);
+		driverLeftCmdList = theDriverCommandFactory.createDriverLeftCommands(myRobot);
+		driverRightCmdList = theDriverCommandFactory.createDriverRightCommands(myRobot);
+		driverCmdList = theDriverCommandFactory.createDriverCommands(myRobot);
 	}
 	
 	//Never gets called
@@ -122,14 +119,12 @@ public class CommandController
 	 * @param theClimber
 	 * @param myRobot
 	 */
-	private void setupOperatorCommands(Navigation myNavigation, Drivetrain driveTrain, 
-			 Robot myRobot, TrajectoryIntepreter theIntepreter, Elevator elevator, IntakeWrist intake, Ramp ramp)
+	private void setupOperatorCommands(Robot myRobot)
 	{
 		theOperatorCmdFactory = new OperatorCmdFactory();
 		theOperatorCmdFactory.init();
 		
-		operatorCmdList = theOperatorCmdFactory.createOperatorCommands(driveTrain, 
-		        myNavigation,myRobot, theIntepreter,elevator,intake, ramp);
+		operatorCmdList = theOperatorCmdFactory.createOperatorCommands(myRobot);
 	}
 
 	/*

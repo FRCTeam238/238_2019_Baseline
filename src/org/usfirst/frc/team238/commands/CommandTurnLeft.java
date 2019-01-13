@@ -5,6 +5,7 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -21,10 +22,10 @@ public class CommandTurnLeft extends AbstractCommand {
   
   int    count;
 
-  public CommandTurnLeft(Drivetrain theRobotDrive, Navigation myNavigationForTarget) {
+  public CommandTurnLeft(Robot myRobotDrive) {
 
-    this.myRobotDrive = theRobotDrive;
-    this.myNavigation = myNavigationForTarget;
+	    this.myRobotDrive = myRobotDrive.myDriveTrain;
+	    this.myNavigation = myRobotDrive.myNavigation;
     count = 0;
 
   }

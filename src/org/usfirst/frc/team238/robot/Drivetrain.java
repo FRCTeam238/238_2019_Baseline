@@ -10,11 +10,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Joystick;
 
-/*import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;*/
+
 
 public class Drivetrain
 {
@@ -108,9 +105,6 @@ public class Drivetrain
         // What if we're going backwards?
         // What if an encoder is not 0 but hasn't changed?
 
-        int encoderNumber = 0;
-        int encoderAverage = 0;
-
         encoderLeft = leftFrontDrive.getSelectedSensorPosition(0);
         encoderRight = rightFrontDrive.getSelectedSensorPosition(0);
 
@@ -125,7 +119,7 @@ public class Drivetrain
 
         return encoderLeft;
     }
-    //
+    
 
     public void tankDrive(double leftVal, double rightVal)
     {
@@ -133,7 +127,7 @@ public class Drivetrain
         leftFrontDrive.set(ControlMode.PercentOutput, leftVal);
         rightFrontDrive.set(ControlMode.PercentOutput, -rightVal); // convert to
                                                                    // inches/second
-        // System.out.println("RIGHT SPEED IS =" +
+        // Logger.Log("RIGHT SPEED IS =" +
         // leftFrontDrive.getSelectedSensorVelocity(0));
     }
 
@@ -151,12 +145,12 @@ public class Drivetrain
 
     }
 
-    public int getEncoderCount(int count)
-    {
-        counter++;
-        return counter;
-
-    }
+//    public int getEncoderCount(int count)
+//    {
+//        counter++;
+//        return counter;
+//
+//    }
 
     /**
      * Shifts solenoids into high gear
@@ -195,6 +189,7 @@ public class Drivetrain
          */
         leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
         rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
+        
         // Logger.Log("LEFT ENCODER === " +
         // leftFrontDrive.getSelectedSensorPosition(0));
         // Logger.Log("RIGHT ENCODER === " +
@@ -212,36 +207,36 @@ public class Drivetrain
     }
 
     // low gear real - 6.6ft/s high 17.5 ft/s
-    public void driveSpeed(double leftSpeed, double rightSpeed)
-    {
-
-        /*
-         * the joystick value is multiplied by a target RPM so the robot works
-         * with the velocity tuning code
-         */
-        if (shiftedhigh)
-        {
-            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
-            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
-
-        }
-        else
-        {
-
-            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT, 0);
-            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
-
-        }
-        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
-        rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
-        System.out.println("LEFT WANTED:" + leftSpeed);
-        System.out.println("RIGHT WANTED:" + rightSpeed);
-        // convert to inches/second
-        Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS ="
-                + leftFrontDrive.getSelectedSensorVelocity(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
-        Logger.Log("DriveTrain() : driveSpeed() : RIGHT ERROR IS =" + rightFrontDrive.getClosedLoopError(0));
-
-    }
+//    public void driveSpeed(double leftSpeed, double rightSpeed)
+//    {
+//
+//        /*
+//         * the joystick value is multiplied by a target RPM so the robot works
+//         * with the velocity tuning code
+//         */
+//        if (shiftedhigh)
+//        {
+//            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
+//            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_HIGH, 0);
+//
+//        }
+//        else
+//        {
+//
+//            leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT, 0);
+//            rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
+//
+//        }
+//        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+//        rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+//        System.out.println("LEFT WANTED:" + leftSpeed);
+//        System.out.println("RIGHT WANTED:" + rightSpeed);
+//        // convert to inches/second
+//        Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS ="
+//                + leftFrontDrive.getSelectedSensorVelocity(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+//        Logger.Log("DriveTrain() : driveSpeed() : RIGHT ERROR IS =" + rightFrontDrive.getClosedLoopError(0));
+//
+//    }
 
     //HIGH GEAR VALUES
     final double kV = 0.00434;// 0.00455
@@ -285,7 +280,9 @@ public class Drivetrain
             double right_kF = (rightWantedVoltage/_rightSpeed);
             leftFrontDrive.config_kF(0, left_kF*1023.0*10.0/CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH ,0);
             rightFrontDrive.config_kF(0, right_kF*1023.0*10.0/CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH, 0);
-           System.out.println("LeftWanedVoltagE:" + leftWantedVoltage + "      left_KF:" + left_kF /*+"LEFT_VEL:" + leftFrontDrive.getSelectedSensorVelocity(0) +"   LEFT_TARGET:" + leftFrontDrive.getClosedLoopTarget(0)  + "    LEFT ERROR:" + leftFrontDrive.getClosedLoopError(0)*/);
+            
+            //Logger.Log("LeftWantedVoltagE:" + leftWantedVoltage + "      left_KF:" + left_kF);
+            //*+"LEFT_VEL:" + leftFrontDrive.getSelectedSensorVelocity(0) +"   LEFT_TARGET:" + leftFrontDrive.getClosedLoopTarget(0)  + "    LEFT ERROR:" + leftFrontDrive.getClosedLoopError(0)*/);
             
         }
         else
@@ -298,8 +295,8 @@ public class Drivetrain
         }
         leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
         rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
-        System.out.println("Drive Accel LEFT WANTED:" + leftSpeed);
-        System.out.println("Drive Accel RIGHT WANTED:" + rightSpeed);
+        Logger.Log("Drive Accel LEFT WANTED:" + leftSpeed);
+        Logger.Log("Drive Accel RIGHT WANTED:" + rightSpeed);
         // convert to inches/second
        // Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS ="
        //         + leftFrontDrive.getSelectedSensorVelocity(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
@@ -316,7 +313,6 @@ public class Drivetrain
     public void driveBackwards(double leftMotorValue, double rightMotorValue)
     {
 
-        // robotMotors.tankDrive(leftMotorValue, rightMotorValue);
         leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
         rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
     }
@@ -571,14 +567,14 @@ public class Drivetrain
     // return distance travelled in inches
     public double leftDistanceTravelled()
     {
-        System.out.println("LEFT TICKS: " + leftFrontDrive.getSelectedSensorPosition(0));
+        Logger.Log("LEFT TICKS: " + leftFrontDrive.getSelectedSensorPosition(0));
         return leftFrontDrive.getSelectedSensorPosition(0)  / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     }
 
     // return distance travelled in inches
     public double rightDistanceTravelled()
     {
-        System.out.println("RIGH TICKS: " + rightFrontDrive.getSelectedSensorPosition(0));
+        Logger.Log("RIGHT TICKS: " + rightFrontDrive.getSelectedSensorPosition(0));
         return rightFrontDrive.getSelectedSensorPosition(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     }
 

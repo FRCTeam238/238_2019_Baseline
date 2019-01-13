@@ -7,6 +7,7 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 /**
  * @author Crusader
@@ -25,10 +26,10 @@ public class CommandDelay extends AbstractCommand {
   /**
    * 
    */
-  public CommandDelay(Drivetrain myRobotDrive, Navigation theNavigation) {
+  public CommandDelay(Robot myRobot) {
     // TODO Auto-generated constructor stub
-    this.myRobotdrive = myRobotDrive;
-    this.myNavigation = theNavigation;
+    this.myRobotdrive = myRobot.myDriveTrain;
+    this.myNavigation = myRobot.myNavigation;
   }
 
   /*

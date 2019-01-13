@@ -2,48 +2,25 @@ package org.usfirst.frc.team238.core;
 
 import java.util.HashMap;
 
-import org.usfirst.frc.team238.robot.Drivetrain;
-import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.robot.Elevator;
-import org.usfirst.frc.team238.robot.IntakeWrist;
-
-import RealBot.TrajectoryFactory;
-import RealBot.TrajectoryIntepreter;
-
 import org.usfirst.frc.team238.commands.CommandDriveForward;
-import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandDriveBackwards;
 import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
-import org.usfirst.frc.team238.commands.CommandWristAngle;
-import org.usfirst.frc.team238.lalaPaths.SCalibration;
 import org.usfirst.frc.team238.lalaPaths.ScaleLeftOppositeSide;
-import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.SwitchEndLeft;
 import org.usfirst.frc.team238.lalaPaths.SwitchEndRight;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
-import org.usfirst.frc.team238.lalaPaths.leftScale;
 import org.usfirst.frc.team238.commands.CommandAutonLine;
-import org.usfirst.frc.team238.commands.CommandCurlForward;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 import org.usfirst.frc.team238.lalaPaths.rightSwitch;
-import org.usfirst.frc.team238.commands.CommandRetractWrist;
-import org.usfirst.frc.team238.commands.CommandShiftClimb;
 import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTimeDriveFwd;
 import org.usfirst.frc.team238.commands.CommandTurn;
-import org.usfirst.frc.team238.commands.CommandElevatorUp;
-import org.usfirst.frc.team238.commands.CommandElevatorDown;
-import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
-import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
-import org.usfirst.frc.team238.commands.CommandExtendWrist;
-import org.usfirst.frc.team238.commands.CommandIntakeOut;
-import org.usfirst.frc.team238.commands.CommandIntakeIn;
-import org.usfirst.frc.team238.commands.CommandIntakeInAdv;
+
 
 public class AutonomousCmdFactory {
 	
@@ -62,125 +39,86 @@ public class AutonomousCmdFactory {
 	}
 	
 	
-	public HashMap<String, Command> createAutonomousCommands(Drivetrain robotDrive,
-			Navigation myNavigation, Robot myRobot,Elevator elevator,IntakeWrist intake){
+	public HashMap<String, Command> createAutonomousCommands(Robot myRobot){
 	    AbstractCommand cmd;
 	    
-	    cmd  = new CommandDriveForward(robotDrive, myNavigation);
+	    cmd  = new CommandDriveForward(myRobot);
 		autonomousCommands.put("CommandDriveForward", cmd );
 		
-		cmd = new CommandDriveBackwards(robotDrive);
+		cmd = new CommandDriveBackwards(myRobot);
 		autonomousCommands.put("CommandDriveBackwards", cmd);
 		
-		cmd = new CommandTurnLeft(robotDrive, myNavigation);
+		cmd = new CommandTurnLeft(myRobot);
 		autonomousCommands.put("CommandTurnLeft", cmd);
 		
-		cmd = new CommandTurnRight(robotDrive, myNavigation);		
+		cmd = new CommandTurnRight(myRobot);		
 		autonomousCommands.put("CommandTurnRight", cmd);
 		
-		cmd = new CommandDelay(robotDrive, myNavigation);
+		cmd = new CommandDelay(myRobot);
 		autonomousCommands.put("CommandDelay", cmd);
 		
-		cmd = new CommandCurlForward(robotDrive, myNavigation, myRobot);		
-		autonomousCommands.put("CommandCurlForward", cmd);
-    
-		cmd = new CommandRunTrajectory(robotDrive, myNavigation, goStraight.objects );
+		cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, goStraight.objects );
 		autonomousCommands.put("CommandRunGoStraightTrajectory", cmd);
     
-		cmd = new CommandRunTrajectory(robotDrive,  myNavigation,leftSwitch.objects );
+		cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,leftSwitch.objects );
         autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,rightSwitch.objects );
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,rightSwitch.objects );
         autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
         
-        cmd = new CommandExtendWrist(intake);
-        autonomousCommands.put("CommandExtendWrist",cmd);
-        
-        cmd = new CommandRetractWrist(intake);
-        autonomousCommands.put("CommandRetractWrist",cmd);
-        
-        cmd = new CommandElevatorUp(elevator);
-        autonomousCommands.put("CommandElevatorUp",cmd);
-        
-        cmd = new CommandElevatorDown(elevator);
-        autonomousCommands.put("CommandElevatorDown",cmd);
-        
-        cmd = new CommandIntakeIn(intake);
-        autonomousCommands.put("CommandIntakeIn",cmd);
-        
-        cmd = new CommandIntakeInAdv(intake);
-        autonomousCommands.put("CommandIntakeInAdv",cmd);
-        
-        cmd = new CommandIntakeOut(intake);
-        autonomousCommands.put("CommandIntakeOut",cmd);
-        
-        cmd = new CommandShiftClimb(elevator);
-        autonomousCommands.put("CommandShiftClimb",cmd);
-        
-        cmd = new CommandElevatorScaleHeight(elevator);
-        autonomousCommands.put("CommandElevatorScaleHeight",cmd);
-        
-        cmd = new CommandElevatorSwitchHeight(elevator);
-        autonomousCommands.put("CommandElevatorSwitchHeight",cmd);
-        
-        cmd = new CommandElevatorBottomHeight(elevator);
-        autonomousCommands.put("CommandElevatorBottomHeight",cmd);
-        
-        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
+       
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
         autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
         autonomousCommands.put("CommandRunScaleLeftOppositeSideTrajectory", cmd);
    
         //change objects to right lalaprofile
-        cmd = new CommandRunTrajectory(robotDrive, myNavigation, ScaleLeftOppositeSide.objects );
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
         autonomousCommands.put("CommandRunScaleRightOppositeSideTrajectory", cmd);
         
-        cmd = new CommandAutonLine(robotDrive, myNavigation);
+        cmd = new CommandAutonLine(myRobot);
         autonomousCommands.put("CommandAutonLine", cmd);
         
-        cmd = new CommandWristAngle(intake);
-        autonomousCommands.put("CommandWristAngle", cmd);
-
-        cmd = new CommandShiftHigh(robotDrive);
+        cmd = new CommandShiftHigh(myRobot);
         autonomousCommands.put("CommandShiftHigh", cmd);
         
-        cmd = new CommandShiftLow(robotDrive);
+        cmd = new CommandShiftLow(myRobot);
         autonomousCommands.put("CommandShiftLow", cmd);
        
-        cmd = new CommandTurn(robotDrive, myNavigation);
+        cmd = new CommandTurn(myRobot);
         autonomousCommands.put("CommandTurn", cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,SwitchEndLeft.objects );
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndLeft.objects );
         autonomousCommands.put("CommandRunSwitchEndLeftTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(robotDrive,  myNavigation,SwitchEndRight.objects );
+        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndRight.objects );
         autonomousCommands.put("CommandRunSwitchEndRightTrajectory", cmd);
         
-        cmd = new CommandTimeDriveFwd(robotDrive);
+        cmd = new CommandTimeDriveFwd(myRobot);
         autonomousCommands.put("CommandTimeDriveFwd", cmd);
         
 		return autonomousCommands;
 		
 	}
 
-//	public HashMap<String, Command> createAutonomousCommandsOLD(Drivetrain robotDrive,
-//            Navigation myNavigation, Robot myRobot){
+//	public HashMap<String, Command> createAutonomousCommandsOLD(Drivetrain myRobot.myDriveTrain,
+//            Navigation myRobot.myNavigation, Robot myRobot){
 //        
-//        AbstractCommand cmd  = new CommandDriveForward(robotDrive, myNavigation);
+//        AbstractCommand cmd  = new CommandDriveForward(myRobot.myDriveTrain, myRobot.myNavigation);
 //        autonomousCommands.put("CommandDriveForward", cmd );
-//        autoDriveBackwards = new CommandDriveBackwards(robotDrive);
+//        autoDriveBackwards = new CommandDriveBackwards(myRobot.myDriveTrain);
 //        autonomousCommands.put("CommandDriveBackwards", autoDriveBackwards);
-//        autoTurnLeft = new CommandTurnLeft(robotDrive, myNavigation);
+//        autoTurnLeft = new CommandTurnLeft(myRobot.myDriveTrain, myRobot.myNavigation);
 //        autonomousCommands.put("CommandTurnLeft", autoTurnLeft);
-//        autoTurnRight = new CommandTurnRight(robotDrive, myNavigation);
+//        autoTurnRight = new CommandTurnRight(myRobot.myDriveTrain, myRobot.myNavigation);
 //        autonomousCommands.put("CommandTurnRight", autoTurnRight);
-//        delayCommand = new CommandDelay(robotDrive, myNavigation);
+//        delayCommand = new CommandDelay(myRobot.myDriveTrain, myRobot.myNavigation);
 //        autonomousCommands.put("CommandDelay", delayCommand);
-//        curlForward = new CommandCurlForward(robotDrive, myNavigation, myRobot);
+//        curlForward = new CommandCurlForward(myRobot.myDriveTrain, myRobot.myNavigation, myRobot);
 //        autonomousCommands.put("CommandCurlForward", curlForward);
 //    
-//        autoGoStraight = new CommandRunTrajectory(robotDrive, goStraight.objects );
+//        autoGoStraight = new CommandRunTrajectory(myRobot.myDriveTrain, goStraight.objects );
 //        autonomousCommands.put("CommandRunGoStraightTrajectory", autoGoStraight);
 //    
 //        return autonomousCommands;

@@ -5,6 +5,7 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -20,11 +21,11 @@ public class CommandTurnRight extends AbstractCommand {
   double currentYaw;
   int    count;
 
-  public CommandTurnRight(Drivetrain robotDrive, Navigation myNavigationForTarget) {
+  public CommandTurnRight(Robot myRobotDrive) {
 
-    this.myRobotDrive = robotDrive;
-    this.myNavigation = myNavigationForTarget;
-    count = 0;
+	  this.myRobotDrive = myRobotDrive.myDriveTrain;
+	  this.myNavigation = myRobotDrive.myNavigation;
+	  count = 0;
   }
 
   public void prepare() {

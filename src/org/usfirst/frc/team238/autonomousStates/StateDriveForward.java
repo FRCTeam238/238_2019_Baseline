@@ -70,7 +70,7 @@ public class StateDriveForward implements AutonomousState {
   @Override
   public void updateParams() {
     // TODO Auto-generated method stub
-    String param1;
+    String param1; 
     String param2;
     String param3;
     String param4;

@@ -16,18 +16,14 @@ public class ControlBoard {
 	
 	HashMap<Integer, Integer[]> controllers; //Contains each joystick value and their button inputs
 	
-	boolean isXBoxController;
-	
-	static Integer[] xBoxToJsCmdMapping= { 0, 11, 10, 2, 3, 7, 6};
-	
 	public void controlBoardInit()
 	{
 		try
 		{
 			manualOverrideJs = new Joystick(0);
-			operatorJs = new Joystick(1);
-			setDriverLeftJs(new Joystick(2));
-			setDriverRightJs(new Joystick(3));
+			operatorJs = new Joystick(CrusaderCommon.OPR_CMD_LIST);
+			setDriverLeftJs(new Joystick(CrusaderCommon.LEFTDRIVER_CMD_LIST));
+			setDriverRightJs(new Joystick(CrusaderCommon.RIGHTDRIVER_CMD_LIST));
 		
 			controllers = new HashMap<Integer,Integer[]>();
 			
@@ -49,7 +45,7 @@ public class ControlBoard {
 		boolean jsButtonValue = false;
 		int joyStickButtonCount = theJoyStick.getButtonCount();
 		Integer[] buttonsPressed;
-		buttonsPressed = new Integer[joyStickButtonCount +7];
+		buttonsPressed = new Integer[joyStickButtonCount + CrusaderCommon.Additional_Button_Mapppings];
 		int arrayIterator = 0;
 		
 		//interator = 11 and buttons do not count from zero
@@ -98,21 +94,17 @@ public class ControlBoard {
         
         //DPAD 180(down) down 24, 90(to the right) switch 25, 0(up) scale 26
         
-        if(theJoyStick.getPOV() ==90) {
+        if(theJoyStick.getPOV() == 90) {
             buttonsPressed[arrayIterator++] = 25;     
-        }else if(theJoyStick.getPOV() ==0) {
+        }else if(theJoyStick.getPOV() == 0) {
             buttonsPressed[arrayIterator++] = 26;     
                 
-        }else if(theJoyStick.getPOV() ==180) {
+        }else if(theJoyStick.getPOV() == 180) {
             buttonsPressed[arrayIterator++] = 24;     
                 
         }
-            
-           
-        
-		
-		        
-		return buttonsPressed;
+  
+    	return buttonsPressed;
 	}
 	
 	/**
@@ -122,24 +114,28 @@ public class ControlBoard {
 	 */
 	public Integer[] getDriverJoystickInput(Joystick theJoyStick){
 	  
-	  /*!!!!!!!!!!!!!!THIS NEEDS TO BE REWORKED SO IT IS NOT HARDCODED IN!!!!!!!!!!!!!!!!!!*/
-		Integer[] buttonsPressed = new Integer[5];
-	  
-		if(theJoyStick.getRawButton(1))
+		boolean jsButtonValue = false;
+		int joyStickButtonCount = theJoyStick.getButtonCount();
+		Integer[] buttonsPressed;
+		buttonsPressed = new Integer[joyStickButtonCount];
+		int arrayIterator = 0;
+	    
+		for(int i = 1; i <= joyStickButtonCount; i++) 
 		{
-		  buttonsPressed[1] = 1;
-		}
-		else if (theJoyStick.getRawButton(2))
-		{
-		  buttonsPressed[2] = 2;
-		}
-		else if(theJoyStick.getRawButton(3))
-		{
-		  buttonsPressed[3] = 3;
-		}
-		else if(theJoyStick.getRawButton(4))
-		{
-		  buttonsPressed[4] = 4;
+		  
+			jsButtonValue = theJoyStick.getRawButton(i);
+			
+			//If a button is detected
+			if(jsButtonValue) 
+			{
+			  
+			  //Add that button to the collection of buttons pressed
+			  //buttonsPressed.put(i, jsButtonValue); 
+			  buttonsPressed[arrayIterator] = i;
+			  arrayIterator++;
+			  
+			}
+		
 		}
     
     return buttonsPressed;
@@ -217,10 +213,6 @@ public class ControlBoard {
 		ControlBoard.driverRightJs = driverRightJs;
 	}
 	
-	public void checkXboxController()
-	{
-		//isXBoxController = operatorJs.getIsXbox();
-	}
 
 	public static Joystick getOperatorLeftJs() {
 		return manualOverrideJs;

@@ -7,11 +7,12 @@ import org.usfirst.frc.team238.robot.Robot;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class AutonLineRunnable implements Runnable {
+public class CommandRunnable implements Runnable {
     
     double angle, topSpeed, distance;
     double rotateOutput;
@@ -21,27 +22,36 @@ public class AutonLineRunnable implements Runnable {
     
     boolean stop = false;
    
-    Robot myRobot;
     Navigation navigation;
     Drivetrain driveTrain;
+    PIDController pID;
     
-    
-    //EVERHING IS IN INCHESSSSSSS
-    public AutonLineRunnable(Robot myRobot, double distance, double topSpeed ){
+    //EVERTHING IS IN INCHES
+    public CommandRunnable(Robot myRobot, String[] params){ 
+    	
+    	if ((params[0] != null) || (!params[0].isEmpty())) {
+    		this.distance = Double.parseDouble(params[0]) ;
+    	} else {
+    		this.distance = 0;
+    	}
 
-    	this.driveTrain = myRobot.myDriveTrain;
+    	if ((params[1] != null) || (!params[1].isEmpty())) {
+    		this.topSpeed = Double.parseDouble(params[1]);
+    	} else {
+    		this.topSpeed = 1;
+    	}
+    	       
+        this.driveTrain = myRobot.myDriveTrain;
         this.navigation = myRobot.myNavigation;
-    
         this.angle = this.navigation.getYaw();
-        this.topSpeed=topSpeed;
-        this.distance=distance;
-       
+        pID = new PIDController(ANGLE_KP, ANGLE_KP, ANGLE_KP, null, null);
+        
     }
 
     public static final double delT = 50.0;
-    public void run(){
 
-    	boolean deAccelerate = false;   
+    public void run(){
+        boolean deAccelerate = false;   
         double initialPosL = driveTrain.leftDistanceTravelled();
         double initialPosR = driveTrain.rightDistanceTravelled();
         double distanceTravelled =0;
@@ -53,6 +63,7 @@ public class AutonLineRunnable implements Runnable {
         double currentVelocity = 0;
         double lastVelocity =0;
         
+        //This is where the magic happens
         while(	!stop && 
         		DriverStation.getInstance().isAutonomous() && 
         		DriverStation.getInstance().isEnabled())

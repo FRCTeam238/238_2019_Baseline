@@ -4,6 +4,7 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Robot;
 
 public class CommandDriveBackwards extends AbstractCommand {
 
@@ -12,8 +13,8 @@ public class CommandDriveBackwards extends AbstractCommand {
   double motorValue;
   double targetValue;
 
-  public CommandDriveBackwards(Drivetrain robotDrive) {
-    this.myRobotDrive = robotDrive;
+  public CommandDriveBackwards(Robot myRobot) {
+    this.myRobotDrive = myRobot.myDriveTrain;
 
   }
 

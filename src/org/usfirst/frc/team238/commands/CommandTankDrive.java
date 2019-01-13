@@ -5,15 +5,16 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.ControlBoard;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandTankDrive extends AbstractCommand {
 
-  Drivetrain theDrivetrain;
+  Drivetrain myDrivetrain;
 
-  public CommandTankDrive(Drivetrain theDT) {
-	  this.theDrivetrain = theDT;
+  public CommandTankDrive(Robot myRobot) {
+	    this.myDrivetrain = myRobot.myDriveTrain;
   }
 
   public void prepare() {
@@ -34,7 +35,7 @@ public class CommandTankDrive extends AbstractCommand {
     leftJsValue = (tuningValue * (leftJsValue * leftJsValue * leftJsValue) + (1-tuningValue) * leftJsValue);
     rightJsValue = (tuningValue * (rightJsValue * rightJsValue * rightJsValue) + (1-tuningValue) * rightJsValue);
     
-    theDrivetrain.drive(leftJsValue, rightJsValue);
+    myDrivetrain.drive(leftJsValue, rightJsValue);
     
     //Logger.Log("Left Motor Value in TELEOP = " + leftJsValue);
     //Logger.Log("Right Motor Value in TELEOP = " + rightJsValue);

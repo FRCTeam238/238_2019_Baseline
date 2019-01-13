@@ -5,6 +5,7 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -23,10 +24,10 @@ public class CommandTurn extends AbstractCommand {
   long startTime ;
   double runTime;
   
-  public CommandTurn(Drivetrain robotDrive, Navigation myNavigationForTarget) {
+  public CommandTurn(Robot myRobotDrive) {
 
-    this.myRobotDrive = robotDrive;
-    this.myNavigation = myNavigationForTarget;
+    this.myRobotDrive = myRobotDrive.myDriveTrain;
+    this.myNavigation = myRobotDrive.myNavigation;
     count = 0;
   }
 

@@ -10,31 +10,36 @@ import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandAutonLine extends AbstractCommand {
+public class CommandThreadWrapper extends AbstractCommand {
 
+  String [] inputParams;
   Robot myRobot;
-  
-  double topSpeed, distance;
+  double angle, topSpeed, distance;
   double rotateOutput;
   
   AutonLineRunnable run;
   
   final double acceleration = 100; // in/sec^2
+  
+  // boolean debug;
 
- 
-  public CommandAutonLine(Robot myRobot ) {
+  public CommandThreadWrapper(Robot myRobot) {
     
+    // this.debug = SmartDashboard.getBoolean("Debug");
+    //this.myRobotDrive = myRobot.myDriveTrain;
+    //this.myPowerDistributionPanel = new PowerDistributionPanel();
+    //myNavigation = myRobot.myNavigation;
     this.myRobot = myRobot;
-    
+
   }
 
   public void prepare() {
      
-	 run = new AutonLineRunnable(myRobot, distance, topSpeed );
-     started=false;
-     myRobot.myDriveTrain.shiftHigh();
-    
-     //Logger.Log("CommandDriveForward.prepare");
+	  run = new AutonLineRunnable(myRobot, distance, topSpeed );
+     
+	  started=false;
+      
+	  Logger.Log("CommandThreadWrapper.prepare");
 
   }
   
@@ -42,7 +47,8 @@ public class CommandAutonLine extends AbstractCommand {
   boolean started = false;
   
   public void execute() {
-   if(!started) {
+   
+	  if(!started) {
        started=true;
        new Thread(run).start();
    }
@@ -52,17 +58,19 @@ public class CommandAutonLine extends AbstractCommand {
 
   public void setParams(String params[]) {
 
-    if ((params[0] != null) || (!params[0].isEmpty())) {
-      distance = Double.parseDouble(params[0]) ;//CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
-    } else {
-      distance = 0;
-    }
-
-    if ((params[1] != null) || (!params[1].isEmpty())) {
-      topSpeed = Double.parseDouble(params[1]);
-    } else {
-      topSpeed = 1;
-    }
+	inputParams = params;
+	
+//	if ((params[0] != null) || (!params[0].isEmpty())) {
+//      distance = Double.parseDouble(params[0]) ;//CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH; //4560;
+//    } else {
+//      distance = 0;
+//    }
+//
+//    if ((params[1] != null) || (!params[1].isEmpty())) {
+//      topSpeed = Double.parseDouble(params[1]);
+//    } else {
+//      topSpeed = 1;
+//    }
 
 
 

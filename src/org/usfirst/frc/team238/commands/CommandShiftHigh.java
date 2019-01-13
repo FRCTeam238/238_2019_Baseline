@@ -2,13 +2,14 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Robot;
 
 public class CommandShiftHigh extends AbstractCommand {
 
   Drivetrain myDrivetrain;
 
-  public CommandShiftHigh(Drivetrain driveTrain) {
-    this.myDrivetrain = driveTrain;
+  public CommandShiftHigh(Robot myRobot) {
+    this.myDrivetrain = myRobot.myDriveTrain;
   }
 
   public void prepare() {

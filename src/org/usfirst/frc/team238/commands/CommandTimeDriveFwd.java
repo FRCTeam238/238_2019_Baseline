@@ -8,6 +8,7 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.robot.Robot;
 
 /**
  * @author Crusader
@@ -27,10 +28,10 @@ public class CommandTimeDriveFwd extends AbstractCommand {
   /**
    * 
    */
-  public CommandTimeDriveFwd(Drivetrain myRobotDrive) {
-    // TODO Auto-generated constructor stub
-    this.myRobotdrive = myRobotDrive;
-   
+  public CommandTimeDriveFwd(Robot myRobot) {
+
+	  this.myRobotdrive = myRobot.myDriveTrain;
+
   }
 
   /*

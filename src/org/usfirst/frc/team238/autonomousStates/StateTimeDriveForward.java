@@ -7,7 +7,7 @@ import org.usfirst.frc.team238.core.Logger;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class StateDriveBackwards implements AutonomousState {
+public class StateTimeDriveForward implements AutonomousState {
 
  CommandTimeDriveFwd driveForAWhile;
   int                   count = 0;

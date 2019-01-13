@@ -6,7 +6,7 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
-
+import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -14,7 +14,6 @@ public class CommandDriveForward extends AbstractCommand {
 
   Drivetrain myRobotDrive;
   Navigation myNavigation;
-  //PowerDistributionPanel myPowerDistributionPanel;
   
   double motorValue;
   double targetValue;
@@ -38,12 +37,10 @@ public class CommandDriveForward extends AbstractCommand {
   
   // boolean debug;
 
-  public CommandDriveForward(Drivetrain robotDrive, Navigation myNav) {
-    
-    // this.debug = SmartDashboard.getBoolean("Debug");
-    this.myRobotDrive = robotDrive;
-    this.myNavigation = myNav;
-   // this.myPowerDistributionPanel = new PowerDistributionPanel();
+  public CommandDriveForward(Robot myRobot) {
+	   
+	    this.myRobotDrive = myRobot.myDriveTrain;
+	    this.myNavigation = myRobot.myNavigation;
 
   }
 
