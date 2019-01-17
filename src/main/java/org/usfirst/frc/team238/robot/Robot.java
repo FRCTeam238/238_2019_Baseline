@@ -34,7 +34,7 @@ import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
 import RealBot.TrajectoryFactory;
 import RealBot.Trajectory;
-
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 
 /**
@@ -67,7 +67,9 @@ public class Robot extends IterativeRobot
 	DriverStation myDriverstation;
 	Logger myLogger;
 	public TrajectoryIntepreter theTrajectoryIntepreter;
-	
+	DashBoard238 myDashBoard238;
+	public TestCoreObject myTestCoreObject;
+
 	//There shouldn't be two of these
 	Alliance myAllianceTeam;
 		
@@ -81,6 +83,8 @@ public class Robot extends IterativeRobot
 	SendableChooser<String> aModeSelector;
 	SendableChooser<String> autonomousStateParamsUpdate;
 	
+	String robotPosition;
+
 	public void disabledInit() 
 	{
 		try 
@@ -150,8 +154,16 @@ public class Robot extends IterativeRobot
 			Logger.Log("Starting RobotInit()");
 			
 			myRobot = Robot.this; 
-		
+			
 			initSmartDashboardObjects();
+			if (robotPosition.equals("C"))
+			{
+			    initTalonsProgrammingStation();			  
+			}
+			else 
+			{
+			    initTalons();
+			}
 			
 			initTalons();
 			initRobotObjects();
@@ -170,22 +182,25 @@ public class Robot extends IterativeRobot
 	public void initSmartDashboardObjects()
 	{
 		 
-		  SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
-		  SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
-		  SmartDashboard.putString("P or S", "nothing");
-		  
-		  aModeSelector = new SendableChooser<String>();
-	
-		  //SendableChooser for the state update function
-		  autonomousStateParamsUpdate = new SendableChooser<String>();
-		  autonomousStateParamsUpdate.addDefault("As Received", "0");
-		  autonomousStateParamsUpdate.addObject("UPDATE", "1");
-		  
-		  SmartDashboard.putBoolean("Output Log to File", false);		   
-		  SmartDashboard.putBoolean("Debug", false);
-		  Logger.Log("InitSmartDashboard Objects Successful");
+		myDashBoard238 = new DashBoard238(this);
+		aModeSelector = myDashBoard238.getAutonomusModeSelector();
+		robotPosition = myDashBoard238.getRobotPosition(); 
 	  
 	}
+
+	public void initTalonsProgrammingStation()
+    {
+        leftMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER_DRIVER_STATION);  
+        leftMasterDrive.setInverted(true);
+        leftMasterDrive.setNeutralMode(NeutralMode.Brake);
+     
+        rightMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER_DRIVER_STATION);       
+        rightMasterDrive.setNeutralMode(NeutralMode.Brake);
+       
+        rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
+        leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
+        Logger.Log("initTalons Is Sucessful!");
+    }
 	/**
 	 * Initializes Talons
 	 */
@@ -238,6 +253,9 @@ public class Robot extends IterativeRobot
 		myControlBoard.controlBoardInit();
 		
 		myDriveTrain.resetEncoders();
+
+		myTestCoreObject = new TestCoreObject();
+		myTestCoreObject.initTestCoreObject();
 		
 		Logger.Log("initRobotObjects Is Sucessful!");	
 	}

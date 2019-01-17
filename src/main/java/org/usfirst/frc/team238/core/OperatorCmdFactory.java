@@ -9,12 +9,14 @@ import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.Elevator;
 import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.TestCoreObject;
 
 
 
 import RealBot.TrajectoryIntepreter;
 
 import org.usfirst.frc.team238.commands.CommandStopEverything;
+import org.usfirst.frc.team238.commands.CommandTestShiftHigh;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
 import org.usfirst.frc.team238.lalaPaths.Straight140;
 import org.usfirst.frc.team238.lalaPaths.goStraight;
@@ -31,7 +33,7 @@ import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
-
+import org.usfirst.frc.team238.commands.CommandTestShiftHigh;
 
 
 
@@ -82,15 +84,19 @@ public class OperatorCmdFactory {
 	 */
 	public HashMap<Integer, Command> createOperatorCommands(Robot theRobot)
 	{
-		AbstractCommand cmd;
-	  
+		//AbstractCommand cmd;
+		 
+		 CommandTestShiftHigh myCmdTestShiftHigh;
+		 myCmdTestShiftHigh = new CommandTestShiftHigh(theRobot.myTestCoreObject);
+		 operatorCommands.put(CrusaderCommon.OPERATOR_TRIGGER, myCmdTestShiftHigh);
 		//Inputs get defined in CrusaderCommon
 		Integer[] multiButtonTestInput = {1,2,3,4,5}; //Test : Button input
 	  
 		//Create command objects, passing objects into each of them
 		//commandStopEverything = new CommandStopEverything();     //<-------------------------------- EXAMPLE
 	
-		cmd  = new CommandStopEverything();
+		CommandStopEverything cmd;
+		cmd  = new CommandStopEverything(theRobot.myTestCoreObject);
 		operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
 		
 		return operatorCommands;

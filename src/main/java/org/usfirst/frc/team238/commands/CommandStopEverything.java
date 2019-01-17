@@ -1,21 +1,28 @@
 package org.usfirst.frc.team238.commands;
 
-import org.usfirst.frc.team238.core.AbstractCommand;
+import org.usfirst.frc.team238.core.Command;
+import org.usfirst.frc.team238.robot.TestCoreObject;
 
-public class CommandStopEverything extends AbstractCommand {
+public class CommandStopEverything implements Command {
 
-  /**
+    /**
    * THIS IS THE DEFAULT STOP EVERYTHING ON OPERATOR CONTROLLS
    */
-  public CommandStopEverything() {
+    TestCoreObject myTestCoreObject;
+    
+    public CommandStopEverything(TestCoreObject testCoreObject) {
+   
+      this.myTestCoreObject = testCoreObject; 
     // TODO Auto-generated constructor stub
   
-    
   }
 
-  @Override
+  public CommandStopEverything() {
+	}
+
+@Override
   public void execute() {
-   
+    myTestCoreObject.turnOffChannelTwo();
   }
 
   @Override
