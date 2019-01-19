@@ -1,5 +1,6 @@
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.EncoderValues;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.ControlBoard;
 
@@ -120,6 +121,34 @@ public class Drivetrain
         return encoderLeft;
     }
     
+    /**
+     * Gets the average number of encoder ticks and only returns one encoder if
+     * one of them returns 0
+     * 
+     * @return
+     */
+    public EncoderValues getEncoderTicks2()
+    {
+        
+        // What if we're going backwards?
+        // What if an encoder is not 0 but hasn't changed?
+
+        encoderLeft = leftFrontDrive.getSelectedSensorPosition(0);
+        encoderRight = rightFrontDrive.getSelectedSensorPosition(0);
+
+        encoderLeft = Math.abs(encoderLeft);
+        encoderRight = Math.abs(encoderRight);
+
+        EncoderValues myEncoderValues = new EncoderValues(encoderLeft, encoderRight);
+
+        Logger.Log("DriveTrain(): Left Encoder = " + encoderLeft);
+        Logger.Log("DriveTrain(): Right Encoder = " + encoderRight);
+        
+        // RM SmartDashboard.putNumber("DriveTrain: EncoderAverage",
+        // encoderRight);
+
+        return myEncoderValues;
+    }
 
     public void tankDrive(double leftVal, double rightVal)
     {

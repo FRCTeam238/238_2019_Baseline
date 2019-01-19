@@ -187,4 +187,10 @@ public class CrusaderCommon {
 	public static final int LINE_SENSOR = 0;
 	public static final int Additional_Button_Mapppings = 21;
 
+	// constants for test functions
+	public static final int TEST_DRIVE_COUNTER = 100;
+
+	//Motors are at half speed
+	public static final double TEST_LEFT_MOTOR_VALUE = 0.5;
+	public static final double TEST_RIGHT_MOTOR_VALUE = 0.5;
 }
