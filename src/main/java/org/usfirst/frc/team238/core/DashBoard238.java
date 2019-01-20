@@ -47,5 +47,14 @@ public class DashBoard238
     {
         return aModeSelector;
     }
+
+    public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue, double rightDrivetrainEncoderValue, boolean leftDrivetrainTolerance, boolean rightDrivetrainTolerance, boolean encoderDifferenceTolerance) {
+        
+        SmartDashboard.putNumber("leftDrivetrainEncoder", leftDrivetrainEncoderValue);
+        SmartDashboard.putNumber("rightDrivetrainEncoder", rightDrivetrainEncoderValue);
+        SmartDashboard.putBoolean("leftDrivetrainTolerance", leftDrivetrainTolerance);
+        SmartDashboard.putBoolean("rightDrivetrainTolerance", rightDrivetrainTolerance);
+        SmartDashboard.putBoolean("encoderDifferenceTolerance", encoderDifferenceTolerance);
+    }
  
 }

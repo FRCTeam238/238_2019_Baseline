@@ -16,7 +16,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
 import java.util.ArrayList;
 
-import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
@@ -44,7 +44,7 @@ import org.usfirst.frc.team238.lalaPaths.leftSwitch;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends IterativeRobot 
+public class Robot extends TimedRobot 
 {
 
 
@@ -69,6 +69,7 @@ public class Robot extends IterativeRobot
 	public TrajectoryIntepreter theTrajectoryIntepreter;
 	DashBoard238 myDashBoard238;
 	public TestCoreObject myTestCoreObject;
+	public TestSweet238 myTestSweet238;
 
 	//There shouldn't be two of these
 	Alliance myAllianceTeam;
@@ -78,6 +79,7 @@ public class Robot extends IterativeRobot
 	
 	private AutonomousDataHandler myAutonomousDataHandler;
 	private AutonomousController theMACP;
+	
 
 	SendableChooser<String> autonomousSaveChooser;
 	SendableChooser<String> aModeSelector;
@@ -149,6 +151,7 @@ public class Robot extends IterativeRobot
 	public void robotInit() 
 	{
 	  
+
 		try 
 		{
 			Logger.Log("Starting RobotInit()");
@@ -171,6 +174,7 @@ public class Robot extends IterativeRobot
 
 			Logger.Log("Robot(): robotInit(): Fully Initialized");
 			
+			myTestSweet238 = new TestSweet238(myRobot);
 		} 
 		catch (Exception ex) 
 		{
@@ -183,6 +187,7 @@ public class Robot extends IterativeRobot
 	{
 		 
 		myDashBoard238 = new DashBoard238(this);
+		myDashBoard238.init();
 		aModeSelector = myDashBoard238.getAutonomusModeSelector();
 		robotPosition = myDashBoard238.getRobotPosition(); 
 	  
@@ -457,14 +462,17 @@ public class Robot extends IterativeRobot
 	@Override
 	public void testPeriodic() 
 	{
-	    myDriveTrain.shiftHigh();
-	    if(i<1) {
-	        i+=0.001;
-	        
-	        myDriveTrain.drive(-i, -i);
-	        System.out.println("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
-	    }
+	    /*myDriveTrain.shiftHigh();
+		if (i < 1) {
+			i += 0.001;
+
+			myDriveTrain.drive(-i, -i);
+			Logger.Log("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
+		}*/
+
 		
+		myTestSweet238.testDriveTrainEncoders();
+
 	}
 	
 	

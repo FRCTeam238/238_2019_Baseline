@@ -6,6 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 package org.usfirst.frc.team238.robot;
+
+import org.usfirst.frc.team238.core.EncoderValues;
+import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Drivetrain;
 
 /**
@@ -30,21 +33,63 @@ public class TestSweet238
 
         if (counter < CrusaderCommon.TEST_DRIVE_COUNTER) {
         
-           myRobot.myDriveTrain.drive(CrusaderCommon.TEST_LEFT_MOTOR_VALUE, CrusaderCommon.TEST_RIGHT_MOTOR_VALUE); 
-
+            myRobot.myDriveTrain.drive(CrusaderCommon.TEST_LEFT_MOTOR_VALUE, CrusaderCommon.TEST_RIGHT_MOTOR_VALUE); 
+            Logger.Log("comment");
         }
-        else{
-            
+        else if(CrusaderCommon.TEST_DRIVE_COUNTER == counter){
+
             myRobot.myDriveTrain.drive(CrusaderCommon.AUTO_DRIVE_IDLE, CrusaderCommon.AUTO_DRIVE_IDLE); 
-            myRobot.myDriveTrain.getEncoderTicks2();
+            EncoderValues currentEncoderValues = myRobot.myDriveTrain.getEncoderTicks2();    
+
+            double currentLeftEncoder = currentEncoderValues.getLeftEncoder();
+            double currentRightEncoder = currentEncoderValues.getRightEncoder();
+
+            double leftEncoderDifference = currentLeftEncoder - CrusaderCommon.TEST_DRIVETRAIN_BASELINE;
+            double rightEncoderDifference = currentRightEncoder - CrusaderCommon.TEST_DRIVETRAIN_BASELINE;
+
+            boolean leftEncoderTolerance;
+            boolean rightEncoderTolerance;
+
+            boolean encoderDifferenceTolerance;
+
+            if (Math.abs(leftEncoderDifference) < CrusaderCommon.TEST_DRIVETRAIN_TOLERANCE) {
+                
+                leftEncoderTolerance = true;
+
+            } else {
+
+                leftEncoderTolerance = false;
+            }
+
+
+            if (Math.abs(rightEncoderDifference) < CrusaderCommon.TEST_DRIVETRAIN_TOLERANCE) {
+                
+                rightEncoderTolerance = true;
+
+            } else {
+
+                rightEncoderTolerance = false;
+            }
+
+
+            if (Math.abs(leftEncoderDifference - rightEncoderDifference) < CrusaderCommon.TEST_DRIVETRAIN_TOLERANCE) {
+                encoderDifferenceTolerance = true;
+            }
+            else {
+                encoderDifferenceTolerance = false;
+            }
+
+            myRobot.myDashBoard238.setTestDrivetrainEncodersIndicators(currentLeftEncoder, currentRightEncoder,
+                    leftEncoderTolerance, rightEncoderTolerance, encoderDifferenceTolerance);
+
             
         }
  
         counter++;
-        //get encoder value for Right and Left
-        //Check with Base Line
-        //Difference is in tolerance 
-        //set indicator true if in tolerance(green) else set indicator to false(red)
+        //----get encoder value for Right and Left----
+        //----Check with Base Line----
+        //----Difference is in tolerance----
+        //----set indicator true if in tolerance(green) else set indicator to false(red)----
     }   
 
 }
