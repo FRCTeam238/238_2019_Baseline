@@ -25,7 +25,10 @@ public class TestSweet238
 
     }
 
-    public void testDriveTrainEncoders() {
+    public boolean testDriveTrainEncoders() {
+        
+        boolean returnValue = false;
+
         //Reseting the Encoders to start from a known position
         myRobot.myDriveTrain.resetEncoders();
        
@@ -81,7 +84,8 @@ public class TestSweet238
 
             myRobot.myDashBoard238.setTestDrivetrainEncodersIndicators(currentLeftEncoder, currentRightEncoder,
                     leftEncoderTolerance, rightEncoderTolerance, encoderDifferenceTolerance);
-
+            
+            returnValue = true;
             
         }
  
@@ -90,6 +94,15 @@ public class TestSweet238
         //----Check with Base Line----
         //----Difference is in tolerance----
         //----set indicator true if in tolerance(green) else set indicator to false(red)----
+
+        return returnValue;
     }   
 
+  public boolean testElevator(){
+
+        //set elevator dashboard objects to not working
+        myRobot.myDashBoard238.setTestElevatorIndicators(false);
+        
+        return true;
+  }
 }

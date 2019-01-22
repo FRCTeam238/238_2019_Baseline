@@ -188,6 +188,7 @@ public class CrusaderCommon {
 	public static final int Additional_Button_Mapppings = 21;
 
 	// constants for test functions
+	public static final int TEST_STEPS_START_POSITION = 0;
 	public static final int TEST_DRIVE_COUNTER = 100;
 
 	//Motors are at half speed

@@ -29,6 +29,7 @@ import org.usfirst.frc.team238.core.AutonomousController;
 import org.usfirst.frc.team238.core.AutonomousDataHandler;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
+import org.usfirst.frc.team238.core.TestController;
 import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
@@ -68,6 +69,10 @@ public class Robot extends TimedRobot
 	Logger myLogger;
 	public TrajectoryIntepreter theTrajectoryIntepreter;
 	DashBoard238 myDashBoard238;
+	
+	//Testing vars
+	TestController myTestController;
+
 	public TestCoreObject myTestCoreObject;
 	public TestSweet238 myTestSweet238;
 
@@ -259,8 +264,8 @@ public class Robot extends TimedRobot
 		
 		myDriveTrain.resetEncoders();
 
-		myTestCoreObject = new TestCoreObject();
-		myTestCoreObject.initTestCoreObject();
+		//myTestCoreObject = new TestCoreObject();
+		//myTestCoreObject.initTestCoreObject();
 		
 		Logger.Log("initRobotObjects Is Sucessful!");	
 	}
@@ -455,6 +460,17 @@ public class Robot extends TimedRobot
 		
 	}
 
+	@Override
+	public void testInit(){
+
+		myTestController = new TestController();
+
+		myTestController.init(null, myTestSweet238);
+		//create a collection ( list) of test steps
+
+			//feed the tests steps to the test controller
+	}
+
 	/**
 	 * This function is called periodically during test mode.
 	 */
@@ -470,8 +486,9 @@ public class Robot extends TimedRobot
 			Logger.Log("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
 		}*/
 
-		
-		myTestSweet238.testDriveTrainEncoders();
+		myTestController.process();
+
+		//myTestSweet238.testDriveTrainEncoders();
 
 	}
 	
