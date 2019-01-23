@@ -192,9 +192,9 @@ public class CrusaderCommon {
 	public static final int TEST_DRIVE_COUNTER = 100;
 
 	//Motors are at half speed
-	public static final double TEST_LEFT_MOTOR_VALUE = 0.5;
-	public static final double TEST_RIGHT_MOTOR_VALUE = 0.5;
+	public static final double TEST_LEFT_MOTOR_VALUE = 0.1;
+	public static final double TEST_RIGHT_MOTOR_VALUE = 0.1;
 
-	public static final double TEST_DRIVETRAIN_BASELINE = 1000; //expected encoder values
+	public static final double TEST_DRIVETRAIN_BASELINE = 16425; //expected encoder values
 	public static final double TEST_DRIVETRAIN_TOLERANCE = 50; //limit between expected and actual encoder values
 }

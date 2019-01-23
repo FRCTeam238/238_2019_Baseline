@@ -16,7 +16,7 @@ public class TestStepDriveTrainEncoders implements TestStep {
 
   @Override
   public void prepare() {
- 
+    theSuiteOfTests.myRobot.myDriveTrain.resetEncoders();
 
   }
 

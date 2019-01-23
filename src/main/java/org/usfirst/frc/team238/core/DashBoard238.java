@@ -53,13 +53,17 @@ public class DashBoard238
         return aModeSelector;
     }
 
-    public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue, double rightDrivetrainEncoderValue, boolean leftDrivetrainTolerance, boolean rightDrivetrainTolerance, boolean encoderDifferenceTolerance) {
+    public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
+            double rightDrivetrainEncoderValue, boolean leftDrivetrainTolerance, 
+    boolean rightDrivetrainTolerance, boolean encoderDifferenceTolerance, double elapsedTime) {
         
         SmartDashboard.putNumber("L_DT_ENC", leftDrivetrainEncoderValue);
         SmartDashboard.putNumber("R_DT_ENC", rightDrivetrainEncoderValue);
         SmartDashboard.putBoolean("L_DT_TOL", leftDrivetrainTolerance);
         SmartDashboard.putBoolean("R_DT_TOL", rightDrivetrainTolerance);
         SmartDashboard.putBoolean("ENC_DIFF_TOL", encoderDifferenceTolerance);
+        SmartDashboard.putNumber("ELAPS_TIME", elapsedTime);
+
     }
     
     public void setTestElevatorIndicators(boolean value){

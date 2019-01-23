@@ -141,8 +141,8 @@ public class Drivetrain
 
         EncoderValues myEncoderValues = new EncoderValues(encoderLeft, encoderRight);
 
-        Logger.Log("DriveTrain(): Left Encoder = " + encoderLeft);
-        Logger.Log("DriveTrain(): Right Encoder = " + encoderRight);
+        Logger.Log("DriveTrain.getEncoderTicks2(): Left Encoder = " + encoderLeft);
+        Logger.Log("DriveTrain.getEncoderTicks2(): Right Encoder = " + encoderRight);
         
         // RM SmartDashboard.putNumber("DriveTrain: EncoderAverage",
         // encoderRight);
