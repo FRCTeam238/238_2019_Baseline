@@ -27,7 +27,7 @@ public class DashBoard238
        // SmartDashboard.putString("P or S", "nothing");
         
         aModeSelector = new SendableChooser<String>();
-  
+        
         //Send able Chooser for the state update function
         autonomousStateParamsUpdate = new SendableChooser<String>();
         autonomousStateParamsUpdate.addOption("CargoShip 1", "0");
@@ -38,7 +38,9 @@ public class DashBoard238
         autonomousStateParamsUpdate.addOption("CargoShip 6", "5");
         SmartDashboard.putData("AuTo", autonomousStateParamsUpdate);
         robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
-     
+        //SmartDashboard.putNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        //SmartDashboard.putNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+        //SmartDashboard.putNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
     }
     
     public String getRobotPosition()
@@ -66,8 +68,29 @@ public class DashBoard238
 
     }
     
-    public void setTestElevatorIndicators(boolean value){
+    public void setTestElevatorIndicators(boolean value) {
         SmartDashboard.putBoolean("EL.Enc", value);
     }
+
+    public DashboardValues getTestElevatorHeights() {
+
+        
+        double elevatorSetpointOne = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpointOne);
+        double elevatorSetpointTwo = SmartDashboard.getNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);
+        double elevatorSetpointThree = SmartDashboard.getNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointThree = " + elevatorSetpointThree);
+        DashboardValues testElevatorHeights = new DashboardValues(elevatorSetpointOne, elevatorSetpointTwo,
+                elevatorSetpointThree);
+        return testElevatorHeights;
+    }
+
+    public void putTestElevatorTestOne(double elevatorSetpointOneTest) {
+
+        SmartDashboard.putNumber("ELEV_TEST_ONE", elevatorSetpointOneTest);
+
+    }
+    
  
 }

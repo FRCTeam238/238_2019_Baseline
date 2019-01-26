@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class CrusaderCommon {
 
 	// All button inputs for the operator
-    public static final int OPERATOR_TRIGGER = 1;
+	public static final int OPERATOR_TRIGGER = 1;
 	// MAKE THESE INT
 	public static final int stopEverythingInput = 0;
 
@@ -45,13 +45,13 @@ public class CrusaderCommon {
 	public static final double AUTO_DRIVE_FORWARD = 0.75;
 	public static final double AUTO_DRIVE_BACKWARD = -0.75;
 	public static final double AUTO_DRIVE_IDLE = 0.0;
-	
+
 	/*
 	 * Auto selection constants
 	 */
 	public static final String AUTO_PLAY_BOOK = "PlayBook";
 	public static final String AUTO_ROBOT_POSITION = "Robot Position";
-	
+
 	/* DO NOT NUKE */
 	// public static final HashMap<Integer, Boolean> DRIVE_TRAIN_CMD_IDX = new
 	// HashMap<Integer, Boolean>() {{put(0,true);}};
@@ -76,51 +76,47 @@ public class CrusaderCommon {
 
 	public final static double TALON_F_VALUE_LEFT = 0.00455;//0.0725 old autonomous
 	public final static double TALON_F_VALUE_HIGH = 0.002;//0.0725 old autonomous
-    
+
 	public final static double TALON_F_VALUE_RIGHT = 0.00455;//0.0735 old autonomous
 	public final static double TALON_P_VALUE = 0.2;//0.5
 	public final static double TALON_D_VALUE = 0;
 	public final static int TALON_NO_VALUE = 0;
 
 	/* THESE ARE THE ALL THE TALON IDS FOR THE 2018 ROBOT */
-	
+
 	public static final int DRIVE_TRAIN_RIGHT_MASTER_DRIVER_STATION = 0;
 	public static final int DRIVE_TRAIN_LEFT_MASTER_DRIVER_STATION = 15;
-	
+
 	public static final int DRIVE_TRAIN_RIGHT_MASTER = 0;
 	public static final int DRIVE_TRAIN_RIGHT_SLAVE1 = 1;
 	public static final int DRIVE_TRAIN_RIGHT_SLAVE2 = 2;
-	
+
 	public static final int DRIVE_TRAIN_LEFT_MASTER = 15;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE1 = 14;
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 
-    public static final double ELEVATOR_KP = 0.067;
-    public static final double ELEVATOR_KD = 0.037;
+	public static final double ELEVATOR_KP = 0.067;
+	public static final double ELEVATOR_KD = 0.037;
 	public static final int ELEVATOR_TICK_TO_IN = 4594;//7414
-	public static final int ELEVATOR_MASTER = 8;
+	public static final int ELEVATOR_MASTER = DRIVE_TRAIN_LEFT_MASTER; //8, M.C.
 	public static final int ELEVAOR_SLAVE_SRX = 11;
 	public static final int ELEVATOR_SLAVE_SPX = 10;
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
 	public final static int INTAKE_WRIST = 7;
 	public final static double INTAKE_TICK_TO_DEGREE = 9.55;
-	public final static double INTAKE_KP= 0.025;
-    
-	
-	
+	public final static double INTAKE_KP = 0.025;
+
 	public static final double ELEVATOR_CUBE_SPEED = 0.8;
 	public static final double ELEVATOR_CLIMB_SPEED = 0.5;
 	public static final double ELEVATOR_BOTTOM_SOFT_STOP = 6000;
 	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
 	public static final double ELEVATOR_FEED_FORWARD = 0.1;
-    
-	
+
 	public static final double INTAKE_WRIST_SPEED = 0.5;
 	public static final double INTAKE_SPEED = 0.5;//0.8;
 	public static final double INTAKE_SPEED_FAST = 0.95;
 	public static final double INTAKE_SPEED_SLOW = 0.3;
-	
 
 	// Servo power setting
 
@@ -167,8 +163,8 @@ public class CrusaderCommon {
 	public final static double STRAIGHT_DEAD_STOP = 0.1;// 0.05;
 	public final static double STRAIGHT_MAX_ERROR = 40000;//15000;// 9966;
 	public final static double STRAIGHT_MAX_MOTOR_VALUE = 0.5;// SmartDashboard.getNumber("Turn
-															// Max
-															// Error",45);//45;
+																// Max
+																// Error",45);//45;
 
 	public static final int AUTONOMOUS_READ_FILE = 2;
 	public static final int AUTONOMOUS_SAVE = 1;
@@ -179,10 +175,9 @@ public class CrusaderCommon {
 	public final static int CURL_FINISH_TURN = 3;
 
 	public final static int COLLISION_DELAY_IN_MILLIS = 375;
-	
+
 	public final static int RAMP_SOL_1 = 2;
 	public final static int RAMP_SOL_2 = 3;
-	
 
 	public static final int LINE_SENSOR = 0;
 	public static final int Additional_Button_Mapppings = 21;
@@ -190,11 +185,20 @@ public class CrusaderCommon {
 	// constants for test functions
 	public static final int TEST_STEPS_START_POSITION = 0;
 	public static final int TEST_DRIVE_COUNTER = 100;
+	public static final int TEST_DRIVE_TICKS = 4000;
 
 	//Motors are at half speed
 	public static final double TEST_LEFT_MOTOR_VALUE = 0.1;
 	public static final double TEST_RIGHT_MOTOR_VALUE = 0.1;
 
-	public static final double TEST_DRIVETRAIN_BASELINE = 16425; //expected encoder values
-	public static final double TEST_DRIVETRAIN_TOLERANCE = 50; //limit between expected and actual encoder values
+	public static final double TEST_DRIVETRAIN_BASELINE = 12500; //expected encoder values
+	public static final double TEST_DRIVETRAIN_TOLERANCE = 500; //limit between expected and actual encoder values
+
+	public static final double TEST_ELEVATOR_COUNTER = 8000;
+	public static final double TEST_ELEVATOR_TOLERANCE = 100;
+
+	public static final double ELEVATOR_SETPOINT_ONE = 10;
+	public static final double ELEVATOR_SETPOINT_TWO = 20;
+	public static final double ELEVATOR_SETPOINT_THREE = 30;
+	public static final double ELEVATOR_SETPOINT_TOLERANCE = 1;
 }

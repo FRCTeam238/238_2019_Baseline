@@ -17,12 +17,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 /**
  * Add your docs here.
  */
-public class TestElevator implements TestStep{
+public class TestElevator3 implements TestStep{
 
     String[] parameters;
     TestSweet238 theSuiteOfTests;
   boolean done = false;
-  double elevatorSetpointOne;
+  double elevatorSetpointTwo;
 
     @Override
     public void prepare() {
@@ -45,16 +45,15 @@ public class TestElevator implements TestStep{
     public void init(String params[], TestSweet238 theController) {
         theSuiteOfTests = theController;
         parameters = params;
-        //DashboardValues elevatorSetpoints;
-        elevatorSetpointOne = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
-        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpointOne);
+        elevatorSetpointTwo = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);
   
     }
   
     @Override
     public void process() {
       Logger.Log("TestElevator.process() ");
-      done = theSuiteOfTests.testElevator(elevatorSetpointOne);
+      done = theSuiteOfTests.testElevator();
     }
   
     @Override

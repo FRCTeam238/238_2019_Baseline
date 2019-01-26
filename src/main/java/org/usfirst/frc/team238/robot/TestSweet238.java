@@ -7,15 +7,25 @@
 
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.DashBoard238;
+import org.usfirst.frc.team238.core.DashboardValues;
 import org.usfirst.frc.team238.core.EncoderValues;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Drivetrain;
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
  */
 public class TestSweet238 
 {
+    double elevatorSetpointOne;
+    double elevatorSetpointTwo;
+    double elevatorSetpointThree;
+    double elevatorCurrentHeight;
+
+    static double elevatorPreviousHeight = -1;
     static double startTime;
     public Robot myRobot;
     int counter = 0;
@@ -24,7 +34,6 @@ public class TestSweet238
         this.myRobot = myRobot;   
 
     }
-
     public boolean testDriveTrainEncoders() {
         
         boolean returnValue = false;
@@ -98,9 +107,9 @@ public class TestSweet238
             //puts in RIOlog that we have run this code and the elapsed time from start of test
             
             returnValue = true;
-            /*tells the test controller that the test has been completed,
-            prevents motors from running infinitely
-            */
+            //tells the test controller that the test has been completed,
+            //prevents motors from running infinitely
+            
             counter = 0;
             //Resets counter for easy testing ie no restarting code
 
@@ -117,11 +126,56 @@ public class TestSweet238
         return returnValue;
     }   
 
-  public boolean testElevator(){
+    public boolean testElevator(double setPoint) {
 
-        //set elevator dashboard objects to not working
-        myRobot.myDashBoard238.setTestElevatorIndicators(false);
+        boolean returnValue = false;
+        double elevatorSetpointDifference;
+        if (counter == 0) {
+            //set elevator dashboard objects to not working
+            //DashboardValues elevatorSetpoints;
+            //elevatorSetpoints = myRobot.myDashBoard238.getTestElevatorHeights();
+            //elevatorSetpointOne = elevatorSetpoints.getElevatorSetpointOne();
+            //elevatorSetpointTwo = elevatorSetpoints.getElevatorSetpointTwo();
+            //elevatorSetpointThree = elevatorSetpoints.getElevatorSetpointThree();
+
+            myRobot.myDashBoard238.setTestElevatorIndicators(false);
+            Logger.Log("TestSweet238.testElevator(): start of elevator test");
+            startTime = System.currentTimeMillis();
+            
+            myRobot.myElevator.setSetpoint(setPoint);
+            //Give the elevator a new setpoint = distance (inches)
+            counter++;
+        }
         
-        return true;
-  }
+        //get current elevator position
+        //Check if at setpoint
+        //If so, test complete
+
+
+        //run for amount of runs specified in the TEST_DRIVE_COUNTER
+        //increases counter by one every time method is called
+        elevatorCurrentHeight = myRobot.myElevator.getHeight();
+        Logger.Log("TestSweet238.testElevator(): elevatorCurrentHeight = " + elevatorCurrentHeight);
+        Logger.Log("TestSweet238.testElevator(): targetSetPoint = " + setPoint);
+        elevatorSetpointDifference = Math.abs(elevatorCurrentHeight - setPoint);
+        if (elevatorSetpointDifference <= CrusaderCommon.ELEVATOR_SETPOINT_TOLERANCE) {
+
+            myRobot.myDashBoard238.putTestElevatorTestOne(elevatorCurrentHeight);
+                     
+            Logger.Log("TestSweet238.testElevator(): TargetSetpoint: elevatorHeight = " + elevatorCurrentHeight);
+            //puts in RIOlog that we have run this code and the elevator's current height
+           
+            returnValue = true;
+           
+            counter = 0;
+            //Resets counter for easy testing ie no restarting code
+ 
+        }
+        
+        elevatorPreviousHeight = elevatorCurrentHeight;
+        Logger.Log("TestSweet238.testElevator(): returnValue = " + returnValue);
+        return returnValue;
+  
+  
+    }
 }

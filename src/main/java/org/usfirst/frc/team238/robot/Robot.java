@@ -69,6 +69,7 @@ public class Robot extends TimedRobot
 	Logger myLogger;
 	public TrajectoryIntepreter theTrajectoryIntepreter;
 	DashBoard238 myDashBoard238;
+	Elevator myElevator;
 	
 	//Testing vars
 	TestController myTestController;
@@ -263,6 +264,9 @@ public class Robot extends TimedRobot
 		myControlBoard.controlBoardInit();
 		
 		myDriveTrain.resetEncoders();
+
+		myElevator = new Elevator();
+		myElevator.init();
 
 		//myTestCoreObject = new TestCoreObject();
 		//myTestCoreObject.initTestCoreObject();

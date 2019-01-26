@@ -25,9 +25,9 @@ public class Elevator
     private static final double MAX_HEIGHT = 83; //86;
     
     
-    private double zeroHeight =0;
+    private double zeroHeight = 0;
     private double setpoint = 0;
-    private double currentError =0;
+    private double currentError = 0;
     
     //Really only a P loop
     public boolean PIDEnabled = true;
@@ -128,6 +128,7 @@ public class Elevator
     
     public void elevatorUp()
     {
+
         //get encoder ticks
         PIDEnabled=false;
         int whereAmI = getEncoderTicks();
@@ -177,7 +178,7 @@ public class Elevator
     public void setElevatorHeight(double height) {
         PIDEnabled=true;
         elevatorMasterTalon.set(ControlMode.Position, height * ((double) CrusaderCommon.ELEVATOR_TICK_TO_IN));
-       // System.out.println("ELEVATOR ERROR:" + elevatorMasterTalon.getClosedLoopError(0));
+       // Logger.log("ELEVATOR ERROR:" + elevatorMasterTalon.getClosedLoopError(0));
     }
     
     
@@ -231,35 +232,46 @@ public class Elevator
     
     
     private double prevError;
+
     public void mainLoop() {
         //nominal voltage <-1,1> outpu for elevator based in P gain
-        if(PIDEnabled) {
-            
-            double height   = getHeight();     
-           if(elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() &&setpoint<3) {
-                zeroHeight+=height;
-              }
-   
-            currentError = setpoint - height;
-            double dVal = (currentError-prevError) * CrusaderCommon.ELEVATOR_KD;
-            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal + CrusaderCommon.ELEVATOR_FEED_FORWARD;
-            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
-            if(height<15  && setpoint<4) {
-                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted*0.35);             
-            }else {
-                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);        
+        if (PIDEnabled) {
+
+            double height = getHeight();
+            // setting the value for the lowest allowable elevator position
+            if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && setpoint < 3) {
+                zeroHeight += height;
             }
-            
-            
+
+            currentError = setpoint - height;
+            double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD;
+            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal
+                    + CrusaderCommon.ELEVATOR_FEED_FORWARD;
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
+            if (height < 15 && setpoint < 4) {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted * 0.35);
+            } else {
+                elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
+            }
+
             prevError = currentError;
-           // System.out.println("setPoint = " + setpoint  +  "  Height = " + height +   "output wanted = " + outputWanted);
-        }    
-     
+            Logger.Log("setPoint = " + setpoint  +  "  Height = " + height +   "output wanted = " + outputWanted);
+        }
+
     }
     
+    //getHeight() gets the sensor position, converts it from ticks to inches, then subtracts the zeroHeight
+    
     public double getHeight() {
-       // System.out.println("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
-        return -elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
+        // Logger.log("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        int elevatorSensorPosition = -elevatorMasterTalon.getSelectedSensorPosition(0);
+        double elevatorSensorInches = elevatorSensorPosition / CrusaderCommon.ELEVATOR_TICK_TO_IN;
+        elevatorSensorInches = elevatorSensorInches - zeroHeight;
+
+        return elevatorSensorInches;
+        //-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
+        
+    
     }
 }
 

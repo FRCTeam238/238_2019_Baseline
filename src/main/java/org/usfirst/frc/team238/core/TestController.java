@@ -29,12 +29,12 @@ public class TestController implements TestStep{
 	public void init(String[] params, TestSweet238 theController) {
 
 		steps = new ArrayList<TestStep>();
-		
-		TestStep xxx = new TestStepDriveTrainEncoders();
-		xxx.init(params, theController);
+		TestStep xxx;
+		//TestStep xxx = new TestStepDriveTrainEncoders();
+		//xxx.init(params, theController);
         
     	//add it to the steps for this autonomous mode   					
-        steps.add(xxx);
+        //steps.add(xxx);
 		
 		xxx =  new TestElevator();
 		xxx.init(params, theController);
