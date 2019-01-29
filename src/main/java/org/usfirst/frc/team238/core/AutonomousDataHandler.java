@@ -34,13 +34,13 @@ public class AutonomousDataHandler implements AutonomousState{
 	
 	//Holds all of the commands in each autonomousMode in order
 	ArrayList<AutonomousState>[] autonomousModeCommandList;
-	
+	HashMap<String,ArrayList<AutonomousState>> autonomousModeCommandList2;
 	//Holds the names for each autonomousMode
 	ArrayList<String> autonomousModeNames;
 	
 	HashMap<String,Integer> amodeNameToIndex;
 	//Put's out all the autonomousModes for the user to choose from
-	//SendableChooser aModeChooser; 
+	SendableChooser<String> aModeChooser; 
 	
 	
 	/**
@@ -96,9 +96,9 @@ public class AutonomousDataHandler implements AutonomousState{
 	 * Starts up the JSONHandler
 	 * @param theMCP (The control scheme that's being used)
 	 */
-	public void init(CommandController theMCP)   //, SendableChooser theAutoChooser)
+	public void init(CommandController theMCP, SendableChooser theAutoChooser)
 	{
-		//aModeChooser = theAutoChooser;
+		aModeChooser = theAutoChooser;
 		readJson(theMCP);
 	}
 	
@@ -232,7 +232,7 @@ public class AutonomousDataHandler implements AutonomousState{
             		{
     					
             			//Use reflection to create state object (Naming it, while also giving it params and the control scheme on initiation)
-        					AutonomousState xxx = (AutonomousState) Class.forName(cmdClass).newInstance();
+        					AutonomousState xxx = (AutonomousState) Class.forName(cmdClass).getConstructor().newInstance();
         					
         					//Initiate the state object with the params and control scheme
         					xxx.init(params, theMCP);
@@ -590,5 +590,140 @@ public class AutonomousDataHandler implements AutonomousState{
 	public String getParam(int value) {
 		// TODO Auto-generated method stub
 		return null;
+	}	
+		/**
+	 * Reads the JSON file and creates a list of autonmousStates for each autonomousMode
+	 * @param theMCP: Uses theMCP to create new state objects
+	 */
+	@SuppressWarnings("unchecked")
+	public void readJson2(CommandController theMCP) {
+		try {
+			
+			//Something to read the JSON File
+			JSONParser parser = new JSONParser();
+			
+			//Path in which all states will be created
+			String classPath = "org.usfirst.frc.team238.autonomousStates.State";
+			
+			//Open 
+			FileReader amodeFile = new FileReader("/home/lvuser/amode238.txt");
+			
+			//Use the parser to convert the file into an object
+			Object obj = parser.parse(amodeFile);
+
+			//Converts the object into a JSONObject
+			JSONObject jsonObject = (JSONObject) obj;
+			
+			//Put's all AutonomousModes into an Array
+			JSONArray autonomousModes = (JSONArray) jsonObject.get("AutonomousModes");
+
+			//Creates an iterator out of that array
+			Iterator<JSONObject> aModeIterator = autonomousModes.iterator();
+			
+			//Get's the number of modes
+			int numModes = autonomousModes.size();
+			Logger.Log("AutonomousDataHandler(): readJson(): Number of detected modes: " + numModes);
+			
+			//create a list of commandsteps for each mode
+			autonomousModeCommandList2 = new HashMap<String, ArrayList<AutonomousState>>(numModes);
+			
+			//Creates an Arraylist of autonomousStates for each Mode
+			// for(int i=0;i<numModes;i++){
+			// 	autonomousModes = new ArrayList<AutonomousState>();
+			// }
+			
+			// //Keeps track of the names of each AutonomousMode
+			// autonomousModeNames = new ArrayList<String>(numModes);
+			// //creates a map  of auto mode names to indices into the arraylist that holds the automodes
+			// amodeNameToIndex = new HashMap<String, Integer>(numModes);
+			
+			// //A counter meant for outputing each autonomousMode to the aModeChooser
+			// int aModeIndexCounter = 0;
+			
+			//Iterates through each AutonomousMode
+			while (aModeIterator.hasNext()) {
+				
+				ArrayList<AutonomousState> autonomousSteps = new ArrayList<AutonomousState>();
+
+				//Gets the name of the autonomousMode
+            	JSONObject autoModeX = aModeIterator.next();
+            	String name = (String) autoModeX.get("Name");
+            	Logger.Log("AutonomousDataHandler(): readJson(): Autonomous Mode Name: " + name);
+            	
+            	//Add the name of this mode to the arrayList
+            	//autonomousModeNames.add(name);
+            	//grab the name of the autonomous  mode and the index into where it lives;
+            	//amodeNameToIndex.put(name, aModeIndexCounter);
+            	
+            	//Start building the list of selectable Amodes on the dashboard
+				
+				aModeChooser.addOption(name,name);
+				
+           	
+            	//RM SmartDashboard.putString("Amode "+aModeIndexCounter,name);
+            	
+            	//Create an array/iterator of commands from the AutoMode it's currently cycling through
+            	JSONArray commandArrayList = (JSONArray) autoModeX.get("Commands");
+            	Iterator<JSONObject> commandIterator = commandArrayList.iterator();
+            	
+            	//Iterates through each command
+            	while (commandIterator.hasNext()) {
+            		
+            		//Gets the command as a JSONObject
+            		JSONObject aCommand = commandIterator.next();
+            		
+            		//Debug stuff
+            		String cmdName = (String) aCommand.get("Name");
+            		Logger.Log("AutonomousDataHandler(): readJson(): 	Command Name = " + cmdName);
+            		String cmdClass = classPath + cmdName; 
+            		Logger.Log("AutonomousDataHandler(): readJson(): 	Class = " + cmdClass);
+
+            		//Gets the array of params in the command
+            		JSONArray paramArrayList = (JSONArray) aCommand.get("Parameters");
+            		Iterator<String> paramIterator = paramArrayList.iterator();
+            		
+            		//Creates a new string array to hold the params in
+            		String params[] = new String[paramArrayList.size()];
+            		
+            		//Adds every parameter into a String Array
+            		int i = 0;
+            		while (paramIterator.hasNext()) {
+            			params[i++] = (String) paramIterator.next();
+            			Logger.Log("AutonomousDataHandler(): readJson():    	Param:" + i + " = " + params[i -1]);
+            		}
+            		
+            		try 
+            		{
+    					
+            			//Use reflection to create state object (Naming it, while also giving it params and the control scheme on initiation)
+        					AutonomousState xxx = (AutonomousState) Class.forName(cmdClass).getConstructor().newInstance();
+        					
+        					//Initiate the state object with the params and control scheme
+        					xxx.init(params, theMCP);
+        					
+        					//add it to the steps for this autonomous mode   					
+        					autonomousSteps.add(xxx);
+        					
+        				} 
+            		catch (InstantiationException | IllegalAccessException | ClassNotFoundException e) 
+            		{
+        					e.printStackTrace();
+        			}
+					
+					//add this auto mode to the list of auto modes
+            		autonomousModeCommandList2.put(name,autonomousSteps);
+	            }
+            	
+            }
+			
+			amodeFile.close();
+			
+			//Push the list of Amodes to the dashboard
+			//SmartDashboard.putData("Choose Auto", aModeChooser);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
+	
 }

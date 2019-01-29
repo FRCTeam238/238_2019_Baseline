@@ -1,9 +1,9 @@
 package org.usfirst.frc.team238.commands;
-
-import org.usfirst.frc.team238.core.Command;
+\
+import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.robot.TestCoreObject;
 
-public class CommandStopEverything implements Command {
+public class CommandStopEverything extends AbstractCommand {
 
     /**
    * THIS IS THE DEFAULT STOP EVERYTHING ON OPERATOR CONTROLLS
@@ -13,7 +13,7 @@ public class CommandStopEverything implements Command {
     public CommandStopEverything(TestCoreObject testCoreObject) {
    
       this.myTestCoreObject = testCoreObject; 
-    // TODO Auto-generated constructor stub
+     
   
   }
 
@@ -27,25 +27,25 @@ public class CommandStopEverything implements Command {
 
   @Override
   public void prepare() {
-    // TODO Auto-generated method stub
+       
 
   }
 
   @Override
   public void setParams() {
-    // TODO Auto-generated method stub
+       
 
   }
 
   @Override
   public boolean done() {
-    // TODO Auto-generated method stub
+       
     return false;
   }
 
   @Override
   public void execute(int btnPressed) {
-    // TODO Auto-generated method stub
+       
     
   }
 

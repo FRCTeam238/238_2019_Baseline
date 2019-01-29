@@ -293,7 +293,7 @@ public class Robot extends TimedRobot
 		myAutonomousDataHandler = new AutonomousDataHandler();
 		
 	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
-		myAutonomousDataHandler.init(theMCP);
+		myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
 		
 		//Controller Object for autonomous
 		theMACP = new AutonomousController(); 

@@ -24,13 +24,7 @@ import org.usfirst.frc.team238.commands.CommandTurn;
 
 public class AutonomousCmdFactory {
 	
-//	CommandDriveForward autoDriveForward;
-//	CommandDriveBackwards autoDriveBackwards;
-//	CommandTurnLeft autoTurnLeft;
-//	CommandTurnRight autoTurnRight;
-//	CommandDelay delayCommand;
-//	CommandCurlForward curlForward;
-//	CommandRunTrajectory autoGoStraight;
+
 	
 	HashMap <String, Command> autonomousCommands;
 	//TODO change that static 10
@@ -102,26 +96,5 @@ public class AutonomousCmdFactory {
 		
 	}
 
-//	public HashMap<String, Command> createAutonomousCommandsOLD(Drivetrain myRobot.myDriveTrain,
-//            Navigation myRobot.myNavigation, Robot myRobot){
-//        
-//        AbstractCommand cmd  = new CommandDriveForward(myRobot.myDriveTrain, myRobot.myNavigation);
-//        autonomousCommands.put("CommandDriveForward", cmd );
-//        autoDriveBackwards = new CommandDriveBackwards(myRobot.myDriveTrain);
-//        autonomousCommands.put("CommandDriveBackwards", autoDriveBackwards);
-//        autoTurnLeft = new CommandTurnLeft(myRobot.myDriveTrain, myRobot.myNavigation);
-//        autonomousCommands.put("CommandTurnLeft", autoTurnLeft);
-//        autoTurnRight = new CommandTurnRight(myRobot.myDriveTrain, myRobot.myNavigation);
-//        autonomousCommands.put("CommandTurnRight", autoTurnRight);
-//        delayCommand = new CommandDelay(myRobot.myDriveTrain, myRobot.myNavigation);
-//        autonomousCommands.put("CommandDelay", delayCommand);
-//        curlForward = new CommandCurlForward(myRobot.myDriveTrain, myRobot.myNavigation, myRobot);
-//        autonomousCommands.put("CommandCurlForward", curlForward);
-//    
-//        autoGoStraight = new CommandRunTrajectory(myRobot.myDriveTrain, goStraight.objects );
-//        autonomousCommands.put("CommandRunGoStraightTrajectory", autoGoStraight);
-//    
-//        return autonomousCommands;
-//        
-//    }
+
 }

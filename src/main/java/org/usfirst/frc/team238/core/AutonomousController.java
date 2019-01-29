@@ -20,7 +20,7 @@ public class AutonomousController implements AutonomousState{
 	
 	//Holds all autocommands in order (does not include the automode names)
 	ArrayList<AutonomousState>[] autonomousModeList;
-
+	
 	//this what we eventually want 
 	//HashMap<String,ArrayList<AutonomousState>> autonomousPlayBooks;
 	HashMap<String, ArrayList<String> > autonomousPlayBooks;

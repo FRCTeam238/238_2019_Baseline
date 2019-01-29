@@ -30,13 +30,13 @@ public class DashBoard238
         
         //Send able Chooser for the state update function
         autonomousStateParamsUpdate = new SendableChooser<String>();
-        autonomousStateParamsUpdate.addOption("CargoShip 1", "0");
-        autonomousStateParamsUpdate.addOption("CargoShip 2", "1");
-        autonomousStateParamsUpdate.addOption("CargoShip 3", "2");
-        autonomousStateParamsUpdate.addOption("CargoShip 4", "3");
-        autonomousStateParamsUpdate.addOption("CargoShip 5", "4");
-        autonomousStateParamsUpdate.addOption("CargoShip 6", "5");
-        SmartDashboard.putData("AuTo", autonomousStateParamsUpdate);
+        aModeSelector.addOption("CargoShip 1", "CargoShip 1");
+        aModeSelector.addOption("CargoShip 2", "1");
+        aModeSelector.addOption("CargoShip 3", "2");
+        aModeSelector.addOption("CargoShip 4", "3");
+        aModeSelector.addOption("CargoShip 5", "4");
+        aModeSelector.addOption("CargoShip 6", "5");
+        SmartDashboard.putData("AuTo", aModeSelector);
         robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
         //SmartDashboard.putNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         //SmartDashboard.putNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
@@ -52,6 +52,7 @@ public class DashBoard238
     
     public SendableChooser<String> getAutonomusModeSelector()
     {
+      
         return aModeSelector;
     }
 
