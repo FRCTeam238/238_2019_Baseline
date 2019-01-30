@@ -33,9 +33,9 @@ public class TestStepFinished implements TestStep {
   }
 
   @Override
-  public void process() {
+  public boolean process() {
     //Logger.Log("AutonomousMode Done ");
-
+    return true;
   }
 
   @Override

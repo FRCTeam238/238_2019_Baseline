@@ -3,6 +3,7 @@ package org.usfirst.frc.team238.core;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -11,6 +12,7 @@ public class DashBoard238
     Robot myRobot;
     private SendableChooser<String> aModeSelector;
     private SendableChooser<String> autonomousStateParamsUpdate;
+    private SendableChooser<String> testSelector;
     private String robotPosition;
     
     public DashBoard238(Robot myRobot)
@@ -21,13 +23,13 @@ public class DashBoard238
     
     public void init()
     {
-        
-       // SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
-        SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
-       // SmartDashboard.putString("P or S", "nothing");
-        
+
+        // SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
+        SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
+        // SmartDashboard.putString("P or S", "nothing");
+
         aModeSelector = new SendableChooser<String>();
-        
+
         //Send able Chooser for the state update function
         autonomousStateParamsUpdate = new SendableChooser<String>();
         aModeSelector.addOption("CargoShip 1", "CargoShip 1");
@@ -37,12 +39,28 @@ public class DashBoard238
         aModeSelector.addOption("CargoShip 5", "4");
         aModeSelector.addOption("CargoShip 6", "5");
         SmartDashboard.putData("AuTo", aModeSelector);
-        robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
+        robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
         //SmartDashboard.putNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         //SmartDashboard.putNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         //SmartDashboard.putNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+
+        testSelector = new SendableChooser<String>();
+
+        //Send able Chooser for the state update function
+        testSelector.addOption("Drivetrain Test", "Drivetrain Test");
+        testSelector.addOption("Elevator Test", "Elevator Test");
+        testSelector.addOption("Shooter Test", "Shooter Test");
+        testSelector.addOption("Wrist Test", "Wrist Test");
+        testSelector.addOption("Climber Test", "Climber Test");
+        SmartDashboard.putData("TestSweet/Test Selection", testSelector);
     }
     
+    public String getSelectedTest() {
+
+       return testSelector.getSelected();
+
+    }
+
     public String getRobotPosition()
     {
         
@@ -52,8 +70,14 @@ public class DashBoard238
     
     public SendableChooser<String> getAutonomusModeSelector()
     {
-      
+
         return aModeSelector;
+    }
+    
+    public SendableChooser<String> getTestSelector()
+    {
+      
+        return testSelector;
     }
 
     public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,

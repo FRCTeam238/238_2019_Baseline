@@ -29,8 +29,11 @@ import org.usfirst.frc.team238.core.AutonomousController;
 import org.usfirst.frc.team238.core.AutonomousDataHandler;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
+import org.usfirst.frc.team238.core.TestCmdFactory;
 import org.usfirst.frc.team238.core.TestController;
+import org.usfirst.frc.team238.core.TestStep;
 import org.usfirst.frc.team238.robot.Navigation;
+import org.usfirst.frc.team238.testSteps.TestElevator;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
 import RealBot.TrajectoryFactory;
@@ -68,8 +71,8 @@ public class Robot extends TimedRobot
 	DriverStation myDriverstation;
 	Logger myLogger;
 	public TrajectoryIntepreter theTrajectoryIntepreter;
-	DashBoard238 myDashBoard238;
-	Elevator myElevator;
+	public DashBoard238 myDashBoard238;
+	public Elevator myElevator;
 	
 	//Testing vars
 	TestController myTestController;
@@ -92,6 +95,8 @@ public class Robot extends TimedRobot
 	SendableChooser<String> autonomousStateParamsUpdate;
 	
 	String robotPosition;
+
+	private TestCmdFactory myTestCmdFactory;
 
 	public void disabledInit() 
 	{
@@ -470,6 +475,13 @@ public class Robot extends TimedRobot
 		myTestController = new TestController();
 
 		myTestController.init(null, myTestSweet238);
+
+		myTestCmdFactory = new TestCmdFactory();
+
+		myTestCmdFactory.init();
+
+		myTestCmdFactory.createTestCommands(this);
+
 		//create a collection ( list) of test steps
 
 			//feed the tests steps to the test controller
@@ -482,13 +494,13 @@ public class Robot extends TimedRobot
 	@Override
 	public void testPeriodic() 
 	{
-	    /*myDriveTrain.shiftHigh();
-		if (i < 1) {
-			i += 0.001;
+		//read switch toggles smartdashboard
+		//put it in variables
+		//check values of the smartdashboard
+		String selectedTest = myDashBoard238.getSelectedTest();
 
-			myDriveTrain.drive(-i, -i);
-			Logger.Log("VOLTAGE: " + i + "   SPEED:" + myDriveTrain.getLeftVelocity());
-		}*/
+		TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
+		selectedTestStep.process();
 
 		myTestController.process();
 

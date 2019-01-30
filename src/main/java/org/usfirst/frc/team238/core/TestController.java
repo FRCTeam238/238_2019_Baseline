@@ -36,7 +36,7 @@ public class TestController implements TestStep{
     	//add it to the steps for this autonomous mode   					
         //steps.add(xxx);
 		
-		xxx =  new TestElevator();
+		xxx =  new TestElevator(theController.myRobot);
 		xxx.init(params, theController);
 		
 		//add it to the steps for this autonomous mode   					
@@ -86,7 +86,7 @@ public class TestController implements TestStep{
 	/**
 	 * Process the currentState and then continues onto the next state when done
 	 */
-	public void process() { 
+	public boolean process() { 
 		
 		Logger.Log("TestController.Process() ");
 
@@ -95,8 +95,9 @@ public class TestController implements TestStep{
 		if(this.currentState.done() == true){
 			
 			setState(getNextState());
+			return true;
 		}
-
+		return false;
 	}
 
 	/**

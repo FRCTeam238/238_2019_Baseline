@@ -30,11 +30,12 @@ public class TestStepDriveTrainEncoders implements TestStep {
 
 
   @Override
-  public void process() {
+  public boolean process() {
 
     Logger.Log("TestStateDriveTrainEncoders.Process() " + count);
     count++;
     done = theSuiteOfTests.testDriveTrainEncoders();
+    return done;
   }
 
   @Override

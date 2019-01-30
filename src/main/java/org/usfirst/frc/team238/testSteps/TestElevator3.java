@@ -22,7 +22,7 @@ public class TestElevator3 implements TestStep{
     String[] parameters;
     TestSweet238 theSuiteOfTests;
   boolean done = false;
-  double elevatorSetpointTwo;
+  double elevatorSetpointThree;
 
     @Override
     public void prepare() {
@@ -45,15 +45,16 @@ public class TestElevator3 implements TestStep{
     public void init(String params[], TestSweet238 theController) {
         theSuiteOfTests = theController;
         parameters = params;
-        elevatorSetpointTwo = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
-        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);
+        elevatorSetpointThree = SmartDashboard.getNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+        Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointThree = " + elevatorSetpointThree);
   
     }
   
     @Override
-    public void process() {
+    public boolean process() {
       Logger.Log("TestElevator.process() ");
-      done = theSuiteOfTests.testElevator();
+    done = theSuiteOfTests.testElevator(elevatorSetpointThree);
+    return done;
     }
   
     @Override
