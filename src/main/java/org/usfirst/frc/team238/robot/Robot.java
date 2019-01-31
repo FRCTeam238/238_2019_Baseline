@@ -472,9 +472,9 @@ public class Robot extends TimedRobot
 	@Override
 	public void testInit(){
 
-		myTestController = new TestController();
+		//myTestController = new TestController();
 
-		myTestController.init(null, myTestSweet238);
+		//myTestController.init(null, myTestSweet238);
 
 		myTestCmdFactory = new TestCmdFactory();
 
@@ -482,29 +482,32 @@ public class Robot extends TimedRobot
 
 		myTestCmdFactory.createTestCommands(this);
 
-		//create a collection ( list) of test steps
-
-			//feed the tests steps to the test controller
+        
 	}
 
 	/**
 	 * This function is called periodically during test mode.
+     *   read switch toggles from smartdashboard
+     *   put it in parameters variable
+     *   
 	 */
 	double i=0;
 	@Override
 	public void testPeriodic() 
 	{
-		//read switch toggles smartdashboard
-		//put it in variables
-		//check values of the smartdashboard
+		
 		String selectedTest = myDashBoard238.getSelectedTest();
-
-		TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
-		selectedTestStep.process();
-
-		myTestController.process();
-
-		//myTestSweet238.testDriveTrainEncoders();
+        String[] parameters = new String[1];
+        
+        parameters[0] = selectedTest;
+        
+        TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
+        
+        if(!selectedTestStep.done()){
+            selectedTestStep.init(parameters);
+            selectedTestStep.process();
+        }
+		
 
 	}
 	

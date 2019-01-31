@@ -24,7 +24,7 @@ public class TestElevator implements TestStep {
   String[] parameters;
   TestSweet238 theSuiteOfTests;
   boolean done = false;
-  double elevatorSetpointOne;
+  double elevatorSetpoint;
   int counter = 0;
   Robot myRobot;
   double setPoint;
@@ -53,12 +53,29 @@ public class TestElevator implements TestStep {
   }
 
   @Override
-  public void init(String params[], TestSweet238 theController) {
-    theSuiteOfTests = theController;
+  public void init(String params[]) {
+    //theSuiteOfTests = theController;
     parameters = params;
     // DashboardValues elevatorSetpoints;
-    elevatorSetpointOne = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
-    Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpointOne);
+    switch (parameters[0]) {
+        case "Elevator Test":
+            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+            break;
+        
+        case "Elevator Test2":
+            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+            break;
+            
+        case "Elevator Test3":
+            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+            break;
+        
+        default:
+            elevatorSetpoint = 0;
+            break;
+    }
+    
+    Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpoint);
 
   }
 
@@ -73,7 +90,7 @@ public class TestElevator implements TestStep {
       myRobot.myDashBoard238.setTestElevatorIndicators(false);
       Logger.Log("TestElevator.process(): start of elevator test");
 
-      myRobot.myElevator.setSetpoint(setPoint);
+      myRobot.myElevator.setSetpoint(elevatorSetpoint);
       // Give the elevator a new setpoint = distance (inches)
       counter++;
     }

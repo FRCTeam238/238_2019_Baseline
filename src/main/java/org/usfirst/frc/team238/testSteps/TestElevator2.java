@@ -42,8 +42,8 @@ public class TestElevator2 implements TestStep{
     }
   
     @Override
-    public void init(String params[], TestSweet238 theController) {
-        theSuiteOfTests = theController;
+    public void init(String params[]) {
+       // theSuiteOfTests = theController;
         parameters = params;
         elevatorSetpointTwo = SmartDashboard.getNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);

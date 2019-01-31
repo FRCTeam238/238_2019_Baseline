@@ -26,7 +26,7 @@ public class TestController implements TestStep{
 	
 	// sets up the first step for the tests
 	@Override
-	public void init(String[] params, TestSweet238 theController) {
+	public void init(String[] params) {
 
 		steps = new ArrayList<TestStep>();
 		TestStep xxx;
@@ -36,11 +36,11 @@ public class TestController implements TestStep{
     	//add it to the steps for this autonomous mode   					
         //steps.add(xxx);
 		
-		xxx =  new TestElevator(theController.myRobot);
-		xxx.init(params, theController);
+		//xxx =  new TestElevator(theController.myRobot);
+		//xxx.init(params, theController);
 		
 		//add it to the steps for this autonomous mode   					
-        steps.add(xxx);
+        //steps.add(xxx);
 		
 		
 		//finished is ALWAYS the last step

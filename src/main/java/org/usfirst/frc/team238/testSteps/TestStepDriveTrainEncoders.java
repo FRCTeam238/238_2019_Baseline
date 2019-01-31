@@ -21,9 +21,9 @@ public class TestStepDriveTrainEncoders implements TestStep {
   }
 
   @Override
-  public void init(String params[], TestSweet238 theController) {
+  public void init(String params[]) {
 
-    theSuiteOfTests = theController;
+    //theSuiteOfTests = theController;
     parameters = params;
 
   }

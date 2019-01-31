@@ -4,6 +4,7 @@ import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -49,10 +50,14 @@ public class DashBoard238
         //Send able Chooser for the state update function
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
         testSelector.addOption("Elevator Test", "Elevator Test");
-        testSelector.addOption("Shooter Test", "Shooter Test");
+        testSelector.addOption("Elevator Test2", "Elevator Test2");
         testSelector.addOption("Wrist Test", "Wrist Test");
         testSelector.addOption("Climber Test", "Climber Test");
-        SmartDashboard.putData("TestSweet/Test Selection", testSelector);
+
+        Shuffleboard.selectTab("TestSweet");
+        ShuffleboardTab testTab = Shuffleboard.getTab("TestSweet");
+        testTab.add(testSelector);
+       // SmartDashboard.putData("TestSweet/Test Selection", testSelector);
     }
     
     public String getSelectedTest() {
