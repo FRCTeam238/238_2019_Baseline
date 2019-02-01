@@ -255,7 +255,7 @@ public class Elevator
             }
 
             prevError = currentError;
-            Logger.Log("setPoint = " + setpoint  +  "  Height = " + height +   "output wanted = " + outputWanted);
+            //Logger.Log("setPoint = " + setpoint  +  "  Height = " + height +   "output wanted = " + outputWanted);
         }
 
     }

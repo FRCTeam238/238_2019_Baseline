@@ -27,7 +27,7 @@ public class TestStepFinished implements TestStep {
   }
 
   @Override
-  public void init(String params[], TestSweet238 theControllerp) {
+  public void init(String params[]) {
     // TODO Auto-generated method stub
 
   }

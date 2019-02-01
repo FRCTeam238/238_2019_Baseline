@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.testSteps.TestElevator;
+import org.usfirst.frc.team238.testSteps.TestStepDriveTrainEncoders;
 
 
 
@@ -32,10 +33,15 @@ public class TestCmdFactory {
 		TestStep cmd;
 
 		cmd = new TestElevator(theRobot);
-		TestCommands.put("Elevator Test", cmd);
+        TestCommands.put("Elevator Test", cmd);
+        TestCommands.put("Elevator Test2", cmd);
+        TestCommands.put("Elevator Test3", cmd);
 
-		return TestCommands;
 
+        cmd = new TestStepDriveTrainEncoders(theRobot);
+        TestCommands.put("Drivetrain Test", cmd);
+
+        return TestCommands;
 	}
 	
 	public TestStep getTestStep(String cmdName)

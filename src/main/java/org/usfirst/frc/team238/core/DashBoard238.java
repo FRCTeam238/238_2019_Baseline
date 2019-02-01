@@ -5,6 +5,7 @@ import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,7 +16,13 @@ public class DashBoard238
     private SendableChooser<String> autonomousStateParamsUpdate;
     private SendableChooser<String> testSelector;
     private String robotPosition;
-    
+    ShuffleboardTab testTab;
+    public SimpleWidget elevatorTestInfo1;
+    public SimpleWidget elevatorTestInfo2;
+    public SimpleWidget elevatorTestInfo3;
+    public boolean drivetrainDone;
+
+
     public DashBoard238(Robot myRobot)
     {
         this.myRobot = myRobot;
@@ -51,12 +58,23 @@ public class DashBoard238
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
         testSelector.addOption("Elevator Test", "Elevator Test");
         testSelector.addOption("Elevator Test2", "Elevator Test2");
+        testSelector.addOption("Elevator Test3", "Elevator Test3");
         testSelector.addOption("Wrist Test", "Wrist Test");
         testSelector.addOption("Climber Test", "Climber Test");
 
         Shuffleboard.selectTab("TestSweet");
-        ShuffleboardTab testTab = Shuffleboard.getTab("TestSweet");
+        testSelector.setName("Test Section");
+        testTab = Shuffleboard.getTab("TestSweet");
         testTab.add(testSelector);
+
+        testTab.add("Drivetrain Done", false);
+
+        
+        elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+        elevatorTestInfo3 = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+
+
        // SmartDashboard.putData("TestSweet/Test Selection", testSelector);
     }
     
@@ -95,6 +113,7 @@ public class DashBoard238
         SmartDashboard.putBoolean("R_DT_TOL", rightDrivetrainTolerance);
         SmartDashboard.putBoolean("ENC_DIFF_TOL", encoderDifferenceTolerance);
         SmartDashboard.putNumber("ELAPS_TIME", elapsedTime);
+        testTab.add("Drivetrain Done", false).getEntry().setBoolean(drivetrainDone);
 
     }
     
@@ -105,11 +124,11 @@ public class DashBoard238
     public DashboardValues getTestElevatorHeights() {
 
         
-        double elevatorSetpointOne = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        double elevatorSetpointOne = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpointOne);
-        double elevatorSetpointTwo = SmartDashboard.getNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+        double elevatorSetpointTwo = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);
-        double elevatorSetpointThree = SmartDashboard.getNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+        double elevatorSetpointThree = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_THREE);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointThree = " + elevatorSetpointThree);
         DashboardValues testElevatorHeights = new DashboardValues(elevatorSetpointOne, elevatorSetpointTwo,
                 elevatorSetpointThree);

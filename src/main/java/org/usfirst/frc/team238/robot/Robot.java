@@ -498,15 +498,23 @@ public class Robot extends TimedRobot
 		
 		String selectedTest = myDashBoard238.getSelectedTest();
         String[] parameters = new String[1];
+        Logger.Log("Selected Test = " + selectedTest);
         
         parameters[0] = selectedTest;
         
         TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
         
-        if(!selectedTestStep.done()){
-            selectedTestStep.init(parameters);
-            selectedTestStep.process();
-        }
+        //do we have a test
+        //
+        //if the test is not done...
+        if (selectedTestStep == null) {
+
+            Logger.Log("Robot.testPeriodic(): Test Does Not Exist");
+        } 
+        else if(!selectedTestStep.done() ) {
+           selectedTestStep.init(parameters);
+        //   selectedTestStep.process();
+       }
 		
 
 	}

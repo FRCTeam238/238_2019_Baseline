@@ -59,15 +59,15 @@ public class TestElevator implements TestStep {
     // DashboardValues elevatorSetpoints;
     switch (parameters[0]) {
         case "Elevator Test":
-            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+            elevatorSetpoint = myRobot.myDashBoard238.elevatorTestInfo1.getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_ONE);
             break;
         
         case "Elevator Test2":
-            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
+            elevatorSetpoint = myRobot.myDashBoard238.elevatorTestInfo2.getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_TWO);
             break;
             
         case "Elevator Test3":
-            elevatorSetpoint = SmartDashboard.getNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
+            elevatorSetpoint = myRobot.myDashBoard238.elevatorTestInfo3.getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_THREE);
             break;
         
         default:
@@ -75,7 +75,7 @@ public class TestElevator implements TestStep {
             break;
     }
     
-    Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpoint);
+    Logger.Log("TestElevator.init() elevatorSetPoint = " + elevatorSetpoint + "  Test = " + parameters[0]);
 
   }
 
