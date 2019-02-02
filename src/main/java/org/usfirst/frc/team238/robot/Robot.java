@@ -72,7 +72,8 @@ public class Robot extends TimedRobot
 	Logger myLogger;
 	public TrajectoryIntepreter theTrajectoryIntepreter;
 	public DashBoard238 myDashBoard238;
-	public Elevator myElevator;
+    public Elevator myElevator;
+    public IntakeWrist myIntakeWrist;
 	
 	//Testing vars
 	TestController myTestController;
@@ -271,7 +272,10 @@ public class Robot extends TimedRobot
 		myDriveTrain.resetEncoders();
 
 		myElevator = new Elevator();
-		myElevator.init();
+        myElevator.init();
+        
+        myIntakeWrist = new IntakeWrist();
+        myIntakeWrist.init();
 
 		//myTestCoreObject = new TestCoreObject();
 		//myTestCoreObject.initTestCoreObject();
@@ -507,14 +511,19 @@ public class Robot extends TimedRobot
         //do we have a test
         //
         //if the test is not done...
+        
+        
         if (selectedTestStep == null) {
 
             Logger.Log("Robot.testPeriodic(): Test Does Not Exist");
         } 
-        else if(!selectedTestStep.done() ) {
-           selectedTestStep.init(parameters);
-        //   selectedTestStep.process();
-       }
+        else if (!selectedTestStep.done()) {
+            selectedTestStep.init(parameters);
+            selectedTestStep.process();
+        }
+        else {
+            
+        }
 		
 
 	}

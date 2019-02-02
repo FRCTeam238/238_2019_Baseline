@@ -27,8 +27,9 @@ public class TestElevator implements TestStep {
   double elevatorSetpoint;
   int counter = 0;
   Robot myRobot;
-  double setPoint;
   double elevatorCurrentHeight;
+  double elevatorHeightDifference;
+  boolean elevatorHeightTolerance;
 
   public TestElevator(Robot robot)
   {
@@ -97,8 +98,8 @@ public class TestElevator implements TestStep {
 
     elevatorCurrentHeight = myRobot.myElevator.getHeight();
     Logger.Log("TestElevator.process(): elevatorCurrentHeight = " + elevatorCurrentHeight);
-    Logger.Log("TestElevator.process(): targetSetPoint = " + setPoint);
-    elevatorSetpointDifference = Math.abs(elevatorCurrentHeight - setPoint);
+    Logger.Log("TestElevator.process(): targetSetPoint = " + elevatorSetpoint);
+    elevatorSetpointDifference = Math.abs(elevatorCurrentHeight - elevatorSetpoint);
     if (elevatorSetpointDifference <= CrusaderCommon.ELEVATOR_SETPOINT_TOLERANCE) {
 
       myRobot.myDashBoard238.putTestElevatorTestOne(elevatorCurrentHeight);
@@ -106,9 +107,17 @@ public class TestElevator implements TestStep {
       Logger.Log("TestElevator.process(): TargetSetpoint: elevatorHeight = " + elevatorCurrentHeight);
       // puts in RIOlog that we have run this code and the elevator's current height
 
-      done = true;
+            done = true;
+            elevatorHeightDifference = elevatorCurrentHeight - elevatorSetpoint;
+            //TODO: look at tolerance
+            if (Math.abs(elevatorHeightDifference) < CrusaderCommon.TEST_ELEVATOR_TOLERANCE) {
+                elevatorHeightTolerance = true; 
+            } else {
+                elevatorHeightTolerance = false;
+            }
+    
+      myRobot.myDashBoard238.putElevatorData(elevatorCurrentHeight, elevatorHeightTolerance);
 
-      counter = 0;
       // Resets counter for easy testing ie no restarting code
 
     }

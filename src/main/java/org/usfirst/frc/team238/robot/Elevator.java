@@ -264,7 +264,7 @@ public class Elevator
     
     public double getHeight() {
         // Logger.log("HEIGHT:" + (-elevatorMasterTalon.getSelectedSensorPosition(0) / CrusaderCommon.ELEVATOR_TICK_TO_IN) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
-        int elevatorSensorPosition = -elevatorMasterTalon.getSelectedSensorPosition(0);
+        double elevatorSensorPosition = -elevatorMasterTalon.getSelectedSensorPosition(0);
         double elevatorSensorInches = elevatorSensorPosition / CrusaderCommon.ELEVATOR_TICK_TO_IN;
         elevatorSensorInches = elevatorSensorInches - zeroHeight;
 

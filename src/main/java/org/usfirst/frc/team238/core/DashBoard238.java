@@ -3,6 +3,7 @@ package org.usfirst.frc.team238.core;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -21,7 +22,18 @@ public class DashBoard238
     public SimpleWidget elevatorTestInfo2;
     public SimpleWidget elevatorTestInfo3;
     public boolean drivetrainDone;
-
+    NetworkTableEntry testEntry0;
+    NetworkTableEntry testEntry1;
+    NetworkTableEntry testEntry2;
+    NetworkTableEntry testEntry3;
+    NetworkTableEntry testEntry4;
+    NetworkTableEntry testEntry5;
+    NetworkTableEntry testEntry6;
+    NetworkTableEntry testEntry7;
+    NetworkTableEntry testEntry8;
+    NetworkTableEntry testEntry9;
+    NetworkTableEntry testEntry10;
+    NetworkTableEntry testEntry11;
 
     public DashBoard238(Robot myRobot)
     {
@@ -55,6 +67,7 @@ public class DashBoard238
         testSelector = new SendableChooser<String>();
 
         //Send able Chooser for the state update function
+        testSelector.addOption("Stop Test", "Stop Test");
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
         testSelector.addOption("Elevator Test", "Elevator Test");
         testSelector.addOption("Elevator Test2", "Elevator Test2");
@@ -67,8 +80,19 @@ public class DashBoard238
         testTab = Shuffleboard.getTab("TestSweet");
         testTab.add(testSelector);
 
-        testTab.add("Drivetrain Done", false);
 
+        testEntry0 = testTab.add("L_DT_ENC", 0).getEntry();
+        testEntry1 = testTab.add("R_DT_ENC", 0).getEntry();;
+        testEntry2 = testTab.add("L_DT_TOL", false).getEntry();;
+        testEntry3 = testTab.add("R_DT_TOL", false).getEntry();;
+        testEntry4 = testTab.add("ENC_DIFF_TOL", false).getEntry();;
+        testEntry5 = testTab.add("ELAPS_TIME", 0).getEntry();;
+        testEntry6 = testTab.add("Drivetrain Done", false).getEntry();
+        testEntry7 = testTab.add("Elevator Height", 0).getEntry();
+        testEntry8 = testTab.add("Elevator Tolerance", false).getEntry();
+        testEntry9 = testTab.add("Elevator Done", false).getEntry();
+        testEntry10 = testTab.add("Shoulder Target", 0).getEntry();
+        testEntry11 = testTab.add("Shoulder Height", 0).getEntry();
         
         elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
@@ -86,10 +110,11 @@ public class DashBoard238
 
     public String getRobotPosition()
     {
-        
+
         return robotPosition;
-        
+
     }
+    
     
     public SendableChooser<String> getAutonomusModeSelector()
     {
@@ -107,14 +132,22 @@ public class DashBoard238
             double rightDrivetrainEncoderValue, boolean leftDrivetrainTolerance, 
     boolean rightDrivetrainTolerance, boolean encoderDifferenceTolerance, double elapsedTime) {
         
-        SmartDashboard.putNumber("L_DT_ENC", leftDrivetrainEncoderValue);
-        SmartDashboard.putNumber("R_DT_ENC", rightDrivetrainEncoderValue);
-        SmartDashboard.putBoolean("L_DT_TOL", leftDrivetrainTolerance);
-        SmartDashboard.putBoolean("R_DT_TOL", rightDrivetrainTolerance);
-        SmartDashboard.putBoolean("ENC_DIFF_TOL", encoderDifferenceTolerance);
-        SmartDashboard.putNumber("ELAPS_TIME", elapsedTime);
-        testTab.add("Drivetrain Done", false).getEntry().setBoolean(drivetrainDone);
+        testEntry0.setNumber(leftDrivetrainEncoderValue);
+        testEntry1.setNumber(rightDrivetrainEncoderValue);
+        testEntry2.setBoolean(leftDrivetrainTolerance);
+        testEntry3.setBoolean(rightDrivetrainTolerance);
+        testEntry4.setBoolean(encoderDifferenceTolerance);
+        testEntry5.setNumber(elapsedTime);
+        testEntry6.setBoolean(true);
 
+
+        // testTab.putNumber("L_DT_ENC", leftDrivetrainEncoderValue);
+        // testTab.putNumber("R_DT_ENC", rightDrivetrainEncoderValue);
+        // testTab.putBoolean("L_DT_TOL", leftDrivetrainTolerance);
+        // testTab.putBoolean("R_DT_TOL", rightDrivetrainTolerance);
+        // testTab.putBoolean("ENC_DIFF_TOL", encoderDifferenceTolerance);
+        // testTab.putNumber("ELAPS_TIME", elapsedTime);
+        
     }
     
     public void setTestElevatorIndicators(boolean value) {
@@ -138,6 +171,25 @@ public class DashBoard238
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {
 
         SmartDashboard.putNumber("ELEV_TEST_ONE", elevatorSetpointOneTest);
+
+    }
+
+    public void putElevatorData(double elevatorHeight, boolean elevatorHeightTolerance) {
+
+        testEntry7.setNumber(elevatorHeight);
+        testEntry8.setBoolean(elevatorHeightTolerance);
+        testEntry9.setBoolean(true);
+
+    }
+    
+    public double getShoulderData() {
+
+        return testEntry10.getDouble(0);
+    }
+    
+    public void putShoulderData(double shoulderAngle) {
+
+        testEntry11.setDouble(shoulderAngle);
 
     }
     

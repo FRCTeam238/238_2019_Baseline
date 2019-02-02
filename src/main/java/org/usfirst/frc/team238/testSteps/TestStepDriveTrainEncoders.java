@@ -14,11 +14,10 @@ public class TestStepDriveTrainEncoders implements TestStep {
   
   String            parameters[];
   TestSweet238 theSuiteOfTests;
-  int count;
     boolean done = false;
     private Robot myRobot;
     private long startTime;
-    private int counter;
+    private int counter = 0;
 
     public TestStepDriveTrainEncoders(Robot robot){
 
@@ -47,7 +46,7 @@ public class TestStepDriveTrainEncoders implements TestStep {
   @Override
     public boolean process() {
 
-        //Logger.Log("TestStateDriveTrainEncoders.Process() " + count);
+        Logger.Log("TestStateDriveTrainEncoders.Process() start: counter = " + counter);
         // count++;
         // done = theSuiteOfTests.testDriveTrainEncoders();
         //     return done;
@@ -120,7 +119,6 @@ public class TestStepDriveTrainEncoders implements TestStep {
             //tells the test controller that the test has been completed,
             //prevents motors from running infinitely
 
-            counter = 0;
             //Resets counter for easy testing ie no restarting code
 
             myRobot.myDriveTrain.resetEncoders();
@@ -131,7 +129,7 @@ public class TestStepDriveTrainEncoders implements TestStep {
         //----Check with Base Line----
         //----Difference is in tolerance----
         //----set indicator true if in tolerance(green) else set indicator to false(red)----
-
+        Logger.Log("TestStateDriveTrainEncoders.Process() leave: counter = " + counter);
         return returnValue;
     }
 
@@ -142,9 +140,9 @@ public class TestStepDriveTrainEncoders implements TestStep {
   public boolean done() {
 
         if (done) {
-            count = 0;
             return true;
         }
+        
     return false;
   }
 

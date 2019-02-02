@@ -97,8 +97,8 @@ public class CrusaderCommon {
 
 	public static final double ELEVATOR_KP = 0.067;
 	public static final double ELEVATOR_KD = 0.037;
-	public static final int ELEVATOR_TICK_TO_IN = 4594;//7414
-	public static final int ELEVATOR_MASTER = DRIVE_TRAIN_LEFT_MASTER; //8, M.C.
+	public static final double ELEVATOR_TICK_TO_IN = 4594.0;//7414
+	public static final int ELEVATOR_MASTER = 8; 
 	public static final int ELEVAOR_SLAVE_SRX = 11;
 	public static final int ELEVATOR_SLAVE_SPX = 10;
 	public static final int INTAKE_MASTER_SRX = 4;
@@ -188,17 +188,19 @@ public class CrusaderCommon {
 	public static final int TEST_DRIVE_TICKS = 4000;
 
 	//Motors are at half speed
-	public static final double TEST_LEFT_MOTOR_VALUE = 0.1;
-	public static final double TEST_RIGHT_MOTOR_VALUE = 0.1;
+	public static final double TEST_LEFT_MOTOR_VALUE = 0.5;
+	public static final double TEST_RIGHT_MOTOR_VALUE = 0.5;
 
-	public static final double TEST_DRIVETRAIN_BASELINE = 12500; //expected encoder values
-	public static final double TEST_DRIVETRAIN_TOLERANCE = 500; //limit between expected and actual encoder values
+	public static final double TEST_DRIVETRAIN_BASELINE = 100000; //expected encoder values
+	public static final double TEST_DRIVETRAIN_TOLERANCE = 0.25 * TEST_DRIVETRAIN_BASELINE; //limit between expected and actual encoder values
 
 	public static final double TEST_ELEVATOR_COUNTER = 8000;
 	public static final double TEST_ELEVATOR_TOLERANCE = 100;
 
-	public static final double ELEVATOR_SETPOINT_ONE = 10;
-	public static final double ELEVATOR_SETPOINT_TWO = 20;
-	public static final double ELEVATOR_SETPOINT_THREE = 30;
-	public static final double ELEVATOR_SETPOINT_TOLERANCE = 1;
+	public static final double ELEVATOR_SETPOINT_ONE = 5;
+	public static final double ELEVATOR_SETPOINT_TWO = 10;
+	public static final double ELEVATOR_SETPOINT_THREE = 15;
+    public static final double ELEVATOR_SETPOINT_TOLERANCE = 1.5;
+    
+    public static final double SHOULDER_TARGET_TOLERANCE = 5;
 }
