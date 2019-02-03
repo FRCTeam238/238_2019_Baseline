@@ -1,5 +1,9 @@
 package org.usfirst.frc.team238.core;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
@@ -14,7 +18,6 @@ public class DashBoard238
 {
     Robot myRobot;
     private SendableChooser<String> aModeSelector;
-    private SendableChooser<String> autonomousStateParamsUpdate;
     private SendableChooser<String> testSelector;
     private String robotPosition;
     ShuffleboardTab testTab;
@@ -22,18 +25,24 @@ public class DashBoard238
     public SimpleWidget elevatorTestInfo2;
     public SimpleWidget elevatorTestInfo3;
     public boolean drivetrainDone;
-    NetworkTableEntry testEntry0;
-    NetworkTableEntry testEntry1;
-    NetworkTableEntry testEntry2;
-    NetworkTableEntry testEntry3;
-    NetworkTableEntry testEntry4;
-    NetworkTableEntry testEntry5;
-    NetworkTableEntry testEntry6;
-    NetworkTableEntry testEntry7;
-    NetworkTableEntry testEntry8;
-    NetworkTableEntry testEntry9;
-    NetworkTableEntry testEntry10;
-    NetworkTableEntry testEntry11;
+    
+    String leftDriveTrainEncoder = "L_DT_ENC";
+    String rightDriveTrainEncoder = "R_DT_ENC";
+    String leftDriveTrainTolerance = "L_DT_TOL";
+    String rightDriveTrainTolerance = "R_DT_TOL";
+    String encoderDiffTolerance = "ENC_DIFF_TOL";
+    String elapsedTime = "ELAPS_TIME";
+    String driveTrainDone = "Drivetrain Done";
+    
+    
+    String elevatorHeight = "Elevator Height";
+    String elevatorTolerance = "Elevator Tolerance";
+    String elevatorDone = "Elevator Done";
+    String shoulderTarget = "Shoulder Target";
+    String shoulderHeight = "Shoulder Height";
+    
+   
+    HashMap<String,NetworkTableEntry> testSweetEntries;
 
     public DashBoard238(Robot myRobot)
     {
@@ -43,26 +52,21 @@ public class DashBoard238
     
     public void init()
     {
-
-        // SmartDashboard.putBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
+        testSweetEntries = new  HashMap<String,NetworkTableEntry>();
+        
         SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
-        // SmartDashboard.putString("P or S", "nothing");
 
+        //autonmous mode selector ie dropdown selection
         aModeSelector = new SendableChooser<String>();
-
-        //Send able Chooser for the state update function
-        autonomousStateParamsUpdate = new SendableChooser<String>();
         aModeSelector.addOption("CargoShip 1", "CargoShip 1");
-        aModeSelector.addOption("CargoShip 2", "1");
-        aModeSelector.addOption("CargoShip 3", "2");
-        aModeSelector.addOption("CargoShip 4", "3");
-        aModeSelector.addOption("CargoShip 5", "4");
-        aModeSelector.addOption("CargoShip 6", "5");
+        aModeSelector.addOption("CargoShip 2", "CargoShip 1");
+        aModeSelector.addOption("CargoShip 3", "CargoShip 2");
+        aModeSelector.addOption("CargoShip 4", "CargoShip 3");
+        aModeSelector.addOption("CargoShip 5", "CargoShip 4");
+        aModeSelector.addOption("CargoShip 6", "CargoShip 5");
         SmartDashboard.putData("AuTo", aModeSelector);
+
         robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
-        //SmartDashboard.putNumber("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
-        //SmartDashboard.putNumber("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
-        //SmartDashboard.putNumber("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
 
         testSelector = new SendableChooser<String>();
 
@@ -80,26 +84,37 @@ public class DashBoard238
         testTab = Shuffleboard.getTab("TestSweet");
         testTab.add(testSelector);
 
-
-        testEntry0 = testTab.add("L_DT_ENC", 0).getEntry();
-        testEntry1 = testTab.add("R_DT_ENC", 0).getEntry();;
-        testEntry2 = testTab.add("L_DT_TOL", false).getEntry();;
-        testEntry3 = testTab.add("R_DT_TOL", false).getEntry();;
-        testEntry4 = testTab.add("ENC_DIFF_TOL", false).getEntry();;
-        testEntry5 = testTab.add("ELAPS_TIME", 0).getEntry();;
-        testEntry6 = testTab.add("Drivetrain Done", false).getEntry();
-        testEntry7 = testTab.add("Elevator Height", 0).getEntry();
-        testEntry8 = testTab.add("Elevator Tolerance", false).getEntry();
-        testEntry9 = testTab.add("Elevator Done", false).getEntry();
-        testEntry10 = testTab.add("Shoulder Target", 0).getEntry();
-        testEntry11 = testTab.add("Shoulder Height", 0).getEntry();
+         //we "add" something to the test tab
+         //then we call "getEntry" to get the networktables Entry for that element 
+         //and then "put" it in teh testSweetEntries Hashmap for future use
+        /* if the code was expanded it would look like this
+        *   SimpleWidget theWidget = testTab.add(X,x);
+        *   NetworkTabelEntry NTE = theWidget.getENtry(); 
+        *   testSweetEntries.put(X,NTE);
+        */
+        
+        //DriveTrain test elements on the TestSweet tab in Shuffleboard
+        testSweetEntries.put(leftDriveTrainEncoder, testTab.add(leftDriveTrainEncoder, 0).getEntry());
+        testSweetEntries.put(rightDriveTrainEncoder, testTab.add(rightDriveTrainEncoder, 0).getEntry());
+        testSweetEntries.put(leftDriveTrainTolerance, testTab.add(leftDriveTrainTolerance, false).getEntry());
+        testSweetEntries.put(rightDriveTrainTolerance, testTab.add(rightDriveTrainTolerance, false).getEntry());
+        testSweetEntries.put(encoderDiffTolerance , testTab.add(encoderDiffTolerance, false).getEntry());
+        testSweetEntries.put(elapsedTime, testTab.add(elapsedTime, 0).getEntry());
+        testSweetEntries.put(driveTrainDone, testTab.add(driveTrainDone, false).getEntry());
+        
+        //elevator test elements on TestSweet tab in Shuffleboard
+        testSweetEntries.put(elevatorHeight,testTab.add(elevatorHeight, 0).getEntry());
+        testSweetEntries.put(elevatorTolerance,testTab.add(elevatorTolerance, false).getEntry());
+        testSweetEntries.put(elevatorDone,testTab.add(elevatorDone, false).getEntry());
+        
+        //shoulder test elements on TestSweet tab in Shuffleboard
+        testSweetEntries.put(shoulderTarget,testTab.add(shoulderTarget, 0).getEntry());
+        testSweetEntries.put(shoulderHeight, testTab.add(shoulderHeight, 0).getEntry());
         
         elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         elevatorTestInfo3 = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
-
-
-       // SmartDashboard.putData("TestSweet/Test Selection", testSelector);
+       
     }
     
     public String getSelectedTest() {
@@ -129,25 +144,16 @@ public class DashBoard238
     }
 
     public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
-            double rightDrivetrainEncoderValue, boolean leftDrivetrainTolerance, 
-    boolean rightDrivetrainTolerance, boolean encoderDifferenceTolerance, double elapsedTime) {
+            double rightDrivetrainEncoderValue, boolean leftDrivetrainToleranceValue, 
+    boolean rightDrivetrainToleranceValue, boolean encoderDifferenceToleranceValue, double elapsedTimeValue) {
         
-        testEntry0.setNumber(leftDrivetrainEncoderValue);
-        testEntry1.setNumber(rightDrivetrainEncoderValue);
-        testEntry2.setBoolean(leftDrivetrainTolerance);
-        testEntry3.setBoolean(rightDrivetrainTolerance);
-        testEntry4.setBoolean(encoderDifferenceTolerance);
-        testEntry5.setNumber(elapsedTime);
-        testEntry6.setBoolean(true);
-
-
-        // testTab.putNumber("L_DT_ENC", leftDrivetrainEncoderValue);
-        // testTab.putNumber("R_DT_ENC", rightDrivetrainEncoderValue);
-        // testTab.putBoolean("L_DT_TOL", leftDrivetrainTolerance);
-        // testTab.putBoolean("R_DT_TOL", rightDrivetrainTolerance);
-        // testTab.putBoolean("ENC_DIFF_TOL", encoderDifferenceTolerance);
-        // testTab.putNumber("ELAPS_TIME", elapsedTime);
-        
+        testSweetEntries.get(leftDriveTrainEncoder).setNumber(leftDrivetrainEncoderValue);
+        testSweetEntries.get(rightDriveTrainEncoder).setNumber(rightDrivetrainEncoderValue);
+        testSweetEntries.get(leftDriveTrainTolerance).setBoolean(leftDrivetrainToleranceValue);
+        testSweetEntries.get(rightDriveTrainTolerance).setBoolean(rightDrivetrainToleranceValue);
+        testSweetEntries.get(encoderDiffTolerance).setBoolean(encoderDifferenceToleranceValue);
+        testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
+        testSweetEntries.get(driveTrainDone).setBoolean(true);
     }
     
     public void setTestElevatorIndicators(boolean value) {
@@ -159,13 +165,17 @@ public class DashBoard238
         
         double elevatorSetpointOne = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointOne = " + elevatorSetpointOne);
+        
         double elevatorSetpointTwo = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointTwo = " + elevatorSetpointTwo);
+       
         double elevatorSetpointThree = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE).getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_THREE);
         Logger.Log("DashboardValues getTestElevatorHeights: elevatorSetpointThree = " + elevatorSetpointThree);
+       
         DashboardValues testElevatorHeights = new DashboardValues(elevatorSetpointOne, elevatorSetpointTwo,
                 elevatorSetpointThree);
-        return testElevatorHeights;
+        
+                return testElevatorHeights;
     }
 
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {
@@ -175,22 +185,25 @@ public class DashBoard238
     }
 
     public void putElevatorData(double elevatorHeight, boolean elevatorHeightTolerance) {
-
-        testEntry7.setNumber(elevatorHeight);
-        testEntry8.setBoolean(elevatorHeightTolerance);
-        testEntry9.setBoolean(true);
-
+        
+     
+        testSweetEntries.get(elevatorTolerance).setBoolean(elevatorHeightTolerance);
+        testSweetEntries.get(elevatorDone).setBoolean(true);
+     
     }
     
     public double getShoulderData() {
 
-        return testEntry10.getDouble(0);
+        return  testSweetEntries.get(shoulderTarget).getDouble(0);
     }
     
     public void putShoulderData(double shoulderAngle) {
 
-        testEntry11.setDouble(shoulderAngle);
-
+        testSweetEntries.get(shoulderTarget).setDouble(shoulderAngle);
+        
+        
+        //testSweetEntries.get(shoulderHeight).setNumber();
+        
     }
     
  
