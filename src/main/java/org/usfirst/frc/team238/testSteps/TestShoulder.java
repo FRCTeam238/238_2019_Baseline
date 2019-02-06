@@ -26,6 +26,7 @@ public class TestShoulder implements TestStep{
     double shoulderTarget;
     double currentAngle;
     double angleDifference;
+    boolean done = false;
     //Put shoulder to known starting position if not already at it
     //get target from smartdashboard
     //move up set number of degrees
@@ -59,27 +60,25 @@ public class TestShoulder implements TestStep{
 
     @Override
     public boolean process() {
-    //Put shoulder to known starting position if not already at it
+    //Put shoulder to known starting position if not already at it 
     //get target from smartdashboard X
-    //move up set number of degrees
-    //record moved number of degrees
-    //compare with target number of degrees
+    //move up set number of degrees X
+    //record moved number of degrees X
+    //compare with target number of degrees x
     //push to smartdashboard
         if (counter == 0) {
             Logger.Log("TestShoulder.process():  Test has started");
             shoulderTarget = myRobot.myDashBoard238.getShoulderData();
             myRobot.myIntakeWrist.setWrist(shoulderTarget);
+            counter++;
         }
         
         currentAngle = myRobot.myIntakeWrist.getAngle();
         angleDifference = currentAngle - shoulderTarget;
         if (Math.abs(angleDifference) < CrusaderCommon.SHOULDER_TARGET_TOLERANCE) {
             
+            done = true;
             //This will be the shoulder on the Robot, but we are calling wrist to use its methods
-            myRobot.myIntakeWrist.setWrist(currentAngle);
-            
-            
-
             
             myRobot.myDashBoard238.putShoulderData(currentAngle);
 
@@ -97,7 +96,8 @@ public class TestShoulder implements TestStep{
 
     @Override
     public boolean done() {
-        return false;
+        Logger.Log("TestShoulder.done() ");
+        return done;
     }
 
     @Override

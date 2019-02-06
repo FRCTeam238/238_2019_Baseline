@@ -87,7 +87,7 @@ public class IntakeWrist
      * Extends the wrist out to manipulate cubes
      */
     
-    //angle is 0 at top (starting configuraition) and then positive as i goes down.
+    // angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setWrist(double angle) {
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
         inAutonomous = false;
@@ -255,7 +255,7 @@ public class IntakeWrist
        //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         double angle = -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
         
-        System.out.println("INTAKE ANGLE:" + angle + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        Logger.Log("IntakeWrist.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
         
         return angle;
     }

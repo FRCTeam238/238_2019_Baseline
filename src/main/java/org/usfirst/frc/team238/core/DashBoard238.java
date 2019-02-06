@@ -184,11 +184,12 @@ public class DashBoard238
 
     }
 
-    public void putElevatorData(double elevatorHeight, boolean elevatorHeightTolerance) {
+    public void putElevatorData(double elevatorHeightValue, boolean elevatorHeightToleranceValue) {
         
      
-        testSweetEntries.get(elevatorTolerance).setBoolean(elevatorHeightTolerance);
+        testSweetEntries.get(elevatorTolerance).setBoolean(elevatorHeightToleranceValue);
         testSweetEntries.get(elevatorDone).setBoolean(true);
+        testSweetEntries.get(elevatorHeight).setDouble(elevatorHeightValue);
      
     }
     
@@ -199,7 +200,7 @@ public class DashBoard238
     
     public void putShoulderData(double shoulderAngle) {
 
-        testSweetEntries.get(shoulderTarget).setDouble(shoulderAngle);
+        testSweetEntries.get(shoulderHeight).setDouble(shoulderAngle);
         
         
         //testSweetEntries.get(shoulderHeight).setNumber();
