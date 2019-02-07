@@ -73,8 +73,9 @@ public class Robot extends TimedRobot
 	public TrajectoryIntepreter theTrajectoryIntepreter;
 	public DashBoard238 myDashBoard238;
     public Elevator myElevator;
-    public IntakeWrist myIntakeWrist;
-	
+    public Shoulder myShoulder;
+    static String previousTestStep;
+    
 	//Testing vars
 	TestController myTestController;
 
@@ -274,8 +275,8 @@ public class Robot extends TimedRobot
 		myElevator = new Elevator();
         myElevator.init();
         
-        myIntakeWrist = new IntakeWrist();
-        myIntakeWrist.init();
+        myShoulder = new Shoulder();
+        myShoulder.init();
 
 		//myTestCoreObject = new TestCoreObject();
 		//myTestCoreObject.initTestCoreObject();
@@ -507,7 +508,10 @@ public class Robot extends TimedRobot
         parameters[0] = selectedTest;
         
         TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
-        
+         
+        if(selectedTest != previousTestStep){
+            selectedTestStep.reset();
+        }
         //do we have a test
         //
         //if the test is not done...
@@ -524,7 +528,9 @@ public class Robot extends TimedRobot
         else {
             
         }
-		
+        
+        previousTestStep  = selectedTest;
+
 
 	}
 	

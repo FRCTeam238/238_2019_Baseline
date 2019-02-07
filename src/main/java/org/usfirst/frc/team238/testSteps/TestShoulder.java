@@ -11,9 +11,6 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TestStep;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.core.DashBoard238;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -69,11 +66,11 @@ public class TestShoulder implements TestStep{
         if (counter == 0) {
             Logger.Log("TestShoulder.process():  Test has started");
             shoulderTarget = myRobot.myDashBoard238.getShoulderData();
-            myRobot.myIntakeWrist.setWrist(shoulderTarget);
+            myRobot.myShoulder.setshoulder(shoulderTarget);
             counter++;
         }
         
-        currentAngle = myRobot.myIntakeWrist.getAngle();
+        currentAngle = myRobot.myShoulder.getAngle();
         angleDifference = currentAngle - shoulderTarget;
         if (Math.abs(angleDifference) < CrusaderCommon.SHOULDER_TARGET_TOLERANCE) {
             
@@ -102,7 +99,7 @@ public class TestShoulder implements TestStep{
 
     @Override
     public void reset() {
-
+        done = false;
     }
 
     @Override

@@ -76,7 +76,7 @@ public class DashBoard238
         testSelector.addOption("Elevator Test", "Elevator Test");
         testSelector.addOption("Elevator Test2", "Elevator Test2");
         testSelector.addOption("Elevator Test3", "Elevator Test3");
-        testSelector.addOption("Wrist Test", "Wrist Test");
+        testSelector.addOption("Shoulder Test", "Shoulder Test");
         testSelector.addOption("Climber Test", "Climber Test");
 
         Shuffleboard.selectTab("TestSweet");
@@ -110,7 +110,8 @@ public class DashBoard238
         //shoulder test elements on TestSweet tab in Shuffleboard
         testSweetEntries.put(shoulderTarget,testTab.add(shoulderTarget, 0).getEntry());
         testSweetEntries.put(shoulderHeight, testTab.add(shoulderHeight, 0).getEntry());
-        
+       
+        //needs to be refactored to use  testsweetentries 
         elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
         elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         elevatorTestInfo3 = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);

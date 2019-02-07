@@ -50,7 +50,7 @@ public class TestElevator implements TestStep {
   // used when autonomous is interrupted
   @Override
   public void reset() {
-
+    done = false;
   }
 
   @Override

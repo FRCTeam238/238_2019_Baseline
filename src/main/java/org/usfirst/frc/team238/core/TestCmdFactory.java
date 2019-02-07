@@ -39,7 +39,7 @@ public class TestCmdFactory {
         TestCommands.put("Elevator Test3", cmd);
         
         cmd = new TestShoulder(theRobot);
-        TestCommands.put("Wrist Test", cmd);
+        TestCommands.put("Shoulder Test", cmd);
 
         cmd = new TestStepDriveTrainEncoders(theRobot);
         TestCommands.put("Drivetrain Test", cmd);

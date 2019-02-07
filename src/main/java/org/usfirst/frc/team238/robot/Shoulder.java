@@ -10,7 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class IntakeWrist
+public class Shoulder
 {
 
     
@@ -30,11 +30,11 @@ public class IntakeWrist
     private boolean PIDEnabled = true;
     private boolean inAutonomous = false;
     
-    TalonSRX wristTalon;
+    TalonSRX shoulderTalon;
     TalonSRX intakeMaster;
     VictorSPX intakeSlave;
     
-    public IntakeWrist()
+    public Shoulder()
     {
         
     }
@@ -43,23 +43,23 @@ public class IntakeWrist
     public void init()
     {
         
-        wristTalon = new TalonSRX(CrusaderCommon.INTAKE_SHOULDER);
+        shoulderTalon = new TalonSRX(CrusaderCommon.INTAKE_SHOULDER);
         intakeMaster = new TalonSRX(CrusaderCommon.INTAKE_MASTER_SRX);
         intakeSlave = new VictorSPX(CrusaderCommon.INTAKE_SLAVE);
         
         intakeSlave.follow(intakeMaster);
         
-        wristTalon.setNeutralMode(NeutralMode.Brake);
+        shoulderTalon.setNeutralMode(NeutralMode.Brake);
         intakeMaster.setNeutralMode(NeutralMode.Brake);
         intakeSlave.setNeutralMode(NeutralMode.Brake);
         
-        wristTalon.set(ControlMode.PercentOutput, 0);
+        shoulderTalon.set(ControlMode.PercentOutput, 0);
         intakeMaster.set(ControlMode.PercentOutput, 0);
         intakeSlave.setInverted(true);
         
-        wristTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        wristTalon.setSensorPhase(true);
-        wristTalon.config_kP(0, 0.005, 0);
+        shoulderTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+        shoulderTalon.setSensorPhase(true);
+        shoulderTalon.config_kP(0, 0.005, 0);
         resetEncoders();
         
         PIDEnabled = true;
@@ -84,62 +84,62 @@ public class IntakeWrist
     }
     
     /**
-     * Extends the wrist out to manipulate cubes
+     * Extends the shoulder out to manipulate cubes
      */
     
     // angle is 0 at top (starting configuraition) and then positive as i goes down.
-    public void setWrist(double angle) {
+    public void setshoulder(double angle) {
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
         inAutonomous = false;
     }
     
-    public void setWrist(double angle, boolean auto) {
+    public void setshoulder(double angle, boolean auto) {
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
         inAutonomous = auto;
     }
     
-    public boolean usingWrist = false;
-    public void extendWrist()
+    public boolean usingshoulder = false;
+    public void extendshoulder()
     {
         
-        wristTalon.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SHOULDER_SPEED);
+        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SHOULDER_SPEED);
         
     }
     
     /**
-     * Retracts the wrist out to hide our intake
+     * Retracts the shoulder out to hide our intake
      */
-    public void retractSHOULDER()
+    public void retractshoulder()
     {
         
-        wristTalon.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SHOULDER_SPEED);
+        shoulderTalon.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SHOULDER_SPEED);
         
     }
     
     /**
      * Suck a cube in
      */
-    public void extendWristPID() {
+    public void extendshoulderPID() {
         if(PIDEnabled) {
             tilt(1.0);
             System.out.println("extendPidenabled"); 
         }else {
-            double wristValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
-            double staticWristValue = 0.0;
+            double shoulderValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
+            double staticshoulderValue = 0.0;
             
-            if (wristValue > 0.65)
+            if (shoulderValue > 0.65)
             {
-                staticWristValue = 0.1;
+                staticshoulderValue = 0.1;
             }
 //            else
 //            {
-//                staticWristValue = 0.0;
+//                staticshoulderValue = 0.0;
 //            }
 
-            wristTalon.set(ControlMode.PercentOutput, wristValue); 
+            shoulderTalon.set(ControlMode.PercentOutput, shoulderValue); 
            
-            SmartDashboard.putNumber("Extending", wristValue);
-            SmartDashboard.putNumber("ExtendingStatic", staticWristValue);
+            SmartDashboard.putNumber("Extending", shoulderValue);
+            SmartDashboard.putNumber("ExtendingStatic", staticshoulderValue);
            
             //System.out.println("extendPidNOTenabled"); 
             
@@ -155,26 +155,26 @@ public class IntakeWrist
         System.out.println("manualOverride"); 
     }
     
-    public void retractWristPID() {
+    public void retractshoulderPID() {
         
         if(PIDEnabled) {
             tilt(-1.0);
             System.out.println("RetractPidenabled"); 
         }else {
-           double wristValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
-           double staticWristValue = 0.0;
+           double shoulderValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
+           double staticshoulderValue = 0.0;
            
-            if (wristValue < -0.65)
+            if (shoulderValue < -0.65)
             {
-                staticWristValue = -0.1;
+                staticshoulderValue = -0.1;
             }
 //            else
 //            {
-//                staticWristValue = 0.0;
+//                staticshoulderValue = 0.0;
 //            }
-            wristTalon.set(ControlMode.PercentOutput, wristValue); 
-            SmartDashboard.putNumber("Retracting", wristValue);
-            SmartDashboard.putNumber("RetractingStatic", staticWristValue);
+            shoulderTalon.set(ControlMode.PercentOutput, shoulderValue); 
+            SmartDashboard.putNumber("Retracting", shoulderValue);
+            SmartDashboard.putNumber("RetractingStatic", staticshoulderValue);
             
             //System.out.println("RetractPidNOTenabled"); 
         }
@@ -227,7 +227,7 @@ public class IntakeWrist
         intakeMaster.set(ControlMode.PercentOutput, 0.0);    
         
         if(!PIDEnabled) {
-            wristTalon.set(ControlMode.PercentOutput, 0.0);
+            shoulderTalon.set(ControlMode.PercentOutput, 0.0);
             SmartDashboard.putNumber("Retracting", 0.0);
             SmartDashboard.putNumber("RetractingStatic", 0.0);
             SmartDashboard.putNumber("Extending", 0.0);
@@ -244,7 +244,7 @@ public class IntakeWrist
            
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
            
-            wristTalon.set(ControlMode.PercentOutput, outputWanted);
+            shoulderTalon.set(ControlMode.PercentOutput, outputWanted);
             
         }  
         
@@ -252,17 +252,17 @@ public class IntakeWrist
     }
     
     public double getAngle() {
-       //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
-        double angle = -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
+       //System.out.println("INTAKE ANGLE:" + (-shoulderTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+        double angle = -shoulderTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
         
-        Logger.Log("IntakeWrist.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
+        Logger.Log("Intakeshoulder.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
         
         return angle;
     }
     
     public void resetEncoders(){
         
-        wristTalon.setSelectedSensorPosition(0,0,0);
+        shoulderTalon.setSelectedSensorPosition(0,0,0);
       
       }
     

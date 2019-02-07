@@ -103,7 +103,7 @@ public class CrusaderCommon {
 	public static final int ELEVATOR_SLAVE_SPX = 10;
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
-	public final static int INTAKE_WRIST = 7;
+	public final static int INTAKE_SHOULDER = 7;
 	public final static double INTAKE_TICK_TO_DEGREE = 9.55;
 	public final static double INTAKE_KP = 0.025;
 
@@ -113,7 +113,7 @@ public class CrusaderCommon {
 	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
 	public static final double ELEVATOR_FEED_FORWARD = 0.1;
 
-	public static final double INTAKE_WRIST_SPEED = 0.5;
+	public static final double INTAKE_SHOULDER_SPEED = 0.5;
 	public static final double INTAKE_SPEED = 0.5;//0.8;
 	public static final double INTAKE_SPEED_FAST = 0.95;
 	public static final double INTAKE_SPEED_SLOW = 0.3;
