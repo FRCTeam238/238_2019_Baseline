@@ -82,11 +82,11 @@ public class DashBoard238
         Shuffleboard.selectTab("TestSweet");
         testSelector.setName("Test Section");
         testTab = Shuffleboard.getTab("TestSweet");
-        testTab.add(testSelector);
+        testTab.add(testSelector).withSize(1,1).withPosition(0,0);
 
          //we "add" something to the test tab
          //then we call "getEntry" to get the networktables Entry for that element 
-         //and then "put" it in teh testSweetEntries Hashmap for future use
+         //and then "put" it in the testSweetEntries Hashmap for future use
         /* if the code was expanded it would look like this
         *   SimpleWidget theWidget = testTab.add(X,x);
         *   NetworkTabelEntry NTE = theWidget.getENtry(); 
@@ -94,12 +94,33 @@ public class DashBoard238
         */
         
         //DriveTrain test elements on the TestSweet tab in Shuffleboard
-        testSweetEntries.put(leftDriveTrainEncoder, testTab.add(leftDriveTrainEncoder, 0).getEntry());
-        testSweetEntries.put(rightDriveTrainEncoder, testTab.add(rightDriveTrainEncoder, 0).getEntry());
-        testSweetEntries.put(leftDriveTrainTolerance, testTab.add(leftDriveTrainTolerance, false).getEntry());
-        testSweetEntries.put(rightDriveTrainTolerance, testTab.add(rightDriveTrainTolerance, false).getEntry());
-        testSweetEntries.put(encoderDiffTolerance , testTab.add(encoderDiffTolerance, false).getEntry());
-        testSweetEntries.put(elapsedTime, testTab.add(elapsedTime, 0).getEntry());
+        SimpleWidget theWidget = testTab.add(leftDriveTrainEncoder, 0);
+        theWidget.getEntry();
+        testSweetEntries.put(leftDriveTrainEncoder, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(1, 0);
+
+        theWidget = testTab.add(rightDriveTrainEncoder, 0);
+        testSweetEntries.put(rightDriveTrainEncoder, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(1, 1);
+        
+        theWidget = testTab.add(leftDriveTrainTolerance, 0);
+        testSweetEntries.put(leftDriveTrainTolerance, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(2, 0);
+        
+        theWidget = testTab.add(rightDriveTrainTolerance, false);
+        testSweetEntries.put(rightDriveTrainTolerance, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(2, 1);
+        //testSweetEntries.put(rightDriveTrainTolerance, testTab.add(rightDriveTrainTolerance, false).getEntry());
+
+        theWidget = testTab.add(encoderDiffTolerance, false);
+        testSweetEntries.put(encoderDiffTolerance, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(3, 1);
+        //testSweetEntries.put(encoderDiffTolerance , testTab.add(encoderDiffTolerance, false).getEntry());
+
+        theWidget = testTab.add(elapsedTime, false);
+        testSweetEntries.put(elapsedTime, theWidget.getEntry());
+        theWidget.withSize(1, 1).withPosition(8, 0);
+        //testSweetEntries.put(elapsedTime, testTab.add(elapsedTime, 0).getEntry());
         testSweetEntries.put(driveTrainDone, testTab.add(driveTrainDone, false).getEntry());
         
         //elevator test elements on TestSweet tab in Shuffleboard
@@ -112,7 +133,7 @@ public class DashBoard238
         testSweetEntries.put(shoulderHeight, testTab.add(shoulderHeight, 0).getEntry());
        
         //needs to be refactored to use  testsweetentries 
-        elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+        elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE).withSize(1,1).withPosition(4, 4);
         elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
         elevatorTestInfo3 = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
        
@@ -155,6 +176,8 @@ public class DashBoard238
         testSweetEntries.get(encoderDiffTolerance).setBoolean(encoderDifferenceToleranceValue);
         testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
         testSweetEntries.get(driveTrainDone).setBoolean(true);
+
+
     }
     
     public void setTestElevatorIndicators(boolean value) {
@@ -202,11 +225,9 @@ public class DashBoard238
     public void putShoulderData(double shoulderAngle) {
 
         testSweetEntries.get(shoulderHeight).setDouble(shoulderAngle);
-        
-        
+
         //testSweetEntries.get(shoulderHeight).setNumber();
-        
+
     }
-    
- 
+
 }
