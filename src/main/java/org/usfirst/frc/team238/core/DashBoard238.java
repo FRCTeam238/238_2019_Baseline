@@ -93,12 +93,14 @@ public class DashBoard238
         *   testSweetEntries.put(X,NTE);
         */
         
-        //DriveTrain test elements on the TestSweet tab in Shuffleboard
-        SimpleWidget theWidget = testTab.add(leftDriveTrainEncoder, 0);
-        theWidget.getEntry();
-        testSweetEntries.put(leftDriveTrainEncoder, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(1, 0);
+        buildElement(leftDriveTrainEncoder, 0, 1, 1, 1, 0);
 
+         SimpleWidget theWidget = testTab.add(leftDriveTrainEncoder, 0);
+        // theWidget.getEntry();
+        // testSweetEntries.put(leftDriveTrainEncoder, theWidget.getEntry());
+        // theWidget.withSize(1, 1).withPosition(1, 0);
+
+       
         theWidget = testTab.add(rightDriveTrainEncoder, 0);
         testSweetEntries.put(rightDriveTrainEncoder, theWidget.getEntry());
         theWidget.withSize(1, 1).withPosition(1, 1);
@@ -107,9 +109,10 @@ public class DashBoard238
         testSweetEntries.put(leftDriveTrainTolerance, theWidget.getEntry());
         theWidget.withSize(1, 1).withPosition(2, 0);
         
-        theWidget = testTab.add(rightDriveTrainTolerance, false);
-        testSweetEntries.put(rightDriveTrainTolerance, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(2, 1);
+        buildElement(rightDriveTrainTolerance, false, 1, 1, 2, 1);
+        // theWidget = testTab.add(rightDriveTrainTolerance, false);
+        // testSweetEntries.put(rightDriveTrainTolerance, theWidget.getEntry());
+        // theWidget.withSize(1, 1).withPosition(2, 1);
         //testSweetEntries.put(rightDriveTrainTolerance, testTab.add(rightDriveTrainTolerance, false).getEntry());
 
         theWidget = testTab.add(encoderDiffTolerance, false);
@@ -139,6 +142,19 @@ public class DashBoard238
        
     }
     
+    void   buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY)
+    {
+        SimpleWidget theWidget = testTab.add(elementName, value);
+        testSweetEntries.put(elementName, theWidget.getEntry());
+        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
+
+    void   buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY)
+    {
+        SimpleWidget theWidget = testTab.add(elementName, value);
+        testSweetEntries.put(elementName, theWidget.getEntry());
+        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
     public String getSelectedTest() {
 
        return testSelector.getSelected();

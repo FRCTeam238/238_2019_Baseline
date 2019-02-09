@@ -75,7 +75,7 @@ public class CommandTurn extends AbstractCommand {
     
     calculatedValue = Math.min(motorValue, Math.max(calculatedValue, -motorValue));
     myRobotDrive.turnRight(calculatedValue, calculatedValue);
-    System.out.println("CVALUE:" + calculatedValue);
+    //System.out.println("CVALUE:" + calculatedValue);
     myNavigation.navxValues();
     
     Logger.Log("CommandTurnRight(): Our yaw = "+yaw);
