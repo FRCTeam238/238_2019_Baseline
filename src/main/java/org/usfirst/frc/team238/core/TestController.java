@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
-import org.usfirst.frc.team238.robot.TestSweet238;
 import org.usfirst.frc.team238.testSteps.TestElevator;
 import org.usfirst.frc.team238.testSteps.TestStepDriveTrainEncoders;
 import org.usfirst.frc.team238.testSteps.TestStepFinished;

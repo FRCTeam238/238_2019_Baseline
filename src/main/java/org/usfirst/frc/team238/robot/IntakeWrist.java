@@ -255,7 +255,7 @@ public class IntakeWrist
        //System.out.println("INTAKE ANGLE:" + (-wristTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
         double angle = -wristTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
         
-        Logger.Log("IntakeWrist.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
+        //Logger.Log("IntakeWrist.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
         
         return angle;
     }

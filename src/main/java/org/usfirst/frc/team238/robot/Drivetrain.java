@@ -216,8 +216,8 @@ public class Drivetrain
          * the joystick value is multiplied by a target RPM so the robot works
          * with the velocity tuning code
          */
-        leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
-        rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
+        leftFrontDrive.set(ControlMode.PercentOutput, leftMotorValue);
+        rightFrontDrive.set(ControlMode.PercentOutput, rightMotorValue);
         
         // Logger.Log("LEFT ENCODER === " +
         // leftFrontDrive.getSelectedSensorPosition(0));

@@ -3,7 +3,6 @@ package org.usfirst.frc.team238.testSteps;
 import org.usfirst.frc.team238.core.TestStep;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.robot.TestSweet238;
 import org.usfirst.frc.team238.core.EncoderValues;
 import org.usfirst.frc.team238.core.Logger;
 
@@ -13,7 +12,6 @@ public class TestStepDriveTrainEncoders implements TestStep {
 
   
   String            parameters[];
-  TestSweet238 theSuiteOfTests;
     boolean done = false;
     private Robot myRobot;
     private long startTime;
@@ -30,7 +28,7 @@ public class TestStepDriveTrainEncoders implements TestStep {
 
   @Override
   public void prepare() {
-    theSuiteOfTests.myRobot.myDriveTrain.resetEncoders();
+    myRobot.myDriveTrain.resetEncoders();
 
   }
 

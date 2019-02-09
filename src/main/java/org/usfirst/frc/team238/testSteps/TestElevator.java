@@ -11,10 +11,6 @@ import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TestStep;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.robot.TestSweet238;
-import org.usfirst.frc.team238.core.DashBoard238;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * Add your docs here.
@@ -22,7 +18,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class TestElevator implements TestStep {
 
   String[] parameters;
-  TestSweet238 theSuiteOfTests;
   boolean done = false;
   double elevatorSetpoint;
   int counter = 0;

@@ -1,7 +1,6 @@
 package org.usfirst.frc.team238.testSteps;
 
 import org.usfirst.frc.team238.core.TestStep;
-import org.usfirst.frc.team238.robot.TestSweet238;
 
 import org.usfirst.frc.team238.core.Logger;
 

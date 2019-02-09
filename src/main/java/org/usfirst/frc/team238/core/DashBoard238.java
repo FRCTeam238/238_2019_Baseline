@@ -19,7 +19,8 @@ public class DashBoard238
     Robot myRobot;
     private SendableChooser<String> aModeSelector;
     private SendableChooser<String> testSelector;
-    private String robotPosition;
+    private SendableChooser<String> positionSelector;
+    public SimpleWidget robotPosition;
     ShuffleboardTab testTab;
     public SimpleWidget elevatorTestInfo1;
     public SimpleWidget elevatorTestInfo2;
@@ -52,26 +53,38 @@ public class DashBoard238
     
     public void init()
     {
+        Logger.Log("DashBoard238.init() Start");
         testSweetEntries = new  HashMap<String,NetworkTableEntry>();
         
-        SmartDashboard.putString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
-
-        //autonmous mode selector ie dropdown selection
+        positionSelector = new SendableChooser<String>();
+        positionSelector.setDefaultOption("ProgrammingStation", "ProgrammingStation");
+        positionSelector.addOption("Left", "Left");
+        positionSelector.addOption("Center", "Center");
+        positionSelector.addOption("Right", "Right");
+        SmartDashboard.putData("Robot Position", positionSelector);
+        
         aModeSelector = new SendableChooser<String>();
-        aModeSelector.addOption("CargoShip 1", "CargoShip 1");
-        aModeSelector.addOption("CargoShip 2", "CargoShip 1");
-        aModeSelector.addOption("CargoShip 3", "CargoShip 2");
-        aModeSelector.addOption("CargoShip 4", "CargoShip 3");
-        aModeSelector.addOption("CargoShip 5", "CargoShip 4");
-        aModeSelector.addOption("CargoShip 6", "CargoShip 5");
+        aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
+        aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
+        aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
+        aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
+        aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
+        aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
+        aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
+        aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
+        aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
+        aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
+        aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
+        aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
+        aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
+        aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
         SmartDashboard.putData("AuTo", aModeSelector);
-
-        robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION, "C");
-
+        Logger.Log("DashBoard238.init() After aMode");
+        
         testSelector = new SendableChooser<String>();
 
         //Send able Chooser for the state update function
-        testSelector.addOption("Stop Test", "Stop Test");
+        testSelector.setDefaultOption("Stop Test", "Stop Test");
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
         testSelector.addOption("Elevator Test", "Elevator Test");
         testSelector.addOption("Elevator Test2", "Elevator Test2");
@@ -94,52 +107,27 @@ public class DashBoard238
         */
         
         buildElement(leftDriveTrainEncoder, 0, 1, 1, 1, 0);
-
-         SimpleWidget theWidget = testTab.add(leftDriveTrainEncoder, 0);
-        // theWidget.getEntry();
-        // testSweetEntries.put(leftDriveTrainEncoder, theWidget.getEntry());
-        // theWidget.withSize(1, 1).withPosition(1, 0);
-
-       
-        theWidget = testTab.add(rightDriveTrainEncoder, 0);
-        testSweetEntries.put(rightDriveTrainEncoder, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(1, 1);
-        
-        theWidget = testTab.add(leftDriveTrainTolerance, 0);
-        testSweetEntries.put(leftDriveTrainTolerance, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(2, 0);
-        
+        buildElement(rightDriveTrainEncoder, 0, 1, 1, 1, 1);
+        buildElement(leftDriveTrainTolerance, false, 1, 1, 2, 0);
         buildElement(rightDriveTrainTolerance, false, 1, 1, 2, 1);
-        // theWidget = testTab.add(rightDriveTrainTolerance, false);
-        // testSweetEntries.put(rightDriveTrainTolerance, theWidget.getEntry());
-        // theWidget.withSize(1, 1).withPosition(2, 1);
-        //testSweetEntries.put(rightDriveTrainTolerance, testTab.add(rightDriveTrainTolerance, false).getEntry());
-
-        theWidget = testTab.add(encoderDiffTolerance, false);
-        testSweetEntries.put(encoderDiffTolerance, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(3, 1);
-        //testSweetEntries.put(encoderDiffTolerance , testTab.add(encoderDiffTolerance, false).getEntry());
-
-        theWidget = testTab.add(elapsedTime, false);
-        testSweetEntries.put(elapsedTime, theWidget.getEntry());
-        theWidget.withSize(1, 1).withPosition(8, 0);
-        //testSweetEntries.put(elapsedTime, testTab.add(elapsedTime, 0).getEntry());
-        testSweetEntries.put(driveTrainDone, testTab.add(driveTrainDone, false).getEntry());
-        
+        buildElement(encoderDiffTolerance, false, 1, 1, 3, 1);
+        //buildElement(elapsedTime, false, 1, 1, 8, 0);
+        buildElement(driveTrainDone, false, 1, 1, 3, 0);
+       
         //elevator test elements on TestSweet tab in Shuffleboard
-        testSweetEntries.put(elevatorHeight,testTab.add(elevatorHeight, 0).getEntry());
-        testSweetEntries.put(elevatorTolerance,testTab.add(elevatorTolerance, false).getEntry());
-        testSweetEntries.put(elevatorDone,testTab.add(elevatorDone, false).getEntry());
+        buildElement(elevatorHeight, 0, 1, 1, 1, 2);
+        buildElement(elevatorTolerance, false, 1, 1, 2, 2);
+        buildElement(elevatorDone, false, 1, 1, 3, 2);
         
         //shoulder test elements on TestSweet tab in Shuffleboard
-        testSweetEntries.put(shoulderTarget,testTab.add(shoulderTarget, 0).getEntry());
-        testSweetEntries.put(shoulderHeight, testTab.add(shoulderHeight, 0).getEntry());
+        buildElement(shoulderTarget, 0, 1, 1, 5, 0);
+        buildElement(shoulderHeight, 0, 1, 1, 5, 1);
        
         //needs to be refactored to use  testsweetentries 
-        elevatorTestInfo1 = testTab.add("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE).withSize(1,1).withPosition(4, 4);
-        elevatorTestInfo2 = testTab.add("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO);
-        elevatorTestInfo3 = testTab.add("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE);
-       
+        buildElement("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE, 1, 1, 1, 3);
+        buildElement("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO, 1, 1, 2, 3);
+        buildElement("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE, 1, 1, 3, 3);
+        Logger.Log("DashBoard238.init() end");
     }
     
     void   buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY)
@@ -155,6 +143,14 @@ public class DashBoard238
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
+
+    void   buildElement(String elementName, Double value, int sizeX, int sizeY, int posX, int posY)
+    {
+        SimpleWidget theWidget = testTab.add(elementName, value);
+        testSweetEntries.put(elementName, theWidget.getEntry());
+        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
+
     public String getSelectedTest() {
 
        return testSelector.getSelected();
@@ -164,8 +160,7 @@ public class DashBoard238
     public String getRobotPosition()
     {
 
-        return robotPosition;
-
+        return positionSelector.getSelected();
     }
     
     
@@ -174,11 +169,24 @@ public class DashBoard238
 
         return aModeSelector;
     }
+
+    public String getSelectedAutonomousMode()
+    {
+        String selectedAutoMode = aModeSelector.getSelected();
+        Logger.Log("DashBoard238.getSelectedAutonomousMode(): Automode = " + selectedAutoMode);
+        return selectedAutoMode;
+    }
     
     public SendableChooser<String> getTestSelector()
     {
-      
+
         return testSelector;
+    }
+    
+    public void putAutoMode() {
+        
+
+
     }
 
     public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
@@ -190,7 +198,7 @@ public class DashBoard238
         testSweetEntries.get(leftDriveTrainTolerance).setBoolean(leftDrivetrainToleranceValue);
         testSweetEntries.get(rightDriveTrainTolerance).setBoolean(rightDrivetrainToleranceValue);
         testSweetEntries.get(encoderDiffTolerance).setBoolean(encoderDifferenceToleranceValue);
-        testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
+        //testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
         testSweetEntries.get(driveTrainDone).setBoolean(true);
 
 

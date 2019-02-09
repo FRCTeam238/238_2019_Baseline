@@ -80,7 +80,6 @@ public class Robot extends TimedRobot
 	TestController myTestController;
 
 	public TestCoreObject myTestCoreObject;
-	public TestSweet238 myTestSweet238;
 
 	//There shouldn't be two of these
 	Alliance myAllianceTeam;
@@ -98,7 +97,9 @@ public class Robot extends TimedRobot
 	
 	String robotPosition;
 
-	private TestCmdFactory myTestCmdFactory;
+    private TestCmdFactory myTestCmdFactory;
+
+    Boolean FailedInitilization = false;
 
 	public void disabledInit() 
 	{
@@ -116,29 +117,34 @@ public class Robot extends TimedRobot
 	
 	public void disabledPeriodic() 
 	{
-		//boolean debug;
+        if (FailedInitilization)
+        {
+            return;
+        }
+        
 		try 
 		{
 			if (count > 150) 
-			{
+            {
 
-			    boolean playBook = SmartDashboard.getBoolean("PlayBook", true);
-			    if (playBook == true) {
-			        SmartDashboard.putString("P or S", "Primary");
-			    }
-			    else {
-			        SmartDashboard.putString("P or S", "Secondary");
-			    }
+                //String selectedTest = myDashBoard238.getString(aModeSelector, "Cargo Center Left");   
+                String selectedTest = myDashBoard238.getSelectedAutonomousMode();
+                //boolean playBook = SmartDashboard.getBoolean("PlayBook", true);
+			    // if (playBook == true) {
+			    //     SmartDashboard.putString("P or S", "Primary");
+			    // }
+			    // else {
+			    //     SmartDashboard.putString("P or S", "Secondary");
+			    // }
 				count = 0;
-
-				myDriveTrain.resetEncoders();
+                myDriveTrain.resetEncoders();
 				
 				
 				//int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
 	            //Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
 	            //theMACP.pickAMode(automousModeFromDS);
 				//myAutonomousDataHandler.dump();
-				theMACP.dumpPlays();
+				//theMACP.dumpPlays();
 				//autoModeUpdateAndRead();
 				//SmartDashboard.putNumber("DisPer Amode", automousModeFromDS);
 				
@@ -172,27 +178,26 @@ public class Robot extends TimedRobot
 			myRobot = Robot.this; 
 			
 			initSmartDashboardObjects();
-			if (robotPosition.equals("C"))
-			{
-			    initTalonsProgrammingStation();			  
-			}
-			else 
-			{
+			// if (robotPosition.equals("ProgrammingStation"))
+			// {
+			//     initTalonsProgrammingStation();			  
+			// }
+			// else 
+			// {
 			    initTalons();
-			}
+			//}
 			
-			initTalons();
 			initRobotObjects();
 			initCoreObjects();
 
 			Logger.Log("Robot(): robotInit(): Fully Initialized");
 			
-			myTestSweet238 = new TestSweet238(myRobot);
 		} 
 		catch (Exception ex) 
 		{
 		  ex.printStackTrace();
-			Logger.Log("Robot(): robotInit() Exception : "+ex);
+            Logger.Log("Robot(): robotInit() Exception : " + ex);
+            
 		}
 	}
 	
@@ -217,7 +222,7 @@ public class Robot extends TimedRobot
        
         rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
         leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
-        Logger.Log("initTalons Is Sucessful!");
+        Logger.Log("Programming initTalons Is Sucessful!");
     }
 	/**
 	 * Initializes Talons
@@ -272,11 +277,11 @@ public class Robot extends TimedRobot
 		
 		myDriveTrain.resetEncoders();
 
-		myElevator = new Elevator();
-        myElevator.init();
+		// myElevator = new Elevator();
+        // myElevator.init();
         
-        myShoulder = new Shoulder();
-        myShoulder.init();
+        // myShoulder = new Shoulder();
+        // myShoulder.init();
 
 		//myTestCoreObject = new TestCoreObject();
 		//myTestCoreObject.initTestCoreObject();
@@ -292,24 +297,25 @@ public class Robot extends TimedRobot
 		myLogger = new Logger();
 		theMCP = new CommandController();
 		
-		ArrayList<Trajectory> trajectories = new ArrayList<>();
-		trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
-		HashMap<String, Runnable> markers = new HashMap<>();
-		theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
-		theMCP.init(myRobot);
+		// ArrayList<Trajectory> trajectories = new ArrayList<>();
+		// trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
+		// HashMap<String, Runnable> markers = new HashMap<>();
+        // theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
+        
+        theMCP.init(myRobot);
 		
 		
 		//The handler that handles everything JSON related 
 		myAutonomousDataHandler = new AutonomousDataHandler();
 		
 	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
-		myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
+	//	myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
 		
 		//Controller Object for autonomous
 		theMACP = new AutonomousController(); 
 		
 		//Gives the newly read JSON data to the AutonomousController for processing
-		theMACP.setAutonomousControllerData(myAutonomousDataHandler);
+	//	theMACP.setAutonomousControllerData(myAutonomousDataHandler);
 		
 		Logger.Log("initCoreObjects Is Sucessful!");	
 	}

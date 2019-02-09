@@ -252,10 +252,10 @@ public class Shoulder
     }
     
     public double getAngle() {
-       //System.out.println("INTAKE ANGLE:" + (-shoulderTalon.getSelectedSensorPosition(0) / CrusaderCommon.INTAKE_TICK_TO_DEGREE) + "      SETPOINT" + setpoint + "       ERROR:" + currentError);
+       
         double angle = -shoulderTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
         
-        Logger.Log("Intakeshoulder.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
+        //Logger.Log("Intakeshoulder.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
         
         return angle;
     }

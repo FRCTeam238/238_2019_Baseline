@@ -51,25 +51,25 @@ public class AutonomousCmdFactory {
 		cmd = new CommandDelay(myRobot);
 		autonomousCommands.put("CommandDelay", cmd);
 		
-		cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, goStraight.objects );
-		autonomousCommands.put("CommandRunGoStraightTrajectory", cmd);
+		//cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, goStraight.objects );
+		//autonomousCommands.put("CommandRunGoStraightTrajectory", cmd);
     
-		cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,leftSwitch.objects );
-        autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
+		// cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,leftSwitch.objects );
+        // autonomousCommands.put("CommandRunLeftSwitchTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,rightSwitch.objects );
-        autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,rightSwitch.objects );
+        // autonomousCommands.put("CommandRunRightSwitchTrajectory", cmd);
         
        
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
-        autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
+        // autonomousCommands.put("CommandRunLeftScaleTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
-        autonomousCommands.put("CommandRunScaleLeftOppositeSideTrajectory", cmd);
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
+        // autonomousCommands.put("CommandRunScaleLeftOppositeSideTrajectory", cmd);
    
-        //change objects to right lalaprofile
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
-        autonomousCommands.put("CommandRunScaleRightOppositeSideTrajectory", cmd);
+        // //change objects to right lalaprofile
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain, myRobot.myNavigation, ScaleLeftOppositeSide.objects );
+        // autonomousCommands.put("CommandRunScaleRightOppositeSideTrajectory", cmd);
         
         cmd = new CommandAutonLine(myRobot);
         autonomousCommands.put("CommandAutonLine", cmd);
@@ -83,11 +83,11 @@ public class AutonomousCmdFactory {
         cmd = new CommandTurn(myRobot);
         autonomousCommands.put("CommandTurn", cmd);
         
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndLeft.objects );
-        autonomousCommands.put("CommandRunSwitchEndLeftTrajectory", cmd);
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndLeft.objects );
+        // autonomousCommands.put("CommandRunSwitchEndLeftTrajectory", cmd);
         
-        cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndRight.objects );
-        autonomousCommands.put("CommandRunSwitchEndRightTrajectory", cmd);
+        // cmd = new CommandRunTrajectory(myRobot.myDriveTrain,  myRobot.myNavigation,SwitchEndRight.objects );
+        // autonomousCommands.put("CommandRunSwitchEndRightTrajectory", cmd);
         
         cmd = new CommandTimeDriveFwd(myRobot);
         autonomousCommands.put("CommandTimeDriveFwd", cmd);
