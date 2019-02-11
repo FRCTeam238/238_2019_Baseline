@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
+import org.usfirst.frc.team238.robot.Robot;
 
 /**
  * The goal of this is to be able to read the amodeJSON file for it's data, 
@@ -35,34 +36,50 @@ public class AutonomousDataHandler implements AutonomousState{
 	//Holds all of the commands in each autonomousMode in order
 	ArrayList<AutonomousState>[] autonomousModeCommandList;
 	HashMap<String,ArrayList<AutonomousState>> autonomousModeCommandList2;
-	//Holds the names for each autonomousMode
+    
+    //Holds the names for each autonomousMode
 	ArrayList<String> autonomousModeNames;
 	
 	HashMap<String,Integer> amodeNameToIndex;
 	//Put's out all the autonomousModes for the user to choose from
 	SendableChooser<String> aModeChooser; 
 	
-	
+    //Constructor
+    public AutonomousDataHandler(Robot myRobot){
+      
+            readJson(myRobot);
+            readJson2(myRobot);
+    }
+
 	/**
 	 * @return Returns an array of Arraylists that includes the autonomousStates in order. With the index being the AutoModes 'ID' 
 	 */
 	public ArrayList<AutonomousState>[] getAutonomousModeCommandList(){
 		return autonomousModeCommandList;
 	}
-	
+    
+    
+    /**
+	 * @return Returns an array of Arraylists that includes the autonomousStates in order. With the index being the AutoModes 'ID' 
+	 */
+	public HashMap<String, ArrayList<AutonomousState>> getAutonomousModeCommandList2019(){
+		return autonomousModeCommandList2;
+    }
+    
 	public HashMap<String,Integer> getNameIndex()
 	{
 		return amodeNameToIndex;
 	}
-	public Integer getModeSelectionFromDashboard(){
+    
+    // public Integer getModeSelectionFromDashboard(){
 	  
-	  int selection;
+	//   int selection;
 	  
-	  selection = (int) SmartDashboard.getNumber("Chosen Auto Mode", 0);
-	  //selection = Integer.parseInt(SmartDashboard.getString("Choosen Auto Mode","0"));
+	//   selection = (int) SmartDashboard.getNumber("Chosen Auto Mode", 0);
+	//   //selection = Integer.parseInt(SmartDashboard.getString("Choosen Auto Mode","0"));
 	  
-	  return selection;
-	}
+	//   return selection;
+	// }
 	
 	/**
 	 * @return An Integer on what AutoMode was selected on the Smartdashboard 
@@ -92,26 +109,18 @@ public class AutonomousDataHandler implements AutonomousState{
 //	}
 	
 	
-	/**
-	 * Starts up the JSONHandler
-	 * @param theMCP (The control scheme that's being used)
-	 */
-	public void init(CommandController theMCP, SendableChooser theAutoChooser)
-	{
-		aModeChooser = theAutoChooser;
-		readJson(theMCP);
-	}
 	
 	
 	/**
 	 * Test function for JSONHandler
 	 * @param theMCP (The control scheme that's being used)
 	 */
-	public void Test(CommandController theMCP){
-		try{
+	public void Test(Robot myRobot) {
+
+       try{
 		
 		//Reads the data, prints out the data, and saves it
-		readJson(theMCP);
+		readJson(myRobot);
 		dump();
 		save();
 		
@@ -131,7 +140,11 @@ public class AutonomousDataHandler implements AutonomousState{
 	 * @param theMCP: Uses theMCP to create new state objects
 	 */
 	@SuppressWarnings("unchecked")
-	public void readJson(CommandController theMCP) {
+	public void readJson(Robot myRobot) {
+
+        CommandController theMCP = myRobot.theMCP;
+       // DashBoard238 theDashBoard238 = myRobot.myDashBoard238;
+
 		try {
 			
 			//Something to read the JSON File
@@ -596,7 +609,9 @@ public class AutonomousDataHandler implements AutonomousState{
 	 * @param theMCP: Uses theMCP to create new state objects
 	 */
 	@SuppressWarnings("unchecked")
-	public void readJson2(CommandController theMCP) {
+	public void readJson2(Robot myRobot) {
+
+        CommandController theMCP = myRobot.theMCP;
 		try {
 			
 			//Something to read the JSON File
@@ -657,7 +672,7 @@ public class AutonomousDataHandler implements AutonomousState{
             	
             	//Start building the list of selectable Amodes on the dashboard
 				
-				aModeChooser.addOption(name,name);
+				//aModeChooser.addOption(name,name);
 				
            	
             	//RM SmartDashboard.putString("Amode "+aModeIndexCounter,name);

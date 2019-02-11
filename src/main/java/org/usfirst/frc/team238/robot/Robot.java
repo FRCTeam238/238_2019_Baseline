@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import java.util.HashMap;
 
 import org.usfirst.frc.team238.core.AutonomousController;
+import org.usfirst.frc.team238.core.AutonomousController2019;
 import org.usfirst.frc.team238.core.AutonomousDataHandler;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot
 	Robot myRobot;
 	Preferences myPreferences;
 	ControlBoard myControlBoard;
-	CommandController theMCP;
+	public CommandController theMCP;
 	public Navigation myNavigation;
 	public Drivetrain myDriveTrain;
 	DriverStation myDriverstation;
@@ -87,7 +88,7 @@ public class Robot extends TimedRobot
 	// Autonomous Mode Support
 	String autoMode;
 	
-	private AutonomousDataHandler myAutonomousDataHandler;
+	//private AutonomousDataHandler myAutonomousDataHandler;
 	private AutonomousController theMACP;
 	
 
@@ -100,6 +101,8 @@ public class Robot extends TimedRobot
     private TestCmdFactory myTestCmdFactory;
 
     Boolean FailedInitilization = false;
+
+    public AutonomousController2019 theMACP2019;
 
 	public void disabledInit() 
 	{
@@ -306,13 +309,14 @@ public class Robot extends TimedRobot
 		
 		
 		//The handler that handles everything JSON related 
-		myAutonomousDataHandler = new AutonomousDataHandler();
+		//myAutonomousDataHandler = new AutonomousDataHandler();
 		
 	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
 	//	myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
 		
 		//Controller Object for autonomous
-		theMACP = new AutonomousController(); 
+        theMACP = new AutonomousController(); 
+        theMACP2019= new AutonomousController2019(this); 
 		
 		//Gives the newly read JSON data to the AutonomousController for processing
 	//	theMACP.setAutonomousControllerData(myAutonomousDataHandler);
@@ -325,71 +329,21 @@ public class Robot extends TimedRobot
 	{
 	    myNavigation.resetNAVX();
 	    myDriveTrain.shiftLow();
-	    StringBuilder autoSelectionKey = null;
+	    String autoSelectionKey = myDashBoard238.getSelectedAutonomousMode();
 	    boolean failSafe = false;
 	    
-	    try 
-	    {
-	        Logger.Log("Robot(): AutononousInit()");
-
-	        autoSelectionKey = new StringBuilder();
-
-	        boolean autoPlaybook = SmartDashboard.getBoolean(CrusaderCommon.AUTO_PLAY_BOOK, true);
-	        if(autoPlaybook )
-	        {
-	            autoSelectionKey.append("primary_");
-	        }
-	        else
-	        {
-	            autoSelectionKey.append("secondary_");
-	        }
-
-	        String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "C");
-	        autoSelectionKey.append(robotPosition + "_");
-
-	        String gameData;
-	        gameData = DriverStation.getInstance().getGameSpecificMessage();
-	        SmartDashboard.putString("GameData", gameData);
-	        if(gameData != null && gameData.length() > 0)
-	        {
-	            autoSelectionKey.append(gameData, 0, 2);
-	        }
-	        else
-	        {
-	            failSafe = true;
-	        }
-	        Logger.Log("Robot(): AutonomousInit(): The 2018 chosen One =  " + autoSelectionKey.toString());
-	        
-	        SmartDashboard.putString("Auto 2018", autoSelectionKey.toString());
-	        /*
-	         * AT THIS POINT WE SHOULD HAVE SOMETHING LIKE 
-	         * 
-	         * Primary_L_LL as the lookup key
-	         * 
-	         * where 
-	         * Primary is the Play book
-	         * L is Field Position 
-	         * LL = Field Disposition
-	         */
-	        
-	    }
-	    catch (Exception ex) 
-	    {
-	        ex.printStackTrace();
-	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
-	    }
-	    
-
-
+	   
 	    try { 
 	        
 	        myDriveTrain.resetEncoders();
 	        
 	        if(!failSafe) {
-	            theMACP.pickAMode2018(autoSelectionKey.toString());
+                theMACP.pickAMode2018(autoSelectionKey);
+                theMACP2019.pickAMode(autoSelectionKey);
 	        }
 	        else {
-	            theMACP.pickAModeFaileSafe(); 
+                theMACP.pickAModeFaileSafe(); 
+                theMACP2019.pickAModeFaileSafe();
 	        }
 	       // theMACP.dumpLoadedStates(aModeSelector);
 
@@ -419,7 +373,8 @@ public class Robot extends TimedRobot
 			
 		try 
 		{
-			theMACP.process();
+            theMACP.process();
+            theMACP2019.process();
 			myNavigation.navxValues();
 
 		} 
@@ -544,76 +499,77 @@ public class Robot extends TimedRobot
 	
 	
 	
-	public void autoModeUpdateAndRead()
-	{
-		theMACP.setAutonomousControllerData(myAutonomousDataHandler);
+	// public void autoModeUpdateAndRead()
+	// {
+	// 	theMACP.setAutonomousControllerData(myAutonomousDataHandler);
 		
-		int autoModeSelection = myAutonomousDataHandler.getModeSelectionFromDashboard();
-		Logger.Log("Robot(): disabledPeriodic(): The chosen AutoMode =  " + String.valueOf(autoModeSelection));
+    //     String autoModeSelection = myDashBoard238.getSelectedAutonomousMode();
+    //     //    myAutonomousDataHandler.getModeSelectionFromDashboard();
+	// 	Logger.Log("Robot(): disabledPeriodic(): The chosen AutoMode =  " + autoModeSelection);
 	
-		//backups  in case sendable chooser disappear
-		boolean updateBackup_BecauseTheSendableChooserSucks = false;
-		boolean saveBackup_BecauseTheSendableChooserSucks = false;
-		boolean  readAmode238DotTxt = false;
+	// 	//backups  in case sendable chooser disappear
+	// 	boolean updateBackup_BecauseTheSendableChooserSucks = false;
+	// 	boolean saveBackup_BecauseTheSendableChooserSucks = false;
+	// 	boolean  readAmode238DotTxt = false;
 
-		//see if we need to modify the params on a state
-		String updateParams = (String) autonomousStateParamsUpdate.getSelected();
-		int update = Integer.parseInt(updateParams);
+	// 	//see if we need to modify the params on a state
+	// 	String updateParams = (String) autonomousStateParamsUpdate.getSelected();
+	// 	int update = Integer.parseInt(updateParams);
 		
-		if(updateParams == null)
-		{
-		  updateBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Update Params", false);
+	// 	if(updateParams == null)
+	// 	{
+	// 	  updateBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Update Params", false);
 		  
-		  if(updateBackup_BecauseTheSendableChooserSucks)
-		  {
-		    update = 1;
-		  }
-		}
+	// 	  if(updateBackup_BecauseTheSendableChooserSucks)
+	// 	  {
+	// 	    update = 1;
+	// 	  }
+	// 	}
 		
-		String saveParam = (String) autonomousSaveChooser.getSelected();
-		int save = 0;
-		if(saveParam == null)
-		{
-			saveBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Save to Amode238", false);
+	// 	String saveParam = (String) autonomousSaveChooser.getSelected();
+	// 	int save = 0;
+	// 	if(saveParam == null)
+	// 	{
+	// 		saveBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Save to Amode238", false);
         
-			if(saveBackup_BecauseTheSendableChooserSucks)
-	        {
-	          save = CrusaderCommon.AUTONOMOUS_SAVE;            
-	        }
+	// 		if(saveBackup_BecauseTheSendableChooserSucks)
+	//         {
+	//           save = CrusaderCommon.AUTONOMOUS_SAVE;            
+	//         }
   
-			readAmode238DotTxt = SmartDashboard.getBoolean("Read Amode238", false);
-			if(readAmode238DotTxt)
-			{
-			  save = CrusaderCommon.AUTONOMOUS_READ_FILE;
-			}
-		}
+	// 		readAmode238DotTxt = SmartDashboard.getBoolean("Read Amode238", false);
+	// 		if(readAmode238DotTxt)
+	// 		{
+	// 		  save = CrusaderCommon.AUTONOMOUS_READ_FILE;
+	// 		}
+	// 	}
 		
-		else
-		{
-		  save = Integer.parseInt(saveParam); 
-		}
+	// 	else
+	// 	{
+	// 	  save = Integer.parseInt(saveParam); 
+	// 	}
 		 
-		Logger.Log("Robot:DisablePeriodic: save = " + save);
+	// 	Logger.Log("Robot:DisablePeriodic: save = " + save);
 		
-		theMACP.pickAMode(autoModeSelection);		
+	// 	theMACP.pickAMode(autoModeSelection);		
 		
-		if(update == CrusaderCommon.AUTONOMOUS_UPDATE)
-		{
-			theMACP.updateStateParameters(autoModeSelection);
-		}
+	// 	if(update == CrusaderCommon.AUTONOMOUS_UPDATE)
+	// 	{
+	// 		theMACP.updateStateParameters(autoModeSelection);
+	// 	}
 		
-		if(save == CrusaderCommon.AUTONOMOUS_SAVE) 
-		{
-		  myAutonomousDataHandler.save();	
-		}	
+	// 	if(save == CrusaderCommon.AUTONOMOUS_SAVE) 
+	// 	{
+	// 	  myAutonomousDataHandler.save();	
+	// 	}	
 		
-		if(save == CrusaderCommon.AUTONOMOUS_READ_FILE)
-		{
-		  myAutonomousDataHandler.readJson(theMCP);
-		}
+	// 	if(save == CrusaderCommon.AUTONOMOUS_READ_FILE)
+	// 	{
+	// 	  myAutonomousDataHandler.readJson(theMCP);
+	// 	}
 		
-		myAutonomousDataHandler.dump();
+	// 	myAutonomousDataHandler.dump();
 		
-		//RM SmartDashboard.putString("Last Modified : ", myAutonomousDataHandler.getModificationDate());
-	}
+	// 	//RM SmartDashboard.putString("Last Modified : ", myAutonomousDataHandler.getModificationDate());
+	// }
 }

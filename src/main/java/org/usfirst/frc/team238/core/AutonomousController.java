@@ -31,8 +31,9 @@ public class AutonomousController implements AutonomousState{
 	 */
 	public void setAutonomousControllerData(AutonomousDataHandler myJsonHandler){
 		autonomousModeList = myJsonHandler.getAutonomousModeCommandList();
-		autonomousMapping = myJsonHandler.getNameIndex();
-		autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/play238.txt");
+        
+        //autonomousMapping = myJsonHandler.getNameIndex();
+		//autonomousPlayBooks = AutonomousPlay.readJson("/home/lvuser/play238.txt");
 	}
 	
 	/**
@@ -61,7 +62,12 @@ public class AutonomousController implements AutonomousState{
 		setState(steps.get(0));
 		index = 0;
 	}
-	
+    
+    
+    /**
+	 * Sets the array of steps to be processed during AutonomousMode
+	 * @param mode
+	 */
 	public void pickAModeFaileSafe() {
 	    int amodeIndex = autonomousMapping.get("Overline");
         
