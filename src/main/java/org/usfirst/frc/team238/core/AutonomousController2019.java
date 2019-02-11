@@ -154,6 +154,10 @@ public class AutonomousController2019 implements AutonomousState{
 		}
 	}
 
+    public void displayAutoModes(){
+
+        myAutonomousDataHandler.dump();
+    }
   
   @Override
   public void reset() {
