@@ -89,7 +89,7 @@ public class Robot extends TimedRobot
 	String autoMode;
 	
 	//private AutonomousDataHandler myAutonomousDataHandler;
-	private AutonomousController theMACP;
+	//private AutonomousController theMACP;
 	
 
 	SendableChooser<String> autonomousSaveChooser;
@@ -315,7 +315,7 @@ public class Robot extends TimedRobot
 	//	myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
 		
 		//Controller Object for autonomous
-        theMACP = new AutonomousController(); 
+        //theMACP = new AutonomousController(); 
         theMACP2019= new AutonomousController2019(this); 
 		
 		//Gives the newly read JSON data to the AutonomousController for processing
@@ -328,7 +328,7 @@ public class Robot extends TimedRobot
 	public void autonomousInit() 
 	{
 	    myNavigation.resetNAVX();
-	    myDriveTrain.shiftLow();
+	   // myDriveTrain.shiftLow();
 	    String autoSelectionKey = myDashBoard238.getSelectedAutonomousMode();
 	    boolean failSafe = false;
 	    
@@ -338,14 +338,14 @@ public class Robot extends TimedRobot
 	        myDriveTrain.resetEncoders();
 	        
 	        if(!failSafe) {
-                theMACP.pickAMode2018(autoSelectionKey);
+                //theMACP.pickAMode2018(autoSelectionKey);
                 theMACP2019.pickAMode(autoSelectionKey);
 	        }
 	        else {
-                theMACP.pickAModeFaileSafe(); 
+                //theMACP.pickAModeFaileSafe(); 
                 theMACP2019.pickAModeFaileSafe();
 	        }
-	       // theMACP.dumpLoadedStates(aModeSelector);
+	       // //theMACP.dumpLoadedStates(aModeSelector);
 
 	        myDriveTrain.getEncoderTicks();
 	        
@@ -373,7 +373,7 @@ public class Robot extends TimedRobot
 			
 		try 
 		{
-            theMACP.process();
+            //theMACP.process();
             theMACP2019.process();
 			myNavigation.navxValues();
 

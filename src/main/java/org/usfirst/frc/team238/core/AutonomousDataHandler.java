@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.Iterator;
 
 import java.text.SimpleDateFormat;
@@ -47,8 +48,10 @@ public class AutonomousDataHandler implements AutonomousState{
     //Constructor
     public AutonomousDataHandler(Robot myRobot){
       
-            readJson(myRobot);
+            //readJson(myRobot);
             readJson2(myRobot);
+            dump();
+
     }
 
 	/**
@@ -431,44 +434,48 @@ public class AutonomousDataHandler implements AutonomousState{
   public void dump(){
     int base = 0;
     int aModeSelection = (int) SmartDashboard.getNumber("Chosen Auto Mode",base);
-    int index = (int) SmartDashboard.getNumber("Select Auto State",base);
+    //int index = (int) SmartDashboard.getNumber("Select Auto State",base);
     int count = 0;
     String name;
     String statesList;
-    autonomousModeStates = autonomousModeCommandList[aModeSelection];
-    Iterator<AutonomousState> aModeIterator = autonomousModeStates.iterator();
+    //autonomousModeStates = autonomousModeCommandList[aModeSelection];
+    //Iterator<AutonomousState> aModeIterator = autonomousModeStates.iterator();
     
-    while(aModeIterator.hasNext()){
-      
-      //Outputs every state name to the dashboard
-      AutonomousState thisState = aModeIterator.next();
-      name =  thisState.getClass().getName();
-      name = name.substring(41);
-      statesList = "AutoStateList " + count + " ";
-      //RM SmartDashboard.putString( statesList, name);
-      Logger.Log("AutonomousDataHandler(): dump(): State Name" + name);
-    
-      //If this state was selected
-      if ( count == index){
-        
-        //Show params of the selected state
-        //RM SmartDashboard.putString("AutoStateName", name);
-        thisState.showParams();
 
+    Iterator<Entry<String, ArrayList<AutonomousState>>> autonomousModeIterator = autonomousModeCommandList2.entrySet().iterator();
+
+    
+    while(autonomousModeIterator.hasNext()){
+      
+        HashMap.Entry<String, ArrayList<AutonomousState>> pair = (HashMap.Entry<String, ArrayList<AutonomousState>>) autonomousModeIterator.next();
+
+        ArrayList<AutonomousState> aMode = pair.getValue();
+        Iterator<AutonomousState> aModeIterator = aMode.iterator();
+        while(aModeIterator.hasNext()){
+
+        
+            //Outputs every state name to the dashboard
+            AutonomousState thisState = aModeIterator.next();
+            name =  thisState.getClass().getName();
+            name = name.substring(41);
+            statesList = "AutoStateList " + count + " ";
+            //RM SmartDashboard.putString( statesList, name);
+            Logger.Log("AutonomousDataHandler(): dump(): State Name" + name);
+    
+            //If this state was selected
+            // if ( count == index){
+                
+            //     //Show params of the selected state
+            //     //RM SmartDashboard.putString("AutoStateName", name);
+            //     thisState.showParams();
+            // }
+        }
       }
       
       count++;
     }
 
-    //Kinda confused on what this is specifically used for - It clears out the rest of the autostatelist entries on teh DB
-    while(count < 12){ 
-      
-      statesList = "AutoStateList " + count + " ";
-      //RM SmartDashboard.putString( statesList, " ");
-      count++;
-      
-    }
-  }
+
 
 	/*
 	 * Goes through each AutonomousMode and prints out each state and it's parameters
@@ -637,7 +644,7 @@ public class AutonomousDataHandler implements AutonomousState{
 			
 			//Get's the number of modes
 			int numModes = autonomousModes.size();
-			Logger.Log("AutonomousDataHandler(): readJson(): Number of detected modes: " + numModes);
+			Logger.Log("AutonomousDataHandler(): readJson2(): Number of detected modes: " + numModes);
 			
 			//create a list of commandsteps for each mode
 			autonomousModeCommandList2 = new HashMap<String, ArrayList<AutonomousState>>(numModes);
@@ -663,7 +670,7 @@ public class AutonomousDataHandler implements AutonomousState{
 				//Gets the name of the autonomousMode
             	JSONObject autoModeX = aModeIterator.next();
             	String name = (String) autoModeX.get("Name");
-            	Logger.Log("AutonomousDataHandler(): readJson(): Autonomous Mode Name: " + name);
+            	Logger.Log("AutonomousDataHandler(): readJson2(): Autonomous Mode Name: " + name);
             	
             	//Add the name of this mode to the arrayList
             	//autonomousModeNames.add(name);
@@ -689,9 +696,9 @@ public class AutonomousDataHandler implements AutonomousState{
             		
             		//Debug stuff
             		String cmdName = (String) aCommand.get("Name");
-            		Logger.Log("AutonomousDataHandler(): readJson(): 	Command Name = " + cmdName);
+            		Logger.Log("AutonomousDataHandler(): readJson2(): 	Command Name = " + cmdName);
             		String cmdClass = classPath + cmdName; 
-            		Logger.Log("AutonomousDataHandler(): readJson(): 	Class = " + cmdClass);
+            		Logger.Log("AutonomousDataHandler(): readJson2(): 	Class = " + cmdClass);
 
             		//Gets the array of params in the command
             		JSONArray paramArrayList = (JSONArray) aCommand.get("Parameters");
@@ -704,7 +711,7 @@ public class AutonomousDataHandler implements AutonomousState{
             		int i = 0;
             		while (paramIterator.hasNext()) {
             			params[i++] = (String) paramIterator.next();
-            			Logger.Log("AutonomousDataHandler(): readJson():    	Param:" + i + " = " + params[i -1]);
+            			Logger.Log("AutonomousDataHandler(): readJson2():    	Param:" + i + " = " + params[i -1]);
             		}
             		
             		try 

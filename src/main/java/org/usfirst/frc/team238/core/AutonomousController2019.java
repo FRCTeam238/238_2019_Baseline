@@ -29,6 +29,7 @@ public class AutonomousController2019 implements AutonomousState{
         
         myAutonomousDataHandler = new AutonomousDataHandler(myRobot);
         autonomousModeList = myAutonomousDataHandler.getAutonomousModeCommandList2019();
+        myAutonomousDataHandler.dump();
     }
 
 	/**
@@ -47,11 +48,17 @@ public class AutonomousController2019 implements AutonomousState{
 	
 	public void pickAMode(String mode){
         steps = autonomousModeList.get(mode);
+       
+        if( steps != null){
+            aModeIterator = steps.iterator();
+            AutonomousState thisState = aModeIterator.next();
+            setState(thisState);
+        }
+        else
+        {
+            Logger.Log("AutonomousController(): pickAmode: no auto mode");
+        }
         
-        aModeIterator = steps.iterator();
-        AutonomousState thisState = aModeIterator.next();
-        setState(thisState);
-       // index = 0;
 	}
 	
 	
@@ -81,13 +88,21 @@ public class AutonomousController2019 implements AutonomousState{
 	 */
 	public void process() { 
 		
-		this.currentState.process();
-		
-		if(this.currentState.done() == true){
-			
-			setState(getNextState());
-		}
+        if(this.currentState != null){
+            
+            this.currentState.process();
+            
+            if(this.currentState.done() == true){
+                
+                setState(getNextState());
+            }
 
+            Logger.Log("AutonomousController2019.process(): State: " + currentState);
+        }
+        else{
+
+            Logger.Log("AutonomousController2019.process():no matching auto mode to selction");
+        }
 	}
 
 	/**
@@ -97,7 +112,7 @@ public class AutonomousController2019 implements AutonomousState{
 	private AutonomousState getNextState(){
 	
         AutonomousState nextState = aModeIterator.next();
-		Logger.Log("AutonomousController(): getNextState():  " + nextState.getClass().getName() );
+		Logger.Log("AutonomousController2019.getNextState():  " + nextState.getClass().getName() );
     
         return(nextState);
 	}
@@ -113,13 +128,13 @@ public class AutonomousController2019 implements AutonomousState{
 			
 			AutonomousState thisState = aModeIterator.next();
 			
-			Logger.Log("AutonomousController(): Dump Loaded States():" + thisState.getClass().getName());
+			Logger.Log("AutonomousController2019.Dump Loaded States():" + thisState.getClass().getName());
 			
 			//aModeSelector.addObject(thisState.getClass().getName(), count.toString());
 			count++;	  
 		}
 		
-		SmartDashboard.putData("Sel Auto States", aModeSelector);
+		//SmartDashboard.putData("Sel Auto States", aModeSelector);
 	}
 	/**
 	 * This cycles through every state until it gets to the selected state to be changed.
