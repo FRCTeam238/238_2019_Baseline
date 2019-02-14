@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team238.core.Logger;
+
 public class AutonLineRunnable implements Runnable {
     
     double angle, topSpeed, distance;
@@ -46,9 +48,9 @@ public class AutonLineRunnable implements Runnable {
         double initialPosR = driveTrain.rightDistanceTravelled();
         double distanceTravelled =0;
        
-        System.out.println("INITIAL POSL:" + initialPosL + "  INITIALPOSR:" + initialPosR + "DISTANCE" + distance);
+        Logger.Log("INITIAL POSL:" + initialPosL + "  INITIALPOSR:" + initialPosR + "DISTANCE" + distance);
         
-        boolean backwards = distance<0;
+        boolean backwards = distance < 0;
         
         double currentVelocity = 0;
         double lastVelocity =0;
@@ -63,7 +65,7 @@ public class AutonLineRunnable implements Runnable {
             
             distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL); 
             //+         driveTrain.rightDistanceTravelled() - initialPosR) / 2;
-            System.out.println("DISTANCETRAVELLED:" + distanceTravelled);
+            Logger.Log("DISTANCETRAVELLED:" + distanceTravelled);
             //remainingdistance
             if(Math.abs(distance) - distanceTravelled<=distanceNeededToStop){
                 deAccelerate=true;
@@ -75,26 +77,26 @@ public class AutonLineRunnable implements Runnable {
                 currentAccel = -acceleration;
             }else{
                 currentVelocity += (delT/1000) * acceleration;
-                currentAccel=acceleration;
+                currentAccel = acceleration;
             }
             currentVelocity = Math.max(Math.min(topSpeed, currentVelocity), -topSpeed);
-           // System.out.println("currentV:" + currentVelocity);
-            System.out.println(deAccelerate);
-            //System.out.println(backwards);
+           // Logger.Log("currentV:" + currentVelocity);
+            Logger.Log("deAccelerate: " + deAccelerate);
+            //Logger.Log(backwards);
             
             double angleError = angle - navigation.getYaw() ;
             if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
                 angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 
             }
- 
+            
             double angleVelocityAddend = angleError * ANGLE_KP;
             angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
 
-            System.out.println("ANGLEADDEND:" + angleVelocityAddend);
+            Logger.Log("ANGLEADDEND:" + angleVelocityAddend);
             if(Math.abs(topSpeed - Math.abs(currentVelocity))<0.5) {
                 currentAccel=0;
             }
-            System.out.println("TIME:" + System.currentTimeMillis());
+            Logger.Log("TIME:" + System.currentTimeMillis());
             driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,currentAccel,currentAccel);
             
             if(backwards){
@@ -110,8 +112,9 @@ public class AutonLineRunnable implements Runnable {
             
             try
             {
-                long endProcessingTime = System.currentTimeMillis();
-                Thread.sleep((long) delT - (endProcessingTime - startProcessingTime));
+                //long endProcessingTime = System.currentTimeMillis();
+                //Thread.sleep((long) delT - (endProcessingTime - startProcessingTime));
+                Thread.sleep(100);
                 
             }
             catch (InterruptedException e)
