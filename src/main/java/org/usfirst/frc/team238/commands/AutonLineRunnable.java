@@ -11,11 +11,14 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
+import org.usfirst.frc.team238.core.TapeStatus;
 
 public class AutonLineRunnable implements Runnable {
     
     double angle, topSpeed, distance;
+    String navigationDevice;
     double rotateOutput;
     
     final double acceleration = 150; //  in/sec^2
@@ -26,19 +29,43 @@ public class AutonLineRunnable implements Runnable {
     Robot myRobot;
     Navigation navigation;
     Drivetrain driveTrain;
-    
+    DashBoard238 theDashboard;
     
     //EVERHING IS IN INCHESSSSSSS
-    public AutonLineRunnable(Robot myRobot, double distance, double topSpeed ){
+    public AutonLineRunnable(Robot myRobot, double distance, double topSpeed, String nav){
 
     	this.driveTrain = myRobot.myDriveTrain;
         this.navigation = myRobot.myNavigation;
-    
+        this.theDashboard = myRobot.myDashBoard238;
+        
         this.angle = this.navigation.getYaw();
         this.topSpeed=topSpeed;
         this.distance=distance;
+        this.navigationDevice = nav;
+        
        
     }
+
+    private double getYaw(){
+        double yaw;
+        
+        if( navigationDevice.equalsIgnoreCase("NAVBOARD")) {
+            yaw = navigation.getYaw();
+        }
+        else{
+            TapeStatus theTape = theDashboard.getTapeStatus();
+            if(theTape.detected == true){
+                yaw = theTape.yaw;
+            }
+            else{
+                yaw = navigation.getYaw();
+            }
+           
+
+        }
+        return yaw;
+    }
+
 
     public static final double delT = 50.0;
     public void run(){
