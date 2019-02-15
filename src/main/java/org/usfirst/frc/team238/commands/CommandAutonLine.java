@@ -15,7 +15,8 @@ public class CommandAutonLine extends AbstractCommand {
   Robot myRobot;
   
   double topSpeed, distance;
-  double rotateOutput;
+    double rotateOutput;
+    String navObject;
   
   AutonLineRunnable run;
   
@@ -60,10 +61,16 @@ public class CommandAutonLine extends AbstractCommand {
 
     if ((params[1] != null) || (!params[1].isEmpty())) {
       topSpeed = Double.parseDouble(params[1]);
-    } else {
-      topSpeed = 1;
-    }
-
+        } else {
+            topSpeed = 1;
+        }
+    
+    if ((params[2] != null) || (!params[2].isEmpty())) {
+            navObject = params[2];
+        } else {
+            navObject = "NAVBOARD";
+        }
+    // either the NAVBOARD or VISION
 
 
   }

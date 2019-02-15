@@ -8,6 +8,7 @@ import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -64,20 +65,20 @@ public class DashBoard238
         SmartDashboard.putData("Robot Position", positionSelector);
         
         aModeSelector = new SendableChooser<String>();
-        aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
-        aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
-        aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
-        aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
-        aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
-        aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
-        aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
-        aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
-        aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
-        aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
-        aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
-        aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
-        aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
-        aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
+        // aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
+        // aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
+        // aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
+        // aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
+        // aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
+        // aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
+        // aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
+        // aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
+        // aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
+        // aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
+        // aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
+        // aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
+        // aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
+        // aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
         SmartDashboard.putData("AuTo", aModeSelector);
         Logger.Log("DashBoard238.init() After aMode");
         
@@ -127,6 +128,13 @@ public class DashBoard238
         buildElement("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE, 1, 1, 1, 3);
         buildElement("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO, 1, 1, 2, 3);
         buildElement("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE, 1, 1, 3, 3);
+
+        testSweetEntries.put("tapeYaw",
+                NetworkTableInstance.getDefault().getTable("ChickenVision").getEntry("tapeYaw"));
+       
+        testSweetEntries.put("tapeDetected",
+                NetworkTableInstance.getDefault().getTable("ChickenVision").getEntry("tapeDetected"));
+                
         Logger.Log("DashBoard238.init() end");
     }
     
@@ -253,5 +261,23 @@ public class DashBoard238
         //testSweetEntries.get(shoulderHeight).setNumber();
 
     }
+
+    public void addAModeEntry(String name, String object) {
+
+        aModeSelector.addOption(name, object);
+
+    }
+
+    
+    public TapeStatus getTapeStatus() {
+        
+        double yaw = testSweetEntries.get("tapeYaw").getDouble(0);
+        boolean detected = testSweetEntries.get("tapeDetected").getBoolean(false);
+
+        return new TapeStatus(yaw, detected);
+    }
+
+
+        
 
 }

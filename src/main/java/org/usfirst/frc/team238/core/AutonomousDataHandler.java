@@ -23,6 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
+
+
 /**
  * The goal of this is to be able to read the amodeJSON file for it's data, 
  * and to be able to creates, edit, and even saves the data to a new JSON file.
@@ -616,7 +618,9 @@ public class AutonomousDataHandler implements AutonomousState{
 	 * @param theMCP: Uses theMCP to create new state objects
 	 */
 	@SuppressWarnings("unchecked")
-	public void readJson2(Robot myRobot) {
+    public void readJson2(Robot myRobot) {
+        
+        DashBoard238 theDashboard = myRobot.myDashBoard238;
 
         CommandController theMCP = myRobot.theMCP;
 		try {
@@ -679,7 +683,7 @@ public class AutonomousDataHandler implements AutonomousState{
             	
             	//Start building the list of selectable Amodes on the dashboard
 				
-				//aModeChooser.addOption(name,name);
+				theDashboard.addAModeEntry(name, name);
 				
            	
             	//RM SmartDashboard.putString("Amode "+aModeIndexCounter,name);
