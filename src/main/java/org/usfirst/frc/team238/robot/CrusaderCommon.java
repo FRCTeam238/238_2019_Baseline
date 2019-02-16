@@ -14,10 +14,10 @@ public class CrusaderCommon {
 	/* DO NOT NUKE */
 	// two types of command lists
 	public static final int OPR_CMD_LIST = 1;
-	public static final int LEFTDRIVER_CMD_LIST = 2;
-	public static final int RIGHTDRIVER_CMD_LIST = 3;
+	//public static final int LEFTDRIVER_CMD_LIST = 2;
+	//public static final int RIGHTDRIVER_CMD_LIST = 3;
 	/* DO NOT NUKE */
-	public static final int DT_CMD_LIST = 4;
+	public static final int DT_CMD_LIST = 2;
 
 	/* DO NOT NUKE */
 	public static final int INPUT_DRIVER_LEFT_JS = 2;

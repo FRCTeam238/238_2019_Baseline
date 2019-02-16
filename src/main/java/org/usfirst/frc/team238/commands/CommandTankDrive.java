@@ -1,9 +1,9 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
+import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.ControlBoard;
-import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Robot;
 
@@ -27,8 +27,10 @@ public class CommandTankDrive extends AbstractCommand {
     double rightJsValue = 0;
     
     double tuningValue = SmartDashboard.getNumber("DRIVETRAIN TUNING", 0.2);
-    leftJsValue = ControlBoard.getDriverLeftJs().getY();
-    rightJsValue = ControlBoard.getDriverRightJs().getY();
+    DriverInput driverJS = ControlBoard.getDriverInput();
+
+    leftJsValue = driverJS.leftSide;
+    rightJsValue = driverJS.rightSide;
     
     
     //This represents x = ax^3+(1-a)x where leftJsValue = x; tuningValue = a;
@@ -43,8 +45,5 @@ public class CommandTankDrive extends AbstractCommand {
 
   }
 
-  // @Override
-  // public void execute(double overRideValue) {
-  // TODO Auto-generated method stub
 
 }

@@ -16,7 +16,7 @@ public class CommandThreadWrapper extends AbstractCommand {
   Robot myRobot;
   double angle, topSpeed, distance;
   double rotateOutput;
-  
+  String  navObject;
   AutonLineRunnable run;
   
   final double acceleration = 100; // in/sec^2
@@ -35,7 +35,7 @@ public class CommandThreadWrapper extends AbstractCommand {
 
   public void prepare() {
      
-	  run = new AutonLineRunnable(myRobot, distance, topSpeed );
+	  run = new AutonLineRunnable(myRobot, distance, topSpeed, navObject );
      
 	  started=false;
       
