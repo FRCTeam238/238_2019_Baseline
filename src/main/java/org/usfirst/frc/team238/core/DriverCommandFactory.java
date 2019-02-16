@@ -6,11 +6,7 @@ import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTankDrive;
 import org.usfirst.frc.team238.commands.NoDriverCommand;
-import org.usfirst.frc.team238.robot.Drivetrain;
-import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
-
-import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DriverCommandFactory 
 {
@@ -18,26 +14,58 @@ public class DriverCommandFactory
 	NoDriverCommand NoDriveCommand;
 	CommandShiftHigh commandShiftHigh;
 	CommandShiftLow commandShiftLow;
-	
-	HashMap <Integer, Command> driverLeftCommands;
-	HashMap <Integer, Command> driverRightCommands;
+    
+    Robot theRobot;
+
 	HashMap <Integer, Command> driverCommands;
+    
+    public DriverCommandFactory( Robot myRobot) {
+
+        driverCommands = new HashMap<Integer, Command>(10);
+        this.theRobot = myRobot;
+    }
+
+
 	
-	public void init()
-	{
-		driverLeftCommands = new HashMap<Integer, Command>(10);
-		driverRightCommands = new HashMap<Integer, Command>(10);
-		driverCommands = new HashMap<Integer, Command>(10);
-	}
 	
 	/**
-	 * Creates commands for the left driver joystick
-	 * @param driveTrain
-	 * @param myNavigation
-	 * @param myVision
-	 * @param myFuelHandler
+	 * Creates a command for both driver joysticks
+	 * (In this case, enables the driver to actually drive the robot)
+	 * @param myRobotDrive
 	 * @return
 	 */
+	public HashMap<Integer, Command> createDriverCommands()
+	{
+		
+	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
+		
+		driverCommands.put(0, cmdToDriveTheRobot);
+		
+		return driverCommands;
+		
+    }
+    
+    
+    // public void init()
+	// {
+		
+	// 	driverCommands = new HashMap<Integer, Command>(10);
+	// }
+	
+	
+    //Keeping in case we have todo a rollback to 2 Driver JS
+    ////in init 
+    //driverLeftCommands = new HashMap<Integer, Command>(10);
+    //driverRightCommands = new HashMap<Integer, Command>(10);
+        
+	//HashMap <Integer, Command> driverLeftCommands;
+    //HashMap <Integer, Command> driverRightCommands;
+    /**
+	 * Creates commands for the left driver joystick
+	 *
+	 * @param myRobot
+	 * @return
+	 
 	public HashMap<Integer, Command> createDriverLeftCommands(Robot myRobot)
 	{
 		
@@ -56,7 +84,7 @@ public class DriverCommandFactory
 		
 		return driverLeftCommands;
 		
-	}
+	}*/
 
 	/**
 	 * Creates commands for the right driver joystick
@@ -65,7 +93,7 @@ public class DriverCommandFactory
 	 * @param myVision
 	 * @param myFuelHandler
 	 * @return
-	 */
+	 
 	public HashMap<Integer, Command> createDriverRightCommands(Robot myRobot)
 	{
 	  
@@ -77,22 +105,6 @@ public class DriverCommandFactory
 
 		return driverRightCommands;
 		
-	}
-	
-	/**
-	 * Creates a command for both driver joysticks
-	 * (In this case, enables the driver to actually drive the robot)
-	 * @param myRobotDrive
-	 * @return
-	 */
-	public HashMap<Integer, Command> createDriverCommands(Robot myRobot)
-	{
-		
-	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(myRobot);
-		
-		driverCommands.put(0, cmdToDriveTheRobot);
-		
-		return driverCommands;
-		
-	}
+    }
+    */
 }

@@ -7,12 +7,10 @@
 
 package org.usfirst.frc.team238.robot;
 
-
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-
 
 import java.util.ArrayList;
 
@@ -49,54 +47,51 @@ import org.usfirst.frc.team238.lalaPaths.leftSwitch;
  * creating this project, you must also update the build.properties file in the
  * project.
  */
-public class Robot extends TimedRobot 
-{
+public class Robot extends TimedRobot {
 
+    private static int count = 1;
 
-	private static int count = 1;
-		
-	TalonSRX leftMasterDrive; 
-	VictorSPX leftDriveFollower1;
-	VictorSPX leftDriveFollower2;
-	
-	TalonSRX rightMasterDrive; 
-	VictorSPX rightDriveFollower1;
-	VictorSPX rightDriveFollower2;
-	
-	Robot myRobot;
-	Preferences myPreferences;
-	ControlBoard myControlBoard;
-	public CommandController theMCP;
-	public Navigation myNavigation;
-	public Drivetrain myDriveTrain;
-	DriverStation myDriverstation;
-	Logger myLogger;
-	public TrajectoryIntepreter theTrajectoryIntepreter;
-	public DashBoard238 myDashBoard238;
+    TalonSRX leftMasterDrive;
+    VictorSPX leftDriveFollower1;
+    VictorSPX leftDriveFollower2;
+
+    TalonSRX rightMasterDrive;
+    VictorSPX rightDriveFollower1;
+    VictorSPX rightDriveFollower2;
+
+    Robot myRobot;
+    Preferences myPreferences;
+    ControlBoard myControlBoard;
+    public CommandController theMCP;
+    public Navigation myNavigation;
+    public Drivetrain myDriveTrain;
+    DriverStation myDriverstation;
+    Logger myLogger;
+    public TrajectoryIntepreter theTrajectoryIntepreter;
+    public DashBoard238 myDashBoard238;
     public Elevator myElevator;
     public Shoulder myShoulder;
     static String previousTestStep;
-    
-	//Testing vars
-	TestController myTestController;
 
-	public TestCoreObject myTestCoreObject;
+    // Testing vars
+    TestController myTestController;
 
-	//There shouldn't be two of these
-	Alliance myAllianceTeam;
-		
-	// Autonomous Mode Support
-	String autoMode;
-	
-	//private AutonomousDataHandler myAutonomousDataHandler;
-	//private AutonomousController theMACP;
-	
+    public TestCoreObject myTestCoreObject;
 
-	SendableChooser<String> autonomousSaveChooser;
-	SendableChooser<String> aModeSelector;
-	SendableChooser<String> autonomousStateParamsUpdate;
-	
-	String robotPosition;
+    // There shouldn't be two of these
+    Alliance myAllianceTeam;
+
+    // Autonomous Mode Support
+    String autoMode;
+
+    // private AutonomousDataHandler myAutonomousDataHandler;
+    // private AutonomousController theMACP;
+
+    SendableChooser<String> autonomousSaveChooser;
+    SendableChooser<String> aModeSelector;
+    SendableChooser<String> autonomousStateParamsUpdate;
+
+    String robotPosition;
 
     private TestCmdFactory myTestCmdFactory;
 
@@ -104,472 +99,411 @@ public class Robot extends TimedRobot
 
     public AutonomousController2019 theMACP2019;
 
-	public void disabledInit() 
-	{
-		try 
-		{
-			
-			Logger.Log("Robot(): disabledInit:");
-		
-		} catch (Exception e) 
-		{
-		  e.printStackTrace();
-		  Logger.Log("Robot(): disabledInit Exception: "+e);
-		}
-	}
-	
-	public void disabledPeriodic() 
-	{
-        if (FailedInitilization)
-        {
+    public void disabledInit() {
+        try {
+
+            Logger.Log("Robot(): disabledInit:");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.Log("Robot(): disabledInit Exception: " + e);
+        }
+    }
+
+    public void disabledPeriodic() {
+        if (FailedInitilization) {
             return;
         }
-        
-		try 
-		{
-			if (count > 150) 
-            {
 
-                //String selectedTest = myDashBoard238.getString(aModeSelector, "Cargo Center Left");   
-                String selectedTest = myDashBoard238.getSelectedAutonomousMode();
-                //boolean playBook = SmartDashboard.getBoolean("PlayBook", true);
-			    // if (playBook == true) {
-			    //     SmartDashboard.putString("P or S", "Primary");
-			    // }
-			    // else {
-			    //     SmartDashboard.putString("P or S", "Secondary");
-			    // }
-				count = 0;
+        try {
+            if (count > 150) {
+                count = 0;
                 myDriveTrain.resetEncoders();
-				
-				
-				//int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
-	            //Logger.Log("Robot(): DisabledPeriodic(): The chosen One =  " + String.valueOf(automousModeFromDS));
-	            //theMACP.pickAMode(automousModeFromDS);
-				//myAutonomousDataHandler.dump();
-				//theMACP.dumpPlays();
-				//autoModeUpdateAndRead();
-				//SmartDashboard.putNumber("DisPer Amode", automousModeFromDS);
-				
-				 String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION,  "X");
-		         Logger.Log("AUtoMOde Selection: = "+ robotPosition);
-			}
-			
-			count++;
-			
-		} catch (Exception e) 
-		{
-		  e.printStackTrace();
-		  Logger.Log("Robot(): disabledPeriodic(): disabledPriodic exception: " + e);
-		}
-		
-	}
-	
-	/**
-	 * This function is run when the robot is first started up and should be
-	 * used for any initialization code.
-	 */
-	@Override
-	public void robotInit() 
-	{
-	  
 
-		try 
-		{
-			Logger.Log("Starting RobotInit()");
-			
-			myRobot = Robot.this; 
-			
-			initSmartDashboardObjects();
-			// if (robotPosition.equals("ProgrammingStation"))
-			// {
-			//     initTalonsProgrammingStation();			  
-			// }
-			// else 
-			// {
-			    initTalons();
-			//}
-			
-			initRobotObjects();
-			initCoreObjects();
+                String selectedTest = myDashBoard238.getSelectedAutonomousMode();
+               
+                //build a Dropdown with the individual steps
+                theMACP2019.populateAutoModeSteps(selectedTest);
+                //build another dropdown with the params for the selcted step
+                
+                //populate the param field with teh selcted param
 
-			Logger.Log("Robot(): robotInit(): Fully Initialized");
-			
-		} 
-		catch (Exception ex) 
-		{
-		  ex.printStackTrace();
+                //see if we need to update
+
+                
+
+                String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION, "X");
+                Logger.Log("AUtoMOde Selection: = " + robotPosition);
+            }
+
+            count++;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.Log("Robot(): disabledPeriodic(): disabledPriodic exception: " + e);
+        }
+
+    }
+
+    /**
+     * This function is run when the robot is first started up and should be used
+     * for any initialization code.
+     */
+    @Override
+    public void robotInit() {
+
+        try {
+            Logger.Log("Starting RobotInit()");
+
+            myRobot = Robot.this;
+
+            initSmartDashboardObjects();
+            // if (robotPosition.equals("ProgrammingStation"))
+            // {
+            // initTalonsProgrammingStation();
+            // }
+            // else
+            // {
+            initTalons();
+            // }
+
+            initRobotObjects();
+            initCoreObjects();
+
+            Logger.Log("Robot(): robotInit(): Fully Initialized");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
             Logger.Log("Robot(): robotInit() Exception : " + ex);
-            
-		}
-	}
-	
-	public void initSmartDashboardObjects()
-	{
-		 
-		myDashBoard238 = new DashBoard238(this);
-		myDashBoard238.init();
-		aModeSelector = myDashBoard238.getAutonomusModeSelector();
-		robotPosition = myDashBoard238.getRobotPosition(); 
-	  
-	}
 
-	public void initTalonsProgrammingStation()
-    {
-        leftMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER_DRIVER_STATION);  
+        }
+    }
+
+    public void initSmartDashboardObjects() {
+
+        myDashBoard238 = new DashBoard238(this);
+        myDashBoard238.init();
+        aModeSelector = myDashBoard238.getAutonomusModeSelector();
+        robotPosition = myDashBoard238.getRobotPosition();
+
+    }
+
+    public void initTalonsProgrammingStation() {
+        leftMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_LEFT_MASTER_DRIVER_STATION);
         leftMasterDrive.setInverted(true);
         leftMasterDrive.setNeutralMode(NeutralMode.Brake);
-     
-        rightMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER_DRIVER_STATION);       
+
+        rightMasterDrive = new TalonSRX(CrusaderCommon.DRIVE_TRAIN_RIGHT_MASTER_DRIVER_STATION);
         rightMasterDrive.setNeutralMode(NeutralMode.Brake);
-       
+
         rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
         leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
         Logger.Log("Programming initTalons Is Sucessful!");
     }
-	/**
-	 * Initializes Talons
-	 */
-	public void initTalons()
-	{
-		leftMasterDrive = new TalonSRX(15);  
-		leftDriveFollower1 = new VictorSPX(14);  
-		leftDriveFollower2 = new VictorSPX(13);
-		
-		leftMasterDrive.setInverted(true);
+
+    /**
+     * Initializes Talons
+     */
+    public void initTalons() {
+        leftMasterDrive = new TalonSRX(15);
+        leftDriveFollower1 = new VictorSPX(14);
+        leftDriveFollower2 = new VictorSPX(13);
+
+        leftMasterDrive.setInverted(true);
         leftDriveFollower1.setInverted(true);
         leftDriveFollower2.setInverted(true);
-		
-		
-		leftDriveFollower1.follow(leftMasterDrive); 
-        leftDriveFollower2.follow(leftMasterDrive);        
-       
+
+        leftDriveFollower1.follow(leftMasterDrive);
+        leftDriveFollower2.follow(leftMasterDrive);
+
         leftMasterDrive.setNeutralMode(NeutralMode.Brake);
         leftDriveFollower1.setNeutralMode(NeutralMode.Brake);
         leftDriveFollower2.setNeutralMode(NeutralMode.Brake);
-        
-		rightMasterDrive = new TalonSRX(0);  
-		rightDriveFollower1 = new VictorSPX(1);
-		rightDriveFollower2 = new VictorSPX(2);		
-		
-		rightDriveFollower1.follow(rightMasterDrive); 
-		rightDriveFollower2.follow(rightMasterDrive); 
-		
-		rightMasterDrive.setNeutralMode(NeutralMode.Brake);
-		rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
+
+        rightMasterDrive = new TalonSRX(0);
+        rightDriveFollower1 = new VictorSPX(1);
+        rightDriveFollower2 = new VictorSPX(2);
+
+        rightDriveFollower1.follow(rightMasterDrive);
+        rightDriveFollower2.follow(rightMasterDrive);
+
+        rightMasterDrive.setNeutralMode(NeutralMode.Brake);
+        rightDriveFollower1.setNeutralMode(NeutralMode.Brake);
         rightDriveFollower2.setNeutralMode(NeutralMode.Brake);
-        
+
         rightMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
         leftMasterDrive.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 1, 0);
-		Logger.Log("initTalons Is Sucessful!");
-	}
-	
-	/**
-	 * Initializes everything in the Robot package
-	 */
-	public void initRobotObjects()
-	{
-		myNavigation = new Navigation();
-		myNavigation.init();
-		
-		myDriveTrain = new Drivetrain(myControlBoard);
-		myDriveTrain.init(leftMasterDrive, rightMasterDrive);
-		
-		myControlBoard = new ControlBoard();
-		myControlBoard.controlBoardInit();
-		
-		myDriveTrain.resetEncoders();
+        Logger.Log("initTalons Is Sucessful!");
+    }
 
-		// myElevator = new Elevator();
+    /**
+     * Initializes everything in the Robot package
+     */
+    public void initRobotObjects() {
+        myNavigation = new Navigation();
+        myNavigation.init();
+
+        myDriveTrain = new Drivetrain(myControlBoard);
+        myDriveTrain.init(leftMasterDrive, rightMasterDrive);
+
+        myControlBoard = new ControlBoard();
+        myControlBoard.controlBoardInit();
+
+        myDriveTrain.resetEncoders();
+
+        // myElevator = new Elevator();
         // myElevator.init();
-        
+
         // myShoulder = new Shoulder();
         // myShoulder.init();
 
-		//myTestCoreObject = new TestCoreObject();
-		//myTestCoreObject.initTestCoreObject();
-		
-		Logger.Log("initRobotObjects Is Sucessful!");	
-	}
-	
-	/**
-	 * Initializes everything in the Core package
-	 */
-	public void initCoreObjects()
-	{
-		myLogger = new Logger();
-		theMCP = new CommandController();
-		
-		// ArrayList<Trajectory> trajectories = new ArrayList<>();
-		// trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
-		// HashMap<String, Runnable> markers = new HashMap<>();
-        // theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain, myNavigation, trajectories, markers);
-        
+        // myTestCoreObject = new TestCoreObject();
+        // myTestCoreObject.initTestCoreObject();
+
+        Logger.Log("initRobotObjects Is Sucessful!");
+    }
+
+    /**
+     * Initializes everything in the Core package
+     */
+    public void initCoreObjects() {
+        myLogger = new Logger();
+        theMCP = new CommandController();
+
+        // ArrayList<Trajectory> trajectories = new ArrayList<>();
+        // trajectories.add(TrajectoryFactory.getTrajectory(leftSwitch.objects));
+        // HashMap<String, Runnable> markers = new HashMap<>();
+        // theTrajectoryIntepreter = new TrajectoryIntepreter(myDriveTrain,
+        // myNavigation, trajectories, markers);
+
         theMCP.init(myRobot);
-		
-		
-		//The handler that handles everything JSON related 
-		//myAutonomousDataHandler = new AutonomousDataHandler();
-		
-	  //Takes the CommandController in order to create AutonomousStates that work with the control scheme
-	//	myAutonomousDataHandler.init(theMCP, myDashBoard238.getAutonomusModeSelector());
-		
-		//Controller Object for autonomous
-        //theMACP = new AutonomousController(); 
-        theMACP2019= new AutonomousController2019(this); 
-		
-		//Gives the newly read JSON data to the AutonomousController for processing
-	//	theMACP.setAutonomousControllerData(myAutonomousDataHandler);
-		
-		Logger.Log("initCoreObjects Is Sucessful!");	
-	}
-	
-	@Override
-	public void autonomousInit() 
-	{
-	    myNavigation.resetNAVX();
-	   // myDriveTrain.shiftLow();
-	    String autoSelectionKey = myDashBoard238.getSelectedAutonomousMode();
-	    boolean failSafe = false;
-	    
-	   
-	    try { 
-	        
-	        myDriveTrain.resetEncoders();
-	        
-	        if(!failSafe) {
-                //theMACP.pickAMode2018(autoSelectionKey);
+
+        // The handler that handles everything JSON related
+        // myAutonomousDataHandler = new AutonomousDataHandler();
+
+        // Takes the CommandController in order to create AutonomousStates that work
+        // with the control scheme
+        // myAutonomousDataHandler.init(theMCP,
+        // myDashBoard238.getAutonomusModeSelector());
+
+        // Controller Object for autonomous
+        // theMACP = new AutonomousController();
+        theMACP2019 = new AutonomousController2019(this);
+
+        // Gives the newly read JSON data to the AutonomousController for processing
+        // theMACP.setAutonomousControllerData(myAutonomousDataHandler);
+
+        Logger.Log("initCoreObjects Is Sucessful!");
+    }
+
+    @Override
+    public void autonomousInit() {
+        myNavigation.resetNAVX();
+        // myDriveTrain.shiftLow();
+        String autoSelectionKey = myDashBoard238.getSelectedAutonomousMode();
+        boolean failSafe = false;
+
+        try {
+
+            myDriveTrain.resetEncoders();
+
+            if (!failSafe) {
+                // theMACP.pickAMode2018(autoSelectionKey);
                 theMACP2019.pickAMode(autoSelectionKey);
-	        }
-	        else {
-                //theMACP.pickAModeFaileSafe(); 
+            } else {
+                // theMACP.pickAModeFaileSafe();
                 theMACP2019.pickAModeFaileSafe();
-	        }
-	       // //theMACP.dumpLoadedStates(aModeSelector);
+            }
+            // //theMACP.dumpLoadedStates(aModeSelector);
 
-	        myDriveTrain.getEncoderTicks();
-	        
-	        //old style auto chooser
-	        //int automousModeFromDS =  myAutonomousDataHandler.getModeSelectionFromDashboard(); 
-            //Logger.Log("Robot(): AutonomousInit(): The chosen One =  " + String.valueOf(automousModeFromDS));
-            //theMACP.pickAMode(automousModeFromDS);
-            
-	    }
-	    catch (Exception ex) 
-	    {
-	        ex.printStackTrace();
-	        Logger.Log("Robot(): AutononousInit() Exception: "+ex);
-	    }
-	    
+            myDriveTrain.getEncoderTicks();
 
-	}
+            // old style auto chooser
+            // int automousModeFromDS =
+            // myAutonomousDataHandler.getModeSelectionFromDashboard();
+            // Logger.Log("Robot(): AutonomousInit(): The chosen One = " +
+            // String.valueOf(automousModeFromDS));
+            // theMACP.pickAMode(automousModeFromDS);
 
-	/**
-	 * This function is called periodically during autonomous.
-	 */
-	@Override
-	public void autonomousPeriodic() 
-	{
-			
-		try 
-		{
-            //theMACP.process();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.Log("Robot(): AutononousInit() Exception: " + ex);
+        }
+
+    }
+
+    /**
+     * This function is called periodically during autonomous.
+     */
+    @Override
+    public void autonomousPeriodic() {
+
+        try {
+            // theMACP.process();
             theMACP2019.process();
-			myNavigation.navxValues();
+            myNavigation.navxValues();
 
-		} 
-		catch (Exception ex) 
-		{
-		  ex.printStackTrace();
-			Logger.Log("Robot(): autonomousPeriodic() Exception: "+ex);
-		}
-		
-	}
-	
-	public void teleopInit() 
-	{
-		try 
-		{
-			Logger.Log("Robot(): TeleopInit()");
-		
-		} 
-		catch (Exception e) 
-		{
-		  e.printStackTrace();
-			Logger.Log("Robot(): TeleopInit() Exception: "+ e);
-		}
-	}
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            Logger.Log("Robot(): autonomousPeriodic() Exception: " + ex);
+        }
 
-	/**
-	 * This function is called periodically during operator control.
-	 */
-	@Override
-	public void teleopPeriodic() 
-	{
-	    
-		HashMap<Integer,Integer[]> commandValues;	
-		
-		      
-		SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
-		
-		int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
-		int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
-				
-		SmartDashboard.putNumber("Left Speed", speedLeft);
-		SmartDashboard.putNumber("Right Speed", speedRight);
-		
-		try 
-		{
-			//get the buttons that were pressed on the joySticks/controlBoard
-			commandValues = myControlBoard.getControllerInputs();
-			
-			//pass the buttonsPressed into the commandController for command execution
-			theMCP.joyStickCommandExecution(commandValues);
+    }
 
-		} 
-		catch (Exception e) 
-		{
-		  e.printStackTrace();
-			Logger.Log("Robot(): teleopPeriodic() Exception: "+ e);
-		}
-		
-	}
+    public void teleopInit() {
+        try {
+            Logger.Log("Robot(): TeleopInit()");
 
-	@Override
-	public void testInit(){
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.Log("Robot(): TeleopInit() Exception: " + e);
+        }
+    }
 
-		//myTestController = new TestController();
+    /**
+     * This function is called periodically during operator control.
+     */
+    @Override
+    public void teleopPeriodic() {
 
-		//myTestController.init(null, myTestSweet238);
+        HashMap<Integer, Integer[]> commandValues;
 
-		myTestCmdFactory = new TestCmdFactory();
+        SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
 
-		myTestCmdFactory.init();
+        int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
+        int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
 
-		myTestCmdFactory.createTestCommands(this);
+        SmartDashboard.putNumber("Left Speed", speedLeft);
+        SmartDashboard.putNumber("Right Speed", speedRight);
 
-        
-	}
+        try {
+            // get the buttons that were pressed on the joySticks/controlBoard
+            commandValues = myControlBoard.getControllerInputs();
 
-	/**
-	 * This function is called periodically during test mode.
-     *   read switch toggles from smartdashboard
-     *   put it in parameters variable
-     *   
-	 */
-	double i=0;
-	@Override
-	public void testPeriodic() 
-	{
-		
-		String selectedTest = myDashBoard238.getSelectedTest();
+            // pass the buttonsPressed into the commandController for command execution
+            theMCP.joyStickCommandExecution(commandValues);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            Logger.Log("Robot(): teleopPeriodic() Exception: " + e);
+        }
+
+    }
+
+    @Override
+    public void testInit() {
+
+        // myTestController = new TestController();
+
+        // myTestController.init(null, myTestSweet238);
+
+        myTestCmdFactory = new TestCmdFactory();
+
+        myTestCmdFactory.init();
+
+        myTestCmdFactory.createTestCommands(this);
+
+    }
+
+    /**
+     * This function is called periodically during test mode. read switch toggles
+     * from smartdashboard put it in parameters variable
+     * 
+     */
+    double i = 0;
+
+    @Override
+    public void testPeriodic() {
+
+        String selectedTest = myDashBoard238.getSelectedTest();
         String[] parameters = new String[1];
         Logger.Log("Selected Test = " + selectedTest);
-        
+
         parameters[0] = selectedTest;
-        
+
         TestStep selectedTestStep = myTestCmdFactory.getTestStep(selectedTest);
-         
-        if(selectedTest != previousTestStep){
+
+        if (selectedTest != previousTestStep) {
             selectedTestStep.reset();
         }
-        //do we have a test
+        // do we have a test
         //
-        //if the test is not done...
-        
-        
+        // if the test is not done...
+
         if (selectedTestStep == null) {
 
             Logger.Log("Robot.testPeriodic(): Test Does Not Exist");
-        } 
-        else if (!selectedTestStep.done()) {
+        } else if (!selectedTestStep.done()) {
             selectedTestStep.init(parameters);
             selectedTestStep.process();
+        } else {
+
         }
+
+        previousTestStep = selectedTest;
+
+    }
+
+    public void autoModeUpdateAndRead() {
+        
+        String autoModeSelection = myDashBoard238.getSelectedAutonomousMode();
+        Logger.Log("Robot(): disabledPeriodic(): The chosen AutoMode =  " + autoModeSelection);
+
+        // backups in case sendable chooser disappear
+        boolean updateBackup_BecauseTheSendableChooserSucks = false;
+        boolean saveBackup_BecauseTheSendableChooserSucks = false;
+        boolean readAmode238DotTxt = false;
+
+        // see if we need to modify the params on a state
+        String updateParams = (String) autonomousStateParamsUpdate.getSelected();
+        int update = Integer.parseInt(updateParams);
+
+        if (updateParams == null) {
+            updateBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Update Params", false);
+
+            if (updateBackup_BecauseTheSendableChooserSucks) {
+                update = 1;
+            }
+        }
+
+        String saveParam = (String) autonomousSaveChooser.getSelected();
+        int save = 0;
+        if (saveParam == null) {
+            saveBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Save to Amode238", false);
+
+            if (saveBackup_BecauseTheSendableChooserSucks) {
+                save = CrusaderCommon.AUTONOMOUS_SAVE;
+            }
+
+            readAmode238DotTxt = SmartDashboard.getBoolean("Read Amode238", false);
+            if (readAmode238DotTxt) {
+                save = CrusaderCommon.AUTONOMOUS_READ_FILE;
+            }
+        }
+
         else {
-            
+            save = Integer.parseInt(saveParam);
         }
-        
-        previousTestStep  = selectedTest;
 
+        Logger.Log("Robot:DisablePeriodic: save = " + save);
 
-	}
-	
-	
-	
-	
-	
-	// public void autoModeUpdateAndRead()
-	// {
-	// 	theMACP.setAutonomousControllerData(myAutonomousDataHandler);
-		
-    //     String autoModeSelection = myDashBoard238.getSelectedAutonomousMode();
-    //     //    myAutonomousDataHandler.getModeSelectionFromDashboard();
-	// 	Logger.Log("Robot(): disabledPeriodic(): The chosen AutoMode =  " + autoModeSelection);
-	
-	// 	//backups  in case sendable chooser disappear
-	// 	boolean updateBackup_BecauseTheSendableChooserSucks = false;
-	// 	boolean saveBackup_BecauseTheSendableChooserSucks = false;
-	// 	boolean  readAmode238DotTxt = false;
+        theMACP2019.pickAMode(autoModeSelection);
 
-	// 	//see if we need to modify the params on a state
-	// 	String updateParams = (String) autonomousStateParamsUpdate.getSelected();
-	// 	int update = Integer.parseInt(updateParams);
-		
-	// 	if(updateParams == null)
-	// 	{
-	// 	  updateBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Update Params", false);
-		  
-	// 	  if(updateBackup_BecauseTheSendableChooserSucks)
-	// 	  {
-	// 	    update = 1;
-	// 	  }
-	// 	}
-		
-	// 	String saveParam = (String) autonomousSaveChooser.getSelected();
-	// 	int save = 0;
-	// 	if(saveParam == null)
-	// 	{
-	// 		saveBackup_BecauseTheSendableChooserSucks = SmartDashboard.getBoolean("Save to Amode238", false);
-        
-	// 		if(saveBackup_BecauseTheSendableChooserSucks)
-	//         {
-	//           save = CrusaderCommon.AUTONOMOUS_SAVE;            
-	//         }
-  
-	// 		readAmode238DotTxt = SmartDashboard.getBoolean("Read Amode238", false);
-	// 		if(readAmode238DotTxt)
-	// 		{
-	// 		  save = CrusaderCommon.AUTONOMOUS_READ_FILE;
-	// 		}
-	// 	}
-		
-	// 	else
-	// 	{
-	// 	  save = Integer.parseInt(saveParam); 
-	// 	}
-		 
-	// 	Logger.Log("Robot:DisablePeriodic: save = " + save);
-		
-	// 	theMACP.pickAMode(autoModeSelection);		
-		
-	// 	if(update == CrusaderCommon.AUTONOMOUS_UPDATE)
-	// 	{
-	// 		theMACP.updateStateParameters(autoModeSelection);
-	// 	}
-		
-	// 	if(save == CrusaderCommon.AUTONOMOUS_SAVE) 
-	// 	{
-	// 	  myAutonomousDataHandler.save();	
-	// 	}	
-		
-	// 	if(save == CrusaderCommon.AUTONOMOUS_READ_FILE)
-	// 	{
-	// 	  myAutonomousDataHandler.readJson(theMCP);
-	// 	}
-		
-	// 	myAutonomousDataHandler.dump();
-		
-	// 	//RM SmartDashboard.putString("Last Modified : ", myAutonomousDataHandler.getModificationDate());
-	// }
+        if (update == CrusaderCommon.AUTONOMOUS_UPDATE) {
+            theMACP2019.updateStateParameters(autoModeSelection);
+        }
+
+        // if (save == CrusaderCommon.AUTONOMOUS_SAVE) {
+        //     myAutonomousDataHandler.save();
+        // }
+
+        // if (save == CrusaderCommon.AUTONOMOUS_READ_FILE) {
+        //     myAutonomousDataHandler.readJson(theMCP);
+        // }
+
+        // myAutonomousDataHandler.dump();
+
+        // RM SmartDashboard.putString("Last Modified : ",
+        // myAutonomousDataHandler.getModificationDate());
+    }
 }

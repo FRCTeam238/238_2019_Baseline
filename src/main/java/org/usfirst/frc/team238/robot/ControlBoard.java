@@ -2,17 +2,19 @@ package org.usfirst.frc.team238.robot;
 
 import java.util.*;
 import edu.wpi.first.wpilibj.Joystick;
+
+import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
 
 public class ControlBoard { 
 
-	static Joystick manualOverrideJs; 	// operator manual overide
+	//static Joystick manualOverrideJs; 	// operator manual overide
 	static Joystick operatorJs;  	// operator control board
+	static Joystick driverJS;
+	//private static Joystick driverLeftJs; 	// driveTrain left
+	//private static Joystick driverRightJs; 	// driveTrain right
 	
-	private static Joystick driverLeftJs; 	// driveTrain left
-	private static Joystick driverRightJs; 	// driveTrain right
-	
-	static Joystick xboxController;
+	//static Joystick xboxController;
 	
 	HashMap<Integer, Integer[]> controllers; //Contains each joystick value and their button inputs
 	
@@ -20,10 +22,10 @@ public class ControlBoard {
 	{
 		try
 		{
-			manualOverrideJs = new Joystick(0);
+			
 			operatorJs = new Joystick(CrusaderCommon.OPR_CMD_LIST);
-			setDriverLeftJs(new Joystick(CrusaderCommon.LEFTDRIVER_CMD_LIST));
-			setDriverRightJs(new Joystick(CrusaderCommon.RIGHTDRIVER_CMD_LIST));
+			driverJS = new Joystick(CrusaderCommon.DT_CMD_LIST);
+			
 		
 			controllers = new HashMap<Integer,Integer[]>();
 			
@@ -146,33 +148,25 @@ public class ControlBoard {
 	 * @return
 	 */
 	public HashMap<Integer, Integer[]> getControllerInputs(){
-		
+        
+        controllers.put(CrusaderCommon.OPR_CMD_LIST, getOperatorJoystickInputs(operatorJs));
+        controllers.put(CrusaderCommon.DT_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
+
 	  //ManualOverride Input
-		controllers.put(0, getOperatorJoystickInputs(manualOverrideJs));
+		//controllers.put(0, getOperatorJoystickInputs(manualOverrideJs));
 		//Operator Input
-		controllers.put(CrusaderCommon.OPR_CMD_LIST, getOperatorJoystickInputs(operatorJs));
+		
 		//Left Driver Joystick Input
-		controllers.put(CrusaderCommon.INPUT_DRIVER_LEFT_JS, getDriverJoystickInput(getDriverLeftJs()));
+		//controllers.put(CrusaderCommon.INPUT_DRIVER_LEFT_JS, getDriverJoystickInput(getDriverLeftJs()));
 		//Right Driver Joystick Input
-		controllers.put(CrusaderCommon.INPUT_DRIVER_RIGHT_JS, getDriverJoystickInput(getDriverRightJs()));
+		//controllers.put(CrusaderCommon.INPUT_DRIVER_RIGHT_JS, getDriverJoystickInput(getDriverRightJs()));
 		//Driver Joystick y Values (For robot movement)
-		controllers.put(CrusaderCommon.DT_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
 		
 		return controllers;
 		
 	}
 	
-	//gets the y value of the manual overide joy stick to feed to the command controller
-	public static double getManualCommandValue()
-	{
-		return manualOverrideJs.getY();
-	}
 	
-	public static boolean canWeReleaseTheHounds()
-	{
-		boolean  secondButton = manualOverrideJs.getRawButton(1); //this button may need to change
-		return secondButton;
-	}
 	
 	public static boolean resetEncoderValue()
 	{
@@ -188,62 +182,39 @@ public class ControlBoard {
 					
 	}
 
-	public static Joystick getDriverLeftJs() {
-		return driverLeftJs;
-	}
-	
-	public static double getDriverLeftYAxis() {
-		return driverLeftJs.getY();
-	}
-
-	public static void setDriverLeftJs(Joystick driverLeftJs) {
-		ControlBoard.driverLeftJs = driverLeftJs;
-	}
-
-
-	public static Joystick getDriverRightJs() {
-		return driverRightJs;
-	}
-	
-	public static double getDriverRightYAxis() {
-		return driverLeftJs.getY();
-	}
-
-	public static void setDriverRightJs(Joystick driverRightJs) {
-		ControlBoard.driverRightJs = driverRightJs;
-	}
-	
-
-	public static Joystick getOperatorLeftJs() {
-		return manualOverrideJs;
-	}
+    public static DriverInput getDriverInput(){
+        
+        DriverInput driverJoySticks = new DriverInput(driverJS.getRawAxis(1),  driverJS.getRawAxis(5));
+        
+        return driverJoySticks;
+    }
 	
 	public static Joystick getOperatorRightJs() {
 		return operatorJs;
 	}
 	
-	public static double getHangerRightSide() {
+	// public static double getHangerRightSide() {
 		
-		double value = 0;
+	// 	double value = 0;
 		
-		if(operatorJs.getRawButton(5))
-		{
-			value = operatorJs.getY();
-		}
+	// 	if(operatorJs.getRawButton(5))
+	// 	{
+	// 		value = operatorJs.getY();
+	// 	}
 			
-		return value;
-	}
+	// 	return value;
+	// }
 	
-	public static double getHangerLeftSide() {
+	// public static double getHangerLeftSide() {
 		
-		double value = 0;
+	// 	double value = 0;
 		
-		if(operatorJs.getRawButton(4))
-		{
-			value = operatorJs.getY();
-		}
+	// 	if(operatorJs.getRawButton(4))
+	// 	{
+	// 		value = operatorJs.getY();
+	// 	}
 			
-		return value;
-	}
+	// 	return value;
+	// }
 	
 }
