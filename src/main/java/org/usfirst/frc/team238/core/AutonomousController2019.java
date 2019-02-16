@@ -116,7 +116,10 @@ public class AutonomousController2019 implements AutonomousState{
     
         return(nextState);
 	}
-	//Gets the selected automode and prints out the states in it
+    
+
+
+    //Gets the selected automode and prints out the states in it
 	public void dumpLoadedStates(SendableChooser<String>aModeSelector )
 	{
 		Iterator<AutonomousState> aModeIterator = steps.iterator();
@@ -169,9 +172,34 @@ public class AutonomousController2019 implements AutonomousState{
 		}
 	}
 
-    public void displayAutoModes(){
+    public void populateAutoModeSteps(String selection){
+        String defaultName;
 
-        myAutonomousDataHandler.dump();
+        pickAMode(selection);
+        Iterator<AutonomousState> aModeIterator = steps.iterator();
+	
+        int count = 0;
+        
+		while(aModeIterator.hasNext()){
+			
+			AutonomousState thisState = aModeIterator.next();
+            String name = thisState.getClass().getName();
+
+           //dashboard.addAutoStep(name);
+
+           if(count == 0){
+            defaultName = name;
+            }
+			Logger.Log("AutonomousController2019.populateAutoModes():" + name);    
+        }
+        
+        //dashboard.setDefaultAutoStep
+        //AutonomousState thisState =   steps.get(count);
+        //Integer[] params =  thisState.getParams();
+		//for(Integer i = 0; i< params.length; i++) {
+            //dashboard.addAutoStepParams(params[i]);
+        //}
+
     }
   
   @Override
