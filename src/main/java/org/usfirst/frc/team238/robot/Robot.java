@@ -123,7 +123,7 @@ public class Robot extends TimedRobot {
                 String selectedTest = myDashBoard238.getSelectedAutonomousMode();
                
                 //build a Dropdown with the individual steps
-                theMACP2019.populateAutoModeSteps(selectedTest);
+                //theMACP2019.populateAutoModeSteps(selectedTest);
                 //build another dropdown with the params for the selcted step
                 
                 //populate the param field with teh selcted param

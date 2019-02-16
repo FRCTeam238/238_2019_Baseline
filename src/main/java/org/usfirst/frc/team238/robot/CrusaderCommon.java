@@ -140,7 +140,7 @@ public class CrusaderCommon {
 
 	// DETERMINE THIS EXACT NUMBER FOR NEW ROBOT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	// //325 = 1 inch 3900 = 1 foot
-	public final static double DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 1626.0;//252;//323;// 4983;//3900//1750;
+    public final static double DRIVE_FORWARD_ENCODER_TICKS_PER_INCH = 194; //1626.0;//252;//323;// 4983;//3900//1750;
 
 	// TURNING AND DRIVING PID VALUES
 	public final static double TURN_P_VALUE = 0.0007;// 0.003;//SmartDashboard.getNumber("Turn

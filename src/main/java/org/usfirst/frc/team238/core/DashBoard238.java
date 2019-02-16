@@ -88,6 +88,7 @@ public class DashBoard238
 
         //Send able Chooser for the state update function
         testSelector.setDefaultOption("Stop Test", "Stop Test");
+        testSelector.addOption("Encoder Test", "Encoder Test");
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
         testSelector.addOption("Elevator Test", "Elevator Test");
         testSelector.addOption("Elevator Test2", "Elevator Test2");
@@ -216,7 +217,14 @@ public class DashBoard238
 
 
     }
+    public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
+            double rightDrivetrainEncoderValue) {
 
+        testSweetEntries.get(leftDriveTrainEncoder).setNumber(leftDrivetrainEncoderValue);
+        testSweetEntries.get(rightDriveTrainEncoder).setNumber(rightDrivetrainEncoderValue);
+       
+    }
+    
     public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
             double rightDrivetrainEncoderValue, boolean leftDrivetrainToleranceValue, 
     boolean rightDrivetrainToleranceValue, boolean encoderDifferenceToleranceValue, double elapsedTimeValue) {

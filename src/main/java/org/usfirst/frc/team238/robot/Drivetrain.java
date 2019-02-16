@@ -216,8 +216,8 @@ public class Drivetrain
          * the joystick value is multiplied by a target RPM so the robot works
          * with the velocity tuning code
          */
-        leftFrontDrive.set(ControlMode.PercentOutput, leftMotorValue);
-        rightFrontDrive.set(ControlMode.PercentOutput, rightMotorValue);
+        leftFrontDrive.set(ControlMode.PercentOutput, -leftMotorValue);
+        rightFrontDrive.set(ControlMode.PercentOutput, -rightMotorValue);
         
         // Logger.Log("LEFT ENCODER === " +
         // leftFrontDrive.getSelectedSensorPosition(0));
@@ -322,10 +322,10 @@ public class Drivetrain
             
 
         }
-        leftFrontDrive.set(ControlMode.Velocity, (leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
-        rightFrontDrive.set(ControlMode.Velocity, (rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
-        Logger.Log("Drive Accel LEFT WANTED:" + leftSpeed);
-        Logger.Log("Drive Accel RIGHT WANTED:" + rightSpeed);
+        leftFrontDrive.set(ControlMode.Velocity, (-leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
+        rightFrontDrive.set(ControlMode.Velocity, (-rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
+        Logger.Log("Drive Accel LEFT WANTED:" + -leftSpeed);
+        Logger.Log("Drive Accel RIGHT WANTED:" + -rightSpeed);
         // convert to inches/second
        // Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS ="
        //         + leftFrontDrive.getSelectedSensorVelocity(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);

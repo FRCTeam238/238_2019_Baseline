@@ -671,7 +671,7 @@ public class AutonomousDataHandler implements AutonomousState {
                     int i = 0;
                     while (paramIterator.hasNext()) {
                         params[i++] = (String) paramIterator.next();
-                        Logger.Log("AutonomousDataHandler(): readJson2():    	Param:" + i + " = " + params[i - 1]);
+                        Logger.Log("AutonomousDataHandler(): readJson2P():    	Param:" + i + " = " + params[i - 1]);
                     }
 
                     try {

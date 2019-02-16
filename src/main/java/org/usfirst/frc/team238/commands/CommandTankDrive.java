@@ -39,7 +39,7 @@ public class CommandTankDrive extends AbstractCommand {
     
     myDrivetrain.drive(leftJsValue, rightJsValue);
     
-    //Logger.Log("Left Motor Value in TELEOP = " + leftJsValue);
+   // Logger.Log("Left Motor Value in TELEOP = " + leftJsValue);
     //Logger.Log("Right Motor Value in TELEOP = " + rightJsValue);
    
 

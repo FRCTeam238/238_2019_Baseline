@@ -364,7 +364,7 @@ def findTape(contours, image, centerX, centerY):
             # Get convex hull (bounding polygon on contour)
             hull = cv2.convexHull(cnt)
             # Calculate Contour area
-            cntArea = cv2.contourArea(cnt)
+            cntArea = cv2.contourArea(targetnt)
             # calculate area of convex hull
             hullArea = cv2.contourArea(hull)
             # Filters contours based off of size

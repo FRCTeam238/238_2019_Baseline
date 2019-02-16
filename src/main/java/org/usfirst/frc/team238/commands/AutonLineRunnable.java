@@ -21,7 +21,7 @@ public class AutonLineRunnable implements Runnable {
     String navigationDevice;
     double rotateOutput;
     
-    final double acceleration = 150; //  in/sec^2
+    final double acceleration = 150; //  150 in/sec^2
     final double ANGLE_KP = 3;
     
     boolean stop = false;
@@ -38,7 +38,8 @@ public class AutonLineRunnable implements Runnable {
         this.navigation = myRobot.myNavigation;
         this.theDashboard = myRobot.myDashBoard238;
         
-        this.angle = this.navigation.getYaw();
+        //this.navigation.resetNAVX();
+        //this.angle = this.navigation.getYaw();
         this.topSpeed=topSpeed;
         this.distance=distance;
         this.navigationDevice = nav;
@@ -80,8 +81,11 @@ public class AutonLineRunnable implements Runnable {
         boolean backwards = distance < 0;
         
         double currentVelocity = 0;
-        double lastVelocity =0;
+        double lastVelocity = 0;
         
+        this.navigation.resetNAVX();
+        this.angle = this.navigation.getYaw();
+
         while(	!stop && 
         		DriverStation.getInstance().isAutonomous() && 
         		DriverStation.getInstance().isEnabled())
@@ -111,11 +115,13 @@ public class AutonLineRunnable implements Runnable {
             Logger.Log("deAccelerate: " + deAccelerate);
             //Logger.Log(backwards);
             
-            double angleError = angle - navigation.getYaw() ;
+            double angleError = angle - navigation.getYaw();
+            Logger.Log("AutonlineForward.Run() Angle = " + angle + " -  Yaw Value =  " + navigation.getYaw());
             if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
                 angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 
             }
-            
+            Logger.Log("angleError = " + angleError);
+
             double angleVelocityAddend = angleError * ANGLE_KP;
             angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
 
@@ -136,13 +142,20 @@ public class AutonLineRunnable implements Runnable {
                 }
             }
             lastVelocity = currentVelocity;
-            
+            double currentDistance = driveTrain.leftDistanceTravelled();
+            if (currentDistance > distance)
+            {
+                stop = true;
+                Logger.Log("Stopping: " + currentDistance);
+            }
             try
             {
                 //long endProcessingTime = System.currentTimeMillis();
                 //Thread.sleep((long) delT - (endProcessingTime - startProcessingTime));
-                Thread.sleep(100);
-                
+                if(!deAccelerate )
+                {
+                    Thread.sleep(5);
+                }
             }
             catch (InterruptedException e)
             {

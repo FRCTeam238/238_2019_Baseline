@@ -184,7 +184,7 @@ public class ControlBoard {
 
     public static DriverInput getDriverInput(){
         
-        DriverInput driverJoySticks = new DriverInput(driverJS.getRawAxis(1),  driverJS.getRawAxis(5));
+        DriverInput driverJoySticks = new DriverInput(driverJS.getRawAxis(1),  driverJS.getRawAxis(3));
         
         return driverJoySticks;
     }

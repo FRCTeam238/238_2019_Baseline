@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
+import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandStopEverything;
 import org.usfirst.frc.team238.commands.CommandTestShiftHigh;
 
@@ -56,10 +57,11 @@ public class OperatorCmdFactory {
 		AbstractCommand cmd;
 		 
 		 
-		cmd = new CommandTestShiftHigh(theRobot.myTestCoreObject);
-		operatorCommands.put(CrusaderCommon.OPERATOR_TRIGGER, cmd);
+		// cmd = new CommandRetractWrist(theRobot.myShoulder);
+		// operatorCommands.put(CrusaderCommon.OPERATOR_TRIGGER, cmd);
 		
-	  
+        
+
 		cmd  = new CommandStopEverything(theRobot.myTestCoreObject);
 		operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
 		

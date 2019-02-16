@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.testSteps.TestElevator;
 import org.usfirst.frc.team238.testSteps.TestShoulder;
+import org.usfirst.frc.team238.testSteps.TestStaticDriveTrainEncoders;
 import org.usfirst.frc.team238.testSteps.TestStepDriveTrainEncoders;
 
 
@@ -43,6 +44,9 @@ public class TestCmdFactory {
 
         cmd = new TestStepDriveTrainEncoders(theRobot);
         TestCommands.put("Drivetrain Test", cmd);
+
+        cmd = new TestStaticDriveTrainEncoders(theRobot);
+        TestCommands.put("Encoder Test", cmd);
 
         return TestCommands;
 	}

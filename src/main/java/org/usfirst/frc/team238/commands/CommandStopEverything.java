@@ -22,7 +22,7 @@ public class CommandStopEverything extends AbstractCommand {
 
 @Override
   public void execute() {
-    myTestCoreObject.turnOffChannelTwo();
+    //myTestCoreObject.turnOffChannelTwo();
   }
 
   @Override
