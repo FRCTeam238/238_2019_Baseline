@@ -681,7 +681,7 @@ if __name__ == "__main__":
     # start NetworkTables
     ntinst = NetworkTablesInstance.getDefault()
     #Name of network table - this is how it communicates with robot. IMPORTANT
-    networkTable = NetworkTables.getTable('ChickenVision')
+    networkTable = NetworkTables.getTable('Shuffleboard').getSubTable('ChickenVision')
 
     if server:
         print("Setting up NetworkTables server")
@@ -745,13 +745,13 @@ if __name__ == "__main__":
                     tape_blur = tape_blur + 1
                 
                 # get upper/lower hsv values from network tables
-                tape_lower_h = int(networkTable.getNumer("TapeLowerH", 55))
-                tape_lower_s = int(networkTable.getNumer("TapeLowerS", 128))
-                tape_lower_v = int(networkTable.getNumer("TapeLowerV", 133))
+                tape_lower_h = int(networkTable.getNumber("TapeLowerH", 55))
+                tape_lower_s = int(networkTable.getNumber("TapeLowerS", 128))
+                tape_lower_v = int(networkTable.getNumber("TapeLowerV", 133))
 
-                tape_upper_h = int(networkTable.getNumer("TapeUpperH", 109))
-                tape_upper_s = int(networkTable.getNumer("TapeUpperS", 255))
-                tape_upper_v = int(networkTable.getNumer("TapeUpperV", 255))
+                tape_upper_h = int(networkTable.getNumber("TapeUpperH", 109))
+                tape_upper_s = int(networkTable.getNumber("TapeUpperS", 255))
+                tape_upper_v = int(networkTable.getNumber("TapeUpperV", 255))
                 
                 # define range of green of retroreflective tape in HSV
                 lower_green = np.array([tape_lower_h, tape_lower_s, tape_lower_v])

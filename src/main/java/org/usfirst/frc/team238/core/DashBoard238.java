@@ -9,6 +9,7 @@ import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -23,6 +24,7 @@ public class DashBoard238
     private SendableChooser<String> positionSelector;
     public SimpleWidget robotPosition;
     ShuffleboardTab testTab;
+    ShuffleboardTab chickenTab;
     public SimpleWidget elevatorTestInfo1;
     public SimpleWidget elevatorTestInfo2;
     public SimpleWidget elevatorTestInfo3;
@@ -129,20 +131,26 @@ public class DashBoard238
         buildElement("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO, 1, 1, 2, 3);
         buildElement("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE, 1, 1, 3, 3);
 
+        chickenTab = Shuffleboard.getTab("ChickenVision");
+        
+        //chickenTab.buildInto(NetworkTableInstance.getDefault().getTable("ChickenVision"), NetworkTableInstance.getDefault().getTable("ChickenVision"));
+
+        buildElement(chickenTab, "TapeBlur", 1, 1, 1, 6, 0);
+        buildElement(chickenTab, "TapeLowerH", 55, 1, 1, 7, 0);
+        buildElement(chickenTab, "TapeLowerS", 128, 1, 1, 6, 1);
+        buildElement(chickenTab, "TapeLowerV", 133, 1, 1, 7, 1);
+        buildElement(chickenTab, "TapeUpperH", 109, 1, 1, 6, 2);
+        buildElement(chickenTab, "TapeUpperS", 255, 1, 1, 7, 2);
+        buildElement(chickenTab, "TapeUpperV", 255, 1, 1, 6, 3);
+
         testSweetEntries.put("tapeYaw",
-                NetworkTableInstance.getDefault().getTable("ChickenVision").getEntry("tapeYaw"));
+                NetworkTableInstance.getDefault().getTable("Shuffleboard").getSubTable("ChickenVision").getEntry("tapeYaw"));
        
         testSweetEntries.put("tapeDetected",
-                NetworkTableInstance.getDefault().getTable("ChickenVision").getEntry("tapeDetected"));
+                NetworkTableInstance.getDefault().getTable("Shuffleboard").getSubTable("ChickenVision").getEntry("tapeDetected"));
                 
+        
         Logger.Log("DashBoard238.init() end");
-    }
-    
-    void   buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY)
-    {
-        SimpleWidget theWidget = testTab.add(elementName, value);
-        testSweetEntries.put(elementName, theWidget.getEntry());
-        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
 
     void   buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY)
@@ -155,6 +163,18 @@ public class DashBoard238
     void   buildElement(String elementName, Double value, int sizeX, int sizeY, int posX, int posY)
     {
         SimpleWidget theWidget = testTab.add(elementName, value);
+        testSweetEntries.put(elementName, theWidget.getEntry());
+        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
+
+    void   buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY)
+    {
+        buildElement(testTab, elementName, value, sizeX, sizeY, posX, posY);
+    }
+
+    void   buildElement(ShuffleboardTab tab, String elementName, int value, int sizeX, int sizeY, int posX, int posY)
+    {
+        SimpleWidget theWidget = tab.add(elementName, value);
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
