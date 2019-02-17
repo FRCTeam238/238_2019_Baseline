@@ -2,6 +2,7 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
+import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Elevator;
 
 public class CommandElevatorSwitchHeight extends AbstractCommand
@@ -11,7 +12,11 @@ public class CommandElevatorSwitchHeight extends AbstractCommand
     double height = 40;
     
     public CommandElevatorSwitchHeight(Elevator myElevator) {
+        Logger.Log("CommandElevatorSwitchHeight()");
+        
         this.theElevator = myElevator;
+        Logger.Log("CommandElevatorSwitchHeight().elevator " + theElevator);
+        
     }
         
     @Override

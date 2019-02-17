@@ -5,10 +5,20 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
+import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
+import org.usfirst.frc.team238.commands.CommandElevatorDown;
+import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
+import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
+import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
+import org.usfirst.frc.team238.commands.CommandIntakeIn;
+import org.usfirst.frc.team238.commands.CommandIntakeOut;
+import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
+import org.usfirst.frc.team238.commands.CommandShoulderAngle;
 import org.usfirst.frc.team238.commands.CommandStopEverything;
 import org.usfirst.frc.team238.commands.CommandTestShiftHigh;
+import org.usfirst.frc.team238.commands.CommandWristAngle;
 
 
 
@@ -33,7 +43,7 @@ public class OperatorCmdFactory {
 	
 	CommandElevatorSwitchHeight commandElevatorSwitchHeight;
 	
-	CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
+	//CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
 	
 	CommandWristAngle commandWristAngle;
 	
@@ -57,62 +67,69 @@ public class OperatorCmdFactory {
 	{
 		AbstractCommand cmd;
 		 
-		 
+        //Create command objects, passing objects into each of them
+         
+        cmd  = new CommandStopEverything(theRobot);
+        operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
+        
 		// cmd = new CommandRetractWrist(theRobot.myShoulder);
 		// operatorCommands.put(CrusaderCommon.OPERATOR_TRIGGER, cmd);
-		
+
         
 
-		cmd  = new CommandStopEverything(theRobot.myTestCoreObject);
-		operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
-        
-        
-        	  //Create command objects, passing objects into each of them
-	  commandStopEverything = new CommandStopEverything(intake, elevator);     //<-------------------------------- EXAMPLE
-	  //commadRunTrajectory = new CommandRunTrajectory(driveTrain, leftScale.objects );
-	  commandShiftClimb = new CommandShiftClimb(elevator);
-	  commandIntakeIn = new CommandIntakeIn(intake);
-	  commandIntakeOut = new CommandIntakeOut(intake);
-	  commandElevatorUp = new CommandElevatorUp(elevator);
-	  commandElevatorDown = new CommandElevatorDown(elevator);
-	  commandExtendWrist = new CommandExtendWrist(intake);
-      commandRetractWrist = new CommandRetractWrist(intake);
-      commandElevatorBottomHeight = new CommandElevatorBottomHeight(elevator);
-      commandElevatorScaleHeight = new CommandElevatorScaleHeight(elevator);
-      commandElevatorSwitchHeight = new CommandElevatorSwitchHeight(elevator);
+        cmd = new CommandShoulderAngle(theRobot.myShoulder);
+        operatorCommands.put(1, cmd);
+        operatorCommands.put(2, cmd);        
+        operatorCommands.put(4, cmd);
+        	  
+	  
+        cmd = new CommandIntakeIn(theRobot.myShoulder);
+        operatorCommands.put(5, cmd);
       
-      commandWristManualOverride = new CommandWristManualOverride(intake);
-      commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
-      commandWristAngle = new CommandWristAngle(intake);
-      commandIntakeOutFast = new CommandIntakeOutFast(intake);
-      commandRamp = new CommandRamp(ramp);
-      commandRampUndeploy = new CommandRampUndeploy(ramp);
+        cmd = new CommandIntakeOut(theRobot.myShoulder);
+        operatorCommands.put(6, cmd);
+       
+         cmd= new CommandExtendWrist(theRobot.myShoulder);
+        operatorCommands.put(22, cmd);
+
+        cmd = new CommandRetractWrist(theRobot.myShoulder);
+        operatorCommands.put(23, cmd);
+
+
+        cmd = new CommandElevatorUp(theRobot.myElevator);
+        operatorCommands.put(21, cmd);
+
+        cmd = new CommandElevatorDown(theRobot.myElevator);
+        operatorCommands.put(20, cmd);
+
+        cmd = new CommandElevatorBottomHeight(theRobot.myElevator);
+        operatorCommands.put(24, cmd);
+
+        cmd = new CommandElevatorScaleHeight(theRobot.myElevator);
+        operatorCommands.put(26, cmd);
+
+        cmd = new CommandElevatorSwitchHeight(theRobot.myElevator);
+        operatorCommands.put(25, cmd);
+        
+      
+      
+      
+        //cmd = new CommandWristManualOverride(theRobot.myShoulder);
+        //operatorCommands.put(7, cmd);
+        //operatorCommands.put(8, cmd);
+      //commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
+
+      cmd = new CommandIntakeOutFast(theRobot.myShoulder);
+      operatorCommands.put(28, cmd);
 	  
 	  
 	  //Assigns all command arrays and their specific inputs to the HashMap
-	  operatorCommands.put(CrusaderCommon.stopEverythingInput, commandStopEverything); // <------- EXAMPLE
-	  //operatorCommands.put(9, commadRunTrajectory);
-	  operatorCommands.put(27, commandShiftClimb);
-	  operatorCommands.put(5, commandIntakeIn);
-	  operatorCommands.put(6, commandIntakeOut);
-	  operatorCommands.put(21, commandElevatorUp);
-	  operatorCommands.put(20, commandElevatorDown);
-	  operatorCommands.put(22, commandExtendWrist);
-	  operatorCommands.put(23, commandRetractWrist);
-	  operatorCommands.put(24, commandElevatorBottomHeight);
-	  operatorCommands.put(26, commandElevatorScaleHeight);
-      operatorCommands.put(25, commandElevatorSwitchHeight);
-      operatorCommands.put(28, commandIntakeOutFast);
 	  
+        //operatorCommands.put(9, commadRunTrajectory);
+
+      //Shift CLimb may be used for level 3
+	  //operatorCommands.put(27, commandShiftClimb);
       
-	  operatorCommands.put(1, commandWristAngle);
-	  operatorCommands.put(2, commandWristAngle);
-	  operatorCommands.put(4, commandWristAngle);
-	  
-	  operatorCommands.put(9, commandRamp);
-	  operatorCommands.put(10, commandRampUndeploy);
-	  operatorCommands.put(7, commandWristManualOverride);
-	  operatorCommands.put(8, commandWristManualOverride);
 		return operatorCommands;
 		
 	}

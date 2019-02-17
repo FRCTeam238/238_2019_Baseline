@@ -3,21 +3,22 @@ package org.usfirst.frc.team238.commands;
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandRetractWrist extends AbstractCommand
 {
-    IntakeWrist theIntake;
+    Shoulder theIntake;
     
-    public CommandRetractWrist(IntakeWrist myIntake)
+    public CommandRetractWrist(Shoulder myShoulder)
     {
-       this.theIntake = myIntake;
+       this.theIntake = myShoulder;
         
     }
 
     @Override
     public void execute()
     {
-      theIntake.retractWristPID();
+      theIntake.retractShoulderPID();
 
     }
 

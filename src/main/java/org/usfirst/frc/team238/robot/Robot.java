@@ -251,12 +251,13 @@ public class Robot extends TimedRobot {
 
         myDriveTrain.resetEncoders();
 
-        // myElevator = new Elevator();
-        // myElevator.init();
+        myElevator = new Elevator();
+        myElevator.init();
 
-        // myShoulder = new Shoulder();
-        // myShoulder.init();
+        myShoulder = new Shoulder();
+        myShoulder.init();
 
+    
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
 
