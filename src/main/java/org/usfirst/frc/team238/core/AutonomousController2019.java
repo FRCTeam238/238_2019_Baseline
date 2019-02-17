@@ -23,13 +23,16 @@ public class AutonomousController2019 implements AutonomousState{
 	//Holds all autocommands in order 
 	HashMap<String, ArrayList<AutonomousState>> autonomousModeList;
     private AutonomousDataHandler myAutonomousDataHandler;
-
+    DashBoard238 theDashboard;
     //Constructor
     public AutonomousController2019(Robot myRobot){
         
+        theDashboard = myRobot.myDashBoard238;
+
         myAutonomousDataHandler = new AutonomousDataHandler(myRobot);
         autonomousModeList = myAutonomousDataHandler.getAutonomousModeCommandList2019();
         myAutonomousDataHandler.dump();
+        
     }
 
 	/**
@@ -180,17 +183,22 @@ public class AutonomousController2019 implements AutonomousState{
 	
         int count = 0;
         
+        theDashboard.addAModeStepClear();
+
 		while(aModeIterator.hasNext()){
 			
 			AutonomousState thisState = aModeIterator.next();
             String name = thisState.getClass().getName();
 
-           //dashboard.addAutoStep(name);
-
            if(count == 0){
-            defaultName = name;
+                theDashboard.addAModeStep(name + count, true);
             }
-			Logger.Log("AutonomousController2019.populateAutoModes():" + name);    
+            else {
+                theDashboard.addAModeStep(name + count, false);
+            }
+            Logger.Log("AutonomousController2019.populateAutoModes():" + name);
+            count++;
+             
         }
         
         //dashboard.setDefaultAutoStep
