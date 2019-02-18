@@ -102,7 +102,7 @@ public class CommandDriveForward extends AbstractCommand {
     //Logger.Log("CommandDriveForward(): RightMotorValue = " + finalMotorValueRight);
     //Logger.Log("CommandDriveForward(): CurrentYaw: "+ currentYaw+ "  YawError: "+ yawError+ "  YawCorrection: "+ yawCorrection);
     
-    myRobotDrive.drive(-finalMotorValueLeft, -finalMotorValueRight);
+    myRobotDrive.drive(finalMotorValueLeft, finalMotorValueRight);
     
     /*
      * SmartDashboard.putNumber("YawError", yawError);

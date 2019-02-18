@@ -170,8 +170,8 @@ public class Robot extends TimedRobot {
 
             initRobotObjects();
             initCoreObjects();
-
-            Logger.Log("Robot(): robotInit(): Fully Initialized");
+            long startProcessingTime = System.currentTimeMillis();
+            Logger.Log("Robot(): robotInit(): Fully Initialized" + startProcessingTime);
 
         } catch (Exception ex) {
             ex.printStackTrace();

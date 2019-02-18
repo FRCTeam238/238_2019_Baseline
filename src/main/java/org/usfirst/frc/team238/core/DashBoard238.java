@@ -148,7 +148,7 @@ public class DashBoard238 {
         SmartDashboard.putBoolean("Output Log to File", true);
         SmartDashboard.putNumber("Select Auto State", 0);
 
-        SmartDashboard.putBoolean("xBox", true);
+        SmartDashboard.putBoolean("xBox", false);
         Logger.Log("DashBoard238.init() end");
     }
 
@@ -222,6 +222,20 @@ public class DashBoard238 {
 
     }
 
+    public double getElevator1() {
+        NetworkTableEntry value = testSweetEntries.get("ELEV_SETPT_1");
+        return value.getDouble(2);
+    }
+
+    public double getElevator2() {
+        NetworkTableEntry value = testSweetEntries.get("ELEV_SETPT_2");
+        return value.getDouble(5);
+    }
+    
+    public double getElevator3() {
+        NetworkTableEntry value = testSweetEntries.get("ELEV_SETPT_3");
+        return value.getDouble(0);
+    }
     public void setTestDrivetrainEncodersIndicators(double leftDrivetrainEncoderValue,
             double rightDrivetrainEncoderValue, boolean leftDrivetrainToleranceValue,
             boolean rightDrivetrainToleranceValue, boolean encoderDifferenceToleranceValue, double elapsedTimeValue) {

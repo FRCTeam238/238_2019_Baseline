@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 #----------------------------------------------------------------------------
 # Copyright (c) 2018 FIRST. All Rights Reserved.
 # Open Source Software - may be modified and shared by FRC teams. The code
@@ -247,7 +248,7 @@ def findCargo(frame, mask):
 # centerX is center x coordinate of image
 # centerY is center y coordinate of image
 def findBall(contours, image, centerX, centerY):
-    screenHeight, screenWidth, channels = image.shape;
+    screenHeight, screenWidth, channels = image.shape
     #Seen vision targets (correct angle, adjacent to each other)
     cargo = []
 
@@ -351,7 +352,7 @@ def findBall(contours, image, centerX, centerY):
 # centerX is center x coordinate of image
 # centerY is center y coordinate of image
 def findTape(contours, image, centerX, centerY):
-    screenHeight, screenWidth, channels = image.shape;
+    screenHeight, screenWidth, channels = image.shape
     #Seen vision targets (correct angle, adjacent to each other)
     targets = []
 
@@ -487,7 +488,7 @@ def findTape(contours, image, centerX, centerY):
     else:
         # pushes that it deosn't see vision target to network tables
         networkTable.putBoolean("tapeDetected", False)
-
+    ntinst.flush()
     cv2.line(image, (round(centerX), screenHeight), (round(centerX), 0), (255, 255, 255), 2)
 
     return image
@@ -731,7 +732,7 @@ if __name__ == "__main__":
         frame = img
         if timestamp == 0:
             # Send the output the error.
-            streamViewer.notifyError(cap.getError());
+            streamViewer.notifyError(cap.getError())
             # skip the rest of the current iteration
             continue
         #Checks if you just want camera for driver (No processing), False by default

@@ -98,10 +98,14 @@ public class CrusaderCommon {
 
 	public static final double ELEVATOR_KP = 0.067;
 	public static final double ELEVATOR_KD = 0.037;
-	public static final double ELEVATOR_TICK_TO_IN = 4594.0;//7414
-	public static final int ELEVATOR_MASTER = 8; 
-	public static final int ELEVAOR_SLAVE_SRX = 11;
-	public static final int ELEVATOR_SLAVE_SPX = 10;
+	public static final double ELEVATOR_TICK_TO_IN = 2205.0;//7414
+	public static final int CW_ELEVATOR_MASTER = 8; 
+	public static final int CW_ELEVAOR_SLAVE_SRX = 11;
+    public static final int CW_ELEVATOR_SLAVE_SPX = 10;
+    public static final int ELEVATOR_MASTER = 11; 
+	//public static final int ELEVAOR_SLAVE_SRX = 11;
+	//public static final int ELEVATOR_SLAVE_SPX = 10;
+
 	public static final int INTAKE_MASTER_SRX = 4;
 	public final static int INTAKE_SLAVE = 5;
 	public final static int INTAKE_SHOULDER = 7;
@@ -199,8 +203,8 @@ public class CrusaderCommon {
 	public static final double TEST_ELEVATOR_TOLERANCE = 100;
 
 	public static final double ELEVATOR_SETPOINT_ONE = 5;
-	public static final double ELEVATOR_SETPOINT_TWO = 10;
-	public static final double ELEVATOR_SETPOINT_THREE = 15;
+	public static final double ELEVATOR_SETPOINT_TWO = 16;
+	public static final double ELEVATOR_SETPOINT_THREE = 0;
     public static final double ELEVATOR_SETPOINT_TOLERANCE = 1.5;
     
     public static final double SHOULDER_TARGET_TOLERANCE = 5;

@@ -55,7 +55,7 @@ public class TestElevator implements TestStep {
     // DashboardValues elevatorSetpoints;
     switch (parameters[0]) {
         case "Elevator Test":
-            elevatorSetpoint = myRobot.myDashBoard238.elevatorTestInfo1.getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_ONE);
+            elevatorSetpoint = myRobot.myDashBoard238.getElevator1();//  .elevatorTestInfo1.getEntry().getDouble(CrusaderCommon.ELEVATOR_SETPOINT_ONE);
             break;
         
         case "Elevator Test2":

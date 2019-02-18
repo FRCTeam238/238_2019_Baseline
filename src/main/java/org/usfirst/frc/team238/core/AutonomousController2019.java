@@ -200,10 +200,10 @@ public class AutonomousController2019 implements AutonomousState {
         theDashboard.addAModeStepParamsClear();
 
         String autoStep = theDashboard.getSelectedAutonomousModeStep();
-
+        Logger.Log("AutoStep = " + autoStep);
         // last char is the position in the array list of teh step
-        String theIndex = autoStep.substring(autoStep.length());
-
+        String theIndex = autoStep.substring(autoStep.length() - 1);
+        Logger.Log("Substring = " + theIndex);
         AutonomousState thisState = steps.get(Integer.valueOf(theIndex));
         Logger.Log("AutonomousController2019.populateAutoModeStepsParams():" + thisState);
 
