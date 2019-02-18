@@ -168,13 +168,13 @@ verticalView = math.atan(math.tan(diagonalView/2) * (verticalAspect / diagonalAs
 #Focal Length calculations: https://docs.google.com/presentation/d/1ediRsI-oR3-kwawFJZ34_ZTlQS2SDBLjZasjzZ-eXbQ/pub?start=false&loop=false&slide=id.g12c083cffa_0_165
 H_FOCAL_LENGTH = image_width / (2*math.tan((horizontalView/2)))
 V_FOCAL_LENGTH = image_height / (2*math.tan((verticalView/2)))
-# blurs have to be odd
-green_blur = 1
+#blurs have to be odd
+green_blur = 7
 orange_blur = 27
 
 # define range of green of retroreflective tape in HSV
-lower_green = np.array([55, 128, 133])
-upper_green = np.array([109, 255, 255])
+lower_green = np.array([0,220,25])
+upper_green = np.array([101, 255, 255])
 #define range of orange from cargo ball in HSV
 lower_orange = np.array([0,193,92])
 upper_orange = np.array([23, 255, 255])
@@ -247,7 +247,7 @@ def findCargo(frame, mask):
 # centerX is center x coordinate of image
 # centerY is center y coordinate of image
 def findBall(contours, image, centerX, centerY):
-    screenHeight, screenWidth, channels = image.shape
+    screenHeight, screenWidth, channels = image.shape;
     #Seen vision targets (correct angle, adjacent to each other)
     cargo = []
 
@@ -310,8 +310,11 @@ def findBall(contours, image, centerX, centerY):
                     cv2.circle(image, center, radius, (23, 184, 80), 1)
 
                     # Appends important info to array
-                    if [cx, cy, cnt] not in biggestCargo:
-                         biggestCargo.append([cx, cy, cnt])
+                    if not biggestCargo:
+                        biggestCargo.append([cx, cy, cnt])
+                    elif [cx, cy, cnt] not in biggestCargo:
+                        biggestCargo.append([cx, cy, cnt])
+
 
 
 
@@ -326,7 +329,6 @@ def findBall(contours, image, centerX, centerY):
             xCoord = closestCargo[0]
             finalTarget = calculateYaw(xCoord, centerX, H_FOCAL_LENGTH)
             print("Yaw: " + str(finalTarget))
-            networkTable.putString("Yaw", finalTarget)
             # Puts the yaw on screen
             # Draws yaw of target + line where center of target is
             cv2.putText(image, "Yaw: " + str(finalTarget), (40, 40), cv2.FONT_HERSHEY_COMPLEX, .6,
@@ -349,7 +351,7 @@ def findBall(contours, image, centerX, centerY):
 # centerX is center x coordinate of image
 # centerY is center y coordinate of image
 def findTape(contours, image, centerX, centerY):
-    screenHeight, screenWidth, channels = image.shape
+    screenHeight, screenWidth, channels = image.shape;
     #Seen vision targets (correct angle, adjacent to each other)
     targets = []
 
@@ -364,7 +366,7 @@ def findTape(contours, image, centerX, centerY):
             # Get convex hull (bounding polygon on contour)
             hull = cv2.convexHull(cnt)
             # Calculate Contour area
-            cntArea = cv2.contourArea(targetnt)
+            cntArea = cv2.contourArea(cnt)
             # calculate area of convex hull
             hullArea = cv2.contourArea(hull)
             # Filters contours based off of size
@@ -425,7 +427,9 @@ def findTape(contours, image, centerX, centerY):
                     cv2.circle(image, center, radius, (23, 184, 80), 1)
 
                     # Appends important info to array
-                    if [cx, cy, rotation, cnt] not in biggestCnts:
+                    if not biggestCnts:
+                         biggestCnts.append([cx, cy, rotation, cnt])
+                    elif [cx, cy, rotation, cnt] not in biggestCnts:
                          biggestCnts.append([cx, cy, rotation, cnt])
 
 
@@ -460,7 +464,9 @@ def findTape(contours, image, centerX, centerY):
                 #Angle from center of camera to target (what you should pass into gyro)
                 yawToTarget = calculateYaw(centerOfTarget, centerX, H_FOCAL_LENGTH)
                 #Make sure no duplicates, then append
-                if [centerOfTarget, yawToTarget] not in targets:
+                if not targets:
+                    targets.append([centerOfTarget, yawToTarget])
+                elif [centerOfTarget, yawToTarget] not in targets:
                     targets.append([centerOfTarget, yawToTarget])
     #Check if there are targets seen
     if (len(targets) > 0):
@@ -583,7 +589,7 @@ configFile = "/boot/frc.json"
 
 class CameraConfig: pass
 
-team = 3216
+team = 238
 server = False
 cameraConfigs = []
 
@@ -704,31 +710,28 @@ if __name__ == "__main__":
     cameraServer = streams[0]
     #Start thread reading camera
     cap = WebcamVideoStream(webcam, cameraServer, image_width, image_height).start()
-    # cap = cap.findTape
+
     # (optional) Setup a CvSource. This will send images back to the Dashboard
     # Allocating new images is very expensive, always try to preallocate
     img = np.zeros(shape=(image_height, image_width, 3), dtype=np.uint8)
     #Start thread outputing stream
-    
     streamViewer = VideoShow(image_width,image_height, cameraServer, frame=img).start()
     #cap.autoExpose=True;
-    tape = True
+    tape = False
     fps = FPS().start()
     #TOTAL_FRAMES = 200;
     # loop forever
     while True:
-        
         # Tell the CvSink to grab a frame from the camera and put it
         # in the source image.  If there is an error notify the output.
         timestamp, img = cap.read()
         #Uncomment if camera is mounted upside down
         #frame = flipImage(img)
         #Comment out if camera is mounted upside down
-        # img = findCargo(frame,img)
         frame = img
         if timestamp == 0:
             # Send the output the error.
-            streamViewer.notifyError(cap.getError())
+            streamViewer.notifyError(cap.getError());
             # skip the rest of the current iteration
             continue
         #Checks if you just want camera for driver (No processing), False by default
@@ -740,18 +743,21 @@ if __name__ == "__main__":
             # Switched to True, default is False
             if(networkTable.getBoolean("Tape", True)):
                 # blur must be integer and odd
-                tape_blur = int(networkTable.getNumber("TapeBlur",1))
+                tape_blur = int(networkTable.getNumber("TapeBlur",7))
                 if(tape_blur % 2 == 0):
                     tape_blur = tape_blur + 1
-                
-                # get upper/lower hsv values from network tables
-                tape_lower_h = int(networkTable.getNumber("TapeLowerH", 55))
-                tape_lower_s = int(networkTable.getNumber("TapeLowerS", 128))
-                tape_lower_v = int(networkTable.getNumber("TapeLowerV", 133))
 
-                tape_upper_h = int(networkTable.getNumber("TapeUpperH", 109))
-                tape_upper_s = int(networkTable.getNumber("TapeUpperS", 255))
-                tape_upper_v = int(networkTable.getNumber("TapeUpperV", 255))
+                # get upper/lower hsv values from network tables
+                # use the original values from script sartup as defualts
+                # this help keep file somewhat in scyn with the original script and makes merging changes easier
+                # startup vals found on lines 176/177
+                tape_lower_h = int(networkTable.getNumber("TapeLowerH", lower_green[0]))
+                tape_lower_s = int(networkTable.getNumber("TapeLowerS", lower_green[1]))
+                tape_lower_v = int(networkTable.getNumber("TapeLowerV", lower_green[2]))
+
+                tape_upper_h = int(networkTable.getNumber("TapeUpperH", upper_green[0]))
+                tape_upper_s = int(networkTable.getNumber("TapeUpperS", upper_green[1]))
+                tape_upper_v = int(networkTable.getNumber("TapeUpperV", upper_green[2]))
                 
                 # define range of green of retroreflective tape in HSV
                 lower_green = np.array([tape_lower_h, tape_lower_s, tape_lower_v])
@@ -770,8 +776,6 @@ if __name__ == "__main__":
                 processed = findCargo(frame, threshold)
         #Puts timestamp of camera on netowrk tables
         networkTable.putNumber("VideoTimestamp", timestamp)
-        
-        # networkTable.putBoolean("Driver", False)
         streamViewer.frame = processed
         # update the FPS counter
         fps.update()
