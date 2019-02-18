@@ -4,12 +4,13 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 
 import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandIntakeIn extends AbstractCommand {
 	
 	
-	IntakeWrist intake;
-	public CommandIntakeIn(IntakeWrist myintake)
+	Shoulder intake;
+	public CommandIntakeIn(Shoulder myintake)
 	{
 		this.intake = myintake;
 		

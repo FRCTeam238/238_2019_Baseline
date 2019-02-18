@@ -600,6 +600,7 @@ public class AutonomousDataHandler implements AutonomousState {
         DashBoard238 theDashboard = myRobot.myDashBoard238;
 
         CommandController theMCP = myRobot.theMCP;
+        Boolean isFirst = true;
         try {
 
             // Something to read the JSON File
@@ -641,7 +642,14 @@ public class AutonomousDataHandler implements AutonomousState {
                 Logger.Log("AutonomousDataHandler(): readJson2(): Autonomous Mode Name: " + name);
 
                 // Start building the list of selectable Amodes on the dashboard
-                theDashboard.addAModeEntry(name, name);
+                if (isFirst) {
+                    theDashboard.addDefaultAModeEntry(name, name);
+                }
+                else {
+                    isFirst = false;
+                    theDashboard.addAModeEntry(name, name);
+                }
+               
 
                 // Create an array/iterator of commands from the AutoMode it's currently cycling
                 // through

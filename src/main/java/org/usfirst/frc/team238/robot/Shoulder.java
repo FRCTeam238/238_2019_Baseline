@@ -119,10 +119,10 @@ public class Shoulder
     /**
      * Suck a cube in
      */
-    public void extendshoulderPID() {
+    public void extendShoulderPID() {
         if(PIDEnabled) {
             tilt(1.0);
-            System.out.println("extendPidenabled"); 
+            Logger.Log("extendPidenabled"); 
         }else {
             double shoulderValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
             double staticshoulderValue = 0.0;
@@ -141,7 +141,7 @@ public class Shoulder
             SmartDashboard.putNumber("Extending", shoulderValue);
             SmartDashboard.putNumber("ExtendingStatic", staticshoulderValue);
            
-            //System.out.println("extendPidNOTenabled"); 
+            //Logger.Log("extendPidNOTenabled"); 
             
         }
         
@@ -152,14 +152,14 @@ public class Shoulder
         SmartDashboard.putBoolean("PidEnabled", PIDEnabled);
        
         Logger.Log("PidEnabled = ", String.valueOf(PIDEnabled));
-        System.out.println("manualOverride"); 
+        Logger.Log("manualOverride"); 
     }
     
-    public void retractshoulderPID() {
+    public void retractShoulderPID() {
         
         if(PIDEnabled) {
             tilt(-1.0);
-            System.out.println("RetractPidenabled"); 
+            Logger.Log("RetractPidenabled"); 
         }else {
            double shoulderValue = ControlBoard.getOperatorRightJs().getRawAxis(5);
            double staticshoulderValue = 0.0;
@@ -176,7 +176,7 @@ public class Shoulder
             SmartDashboard.putNumber("Retracting", shoulderValue);
             SmartDashboard.putNumber("RetractingStatic", staticshoulderValue);
             
-            //System.out.println("RetractPidNOTenabled"); 
+            //Logger.Log("RetractPidNOTenabled"); 
         }
     }
     

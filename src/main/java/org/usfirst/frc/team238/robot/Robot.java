@@ -96,7 +96,7 @@ public class Robot extends TimedRobot {
     private TestCmdFactory myTestCmdFactory;
 
     Boolean FailedInitilization = false;
-
+    Boolean loadedAmodeSteps = false;
     public AutonomousController2019 theMACP2019;
 
     public void disabledInit() {
@@ -123,7 +123,8 @@ public class Robot extends TimedRobot {
                 String selectedTest = myDashBoard238.getSelectedAutonomousMode();
                
                 //build a Dropdown with the individual steps
-                //theMACP2019.populateAutoModeSteps(selectedTest);
+                theMACP2019.populateAutoModeSteps(selectedTest);
+                
                 //build another dropdown with the params for the selcted step
                 
                 //populate the param field with teh selcted param
@@ -251,12 +252,13 @@ public class Robot extends TimedRobot {
 
         myDriveTrain.resetEncoders();
 
-        // myElevator = new Elevator();
-        // myElevator.init();
+        myElevator = new Elevator();
+        myElevator.init();
 
-        // myShoulder = new Shoulder();
-        // myShoulder.init();
+        myShoulder = new Shoulder();
+        myShoulder.init();
 
+    
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
 

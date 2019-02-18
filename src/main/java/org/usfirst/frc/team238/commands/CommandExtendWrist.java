@@ -4,20 +4,21 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 
 import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandExtendWrist extends AbstractCommand {
 	
-	IntakeWrist extend; 
-	public CommandExtendWrist(IntakeWrist myextend)
+	Shoulder extend; 
+	public CommandExtendWrist(Shoulder myShoulder)
 	{
-		this.extend = myextend;
+		this.extend = myShoulder;
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		extend.extendWristPID();
+		extend.extendShoulderPID();
 
 	}
 

@@ -1,18 +1,22 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
+import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.TestCoreObject;
 
 public class CommandStopEverything extends AbstractCommand {
 
     /**
-   * THIS IS THE DEFAULT STOP EVERYTHING ON OPERATOR CONTROLLS
-   */
+    * THIS IS THE DEFAULT STOP EVERYTHING ON OPERATOR CONTROLLS
+    */
+  
+    Robot theRobot;
+
     TestCoreObject myTestCoreObject;
     
-    public CommandStopEverything(TestCoreObject testCoreObject) {
+    public CommandStopEverything(Robot myRobot) {
    
-      this.myTestCoreObject = testCoreObject; 
+      this.theRobot = myRobot; 
      
   
   }
@@ -22,7 +26,8 @@ public class CommandStopEverything extends AbstractCommand {
 
 @Override
   public void execute() {
-    //myTestCoreObject.turnOffChannelTwo();
+        theRobot.myShoulder.stop();
+        theRobot.myElevator.stop();
   }
 
   @Override

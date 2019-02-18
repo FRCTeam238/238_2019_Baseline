@@ -3,12 +3,13 @@ package org.usfirst.frc.team238.commands;
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandIntakeOutFast extends AbstractCommand
 {
-    IntakeWrist theIntake;
+    Shoulder theIntake;
     
-    public CommandIntakeOutFast(IntakeWrist myIntake)
+    public CommandIntakeOutFast(Shoulder myIntake)
     {
         this.theIntake = myIntake;
     }

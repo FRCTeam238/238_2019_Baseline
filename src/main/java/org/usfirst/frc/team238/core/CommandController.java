@@ -118,29 +118,33 @@ public class CommandController {
         buttonPressed = commandValues.get(CrusaderCommon.OPR_CMD_LIST);
 
         boolean buttonIsPressed = false;
-        //Logger.Log(buttonPressed.length);
+        //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
         for (int i = 0; i < buttonPressed.length; i++) {
 
             if (buttonPressed[i] != null) {
                 int index = buttonPressed[i];
-                System.out.println(index);
+                Logger.Log("CommandController.josystickcommandexecution() actual button pressed =  " + index );
                 if (index > 0) {
                    
                     buttonIsPressed = true;
                     operatorCommandsForTheButtonPressed = operatorCmdList.get(index);
+                    if (operatorCommandsForTheButtonPressed == null)
+                    {
+                        Logger.Log("CommandController.josystickcommandexecution() no command found");
+                    }
+                    else {
+                        /*
+                         * if(buttonPressed[i] == 1 || buttonPressed[i] == 5) { int shootButton =
+                         * buttonPressed[i]; operatorCommandsForTheButtonPressed.execute(shootButton); }
+                         * else {
+                         */
+                        if (index == 1 || index == 2 || index == 4 || index == 7 || index == 8) {
+                            operatorCommandsForTheButtonPressed.execute(index);
 
-                    /*
-                     * if(buttonPressed[i] == 1 || buttonPressed[i] == 5) { int shootButton =
-                     * buttonPressed[i]; operatorCommandsForTheButtonPressed.execute(shootButton); }
-                     * else {
-                     */
-                    if (index == 1 || index == 2 || index == 4 || index == 7 || index == 8) {
-                        operatorCommandsForTheButtonPressed.execute(index);
-                       
+                        } else {
+                            operatorCommandsForTheButtonPressed.execute(); // why are you null
 
-                    } else {
-                        operatorCommandsForTheButtonPressed.execute(); // why are you null
-                      
+                        }
                     }
                    
                 }
