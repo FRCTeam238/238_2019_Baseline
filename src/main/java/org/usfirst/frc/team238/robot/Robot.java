@@ -98,6 +98,7 @@ public class Robot extends TimedRobot {
     Boolean FailedInitilization = false;
     Boolean loadedAmodeSteps = false;
     public AutonomousController2019 theMACP2019;
+    private String currentTest;
 
     public void disabledInit() {
         try {
@@ -121,20 +122,19 @@ public class Robot extends TimedRobot {
                 myDriveTrain.resetEncoders();
 
                 String selectedTest = myDashBoard238.getSelectedAutonomousMode();
+
+                // build a Dropdown with the individual steps
+                if (!selectedTest.equals(currentTest)) {
+                    theMACP2019.populateAutoModeSteps(selectedTest);
+                    // build another dropdown with the params for the selected step
+                    theMACP2019.populateAutoModeStepsParams();
+                }
                
-                //build a Dropdown with the individual steps
-                theMACP2019.populateAutoModeSteps(selectedTest);
-                
-                //build another dropdown with the params for the selcted step
-                
-                //populate the param field with teh selcted param
+                // populate the param field with the selcted param
+                theMACP2019.populateAutoModeStepsParamsValue();
+                // see if we need to update
 
-                //see if we need to update
-
-                
-
-                String robotPosition = SmartDashboard.getString(CrusaderCommon.AUTO_ROBOT_POSITION, "X");
-                Logger.Log("AUtoMOde Selection: = " + robotPosition);
+                currentTest = selectedTest;
             }
 
             count++;
@@ -258,7 +258,6 @@ public class Robot extends TimedRobot {
         myShoulder = new Shoulder();
         myShoulder.init();
 
-    
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
 
@@ -447,7 +446,7 @@ public class Robot extends TimedRobot {
     }
 
     public void autoModeUpdateAndRead() {
-        
+
         String autoModeSelection = myDashBoard238.getSelectedAutonomousMode();
         Logger.Log("Robot(): disabledPeriodic(): The chosen AutoMode =  " + autoModeSelection);
 
@@ -496,11 +495,11 @@ public class Robot extends TimedRobot {
         }
 
         // if (save == CrusaderCommon.AUTONOMOUS_SAVE) {
-        //     myAutonomousDataHandler.save();
+        // myAutonomousDataHandler.save();
         // }
 
         // if (save == CrusaderCommon.AUTONOMOUS_READ_FILE) {
-        //     myAutonomousDataHandler.readJson(theMCP);
+        // myAutonomousDataHandler.readJson(theMCP);
         // }
 
         // myAutonomousDataHandler.dump();

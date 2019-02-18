@@ -106,4 +106,9 @@ public class StateTurn implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

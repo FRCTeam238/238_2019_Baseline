@@ -99,4 +99,10 @@ public class StateElevatorDown implements AutonomousState
         return output;
       }
 
+      @Override
+      public String[] getParams() {
+          
+          return parameters;
+      }
+
 }

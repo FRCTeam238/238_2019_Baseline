@@ -97,4 +97,9 @@ public class StateNewDriveForward implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

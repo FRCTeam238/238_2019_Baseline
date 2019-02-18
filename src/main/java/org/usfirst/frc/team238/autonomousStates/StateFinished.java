@@ -72,4 +72,9 @@ public class StateFinished implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

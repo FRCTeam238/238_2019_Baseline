@@ -8,58 +8,50 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 //import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeInAdv;
 
-public class StateIntakeInAdv implements AutonomousState
-{
+public class StateIntakeInAdv implements AutonomousState {
     CommandIntakeInAdv intakeInCommand;
     String parameters[];
-    
+
     @Override
-    public void init()
-    {
+    public void init() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
-    public void prepare()
-    {
+    public void prepare() {
         // TODO Auto-generated method stub
         intakeInCommand.prepare();
         intakeInCommand.setParams(parameters);
     }
 
     @Override
-    public void init(String[] params, CommandController theMcp)
-    {
+    public void init(String[] params, CommandController theMcp) {
         // TODO Auto-generated method stub
         intakeInCommand = (CommandIntakeInAdv) theMcp.getAutoCmd("CommandIntakeInAdv");
         parameters = params;
     }
 
     @Override
-    public void process()
-    {
+    public void process() {
         // TODO Auto-generated method stub
         intakeInCommand.execute();
     }
 
     @Override
-    public boolean done()
-    {
+    public boolean done() {
         // TODO Auto-generated method stub
         return true;
     }
 
     @Override
-    public void reset()
-    {
+    public void reset() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void showParams()
-    {
+    public void showParams() {
         // TODO Auto-generated method stub
 
     }
@@ -82,18 +74,24 @@ public class StateIntakeInAdv implements AutonomousState
         param4 = SmartDashboard.getString("Param 4 - ultrasonicTarget", "");
         parameters[3] = param4;
         param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
-        //parameters[4] = param5;
-      }
+        // parameters[4] = param5;
+    }
 
-      @Override
-      public String getParam(int value) {
+    @Override
+    public String getParam(int value) {
         String output = "";
         if (parameters == null || parameters.length - 1 < value) {
-          output = "";
+            output = "";
         } else {
-          output = parameters[value];
+            output = parameters[value];
         }
         return output;
-      }
+    }
+
+    @Override
+    public String[] getParams() {
+
+        return parameters;
+    }
 
 }

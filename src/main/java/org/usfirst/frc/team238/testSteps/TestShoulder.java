@@ -15,8 +15,8 @@ import org.usfirst.frc.team238.robot.Robot;
 /**
  * Add your docs here.
  */
-public class TestShoulder implements TestStep{
-    
+public class TestShoulder implements TestStep {
+
     Robot myRobot;
     String parameters[];
     int counter;
@@ -24,28 +24,26 @@ public class TestShoulder implements TestStep{
     double currentAngle;
     double angleDifference;
     boolean done = false;
-    //Put shoulder to known starting position if not already at it
-    //get target from smartdashboard
-    //move up set number of degrees
-    //record moved number of degrees
-    //compare with target number of degrees
-    //push to smartdashboard
-
-
+    // Put shoulder to known starting position if not already at it
+    // get target from smartdashboard
+    // move up set number of degrees
+    // record moved number of degrees
+    // compare with target number of degrees
+    // push to smartdashboard
 
     public TestShoulder(Robot robot) {
-    
-    this.myRobot = robot;
+
+        this.myRobot = robot;
     }
 
     @Override
     public void prepare() {
-  
+
     }
-  
+
     @Override
     public void init() {
-  
+
     }
 
     @Override
@@ -57,37 +55,31 @@ public class TestShoulder implements TestStep{
 
     @Override
     public boolean process() {
-    //Put shoulder to known starting position if not already at it 
-    //get target from smartdashboard X
-    //move up set number of degrees X
-    //record moved number of degrees X
-    //compare with target number of degrees x
-    //push to smartdashboard
+        // Put shoulder to known starting position if not already at it
+        // get target from smartdashboard X
+        // move up set number of degrees X
+        // record moved number of degrees X
+        // compare with target number of degrees x
+        // push to smartdashboard
         if (counter == 0) {
             Logger.Log("TestShoulder.process():  Test has started");
             shoulderTarget = myRobot.myDashBoard238.getShoulderData();
             myRobot.myShoulder.setshoulder(shoulderTarget);
             counter++;
         }
-        
+
         currentAngle = myRobot.myShoulder.getAngle();
         angleDifference = currentAngle - shoulderTarget;
         if (Math.abs(angleDifference) < CrusaderCommon.SHOULDER_TARGET_TOLERANCE) {
-            
-            done = true;
-            //This will be the shoulder on the Robot, but we are calling wrist to use its methods
-            
-            myRobot.myDashBoard238.putShoulderData(currentAngle);
 
+            done = true;
+            // This will be the shoulder on the Robot, but we are calling wrist to use its
+            // methods
+
+            myRobot.myDashBoard238.putShoulderData(currentAngle);
 
         }
 
-
-
-
-
-    
-       
         return false;
     }
 
@@ -116,7 +108,5 @@ public class TestShoulder implements TestStep{
     public String getParam(int value) {
         return null;
     }
-
-
 
 }

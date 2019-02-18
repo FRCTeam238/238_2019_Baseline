@@ -432,8 +432,6 @@ public class AutonomousDataHandler implements AutonomousState {
         return newAmode238String;
     }
 
-
-    
     /**
      * Goes through each AutonomousMode and prints out each state and it's
      * parameters
@@ -442,7 +440,7 @@ public class AutonomousDataHandler implements AutonomousState {
         int count = 0;
         String name;
         String statesList;
-       
+
         Iterator<Entry<String, ArrayList<AutonomousState>>> autonomousModeIterator = autonomousModeCommandList2
                 .entrySet().iterator();
 
@@ -462,7 +460,6 @@ public class AutonomousDataHandler implements AutonomousState {
                 statesList = "AutoStateList " + count + " ";
                 Logger.Log("AutonomousDataHandler(): dump(): State Name" + name);
 
-               
             }
         }
 
@@ -536,55 +533,54 @@ public class AutonomousDataHandler implements AutonomousState {
 
     @Override
     public void init() {
-         
 
     }
 
     @Override
     public void prepare() {
-         
 
     }
 
     @Override
     public void init(String[] params, CommandController theMcp) {
-         
 
     }
 
     @Override
     public void process() {
-         
 
     }
 
     @Override
     public boolean done() {
-        
+
         return false;
     }
 
     @Override
     public void reset() {
-         
 
     }
 
     @Override
     public void showParams() {
-         
 
     }
 
     @Override
     public void updateParams() {
-         
 
     }
 
     @Override
     public String getParam(int value) {
-         
+
+        return null;
+    }
+
+    @Override
+    public String[] getParams() {
+
         return null;
     }
 
@@ -644,12 +640,10 @@ public class AutonomousDataHandler implements AutonomousState {
                 // Start building the list of selectable Amodes on the dashboard
                 if (isFirst) {
                     theDashboard.addDefaultAModeEntry(name, name);
-                }
-                else {
+                } else {
                     isFirst = false;
                     theDashboard.addAModeEntry(name, name);
                 }
-               
 
                 // Create an array/iterator of commands from the AutoMode it's currently cycling
                 // through

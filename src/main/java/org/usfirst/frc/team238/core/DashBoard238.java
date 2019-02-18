@@ -19,9 +19,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class DashBoard238 {
     Robot myRobot;
     private SendableChooser<String> aModeSelector;
+    private SendableChooser<String> stepSelector;
+    private SendableChooser<String> stepParamSelector;
     private SendableChooser<String> testSelector;
     private SendableChooser<String> positionSelector;
-    private SendableChooser<String> stepSelector;
 
     public SimpleWidget robotPosition;
     ShuffleboardTab testTab;
@@ -54,12 +55,18 @@ public class DashBoard238 {
 
     public void init() {
         Logger.Log("DashBoard238.init() Start");
+
+        aModeSelector = new SendableChooser<String>();
+        SmartDashboard.putData("AuTo", aModeSelector);
+        // Logger.Log("DashBoard238.init() After aMode");
+
         stepSelector = new SendableChooser<String>();
-        // for (int i = 0; i < 10; i++) {
-        //     stepSelector.addOption("x"+i, "x"+i);
-        // }
         SmartDashboard.putData("Steps", stepSelector);
-        
+
+        stepParamSelector = new SendableChooser<String>();
+        SmartDashboard.putData("Params", stepParamSelector);
+        SmartDashboard.putString("ParamValue", "0");
+
         testSweetEntries = new HashMap<String, NetworkTableEntry>();
 
         positionSelector = new SendableChooser<String>();
@@ -69,13 +76,9 @@ public class DashBoard238 {
         positionSelector.addOption("Right", "Right");
         SmartDashboard.putData("Robot Position", positionSelector);
 
-        aModeSelector = new SendableChooser<String>();
-        SmartDashboard.putData("AuTo", aModeSelector);
-        Logger.Log("DashBoard238.init() After aMode");
-
         testSelector = new SendableChooser<String>();
 
-        //Send able Chooser for the state update function
+        // Send able Chooser for the state update function
         testSelector.setDefaultOption("Stop Test", "Stop Test");
         testSelector.addOption("Encoder Test", "Encoder Test");
         testSelector.addOption("Drivetrain Test", "Drivetrain Test");
@@ -90,40 +93,41 @@ public class DashBoard238 {
         testTab = Shuffleboard.getTab("TestSweet");
         testTab.add(testSelector).withSize(1, 1).withPosition(0, 0);
 
-        //we "add" something to the test tab
-        //then we call "getEntry" to get the networktables Entry for that element 
-        //and then "put" it in the testSweetEntries Hashmap for future use
-        /* if the code was expanded it would look like this
-        *   SimpleWidget theWidget = testTab.add(X,x);
-        *   NetworkTabelEntry NTE = theWidget.getENtry(); 
-        *   testSweetEntries.put(X,NTE);
-        */
+        // we "add" something to the test tab
+        // then we call "getEntry" to get the networktables Entry for that element
+        // and then "put" it in the testSweetEntries Hashmap for future use
+        /*
+         * if the code was expanded it would look like this SimpleWidget theWidget =
+         * testTab.add(X,x); NetworkTabelEntry NTE = theWidget.getENtry();
+         * testSweetEntries.put(X,NTE);
+         */
 
         buildElement(leftDriveTrainEncoder, 0, 1, 1, 1, 0);
         buildElement(rightDriveTrainEncoder, 0, 1, 1, 1, 1);
         buildElement(leftDriveTrainTolerance, false, 1, 1, 2, 0);
         buildElement(rightDriveTrainTolerance, false, 1, 1, 2, 1);
         buildElement(encoderDiffTolerance, false, 1, 1, 3, 1);
-        //buildElement(elapsedTime, false, 1, 1, 8, 0);
+        // buildElement(elapsedTime, false, 1, 1, 8, 0);
         buildElement(driveTrainDone, false, 1, 1, 3, 0);
 
-        //elevator test elements on TestSweet tab in Shuffleboard
+        // elevator test elements on TestSweet tab in Shuffleboard
         buildElement(elevatorHeight, 0, 1, 1, 1, 2);
         buildElement(elevatorTolerance, false, 1, 1, 2, 2);
         buildElement(elevatorDone, false, 1, 1, 3, 2);
 
-        //shoulder test elements on TestSweet tab in Shuffleboard
+        // shoulder test elements on TestSweet tab in Shuffleboard
         buildElement(shoulderTarget, 0, 1, 1, 5, 0);
         buildElement(shoulderHeight, 0, 1, 1, 5, 1);
 
-        //needs to be refactored to use  testsweetentries 
+        // needs to be refactored to use testsweetentries
         buildElement("ELEV_SETPT_1", CrusaderCommon.ELEVATOR_SETPOINT_ONE, 1, 1, 1, 3);
         buildElement("ELEV_SETPT_2", CrusaderCommon.ELEVATOR_SETPOINT_TWO, 1, 1, 2, 3);
         buildElement("ELEV_SETPT_3", CrusaderCommon.ELEVATOR_SETPOINT_THREE, 1, 1, 3, 3);
 
         chickenTab = Shuffleboard.getTab("ChickenVision");
 
-        //chickenTab.buildInto(NetworkTableInstance.getDefault().getTable("ChickenVision"), NetworkTableInstance.getDefault().getTable("ChickenVision"));
+        // chickenTab.buildInto(NetworkTableInstance.getDefault().getTable("ChickenVision"),
+        // NetworkTableInstance.getDefault().getTable("ChickenVision"));
 
         buildElement(chickenTab, "TapeBlur", 1, 1, 1, 6, 0);
         buildElement(chickenTab, "TapeLowerH", 55, 1, 1, 7, 0);
@@ -146,7 +150,7 @@ public class DashBoard238 {
         SimpleWidget theWidget = testTab.add(elementName, value);
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
-      
+
     }
 
     void buildElement(String elementName, Double value, int sizeX, int sizeY, int posX, int posY) {
@@ -187,6 +191,14 @@ public class DashBoard238 {
         return selectedAutoMode;
     }
 
+    public String getSelectedAutonomousModeStep() {
+        String selectedAutoModeStep = stepSelector.getSelected();
+
+        Logger.Log("DashBoard238.getSelectedAutonomousModeStep(): AutomodeStep = " + selectedAutoModeStep);
+
+        return selectedAutoModeStep;
+    }
+
     public SendableChooser<String> getTestSelector() {
 
         return testSelector;
@@ -213,7 +225,7 @@ public class DashBoard238 {
         testSweetEntries.get(leftDriveTrainTolerance).setBoolean(leftDrivetrainToleranceValue);
         testSweetEntries.get(rightDriveTrainTolerance).setBoolean(rightDrivetrainToleranceValue);
         testSweetEntries.get(encoderDiffTolerance).setBoolean(encoderDifferenceToleranceValue);
-        //testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
+        // testSweetEntries.get(elapsedTime).setNumber(elapsedTimeValue);
         testSweetEntries.get(driveTrainDone).setBoolean(true);
 
     }
@@ -265,7 +277,7 @@ public class DashBoard238 {
 
         testSweetEntries.get(shoulderHeight).setDouble(shoulderAngle);
 
-        //testSweetEntries.get(shoulderHeight).setNumber();
+        // testSweetEntries.get(shoulderHeight).setNumber();
 
     }
 
@@ -283,27 +295,49 @@ public class DashBoard238 {
 
     public void addAModeStep(String name, Boolean defaultOption) {
 
-        if( defaultOption){
+        if (defaultOption) {
             stepSelector.setDefaultOption(name, name);
-        }
-        else{
+        } else {
             stepSelector.addOption(name, name);
         }
-       
+
+    }
+
+    public void addAModeStepParams(String name, Boolean defaultOption) {
+
+        if (defaultOption) {
+            stepParamSelector.setDefaultOption(name, name);
+        } else {
+            stepParamSelector.addOption(name, name);
+        }
 
     }
 
     public void addAModeStepClear() {
 
-        
-            stepSelector.close();
-            stepSelector = new SendableChooser<String>();
-           
-            SmartDashboard.putData("Steps", stepSelector);
-       
+        stepSelector.close();
+        stepSelector = new SendableChooser<String>();
+
+        SmartDashboard.putData("Steps", stepSelector);
 
     }
 
+    public void addAModeStepParamsClear() {
+
+        stepParamSelector.close();
+        stepParamSelector = new SendableChooser<String>();
+
+        SmartDashboard.putData("Params", stepParamSelector);
+
+    }
+
+    public void setParamSelection(){
+
+        String param = stepParamSelector.getSelected();
+
+        SmartDashboard.putString("ParamValue", param);
+
+    }
 
     public TapeStatus getTapeStatus() {
 
@@ -312,20 +346,19 @@ public class DashBoard238 {
 
         return new TapeStatus(yaw, detected);
     }
- // aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
-        // aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
-        // aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
-        // aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
-        // aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
-        // aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
-        // aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
-        // aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
-        // aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
-        // aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
-        // aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
-        // aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
-        // aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
-        // aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
-   
-}
+    // aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
+    // aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
+    // aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
+    // aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
+    // aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
+    // aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
+    // aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
+    // aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
+    // aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
+    // aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
+    // aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
+    // aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
+    // aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
+    // aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
 
+}

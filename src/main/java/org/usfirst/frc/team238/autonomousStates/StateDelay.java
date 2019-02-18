@@ -96,6 +96,12 @@ public class StateDelay implements AutonomousState {
 			output = parameters[value];
 		}
 		return output;
+    }
+    
+    @Override
+	public String[] getParams() {
+		
+		return parameters;
 	}
 
 }

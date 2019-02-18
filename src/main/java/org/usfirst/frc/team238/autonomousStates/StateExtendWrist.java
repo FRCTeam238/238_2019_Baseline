@@ -121,4 +121,10 @@ public class StateExtendWrist implements AutonomousState
         return output;
     }
 
+    @Override
+	public String[] getParams() {
+		
+		return parameters;
+	}
+
 }

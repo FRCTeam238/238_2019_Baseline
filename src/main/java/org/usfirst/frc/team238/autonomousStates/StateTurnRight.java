@@ -105,4 +105,10 @@ public class StateTurnRight implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
+
 }

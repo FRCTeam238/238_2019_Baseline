@@ -98,5 +98,10 @@ public class StateGoStraight implements AutonomousState {
     }
     return output;
   }
-
+  
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

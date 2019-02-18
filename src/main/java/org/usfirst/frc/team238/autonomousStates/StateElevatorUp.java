@@ -122,4 +122,10 @@ public class StateElevatorUp implements AutonomousState
         return output;
     }
 
+    @Override
+	public String[] getParams() {
+		
+		return parameters;
+	}
+
 }

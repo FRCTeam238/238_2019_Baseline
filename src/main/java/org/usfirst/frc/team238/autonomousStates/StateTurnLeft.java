@@ -109,4 +109,9 @@ public class StateTurnLeft implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

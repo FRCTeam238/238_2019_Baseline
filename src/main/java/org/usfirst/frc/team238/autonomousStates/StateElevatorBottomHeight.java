@@ -103,4 +103,10 @@ public class StateElevatorBottomHeight implements AutonomousState
         return output;
     }
 
+    @Override
+	public String[] getParams() {
+		
+		return parameters;
+	}
+
 }

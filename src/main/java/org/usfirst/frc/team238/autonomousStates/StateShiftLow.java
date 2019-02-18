@@ -94,4 +94,10 @@ public class StateShiftLow implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
+
 }

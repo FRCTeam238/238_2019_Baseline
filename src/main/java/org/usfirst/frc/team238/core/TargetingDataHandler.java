@@ -545,6 +545,11 @@ public class TargetingDataHandler implements AutonomousState{
 	public String getParam(int value) {
 		// TODO Auto-generated method stub
 		return null;
+    }
+    @Override
+	public String[] getParams() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 /**

@@ -8,67 +8,55 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
 
-public class StateWristAngle implements AutonomousState
-{
+public class StateWristAngle implements AutonomousState {
     CommandWristAngle extendWristCommand;
     String parameters[];
     boolean done = false;
-    
-    
+
     @Override
-    public void init()
-    {
+    public void init() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void prepare()
-    {
+    public void prepare() {
         // TODO Auto-generated method stub
         extendWristCommand.prepare();
         extendWristCommand.setParams(parameters);
     }
 
     @Override
-    public void init(String[] params, CommandController theMcp)
-    {
+    public void init(String[] params, CommandController theMcp) {
         // TODO Auto-generated method stub
         extendWristCommand = (CommandWristAngle) theMcp.getAutoCmd("CommandWristAngle");
-        parameters=params;
+        parameters = params;
     }
 
     @Override
-    public void process()
-    {
+    public void process() {
         extendWristCommand.execute(true);
     }
 
-    
-
     @Override
-    public boolean done()
-    {
+    public boolean done() {
         return true;
     }
 
     @Override
-    public void reset()
-    {
+    public void reset() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void showParams()
-    {
+    public void showParams() {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateParams()
-    {
+    public void updateParams() {
         // TODO Auto-generated method stub
         String param1;
         String param2;
@@ -89,18 +77,20 @@ public class StateWristAngle implements AutonomousState
     }
 
     @Override
-    public String getParam(int value)
-    {
+    public String getParam(int value) {
         String output = "";
-        if (parameters == null || parameters.length - 1 < value)
-        {
+        if (parameters == null || parameters.length - 1 < value) {
             output = "";
-        }
-        else
-        {
+        } else {
             output = parameters[value];
         }
         return output;
+    }
+
+    @Override
+    public String[] getParams() {
+
+        return parameters;
     }
 
 }

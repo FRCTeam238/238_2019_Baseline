@@ -103,4 +103,9 @@ public class StateElevatorSwitchHeight implements AutonomousState
         
     }
 
+    @Override
+	public String[] getParams() {
+		
+		return parameters;
+	}
 }

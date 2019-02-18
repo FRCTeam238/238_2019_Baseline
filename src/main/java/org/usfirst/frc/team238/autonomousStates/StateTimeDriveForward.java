@@ -97,4 +97,9 @@ public class StateTimeDriveForward implements AutonomousState {
     return output;
   }
 
+  @Override
+  public String[] getParams() {
+      
+      return parameters;
+  }
 }

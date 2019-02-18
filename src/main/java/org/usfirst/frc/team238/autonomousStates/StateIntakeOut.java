@@ -113,5 +113,10 @@ public class StateIntakeOut implements AutonomousState
         }
         return output;
       }
-
+      
+      @Override
+      public String[] getParams() {
+          
+          return parameters;
+      }
 }
