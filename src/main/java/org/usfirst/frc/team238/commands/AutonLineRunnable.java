@@ -94,9 +94,8 @@ public class AutonLineRunnable implements Runnable {
             double timeToStop = Math.abs(currentVelocity/acceleration);
             double distanceNeededToStop = (Math.abs(currentVelocity)/2) * timeToStop;
             
-            distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL); 
-            //+         driveTrain.rightDistanceTravelled() - initialPosR) / 2;
-            Logger.Log("DISTANCETRAVELLED:" + distanceTravelled);
+            distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL +  driveTrain.rightDistanceTravelled() - initialPosR) / 2;
+            //Logger.Log("DISTANCETRAVELLED:" + distanceTravelled);
             //remainingdistance
             if(Math.abs(distance) - distanceTravelled<=distanceNeededToStop){
                 deAccelerate=true;
@@ -112,26 +111,39 @@ public class AutonLineRunnable implements Runnable {
             }
             currentVelocity = Math.max(Math.min(topSpeed, currentVelocity), -topSpeed);
            // Logger.Log("currentV:" + currentVelocity);
-            Logger.Log("deAccelerate: " + deAccelerate);
+           // Logger.Log("deAccelerate: " + deAccelerate);
             //Logger.Log(backwards);
             
-            double angleError = angle - navigation.getYaw();
-            Logger.Log("AutonlineForward.Run() Angle = " + angle + " -  Yaw Value =  " + navigation.getYaw());
+            double yaw = navigation.getYaw();
+            double angleError = angle - yaw;
+           // Logger.Log("AutonlineForward.Run() Angle = " + angle + " :  Yaw Value =  " + yaw);
             if(Math.abs(angleError) > (360.0 - 0.0)/2.0D) {
                 angleError = angleError>0.0D ? angleError- 360.0+ 0.0 : angleError + 360.0 -0.0; 
             }
-            Logger.Log("angleError = " + angleError);
+            //Logger.Log("angleError = " + angleError);
 
             double angleVelocityAddend = angleError * ANGLE_KP;
             angleVelocityAddend = Math.min(50, Math.max(angleVelocityAddend, -50));
 
-            Logger.Log("ANGLEADDEND:" + angleVelocityAddend);
+           // Logger.Log("ANGLEADDEND:" + angleVelocityAddend);
             if(Math.abs(topSpeed - Math.abs(currentVelocity))<0.5) {
                 currentAccel=0;
             }
             Logger.Log("TIME:" + System.currentTimeMillis());
+            Logger.Log("AutonlineForward.Run() " + 
+                        "%n Distance =" + distanceTravelled + 
+                        "%n Time Need to stop = " + timeToStop +
+                        "%n Dist Need to stop = " + distanceNeededToStop +
+                        "%n DeAccelerate = " + deAccelerate + 
+                        "%n Angle = " + angle + 
+                        "%n Yaw Value =  " + yaw +
+                        "%n AngleError = " + angleError +
+                        "%n AngleVelocityAdded = " + angleVelocityAddend + 
+                        "%n CurrentVelocity = " + currentVelocity + 
+                        "%n CurrentAccel = " + currentAccel);
+
             driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,currentAccel,currentAccel);
-            
+ 
             if(backwards){
                 if(currentVelocity>=0 && lastVelocity<0){
                     stop=true;
@@ -142,6 +154,7 @@ public class AutonLineRunnable implements Runnable {
                 }
             }
             lastVelocity = currentVelocity;
+           
             double currentDistance = driveTrain.leftDistanceTravelled();
             if (currentDistance > distance)
             {

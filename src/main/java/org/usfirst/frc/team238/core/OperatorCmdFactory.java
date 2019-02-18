@@ -17,7 +17,6 @@ import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandRetractWrist;
 import org.usfirst.frc.team238.commands.CommandShoulderAngle;
 import org.usfirst.frc.team238.commands.CommandStopEverything;
-import org.usfirst.frc.team238.commands.CommandTestShiftHigh;
 import org.usfirst.frc.team238.commands.CommandWristAngle;
 
 
@@ -71,12 +70,7 @@ public class OperatorCmdFactory {
          
         cmd  = new CommandStopEverything(theRobot);
         operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
-        
-		// cmd = new CommandRetractWrist(theRobot.myShoulder);
-		// operatorCommands.put(CrusaderCommon.OPERATOR_TRIGGER, cmd);
-
-        
-
+       
         cmd = new CommandShoulderAngle(theRobot.myShoulder);
         operatorCommands.put(1, cmd);
         operatorCommands.put(2, cmd);        
@@ -111,9 +105,6 @@ public class OperatorCmdFactory {
         cmd = new CommandElevatorSwitchHeight(theRobot.myElevator);
         operatorCommands.put(25, cmd);
         
-      
-      
-      
         //cmd = new CommandWristManualOverride(theRobot.myShoulder);
         //operatorCommands.put(7, cmd);
         //operatorCommands.put(8, cmd);

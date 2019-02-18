@@ -19,7 +19,8 @@ public class CommandController {
     HashMap<String, Command> autoCmdList;
     HashMap<Integer, Command> driverCmdList;   
     HashMap<Integer, Command> operatorCmdList;
-
+    HashMap<Integer, Command> driverLeftCmdList;
+	HashMap<Integer, Command> driverRightCmdList;
   
 
     /**
@@ -113,7 +114,6 @@ public class CommandController {
         commandForTheButtonPressed = driverCmdList.get(0);
         commandForTheButtonPressed.execute();
     
-
         // Check for inputs on the operator joystick
         buttonPressed = commandValues.get(CrusaderCommon.OPR_CMD_LIST);
 

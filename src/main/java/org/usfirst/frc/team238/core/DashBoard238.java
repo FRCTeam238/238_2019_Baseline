@@ -143,6 +143,12 @@ public class DashBoard238 {
         testSweetEntries.put("tapeDetected", NetworkTableInstance.getDefault().getTable("Shuffleboard")
                 .getSubTable("ChickenVision").getEntry("tapeDetected"));
 
+        //for the logger 
+        SmartDashboard.putBoolean("Debug", true);    
+        SmartDashboard.putBoolean("Output Log to File", true);
+        SmartDashboard.putNumber("Select Auto State", 0);
+
+        SmartDashboard.putBoolean("xBox", true);
         Logger.Log("DashBoard238.init() end");
     }
 

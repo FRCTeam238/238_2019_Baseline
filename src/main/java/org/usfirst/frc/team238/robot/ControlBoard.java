@@ -11,8 +11,8 @@ public class ControlBoard {
 	//static Joystick manualOverrideJs; 	// operator manual overide
 	static Joystick operatorJs;  	// operator control board
 	static Joystick driverJS;
-	//private static Joystick driverLeftJs; 	// driveTrain left
-	//private static Joystick driverRightJs; 	// driveTrain right
+	private static Joystick driverLeftJs; 	// driveTrain left
+	private static Joystick driverRightJs; 	// driveTrain right
 	
 	//static Joystick xboxController;
 	
@@ -24,9 +24,11 @@ public class ControlBoard {
 		{
 			
 			operatorJs = new Joystick(CrusaderCommon.OPR_CMD_LIST);
-			driverJS = new Joystick(CrusaderCommon.DT_CMD_LIST);
-			
-		
+            driverJS = new Joystick(CrusaderCommon.DT_CMD_LIST);
+            
+			driverLeftJs = new Joystick(CrusaderCommon.LEFTDRIVER_CMD_LIST);
+            driverRightJs = new Joystick(CrusaderCommon.RIGHTDRIVER_CMD_LIST);
+
 			controllers = new HashMap<Integer,Integer[]>();
 			
 		}
@@ -152,6 +154,9 @@ public class ControlBoard {
         controllers.put(CrusaderCommon.OPR_CMD_LIST, getOperatorJoystickInputs(operatorJs));
         controllers.put(CrusaderCommon.DT_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
 
+        controllers.put(CrusaderCommon.LEFTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
+        controllers.put(CrusaderCommon.RIGHTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
+
 	  //ManualOverride Input
 		//controllers.put(0, getOperatorJoystickInputs(manualOverrideJs));
 		//Operator Input
@@ -182,16 +187,24 @@ public class ControlBoard {
 					
 	}
 
-    public static DriverInput getDriverInput(){
+    public static DriverInput getDriverInput(Boolean xBox){
         
-        DriverInput driverJoySticks = new DriverInput(driverJS.getRawAxis(1),  driverJS.getRawAxis(3));
+        DriverInput driverJoySticks;
+        
+        if( xBox){
+            driverJoySticks= new DriverInput(driverJS.getRawAxis(1),  driverJS.getRawAxis(3));
+        }else{
+            driverJoySticks= new DriverInput(driverLeftJs.getY(),  driverRightJs.getY());
+        }
         
         return driverJoySticks;
     }
 	
 	public static Joystick getOperatorRightJs() {
 		return operatorJs;
-	}
+    }
+    
+    
 	
 	// public static double getHangerRightSide() {
 		

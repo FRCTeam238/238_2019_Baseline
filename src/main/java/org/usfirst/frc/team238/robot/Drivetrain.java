@@ -324,8 +324,8 @@ public class Drivetrain
         }
         leftFrontDrive.set(ControlMode.Velocity, (-leftSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
         rightFrontDrive.set(ControlMode.Velocity, (-rightSpeed) * CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH/10.0);
-        Logger.Log("Drive Accel LEFT WANTED:" + -leftSpeed);
-        Logger.Log("Drive Accel RIGHT WANTED:" + -rightSpeed);
+        Logger.Log("DriveTrain.driveSpeedAccel() LEFT Speed = " + -leftSpeed + "RIGHT Speed = " + -rightSpeed);
+       // Logger.Log("Drive Accel RIGHT Speed:" + -rightSpeed);
         // convert to inches/second
        // Logger.Log("DriveTrain() : driveSpeed() : RIGHT SPEED IS ="
        //         + leftFrontDrive.getSelectedSensorVelocity(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);

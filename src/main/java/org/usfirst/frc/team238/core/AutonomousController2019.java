@@ -205,6 +205,7 @@ public class AutonomousController2019 implements AutonomousState {
         String theIndex = autoStep.substring(autoStep.length());
 
         AutonomousState thisState = steps.get(Integer.valueOf(theIndex));
+        Logger.Log("AutonomousController2019.populateAutoModeStepsParams():" + thisState);
 
         String[] params = thisState.getParams();
         for (Integer i = 0; i < params.length; i++) {

@@ -17,11 +17,16 @@ public class DriverCommandFactory
     
     Robot theRobot;
 
-	HashMap <Integer, Command> driverCommands;
+    HashMap <Integer, Command> driverCommands;
+    HashMap <Integer, Command> driverLeftCommands;
+    HashMap <Integer, Command> driverRightCommands;
     
     public DriverCommandFactory( Robot myRobot) {
 
         driverCommands = new HashMap<Integer, Command>(10);
+        driverLeftCommands = new HashMap<Integer, Command>(10);
+        driverRightCommands = new HashMap<Integer, Command>(10);
+        
         this.theRobot = myRobot;
     }
 
@@ -39,7 +44,8 @@ public class DriverCommandFactory
 		
 	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
 		
-		driverCommands.put(0, cmdToDriveTheRobot);
+        driverCommands.put(0, cmdToDriveTheRobot);
+      
 		
 		return driverCommands;
 		
@@ -65,26 +71,21 @@ public class DriverCommandFactory
 	 *
 	 * @param myRobot
 	 * @return
-	 
+	 */
 	public HashMap<Integer, Command> createDriverLeftCommands(Robot myRobot)
 	{
 		
-		NoDriveCommand = new NoDriverCommand(myRobot, true);
+		//NoDriveCommand = new NoDriverCommand(myRobot, true);
 		
-		driverLeftCommands.put(0, NoDriveCommand);
-		
-		commandShiftHigh = new CommandShiftHigh(myRobot);
-		
-		driverLeftCommands.put(1, commandShiftHigh);
+		//driverLeftCommands.put(0, NoDriveCommand);
 
-		
-		//cmdReverseClimb = new CommandReverseClimber(theClimber);
-		
-		//driverLeftCommands.put(10, cmdReverseClimb);
+        CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
+		driverLeftCommands.put(0, cmdToDriveTheRobot);
+
 		
 		return driverLeftCommands;
 		
-	}*/
+	}
 
 	/**
 	 * Creates commands for the right driver joystick
@@ -93,18 +94,18 @@ public class DriverCommandFactory
 	 * @param myVision
 	 * @param myFuelHandler
 	 * @return
-	 
+	 */
 	public HashMap<Integer, Command> createDriverRightCommands(Robot myRobot)
 	{
 	  
-		NoDriveCommand  = new NoDriverCommand(myRobot, false);
-		driverRightCommands.put(0, NoDriveCommand);
+		//NoDriveCommand  = new NoDriverCommand(myRobot, false);
+		//driverRightCommands.put(0, NoDriveCommand);
+        
+        CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
+		driverRightCommands.put(0, cmdToDriveTheRobot);
 		
-		//commandShiftLow = new CommandShiftLow(driveTrain);
-		//driverRightCommands.put(1, commandShiftLow);
-
 		return driverRightCommands;
 		
     }
-    */
+    
 }
