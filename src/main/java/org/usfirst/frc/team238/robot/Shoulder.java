@@ -20,8 +20,8 @@ public class Shoulder
     private static final double AUTO_MAX_OUT = 0.3;
     private static final double AUTO_MIN_OUT = -0.3;
     
-    private static final double MIN_ANGLE = 3;
-    private static final double MAX_ANGLE = 120;
+    private static final double MIN_ANGLE = -120;
+    private static final double MAX_ANGLE = -3;
     
     
     private double setpoint = 0;
@@ -89,6 +89,7 @@ public class Shoulder
     
     // angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setshoulder(double angle) {
+        
         setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
         inAutonomous = false;
     }
@@ -255,7 +256,7 @@ public class Shoulder
        
         double angle = -shoulderTalon.getSelectedSensorPosition(0)/ CrusaderCommon.INTAKE_TICK_TO_DEGREE;
         
-        //Logger.Log("Intakeshoulder.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n ERROR = " + currentError);
+        //Logger.Log("Intakeshoulder.getAngle: INTAKEANGLE = " + angle + "\n  SETPOINT = " + setpoint + "\n Error = " + currentError);
         
         return angle;
     }

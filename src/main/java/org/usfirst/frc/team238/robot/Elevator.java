@@ -124,7 +124,7 @@ public class Elevator {
         PIDEnabled = false;
         int whereAmI = getEncoderTicks();
         elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-
+        Logger.Log("Elevator.elevatorUp()");
     }
 
     /**
@@ -136,6 +136,7 @@ public class Elevator {
             // get encoder ticks
             int whereAmI = getEncoderTicks();
             elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+            Logger.Log("Elevator.elevatorDown()");
         }
 
     }
@@ -206,13 +207,12 @@ public class Elevator {
     // set height of robot
     public void setSetpoint(double height) {
         this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
-        ;
     }
 
     public void tilt(double heightTilt) {
         setpoint += heightTilt;
         this.setpoint = Math.min(Math.max(MIN_HEIGHT, setpoint), MAX_HEIGHT);
-        ;
+        //Logger.Log("Elevator.tilt() : setpoint = " + setpoint);
     }
 
     private double prevError;
@@ -232,7 +232,7 @@ public class Elevator {
 
             double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal
                     + CrusaderCommon.ELEVATOR_FEED_FORWARD;
-
+            Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
 
             if (height < 15 && setpoint < 4) {
@@ -254,9 +254,9 @@ public class Elevator {
 
         double elevatorSensorPosition = elevatorMasterTalon.getSelectedSensorPosition(0);
         double elevatorSensorInches = elevatorSensorPosition / CrusaderCommon.ELEVATOR_TICK_TO_IN;
-        Logger.Log(
-                "Elevator.getHeight() sensorPos = " + elevatorSensorPosition + " sensorInches = " + elevatorSensorInches
-                        + "  zeroHeight = " + zeroHeight + "  SETPOINT = " + setpoint + "    ERROR:" + currentError);
+        //Logger.Log(
+          //      "Elevator.getHeight() sensorPos = " + elevatorSensorPosition + " sensorInches = " + elevatorSensorInches
+         //               + "  zeroHeight = " + zeroHeight + "  SETPOINT = " + setpoint + "    ERROR:" + currentError);
 
         elevatorSensorInches = elevatorSensorInches - zeroHeight;
 
