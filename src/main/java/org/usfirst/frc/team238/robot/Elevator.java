@@ -1,6 +1,11 @@
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -12,7 +17,7 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 //import sun.rmi.runtime.Log;
 
 public class Elevator {
@@ -101,8 +106,7 @@ public class Elevator {
 
         liftEncoder = Math.abs(liftEncoder);
 
-        SmartDashboard.putNumber("Lift Encoder", liftEncoder);
-
+        //SmartDashboard.putNumber("Lift Encoder", liftEncoder);
         return liftEncoder;
     }
 
@@ -177,6 +181,7 @@ public class Elevator {
     }
 
     public void stop() {
+        DashBoard238.getInstance().addOrUpdateElement("Elevator", "elevatorStop", "Stop called at " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss")));
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
     }
 
@@ -207,9 +212,11 @@ public class Elevator {
     // set height of robot
     public void setSetpoint(double height) {
         this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
+        DashBoard238.getInstance().addOrUpdateElement("Elevator", "currentSetPoint", this.setpoint);
     }
 
     public void tilt(double heightTilt) {
+        DashBoard238.getInstance().addOrUpdateElement("Elevator", "tilt", heightTilt);
         setpoint += heightTilt;
         this.setpoint = Math.min(Math.max(MIN_HEIGHT, setpoint), MAX_HEIGHT);
         //Logger.Log("Elevator.tilt() : setpoint = " + setpoint);
@@ -241,13 +248,19 @@ public class Elevator {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
             }
 
-           if( prevError != currentError){
+            if( prevError != currentError){
                 Logger.Log("Elevator.mainloop() setPoint = " + setpoint + "  Height = " + height + "  currentError = " + currentError + "  Kd = " + dVal + "output wanted = " + outputWanted);
-           }
-            
+            }
+
+            DashBoard238 dashboard = DashBoard238.getInstance();
+            dashboard.addOrUpdateElement("Elevator", "currentHeight", height);
+            dashboard.addOrUpdateElement("Elevator", "currentError", currentError);
+            dashboard.addOrUpdateElement("Elevator", "outputWanted", outputWanted);
+            dashboard.addOrUpdateElement("Elevator", "motorOutputPercent", elevatorMasterTalon.getMotorOutputPercent());
+            dashboard.addOrUpdateElement("Elevator", "encoderTicks", elevatorMasterTalon.getSelectedSensorPosition(0));
+            dashboard.update();
             prevError = currentError;
         }
-
     }
 
     // getHeight() gets the sensor position, converts it from ticks to inches, then

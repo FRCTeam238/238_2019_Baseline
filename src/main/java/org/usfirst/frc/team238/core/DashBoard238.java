@@ -17,7 +17,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DashBoard238 {
-    Robot myRobot;
+    private static volatile DashBoard238 instance;
+
     private SendableChooser<String> aModeSelector;
     private SendableChooser<String> stepSelector;
     private SendableChooser<String> stepParamSelector;
@@ -48,9 +49,31 @@ public class DashBoard238 {
 
     HashMap<String, NetworkTableEntry> testSweetEntries;
 
-    public DashBoard238(Robot myRobot) {
-        this.myRobot = myRobot;
+    private DashBoard238() {
+    }
 
+        // singleton pattern; we only ever want 1 dashboard instance
+    public static DashBoard238 getInstance(){
+        // check to see if the instance is already created
+        if (instance == null){
+            // not created, create a lock on the class in case another thread beat us here
+            // and started the creation process already
+            synchronized (DashBoard238 .class){
+                // double check that the instance still doesn't exist
+                // another instance could exist if another thread beat the current thread to here
+                // in this case, the lock forces the current thread to wait until out of the
+                // sync block
+                // when this thread gets in here the instance is already created, so it skips 
+                // initialization again
+                if (instance == null){
+                    instance = new DashBoard238();
+                    instance.init();
+                }
+            }
+        }
+
+        //return the static instance for everone to use the same one
+        return instance;
     }
 
     public void init() {
@@ -173,6 +196,19 @@ public class DashBoard238 {
         SimpleWidget theWidget = tab.add(elementName, value);
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
+
+    public void addOrUpdateElement(String tabName, String elementName, Object val){
+        String key = tabName + "$" + "elementName";
+        NetworkTableEntry entry;
+        if (!testSweetEntries.containsKey(key)){
+            ShuffleboardTab tab = Shuffleboard.getTab(tabName);
+            entry = tab.add(elementName, val).getEntry();
+            testSweetEntries.put(key, entry);
+        } else {
+            entry = testSweetEntries.get(key);
+            entry.setValue(val);
+        }
     }
 
     public String getSelectedTest() {
@@ -366,19 +402,9 @@ public class DashBoard238 {
 
         return new TapeStatus(yaw, detected);
     }
-    // aModeSelector.setDefaultOption("Cargo Center Left", "Cargo Center Left");
-    // aModeSelector.addOption("Cargo Center Right", "Cargo Center Right");
-    // aModeSelector.addOption("Cargo Left Front", "Cargo Left Front");
-    // aModeSelector.addOption("Cargo Left Middle", "Cargo Left Middle");
-    // aModeSelector.addOption("Cargo Left Back", "Cargo Left Back");
-    // aModeSelector.addOption("Cargo Right Front", "Cargo Right Front");
-    // aModeSelector.addOption("Cargo Right Middle", "Cargo Right Middle");
-    // aModeSelector.addOption("Cargo Right Back", "Cargo Right Back");
-    // aModeSelector.addOption("Left Rocket Front", "Left Rocket Front");
-    // aModeSelector.addOption("Left Rocket Middle", "Left Rocket Middle");
-    // aModeSelector.addOption("Left Rocket Back", "Left Rocket Back");
-    // aModeSelector.addOption("Right Rocket Front", "Right Rocket Front");
-    // aModeSelector.addOption("Right Rocket Middle", "Right Rocket Middle");
-    // aModeSelector.addOption("Right Rocket Back", "Right Rocket Back");
+    
+    public void update(){
+        Shuffleboard.update();
+    }
 
 }

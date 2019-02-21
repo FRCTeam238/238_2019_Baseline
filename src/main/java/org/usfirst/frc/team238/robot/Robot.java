@@ -182,8 +182,9 @@ public class Robot extends TimedRobot {
 
     public void initSmartDashboardObjects() {
 
-        myDashBoard238 = new DashBoard238(this);
-        myDashBoard238.init();
+        //myDashBoard238 = new DashBoard238(this);
+        //myDashBoard238.init();
+        myDashBoard238 = DashBoard238.getInstance();
         aModeSelector = myDashBoard238.getAutonomusModeSelector();
         robotPosition = myDashBoard238.getRobotPosition();
 
