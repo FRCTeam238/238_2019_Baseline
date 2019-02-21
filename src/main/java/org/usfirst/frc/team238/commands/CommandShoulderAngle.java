@@ -1,6 +1,7 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
+import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Shoulder;;
 
 public class CommandShoulderAngle extends AbstractCommand {
@@ -17,14 +18,14 @@ public class CommandShoulderAngle extends AbstractCommand {
 	@Override
 	public void execute() {
 		
-		System.out.println("YUP = " + angle);
+		Logger.Log("YUP = " + angle);
 		extend.setshoulder(angle);
 
 	}
 
 	public void execute(boolean auto) {
         
-        System.out.println("YUP = " + angle);
+        Logger.Log("YUP = " + angle);
         extend.setshoulder(angle, auto);
 
     }
@@ -32,13 +33,13 @@ public class CommandShoulderAngle extends AbstractCommand {
 	public void execute(int btnPressed) {
 		
 	    //check button layou
-	    System.out.println("PRESSEDBUTTONDDDDDDDDDDDDDDDDDDDDDDDDDDD:" + btnPressed);
+	    Logger.Log("PRESSEDBUTTONDDDDDDDDDDDDDDDDDDDDDDDDDDD:" + btnPressed);
 	    if(btnPressed ==1) {
-	        extend.setshoulder(80);
+	        extend.setshoulder(-80);
 	    }else if(btnPressed ==2) {
-            extend.setshoulder(25);
+            extend.setshoulder(-40);
         }else if(btnPressed ==4) {
-            extend.setshoulder(3);
+            extend.setshoulder(-3);
         }
 	}
 
