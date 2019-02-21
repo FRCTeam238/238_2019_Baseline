@@ -241,25 +241,36 @@ public class Elevator {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
             }
 
+           if( prevError != currentError){
+                Logger.Log("Elevator.mainloop() setPoint = " + setpoint + "  Height = " + height + "  currentError = " + currentError + "  Kd = " + dVal + "output wanted = " + outputWanted);
+           }
+            
             prevError = currentError;
-            Logger.Log("Elevator.mainloop() setPoint = " + setpoint + "  Height = " + height + "output wanted = " + outputWanted);
         }
 
     }
 
     // getHeight() gets the sensor position, converts it from ticks to inches, then
     // subtracts the zeroHeight
+    private double prevElevatorSensorPosition;
 
     public double getHeight() {
 
         double elevatorSensorPosition = elevatorMasterTalon.getSelectedSensorPosition(0);
         double elevatorSensorInches = elevatorSensorPosition / CrusaderCommon.ELEVATOR_TICK_TO_IN;
-        Logger.Log(
+        
+        if( prevElevatorSensorPosition != elevatorSensorPosition)
+        {
+            Logger.Log(
                 "Elevator.getHeight() sensorPos = " + elevatorSensorPosition + " sensorInches = " + elevatorSensorInches
                         + "  zeroHeight = " + zeroHeight + "  SETPOINT = " + setpoint + "    ERROR:" + currentError);
+        }
+        
+        
 
         elevatorSensorInches = elevatorSensorInches - zeroHeight;
 
+        prevElevatorSensorPosition = elevatorSensorPosition;
         return elevatorSensorInches;
         // -elevatorMasterTalon.getSelectedSensorPosition(0) /
         // CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
