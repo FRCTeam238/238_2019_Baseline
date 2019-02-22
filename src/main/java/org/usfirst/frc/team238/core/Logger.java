@@ -13,7 +13,7 @@ public class Logger {
 	static Boolean outputToLog;
 	  
 	
-	public Logger() {
+	private Logger() {
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -2,21 +2,28 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
+import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Elevator;
+import org.usfirst.frc.team238.robot.Robot;
+import org.usfirst.frc.team238.robot.Shoulder;
 
-public class CommandElevatorScaleHeight extends AbstractCommand
+public class CommandCargoLevelTwo extends AbstractCommand
 {
 
     Elevator theElevator;
-    double height = 24;//77;
+    Shoulder theShoulder;
+    double height = CrusaderCommon.ELEVATOR_LEVEL_TWO_HEIGHT;//77;
+    double angle = CrusaderCommon.SHOULDER_LEVEL_TWO_ANGLE;
     
-    public CommandElevatorScaleHeight(Elevator myElevator) {
-        this.theElevator = myElevator;
+    public CommandCargoLevelTwo(Robot theRobot) {
+        this.theElevator = theRobot.myElevator;
+        this.theShoulder = theRobot.myShoulder;
     }
         
     @Override
     public void execute()
     {
+        theShoulder.setshoulder(angle);
         theElevator.setSetpoint(height);
     }
 

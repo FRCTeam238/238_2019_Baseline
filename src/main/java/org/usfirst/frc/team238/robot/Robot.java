@@ -66,7 +66,6 @@ public class Robot extends TimedRobot {
     public Navigation myNavigation;
     public Drivetrain myDriveTrain;
     DriverStation myDriverstation;
-    Logger myLogger;
     public TrajectoryIntepreter theTrajectoryIntepreter;
     public DashBoard238 myDashBoard238;
     public Elevator myElevator;
@@ -269,7 +268,6 @@ public class Robot extends TimedRobot {
      * Initializes everything in the Core package
      */
     public void initCoreObjects() {
-        myLogger = new Logger();
         theMCP = new CommandController();
 
         // ArrayList<Trajectory> trajectories = new ArrayList<>();

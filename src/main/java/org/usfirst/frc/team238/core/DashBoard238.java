@@ -173,6 +173,10 @@ public class DashBoard238 {
 
         SmartDashboard.putBoolean("xBox", false);
         Logger.Log("DashBoard238.init() end");
+
+        SmartDashboard.putNumber("EH1", 10);
+        SmartDashboard.putNumber("EH2", 20);
+        SmartDashboard.putNumber("EH3", 30);
     }
 
     void buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY) {
@@ -308,6 +312,13 @@ public class DashBoard238 {
                 elevatorSetpointThree);
 
         return testElevatorHeights;
+    }
+
+    public TargetValues getTargetValues() {
+        
+        double elevatorHeight1 = SmartDashboard.getNumber("EH1", 10);
+
+
     }
 
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {

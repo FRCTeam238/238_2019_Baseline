@@ -15,7 +15,7 @@ public class CommandElevatorUp extends AbstractCommand
     @Override
     public void execute()
     {
-        theElevator.elevatorUpPID();
+        theElevator.elevatorUp();
         // TODO Auto-generated method stub
 /*        if(theElevator.climbMode) {
             theElevator.elevatorClimbUp();

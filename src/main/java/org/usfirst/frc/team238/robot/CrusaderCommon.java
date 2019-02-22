@@ -121,7 +121,15 @@ public class CrusaderCommon {
 	public static final double INTAKE_SHOULDER_SPEED = 0.5;
 	public static final double INTAKE_SPEED = 0.5;//0.8;
 	public static final double INTAKE_SPEED_FAST = 0.95;
-	public static final double INTAKE_SPEED_SLOW = 0.3;
+    public static final double INTAKE_SPEED_SLOW = 0.3;
+
+    public static final double SHOULDER_LEVEL_ONE_ANGLE = 0;
+    public static final double SHOULDER_LEVEL_TWO_ANGLE = 10;
+    public static final double SHOULDER_LEVEL_THREE_ANGLE = 20;
+
+    public static final double ELEVATOR_LEVEL_ONE_HEIGHT = 10;
+    public static final double ELEVATOR_LEVEL_TWO_HEIGHT = 20;
+    public static final double ELEVATOR_LEVEL_THREE_HEIGHT = 30;
 
 	// Servo power setting
 
