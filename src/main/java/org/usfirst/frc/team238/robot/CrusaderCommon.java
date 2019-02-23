@@ -107,7 +107,6 @@ public class CrusaderCommon {
 	//public static final int ELEVATOR_SLAVE_SPX = 10;
 
 	public static final int INTAKE_MASTER_SRX = 4;
-	public final static int INTAKE_SLAVE = 5;
 	public final static int INTAKE_SHOULDER = 7;
     public final static double INTAKE_TICK_TO_DEGREE = 45;//9.55;
 	public final static double INTAKE_KP = 0.025;
@@ -130,6 +129,29 @@ public class CrusaderCommon {
     public static final double ELEVATOR_LEVEL_ONE_HEIGHT = 10;
     public static final double ELEVATOR_LEVEL_TWO_HEIGHT = 20;
     public static final double ELEVATOR_LEVEL_THREE_HEIGHT = 30;
+
+    public static final int CARGO_LEVEL_ONE = 1;
+    public static final int CARGO_LEVEL_TWO = 2;
+    public static final int CARGO_LEVEL_THREE = 3;
+
+    public static final double CARGO_LEVEL_ONE_ELEVATOR = 10;
+    public static final double CARGO_LEVEL_TWO_ELEVATOR = 20;
+    public static final double CARGO_LEVEL_THREE_ELEVATOR = 30;
+
+    public static final double CARGO_LEVEL_ONE_SHOULDER = 10;
+    public static final double CARGO_LEVEL_TWO_SHOULDER = 20;
+    public static final double CARGO_LEVEL_THREE_SHOULDER = 30;
+
+    public static final boolean CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
+    public static final boolean CARGO_LEVEL_TWO_WRIST = true;
+    public static final boolean CARGO_LEVEL_THREE_WRIST = true;
+
+    public static final double CARGO_LEVEL_ZERO_VALUE = 0;
+    public static final boolean CARGO_LEVEL_WRIST_FALSE = false;
+    public static final boolean CARGO_LEVEL_WRIST_TRUE = true;
+
+    
+
 
 	// Servo power setting
 

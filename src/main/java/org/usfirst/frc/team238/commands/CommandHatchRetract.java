@@ -2,24 +2,25 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.robot.Drivetrain;
+import org.usfirst.frc.team238.robot.Hatch;
 import org.usfirst.frc.team238.robot.Robot;
 
-public class CommandShiftLow extends AbstractCommand {
+public class CommandHatchRetract extends AbstractCommand {
 
-  Drivetrain myDrivetrain;
+    Hatch theHatch;
 
-  public CommandShiftLow(Robot myRobot) {
-	    this.myDrivetrain = myRobot.myDriveTrain;
-  }
-
-  @Override
-  public void execute() {
-    // TODO Auto-generated method stub
-    //myDrivetrain.shiftLow();
+  public CommandHatchRetract(Robot myRobot) {
+    this.theHatch = myRobot.myHatch;
   }
 
   public void prepare() {
 
+  }
+
+  @Override
+  public void execute() {
+        // TODO Auto-generated method stub
+    theHatch.retractHatch();
   }
 
   // @Override
@@ -33,7 +34,7 @@ public class CommandShiftLow extends AbstractCommand {
   }
 
   public boolean complete() {
-    return myDrivetrain.complete();
+        return true;
   }
 
 }

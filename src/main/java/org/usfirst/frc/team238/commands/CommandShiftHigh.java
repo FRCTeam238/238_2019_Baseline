@@ -19,7 +19,7 @@ public class CommandShiftHigh extends AbstractCommand {
   @Override
   public void execute() {
     // TODO Auto-generated method stub
-    myDrivetrain.shiftHigh();
+    //myDrivetrain.shiftHigh();
   }
 
   // @Override

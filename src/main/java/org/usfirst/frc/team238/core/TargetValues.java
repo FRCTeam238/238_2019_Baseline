@@ -16,7 +16,7 @@ public class TargetValues {
     double elevatorHeights;
     Boolean wristPosition; //True = extended, false = retracted
     
-    public TargetValues(double shoulderAngle, double elevatorHeights, Boolean wrist) {
+    public TargetValues(double elevatorHeights, double shoulderAngle, Boolean wrist) {
         this.shoulderAngle = shoulderAngle;
         this.elevatorHeights = elevatorHeights;
         this.wristPosition = wrist;
@@ -30,7 +30,7 @@ public class TargetValues {
         return elevatorHeights;
 
     }
-    public Boolean getWristPopsition(){
+    public Boolean getWristPosition(){
         return wristPosition;
 
     }

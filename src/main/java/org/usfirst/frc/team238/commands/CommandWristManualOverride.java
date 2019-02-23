@@ -3,13 +3,13 @@ package org.usfirst.frc.team238.commands;
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.Drivetrain;
-import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandWristManualOverride extends AbstractCommand {
 
-    IntakeWrist wrist;
+    Shoulder wrist;
 
-  public CommandWristManualOverride(IntakeWrist wrist) {
+  public CommandWristManualOverride(Shoulder wrist) {
     this.wrist = wrist;
   }
 

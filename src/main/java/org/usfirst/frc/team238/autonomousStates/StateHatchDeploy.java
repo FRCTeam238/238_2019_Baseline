@@ -5,57 +5,71 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandExtendWrist;
-import org.usfirst.frc.team238.commands.CommandShoulderAngle;
-public class StateWristAngle implements AutonomousState {
-    CommandShoulderAngle extendShoulderCommand;
+import org.usfirst.frc.team238.commands.CommandHatchDeploy;
+
+public class StateHatchDeploy implements AutonomousState
+{
+    CommandHatchDeploy hatchDeployCommand;
     String parameters[];
+    
     boolean done = false;
 
     @Override
-    public void init() {
+    public void init()
+    {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void prepare() {
+    public void prepare()
+    {
         // TODO Auto-generated method stub
-        extendShoulderCommand.prepare();
-        extendShoulderCommand.setParams(parameters);
+        hatchDeployCommand.prepare();
+        hatchDeployCommand.setParams();
     }
 
     @Override
-    public void init(String[] params, CommandController theMcp) {
+    public void init(String[] params, CommandController theMcp)
+    {
         // TODO Auto-generated method stub
-        extendShoulderCommand = (CommandShoulderAngle) theMcp.getAutoCmd("CommandWristAngle");
+    CommandHatchDeploy hatchDeployCommand;
+    hatchDeployCommand = (CommandHatchDeploy) theMcp.getAutoCmd("CommandHatchDeploy");
+
         parameters = params;
     }
 
     @Override
-    public void process() {
-        extendShoulderCommand.execute(true);
+    public void process()
+    {
+        hatchDeployCommand.execute();
     }
 
     @Override
-    public boolean done() {
-        return true;
+    public boolean done()
+    {
+        // TODO Auto-generated method stub
+
+        return done;
     }
 
     @Override
-    public void reset() {
+    public void reset()
+    {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void showParams() {
+    public void showParams()
+    {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    public void updateParams() {
+    public void updateParams()
+    {
         // TODO Auto-generated method stub
         String param1;
         String param2;
@@ -76,20 +90,24 @@ public class StateWristAngle implements AutonomousState {
     }
 
     @Override
-    public String getParam(int value) {
+    public String getParam(int value)
+    {
         String output = "";
-        if (parameters == null || parameters.length - 1 < value) {
+        if (parameters == null || parameters.length - 1 < value)
+        {
             output = "";
-        } else {
+        }
+        else
+        {
             output = parameters[value];
         }
         return output;
     }
 
     @Override
-    public String[] getParams() {
-
-        return parameters;
-    }
+	public String[] getParams() {
+		
+		return parameters;
+	}
 
 }

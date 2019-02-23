@@ -33,7 +33,7 @@ public class CommandAutonLine extends AbstractCommand {
      
 	 run = new AutonLineRunnable(myRobot, distance, topSpeed,navObject);
      started=false;
-     myRobot.myDriveTrain.shiftHigh();
+     //myRobot.myDriveTrain.shiftHigh();
     
      //Logger.Log("CommandDriveForward.prepare");
 

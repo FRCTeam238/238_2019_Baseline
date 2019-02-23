@@ -25,8 +25,6 @@ public class Drivetrain
 
     ControlBoard theControlBoard;
 
-    DoubleSolenoid theShiftSolenoid;
-
     TalonSRX leftFrontDrive;
     TalonSRX rightFrontDrive;
 
@@ -58,8 +56,7 @@ public class Drivetrain
         rightFrontDrive = rightFrontDriveTalon;
         // shifterSolenoid = new Solenoid (0);
         // lowShiftSolenoid = new Solenoid (1);
-        theShiftSolenoid = new DoubleSolenoid(0, 1);
-
+        
         leftFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_LEFT, 0);
         rightFrontDrive.config_kF(0, CrusaderCommon.TALON_F_VALUE_RIGHT, 0);
         /* It Appears we cant do this anymore, we get what we get */
@@ -91,7 +88,6 @@ public class Drivetrain
         scalefactorOnePercent = 1;
         counter = 0;
 
-        shiftHigh();
     }
 
     /**
@@ -181,28 +177,7 @@ public class Drivetrain
 //
 //    }
 
-    /**
-     * Shifts solenoids into high gear
-     */
-    public void shiftHigh()
-    {
-        // Logger.Log("SHIFTHIGH ");
-        shiftedhigh = true;
-        theShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
-
-    }
-
-    /**
-     * Shifts solenoids into low gear
-     */
-    public void shiftLow()
-    {
-        shiftedhigh = false;
-        // Logger.Log("SHIFTLOW ");
-        theShiftSolenoid.set(DoubleSolenoid.Value.kForward);
-
-    }
-
+    
     /**
      * A drive function
      * 
@@ -587,7 +562,7 @@ public class Drivetrain
         if (shifter)
         {
             // Logger.Log("inside nobtnpressed");
-            shiftLow();
+            //shiftLow();
         }
 
         // Logger.logDouble("Reset", lastBtnPressed);

@@ -68,7 +68,7 @@ public class CommandDriveForward extends AbstractCommand {
   public void execute() {
     
       SmartDashboard.putNumber("TARGET VALUE = ", targetValue);
-    myRobotDrive.shiftLow();
+    //myRobotDrive.shiftLow();
     
     double theError = targetValue - myRobotDrive.getEncoderTicks(); 
     

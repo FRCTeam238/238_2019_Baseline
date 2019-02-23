@@ -3,13 +3,13 @@ package org.usfirst.frc.team238.commands;
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 
-import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 public class CommandIntakeStraightOutAngle extends AbstractCommand {
 	
 	
-	IntakeWrist intake;
-	public CommandIntakeStraightOutAngle(IntakeWrist myintake)
+	Shoulder intake;
+	public CommandIntakeStraightOutAngle(Shoulder myintake)
 	{
 		this.intake = myintake;
 		
@@ -19,7 +19,7 @@ public class CommandIntakeStraightOutAngle extends AbstractCommand {
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		intake.setWrist(90);
+		intake.setshoulder(90);
 		
 	}
 

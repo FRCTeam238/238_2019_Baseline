@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Compressor;
 
 import java.util.HashMap;
 
@@ -39,6 +40,7 @@ import RealBot.TrajectoryFactory;
 import RealBot.Trajectory;
 import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -70,7 +72,10 @@ public class Robot extends TimedRobot {
     public DashBoard238 myDashBoard238;
     public Elevator myElevator;
     public Shoulder myShoulder;
+    public Wrist myWrist;
+    public Hatch myHatch;
     static String previousTestStep;
+    Compressor myCompressor;
 
     // Testing vars
     TestController myTestController;
@@ -134,6 +139,8 @@ public class Robot extends TimedRobot {
                 // see if we need to update
 
                 currentTest = selectedTest;
+
+                myDashBoard238.setTargetValues();
             }
 
             count++;
@@ -258,6 +265,12 @@ public class Robot extends TimedRobot {
         myShoulder = new Shoulder();
         myShoulder.init();
 
+        myWrist = new Wrist();
+
+        myHatch = new Hatch();
+
+        myCompressor = new Compressor();
+        myCompressor.setClosedLoopControl(false);
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
 

@@ -100,6 +100,7 @@ public class DashBoard238 {
         SmartDashboard.putData("Robot Position", positionSelector);
 
         testSelector = new SendableChooser<String>();
+        
 
         // Send able Chooser for the state update function
         testSelector.setDefaultOption("Stop Test", "Stop Test");
@@ -171,12 +172,12 @@ public class DashBoard238 {
         SmartDashboard.putBoolean("Output Log to File", true);
         SmartDashboard.putNumber("Select Auto State", 0);
 
+        initializeScoring();
+
         SmartDashboard.putBoolean("xBox", false);
         Logger.Log("DashBoard238.init() end");
 
-        SmartDashboard.putNumber("EH1", 10);
-        SmartDashboard.putNumber("EH2", 20);
-        SmartDashboard.putNumber("EH3", 30);
+        
     }
 
     void buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY) {
@@ -202,6 +203,17 @@ public class DashBoard238 {
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
 
+    public void initializeScoring() {
+        
+        SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.CARGO_LEVEL_ONE_ELEVATOR);
+        SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.CARGO_LEVEL_ONE_SHOULDER);
+        SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putBoolean("WristInput", CrusaderCommon.CARGO_LEVEL_ONE_WRIST);
+        SmartDashboard.putBoolean("WristOutput", CrusaderCommon.CARGO_LEVEL_WRIST_FALSE);
+
+    }
+    
     public void addOrUpdateElement(String tabName, String elementName, Object val){
         String key = tabName + "$" + "elementName";
         NetworkTableEntry entry;
@@ -315,13 +327,21 @@ public class DashBoard238 {
     }
 
     public TargetValues getTargetValues() {
-        
-        double elevatorHeight1 = SmartDashboard.getNumber("ELevator", 10);
-        double shoulderAngle = SmartDashboard.getNumber("Shoulder", 10);
-        Boolean wristPosition = SmartDashboard.getBoolean("Wrist", false);
-        
-        TargetValues values = new TargetValues(elevatorHeight1, shoulderAngle, wristPosition);
+
+        double elevatorHeight = SmartDashboard.getNumber("ElevatorInput", CrusaderCommon.CARGO_LEVEL_ONE_ELEVATOR);
+        double shoulderAngle = SmartDashboard.getNumber("ShoulderInput", CrusaderCommon.CARGO_LEVEL_ONE_SHOULDER);
+        Boolean wristPosition = SmartDashboard.getBoolean("WristInput", CrusaderCommon.CARGO_LEVEL_ONE_WRIST);
+
+        TargetValues values = new TargetValues(elevatorHeight, shoulderAngle, wristPosition);
         return values;
+    }
+
+    public void setTargetValues() {
+
+        TargetValues selectedTargetValues = getTargetValues();
+        SmartDashboard.putNumber("ElevatorOutput", selectedTargetValues.elevatorHeights);
+        SmartDashboard.putNumber("ShoulderOutput", selectedTargetValues.shoulderAngle);
+        SmartDashboard.putBoolean("WristOutput", selectedTargetValues.wristPosition);
     }
 
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {
@@ -416,8 +436,9 @@ public class DashBoard238 {
 
         return new TapeStatus(yaw, detected);
     }
-    
-    public void update(){
+
+ 
+    public void update() {
         Shuffleboard.update();
     }
 

@@ -3,17 +3,17 @@ package org.usfirst.frc.team238.commands;
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
-import org.usfirst.frc.team238.robot.IntakeWrist;
+import org.usfirst.frc.team238.robot.Shoulder;
 
 import edu.wpi.first.wpilibj.DriverStation;
 
 public class CommandIntakeInAdv extends AbstractCommand {
 	
 	
-	IntakeWrist intake;
+	Shoulder intake;
 	double delay, time, speed;
 	
-	public CommandIntakeInAdv(IntakeWrist myintake)
+	public CommandIntakeInAdv(Shoulder myintake)
 	{
 		this.intake = myintake;
 		

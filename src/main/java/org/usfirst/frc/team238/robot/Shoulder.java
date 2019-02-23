@@ -32,7 +32,7 @@ public class Shoulder
     
     TalonSRX shoulderTalon;
     TalonSRX intakeMaster;
-    VictorSPX intakeSlave;
+   
     
     public Shoulder()
     {
@@ -45,17 +45,17 @@ public class Shoulder
         
         shoulderTalon = new TalonSRX(CrusaderCommon.INTAKE_SHOULDER);
         intakeMaster = new TalonSRX(CrusaderCommon.INTAKE_MASTER_SRX);
-        intakeSlave = new VictorSPX(CrusaderCommon.INTAKE_SLAVE);
+        // intakeSlave = new VictorSPX(CrusaderCommon.INTAKE_SLAVE);
         
-        intakeSlave.follow(intakeMaster);
+        // intakeSlave.follow(intakeMaster);
         
         shoulderTalon.setNeutralMode(NeutralMode.Brake);
         intakeMaster.setNeutralMode(NeutralMode.Brake);
-        intakeSlave.setNeutralMode(NeutralMode.Brake);
+        // intakeSlave.setNeutralMode(NeutralMode.Brake);
         
         shoulderTalon.set(ControlMode.PercentOutput, 0);
         intakeMaster.set(ControlMode.PercentOutput, 0);
-        intakeSlave.setInverted(true);
+        // intakeSlave.setInverted(true);
         
         shoulderTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
         shoulderTalon.setSensorPhase(true);
