@@ -316,9 +316,12 @@ public class DashBoard238 {
 
     public TargetValues getTargetValues() {
         
-        double elevatorHeight1 = SmartDashboard.getNumber("EH1", 10);
-
-
+        double elevatorHeight1 = SmartDashboard.getNumber("ELevator", 10);
+        double shoulderAngle = SmartDashboard.getNumber("Shoulder", 10);
+        Boolean wristPosition = SmartDashboard.getBoolean("Wrist", false);
+        
+        TargetValues values = new TargetValues(elevatorHeight1, shoulderAngle, wristPosition);
+        return values;
     }
 
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {

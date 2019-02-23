@@ -39,8 +39,7 @@ public class CommandCargoLevelOne extends AbstractCommand
     public void prepare()
     {
         // TODO Auto-generated method stub
-        DashBoard238 dashboard = DashBoard238.getInstance();
-        angle = dashboard.get
+       
     }
 
     public void setParams(String params[])
