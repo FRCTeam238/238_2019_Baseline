@@ -10,14 +10,14 @@ import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
-import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandHatchDeploy;
 import org.usfirst.frc.team238.commands.CommandHatchRetract;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
-import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
-import org.usfirst.frc.team238.commands.CommandRetractWrist;
+//import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandShoulderAngle;
+import org.usfirst.frc.team238.commands.CommandShoulderDown;
+import org.usfirst.frc.team238.commands.CommandShoulderUp;
 import org.usfirst.frc.team238.commands.CommandStopEverything;
 
 public class OperatorCmdFactory {
@@ -78,10 +78,11 @@ public class OperatorCmdFactory {
         cmd = new CommandIntakeOut(theRobot.myShoulder);
         operatorCommands.put(6, cmd);
 
-        cmd = new CommandExtendWrist(theRobot.myShoulder);
+        //these next two are the manual shoulder
+        cmd = new CommandShoulderUp(theRobot.myShoulder);
         operatorCommands.put(22, cmd);
 
-        cmd = new CommandRetractWrist(theRobot.myShoulder);
+        cmd = new CommandShoulderDown(theRobot.myShoulder);
         operatorCommands.put(23, cmd);
 
         cmd = new CommandElevatorUp(theRobot.myElevator);

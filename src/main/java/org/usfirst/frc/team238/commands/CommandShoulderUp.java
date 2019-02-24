@@ -5,19 +5,19 @@ import org.usfirst.frc.team238.core.Command;
 
 import org.usfirst.frc.team238.robot.Shoulder;
 
-public class CommandExtendWrist extends AbstractCommand {
+public class CommandShoulderUp extends AbstractCommand {
 	
-	Shoulder extend; 
-	public CommandExtendWrist(Shoulder myShoulder)
+	Shoulder theShoulder; 
+	public CommandShoulderUp(Shoulder myShoulder)
 	{
-		this.extend = myShoulder;
+		this.theShoulder = myShoulder;
 	}
 
 	@Override
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		extend.extendShoulderPID();
+		theShoulder.shoulderUp();
 
 	}
 
@@ -40,7 +40,7 @@ public class CommandExtendWrist extends AbstractCommand {
 	}
 	
 	public void stop() {
-	    extend.stop();
+	    theShoulder.stop();
 	}
 
 	@Override

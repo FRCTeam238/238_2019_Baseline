@@ -5,7 +5,6 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandExtendWrist;
 import org.usfirst.frc.team238.commands.CommandShoulderAngle;
 public class StateWristAngle implements AutonomousState {
     CommandShoulderAngle extendShoulderCommand;
@@ -14,20 +13,20 @@ public class StateWristAngle implements AutonomousState {
 
     @Override
     public void init() {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void prepare() {
-        // TODO Auto-generated method stub
+        
         extendShoulderCommand.prepare();
         extendShoulderCommand.setParams(parameters);
     }
 
     @Override
     public void init(String[] params, CommandController theMcp) {
-        // TODO Auto-generated method stub
+        
         extendShoulderCommand = (CommandShoulderAngle) theMcp.getAutoCmd("CommandWristAngle");
         parameters = params;
     }
@@ -44,19 +43,19 @@ public class StateWristAngle implements AutonomousState {
 
     @Override
     public void reset() {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void showParams() {
-        // TODO Auto-generated method stub
+        
 
     }
 
     @Override
     public void updateParams() {
-        // TODO Auto-generated method stub
+        
         String param1;
         String param2;
         String param3;

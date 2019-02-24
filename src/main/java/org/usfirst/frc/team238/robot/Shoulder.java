@@ -117,6 +117,23 @@ public class Shoulder
         
     }
     
+    
+    public void shoulderUp(){
+        setpoint = getAngle() + 1;
+
+
+       // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        Logger.Log("Shoulder.ShoulderUp() setpoint = " + (setpoint + 1));
+    }
+
+    public void shoulderDown(){
+        setpoint = getAngle() - 1;
+      
+
+       // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        Logger.Log("Shoulder.shoulderDown() setpoint = " + (setpoint - 1));
+    }
+
     /**
      * Suck a cube in
      */

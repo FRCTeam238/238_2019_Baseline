@@ -4,20 +4,21 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.robot.Shoulder;
 
-public class CommandRetractWrist extends AbstractCommand
+public class CommandShoulderDown extends AbstractCommand
 {
-    Shoulder theIntake;
+    Shoulder theShoulder;
     
-    public CommandRetractWrist(Shoulder myShoulder)
+    public CommandShoulderDown(Shoulder myShoulder)
     {
-       this.theIntake = myShoulder;
+       this.theShoulder = myShoulder;
         
     }
 
     @Override
     public void execute()
     {
-      theIntake.retractShoulderPID();
+        theShoulder.shoulderDown();
+        //theShoulder.retractShoulderPID();
 
     }
 

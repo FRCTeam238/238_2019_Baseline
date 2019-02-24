@@ -125,9 +125,12 @@ public class Elevator {
     public void elevatorUp() {
 
         // get encoder ticks
-        PIDEnabled = false;
-        int whereAmI = getEncoderTicks();
-        elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        //PIDEnabled = false;
+        //int whereAmI = getEncoderTicks();
+        setpoint = getHeight();
+        elevatorUpPID();
+
+       // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
         Logger.Log("Elevator.elevatorUp()");
     }
 
@@ -136,10 +139,12 @@ public class Elevator {
      */
     public void elevatorDown() {
         {
-            PIDEnabled = false;
+            //PIDEnabled = false;
             // get encoder ticks
-            int whereAmI = getEncoderTicks();
-            elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+            //int whereAmI = getEncoderTicks();
+            //elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+            setpoint = getHeight();
+            elevatorDownPID();
             Logger.Log("Elevator.elevatorDown()");
         }
 
@@ -155,50 +160,9 @@ public class Elevator {
         tilt(-1);
     }
 
-    /**
-     * Sends the elevator up at the speed used for climbing
-     */
-    public void elevatorClimbUp() {
-
-        elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CLIMB_SPEED);
-
-    }
-
-    /**
-     * ,. Sends the elevator down at the speed used for climbing
-     */
-
-    public void setElevatorHeight(double height) {
-        PIDEnabled = true;
-        elevatorMasterTalon.set(ControlMode.Position, height * ((double) CrusaderCommon.ELEVATOR_TICK_TO_IN));
-        // Logger.log("ELEVATOR error:" + elevatorMasterTalon.getClosedLoopError(0));
-    }
-
-    public void elevatorClimbDown() {
-
-        elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CLIMB_SPEED);
-
-    }
-
     public void stop() {
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
     }
-
-    /**
-     * Shift into cube manipulation speed
-     */
-    // public void elevatorShiftCube() {
-    //     solenoid.set(DoubleSolenoid.Value.kForward);
-    //     climbMode = false;
-    // }
-
-    /**
-     * Shift into climb speed
-     */
-    // public void elevatorShiftClimb() {
-    //     solenoid.set(DoubleSolenoid.Value.kReverse);
-    //     climbMode = true;
-    // }
 
     public void enablePID() {
         PIDEnabled = true;
