@@ -325,6 +325,7 @@ public class DashBoard238 {
 
         return testElevatorHeights;
     }
+    
 
     public TargetValues getTargetValues() {
 
@@ -335,6 +336,12 @@ public class DashBoard238 {
         TargetValues values = new TargetValues(elevatorHeight, shoulderAngle, wristPosition);
         return values;
     }
+
+    public void reflectPosition(double s_height, double e_height) {
+        SmartDashboard.putNumber("E_HEIGHT", e_height);
+        SmartDashboard.putNumber("S_ANGLE", s_height);
+    }
+    
 
     public void setTargetValues() {
 

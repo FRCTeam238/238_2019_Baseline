@@ -141,6 +141,11 @@ public class Robot extends TimedRobot {
                 currentTest = selectedTest;
 
                 myDashBoard238.setTargetValues();
+
+                double s_height = myShoulder.getAngle();
+                double e_height = myElevator.getHeight();
+             
+                myDashBoard238.reflectPosition( s_height, e_height);
             }
 
             count++;
@@ -395,6 +400,12 @@ public class Robot extends TimedRobot {
 
             // pass the buttonsPressed into the commandController for command execution
             theMCP.joyStickCommandExecution(commandValues);
+
+            double s_height = myShoulder.getAngle();
+                double e_height = myElevator.getHeight();
+             
+                myDashBoard238.reflectPosition( s_height, e_height);
+           
 
         } catch (Exception e) {
             e.printStackTrace();

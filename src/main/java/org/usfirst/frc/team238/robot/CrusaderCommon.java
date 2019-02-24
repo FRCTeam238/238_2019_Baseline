@@ -134,13 +134,16 @@ public class CrusaderCommon {
     public static final int CARGO_LEVEL_TWO = 2;
     public static final int CARGO_LEVEL_THREE = 3;
 
-    public static final double CARGO_LEVEL_ONE_ELEVATOR = 10;
-    public static final double CARGO_LEVEL_TWO_ELEVATOR = 20;
+
+    public static final double CARGO__SHIP_LEVEL_ONE_ELEVATOR = 0;
+    public static final double CARGO_LEVEL_ONE_ELEVATOR = 0;
+    public static final double CARGO_LEVEL_TWO_ELEVATOR = 10;
     public static final double CARGO_LEVEL_THREE_ELEVATOR = 30;
 
-    public static final double CARGO_LEVEL_ONE_SHOULDER = 10;
-    public static final double CARGO_LEVEL_TWO_SHOULDER = 20;
-    public static final double CARGO_LEVEL_THREE_SHOULDER = 30;
+    public static final double CARGO_SHIP_LEVEL_ONE_SHOULDER = 80;
+    public static final double CARGO_LEVEL_ONE_SHOULDER = 80;
+    public static final double CARGO_LEVEL_TWO_SHOULDER = 80;
+    public static final double CARGO_LEVEL_THREE_SHOULDER = 0;
 
     public static final boolean CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
     public static final boolean CARGO_LEVEL_TWO_WRIST = true;
@@ -150,7 +153,7 @@ public class CrusaderCommon {
     public static final boolean CARGO_LEVEL_WRIST_FALSE = false;
     public static final boolean CARGO_LEVEL_WRIST_TRUE = true;
 
-    
+    // hatch level 2 = 50
 
 
 	// Servo power setting

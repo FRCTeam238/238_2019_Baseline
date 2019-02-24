@@ -90,12 +90,12 @@ public class Shoulder
     // angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setshoulder(double angle) {
         
-        setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
+        setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE); //nega
         inAutonomous = false;
     }
     
     public void setshoulder(double angle, boolean auto) {
-        setpoint = Math.min(Math.max(MIN_ANGLE, angle), MAX_ANGLE);
+        setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE);
         inAutonomous = auto;
     }
     

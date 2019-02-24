@@ -223,8 +223,7 @@ public class Elevator {
 
     // getHeight() gets the sensor position, converts it from ticks to inches, then
     // subtracts the zeroHeight
-    private double prevElevatorSensorPosition;
-
+    
     public double getHeight() {
 
         double elevatorSensorPosition = elevatorMasterTalon.getSelectedSensorPosition(0);
@@ -241,7 +240,7 @@ public class Elevator {
 
         elevatorSensorInches = elevatorSensorInches - zeroHeight;
 
-        prevElevatorSensorPosition = elevatorSensorPosition;
+       
         return elevatorSensorInches;
         // -elevatorMasterTalon.getSelectedSensorPosition(0) /
         // CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
