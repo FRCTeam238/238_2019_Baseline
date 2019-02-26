@@ -22,9 +22,9 @@ public class CommandCargoLevel extends AbstractCommand
     Wrist theWrist;
     DashBoard238 dashboard;
     
-    double height = CrusaderCommon.CARGO_LEVEL_ZERO_VALUE;//77;
-    double angle = CrusaderCommon.CARGO_LEVEL_ZERO_VALUE;
-    boolean extended = CrusaderCommon.CARGO_LEVEL_WRIST_FALSE;
+    double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
+    double angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;
+    boolean extended = CrusaderCommon.WRIST_FALSE;
 
     public CommandCargoLevel(Robot theRobot) {
         this.theElevator = theRobot.myElevator;
@@ -54,14 +54,44 @@ public class CommandCargoLevel extends AbstractCommand
     {
         execute();
 
-        // TODO Auto-generated method stub
-        // if(btnPressed ==1) {
-	    //     extend.setshoulder(-80);
-	    // }else if(btnPressed ==2) {
-        //     extend.setshoulder(-40);
-        // }else if(btnPressed ==4) {
-        //     extend.setshoulder(-3);
-        // }
+        switch(btnPressed)
+        {
+            case CrusaderCommon.CARGO_LEVEL_THREE:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                break;
+        
+            case CrusaderCommon.CARGO_LEVEL_TWO:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                break;
+        
+            case CrusaderCommon.CARGO_LEVEL_ONE:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                break;
+            
+            case CrusaderCommon.HATCH_LEVEL_THREE:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
+                break;
+        
+            case CrusaderCommon.HATCH_LEVEL_TWO:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
+                break;
+        
+            case CrusaderCommon.HATCH_LEVEL_ONE:
+                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_WRIST);
+                break;
+        }
     }
 
     @Override
@@ -76,19 +106,19 @@ public class CommandCargoLevel extends AbstractCommand
         if ((params[0] != null) || (!params[0].isEmpty())) {
             height = Double.parseDouble(params[0]);
         } else {
-            height = CrusaderCommon.CARGO_LEVEL_ONE_ELEVATOR;
+            height = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR;
         }
         
         if ((params[1] != null) || (!params[1].isEmpty())) {
             angle = Double.parseDouble(params[1]);
         } else {
-            angle = CrusaderCommon.CARGO_LEVEL_ONE_SHOULDER;
+            angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER;
         }
 
         if ((params[0] != null) || (!params[0].isEmpty())) {
             extended = Boolean.parseBoolean(params[0]);
         } else {
-            extended = CrusaderCommon.CARGO_LEVEL_ONE_WRIST;
+            extended = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST;
         }
             
         // switch (whatLevel) {

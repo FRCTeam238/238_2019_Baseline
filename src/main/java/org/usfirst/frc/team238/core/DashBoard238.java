@@ -205,12 +205,12 @@ public class DashBoard238 {
 
     public void initializeScoring() {
         
-        SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.CARGO_LEVEL_ONE_ELEVATOR);
-        SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.CARGO_LEVEL_ZERO_VALUE);
-        SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.CARGO_LEVEL_ONE_SHOULDER);
-        SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.CARGO_LEVEL_ZERO_VALUE);
-        SmartDashboard.putBoolean("WristInput", CrusaderCommon.CARGO_LEVEL_ONE_WRIST);
-        SmartDashboard.putBoolean("WristOutput", CrusaderCommon.CARGO_LEVEL_WRIST_FALSE);
+        SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
+        SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
+        SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putBoolean("WristInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+        SmartDashboard.putBoolean("WristOutput", CrusaderCommon.WRIST_FALSE);
 
     }
     
@@ -329,9 +329,9 @@ public class DashBoard238 {
 
     public TargetValues getTargetValues() {
 
-        double elevatorHeight = SmartDashboard.getNumber("ElevatorInput", CrusaderCommon.CARGO_LEVEL_ONE_ELEVATOR);
-        double shoulderAngle = SmartDashboard.getNumber("ShoulderInput", CrusaderCommon.CARGO_LEVEL_ONE_SHOULDER);
-        Boolean wristPosition = SmartDashboard.getBoolean("WristInput", CrusaderCommon.CARGO_LEVEL_ONE_WRIST);
+        double elevatorHeight = SmartDashboard.getNumber("ElevatorInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
+        double shoulderAngle = SmartDashboard.getNumber("ShoulderInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
+        Boolean wristPosition = SmartDashboard.getBoolean("WristInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
 
         TargetValues values = new TargetValues(elevatorHeight, shoulderAngle, wristPosition);
         return values;

@@ -35,11 +35,11 @@ public class CommandShoulderAngle extends AbstractCommand {
 	    //check button layou
 	    Logger.Log("PRESSEDBUTTONDDDDDDDDDDDDDDDDDDDDDDDDDDD:" + btnPressed);
 	    if(btnPressed ==1) {
-	        extend.setshoulder(-80);
+	        extend.setshoulder(80);
 	    }else if(btnPressed ==2) {
-            extend.setshoulder(-40);
+            extend.setshoulder(50);
         }else if(btnPressed ==4) {
-            extend.setshoulder(-3);
+            extend.setshoulder(3);
         }
 	}
 

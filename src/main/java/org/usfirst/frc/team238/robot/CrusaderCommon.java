@@ -122,50 +122,66 @@ public class CrusaderCommon {
 	public static final double INTAKE_SPEED_FAST = 0.95;
     public static final double INTAKE_SPEED_SLOW = 0.3;
 
-    public static final double SHOULDER_LEVEL_ONE_ANGLE = 0;
-    public static final double SHOULDER_LEVEL_TWO_ANGLE = 10;
-    public static final double SHOULDER_LEVEL_THREE_ANGLE = 20;
+    // public static final double SHOULDER_LEVEL_ONE_ANGLE = 0;
+    // public static final double SHOULDER_LEVEL_TWO_ANGLE = 10;
+    // public static final double SHOULDER_LEVEL_THREE_ANGLE = 20;
 
-    public static final double ELEVATOR_LEVEL_ONE_HEIGHT = 10;
-    public static final double ELEVATOR_LEVEL_TWO_HEIGHT = 20;
-    public static final double ELEVATOR_LEVEL_THREE_HEIGHT = 30;
+     public static final double ELEVATOR_LEVEL_ONE_HEIGHT = 1;
+     public static final double ELEVATOR_LEVEL_TWO_HEIGHT = 10;
+     public static final double ELEVATOR_LEVEL_THREE_HEIGHT = 30;
 
-    public static final int CARGO_LEVEL_ONE = 1;
+    //numbers are the buttons
+    public static final int CARGO_LEVEL_ONE = 4;
     public static final int CARGO_LEVEL_TWO = 2;
-    public static final int CARGO_LEVEL_THREE = 3;
+    public static final int CARGO_LEVEL_THREE = 1;
 
+    public static final int HATCH_LEVEL_ONE = 24;
+    public static final int HATCH_LEVEL_TWO = 25;
+    public static final int HATCH_LEVEL_THREE = 26;
 
-    public static final double CARGO__SHIP_LEVEL_ONE_ELEVATOR = 0;
-    public static final double CARGO_LEVEL_ONE_ELEVATOR = 0;
-    public static final double CARGO_LEVEL_TWO_ELEVATOR = 10;
-    public static final double CARGO_LEVEL_THREE_ELEVATOR = 30;
-
+    //scores cargo( ball) in Cargo ship
+    public static final double CARGO_SHIP_LEVEL_ONE_ELEVATOR = 0;
     public static final double CARGO_SHIP_LEVEL_ONE_SHOULDER = 80;
-    public static final double CARGO_LEVEL_ONE_SHOULDER = 80;
-    public static final double CARGO_LEVEL_TWO_SHOULDER = 80;
-    public static final double CARGO_LEVEL_THREE_SHOULDER = 0;
+   
 
-    public static final boolean CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
-    public static final boolean CARGO_LEVEL_TWO_WRIST = true;
-    public static final boolean CARGO_LEVEL_THREE_WRIST = true;
+    //scores cargo (ball  in Rocket ship)
+    public static final double ROCKET_CARGO_LEVEL_ONE_ELEVATOR = 0;
+    public static final double ROCKET_CARGO_LEVEL_ONE_SHOULDER = 50;
+    public static final boolean ROCKET_CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
 
-    public static final double CARGO_LEVEL_ZERO_VALUE = 0;
-    public static final boolean CARGO_LEVEL_WRIST_FALSE = false;
-    public static final boolean CARGO_LEVEL_WRIST_TRUE = true;
+    public static final double ROCKET_CARGO_LEVEL_TWO_ELEVATOR = 10;
+    public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 80;
+    public static final boolean ROCKET_CARGO_LEVEL_TWO_WRIST = true;
+
+    public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 30;
+    public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 80;
+    public static final boolean ROCKET_CARGO_LEVEL_THREE_WRIST = true;
+
+    public static final double ROCKET_CARGO_LEVEL_ZERO_VALUE = 0;
+
+
+    //Scores hatch on Rocket Ship level one  will also do cargo ship
+    public static final double HATCH_LEVEL_ONE_ELEVATOR = 0;
+    public static final double HATCH_LEVEL_ONE_SHOULDER = 50;
+    public static final boolean HATCH_LEVEL_ONE_WRIST = true; //true means wrist is extended
+
+    public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 10;
+    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 80;
+    public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = true;
+
+    public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 30;
+    public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 80;
+    public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = true;
+
+    public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;
+    public static final boolean WRIST_FALSE = false;
+    public static final boolean WRIST_TRUE = true;
 
     // hatch level 2 = 50
 
 
-	// Servo power setting
-
-	// Power Distribution Panel (PDP) ID's
-
 	// CurrentDraw variable
 	public final static double CURRENT_DRAW_LIMIT = 20.0;
-
-	// Test values
-
-	// FPID VALUES FOR SHOOTER
 
 	// PID VALS FOR NAVIGATION
 	public final static double NAVIGATION_P_VALUE = 0.1;

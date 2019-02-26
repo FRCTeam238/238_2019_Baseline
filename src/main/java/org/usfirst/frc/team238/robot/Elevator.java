@@ -25,8 +25,8 @@ public class Elevator {
     private static final double MAX_OUT = 0.95;
     private static final double MIN_OUT = -0.95;
 
-    private static final double MIN_HEIGHT = -80.0;
-    private static final double MAX_HEIGHT = 83; // 86;
+    private static final double MIN_HEIGHT = -31.0;
+    private static final double MAX_HEIGHT = 31; // 86;
 
     private double zeroHeight = 0;
     private double setpoint = 0;

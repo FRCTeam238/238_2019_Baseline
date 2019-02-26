@@ -9,7 +9,7 @@ public class CommandElevatorSwitchHeight extends AbstractCommand
 {
 
     Elevator theElevator;
-    double height = 12;//40;
+    double height = 10;//40;
     
     public CommandElevatorSwitchHeight(Elevator myElevator) {
         Logger.Log("CommandElevatorSwitchHeight()");
