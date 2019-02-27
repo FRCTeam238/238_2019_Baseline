@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.commands.CommandCargoLevel;
+import org.usfirst.frc.team238.commands.CommandScoringPosition;
 import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
@@ -42,7 +42,7 @@ public class OperatorCmdFactory {
 
     // // CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
 
-    // CommandCargoLevel commandCargoLevel;
+    // CommandScoringPosition commandScoringPosition;
 
     HashMap<Integer, Command> operatorCommands;
 
@@ -108,10 +108,10 @@ public class OperatorCmdFactory {
         // cmd = new CommandIntakeOutFast(theRobot.myShoulder);
         // operatorCommands.put(28, cmd);
 
-        cmd = new CommandCargoLevel(theRobot);
+        cmd = new CommandScoringPosition(theRobot);
         operatorCommands.put(7, cmd);
-        operatorCommands.put(8, cmd);
-        operatorCommands.put(3, cmd);
+        // operatorCommands.put(8, cmd);
+        // operatorCommands.put(3, cmd);
 
         
         cmd = new CommandHatchRetract(theRobot);

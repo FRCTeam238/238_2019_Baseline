@@ -139,6 +139,10 @@ public class CrusaderCommon {
     public static final int HATCH_LEVEL_TWO = 25;
     public static final int HATCH_LEVEL_THREE = 26;
 
+    public static final int CARGO_SHIP_CARGO = 3;
+
+    public static final int SAFE_DRIVING_MODE = 8;
+
     //scores cargo( ball) in Cargo ship
     public static final double CARGO_SHIP_LEVEL_ONE_ELEVATOR = 0;
     public static final double CARGO_SHIP_LEVEL_ONE_SHOULDER = 80;
@@ -179,6 +183,13 @@ public class CrusaderCommon {
 
     // hatch level 2 = 50
 
+    public static final double CARGO_SHIP_CARGO_ELEVATOR = 5;
+    public static final double CARGO_SHIP_CARGO_SHOULDER = 3;
+    public static final boolean CARGO_SHIP_CARGO_WRIST = true;
+
+    public static final double SAFE_DRIVING_MODE_ELEVATOR = 5;
+    public static final double SAFE_DRIVING_MODE_SHOULDER = 3;
+    public static final boolean SAFE_DRIVING_MODE_WRIST = true;
 
 	// CurrentDraw variable
 	public final static double CURRENT_DRAW_LIMIT = 20.0;

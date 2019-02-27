@@ -14,7 +14,7 @@ import org.usfirst.frc.team238.robot.Wrist;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandCargoLevel extends AbstractCommand
+public class CommandScoringPosition extends AbstractCommand
 {
 
     Elevator theElevator;
@@ -26,7 +26,7 @@ public class CommandCargoLevel extends AbstractCommand
     double angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;
     boolean extended = CrusaderCommon.WRIST_FALSE;
 
-    public CommandCargoLevel(Robot theRobot) {
+    public CommandScoringPosition(Robot theRobot) {
         this.theElevator = theRobot.myElevator;
         this.theShoulder = theRobot.myShoulder;
         this.theWrist = theRobot.myWrist;
@@ -45,7 +45,7 @@ public class CommandCargoLevel extends AbstractCommand
         theShoulder.setshoulder(angle);
         theElevator.setSetpoint(height);
         theWrist.setWrist(extended);
-        Logger.Log("CommandCargoLevel.execute(): height = " + height + "\n angle = " + angle + "\n extended = "
+        Logger.Log("CommandScoringPosition.execute(): height = " + height + "\n angle = " + angle + "\n extended = "
                 + extended);
     }
 
@@ -91,6 +91,19 @@ public class CommandCargoLevel extends AbstractCommand
                 theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
                 theWrist.setWrist(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_WRIST);
                 break;
+                
+            case CrusaderCommon.CARGO_SHIP_CARGO:
+                theShoulder.setshoulder(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+                break;
+                
+            case CrusaderCommon.SAFE_DRIVING_MODE:
+                theShoulder.setshoulder(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER);
+                theElevator.setSetpoint(CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR);
+                theWrist.setWrist(CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+                break;
+
         }
     }
 
