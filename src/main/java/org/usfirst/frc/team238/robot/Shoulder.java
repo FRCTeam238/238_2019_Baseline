@@ -253,15 +253,24 @@ public class Shoulder
         }
         
     }
-    
+
+    int count = 0;
     public void mainLoop() {
         if(PIDEnabled) {
             
             currentError = setpoint - getAngle();
+            
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
-           
-            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted+0.085), MAX_OUT) ;
-           
+            
+            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted + 0.085), MAX_OUT);
+            if (count > 100)
+            {
+                Logger.Log("Shoulder.mainLoop() end: outputWanted = " + outputWanted);
+                Logger.Log("Shoulder.mainLoop() start: currentError = " + currentError);
+                count = 0;
+            }
+            count++;
+            
             shoulderTalon.set(ControlMode.PercentOutput, outputWanted);
             
         }  

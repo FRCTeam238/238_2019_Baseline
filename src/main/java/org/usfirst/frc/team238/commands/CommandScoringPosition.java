@@ -57,55 +57,49 @@ public class CommandScoringPosition extends AbstractCommand
         switch(btnPressed)
         {
             case CrusaderCommon.CARGO_LEVEL_THREE:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
             case CrusaderCommon.CARGO_LEVEL_TWO:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
             case CrusaderCommon.CARGO_LEVEL_ONE:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
             
             case CrusaderCommon.HATCH_LEVEL_THREE:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
         
             case CrusaderCommon.HATCH_LEVEL_TWO:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
                 break;
         
             case CrusaderCommon.HATCH_LEVEL_ONE:
-                theShoulder.setshoulder(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_WRIST);
                 break;
                 
             case CrusaderCommon.CARGO_SHIP_CARGO:
-                theShoulder.setshoulder(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case CrusaderCommon.SAFE_DRIVING_MODE:
-                theShoulder.setshoulder(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER);
-                theElevator.setSetpoint(CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR);
-                theWrist.setWrist(CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+        case CrusaderCommon.SAFE_DRIVING_MODE:
+                setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
+                CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
                 break;
 
         }
     }
+
+
+    private void setArmPositions(double shoulderPos, double elevatorPos, boolean wristExtended) {
+
+        theShoulder.setshoulder(shoulderPos);
+        theElevator.setSetpoint(elevatorPos);
+        theWrist.setWrist(wristExtended);
+
+    } 
 
     @Override
     public void prepare()

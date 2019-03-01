@@ -5,12 +5,12 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandCargoLevel;
+import org.usfirst.frc.team238.commands.CommandScoringPosition;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 
 public class StateCargoLevel implements AutonomousState
 {
-    CommandCargoLevel cargoLevelCommand;
+    CommandScoringPosition scoringPosition;
     String parameters[];
     
     boolean done = false;
@@ -26,15 +26,15 @@ public class StateCargoLevel implements AutonomousState
     public void prepare()
     {
         // TODO Auto-generated method stub
-        cargoLevelCommand.prepare();
-        cargoLevelCommand.setParams(parameters);
+        scoringPosition.prepare();
+        scoringPosition.setParams(parameters);
     }
 
     @Override
     public void init(String[] params, CommandController theMcp)
     {
         // TODO Auto-generated method stub
-        cargoLevelCommand = (CommandCargoLevel) theMcp.getAutoCmd("CommandCargoLevel");
+        scoringPosition = (CommandScoringPosition) theMcp.getAutoCmd("CommandScoringPosition");
 
         parameters = params;
     }
@@ -42,7 +42,7 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public void process()
     {
-      cargoLevelCommand.execute();
+      scoringPosition.execute();
     }
 
     @Override

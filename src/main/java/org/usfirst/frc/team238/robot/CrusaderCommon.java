@@ -169,8 +169,8 @@ public class CrusaderCommon {
     public static final double HATCH_LEVEL_ONE_SHOULDER = 50;
     public static final boolean HATCH_LEVEL_ONE_WRIST = true; //true means wrist is extended
 
-    public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 10;
-    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 80;
+    public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0; 
+    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 70; 
     public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = true;
 
     public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 30;

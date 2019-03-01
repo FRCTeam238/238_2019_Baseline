@@ -187,7 +187,7 @@ public class Elevator {
     }
 
     private double prevError;
-
+    int count = 0;
     public void mainLoop() {
         // nominal voltage <-1,1> outpu for elevator based in P gain
         if (PIDEnabled) {
@@ -204,8 +204,20 @@ public class Elevator {
             double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal
                     + CrusaderCommon.ELEVATOR_FEED_FORWARD;
             //Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
-            outputWanted = Math.min(Math.max(MIN_OUT, outputWanted), MAX_OUT);
+            double origOutputWaned = outputWanted;
+            outputWanted = Math.max(MIN_OUT, outputWanted);
+            String log1 = "Elevator.mainLoop() Math.max(" + MIN_OUT + ", " + origOutputWaned + ") = " + outputWanted;
+            origOutputWaned = outputWanted;
+            outputWanted = Math.min(outputWanted, MAX_OUT);
+            String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
+            if( count > 100){
+                Logger.Log(log1);
+                Logger.Log(log2);
+                count = 0;
+            }
+            count++;
+            
             if (height < 15 && setpoint < 4) {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted * 0.35);
             } else {
