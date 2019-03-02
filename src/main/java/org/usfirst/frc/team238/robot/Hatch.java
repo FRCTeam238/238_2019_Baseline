@@ -13,7 +13,7 @@ public class Hatch
    
     public Hatch()
     {
-         solenoid = new DoubleSolenoid(2, 3);
+         solenoid = new DoubleSolenoid(2, 7);
 
     }
    

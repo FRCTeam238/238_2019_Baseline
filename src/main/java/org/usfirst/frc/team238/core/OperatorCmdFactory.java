@@ -24,27 +24,7 @@ import org.usfirst.frc.team238.commands.CommandWristUp;
 
 public class OperatorCmdFactory {
 
-    // CommandStopEverything commandStopEverything;
-
-    // // CommandRunTrajectory commadRunTrajectory;
-
-    // CommandRetractWrist commandRetractWrist;
-
-    // CommandExtendWrist commandExtendWrist;
-
-    // CommandElevatorUp commandElevatorUp;
-
-    // CommandElevatorDown commandElevatorDown;
-
-    // CommandElevatorBottomHeight commandElevatorBottomHeight;
-
-    // CommandElevatorScaleHeight commandElevatorScaleHeight;
-
-    // CommandElevatorSwitchHeight commandElevatorSwitchHeight;
-
-    // // CommandIntakeStraightOutAngle commandIntakeStraightOutAngle;
-
-    // CommandScoringPosition commandScoringPosition;
+    
 
     HashMap<Integer, Command> operatorCommands;
 
@@ -69,10 +49,6 @@ public class OperatorCmdFactory {
         cmd = new CommandStopEverything(theRobot);
         operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
 
-        // cmd = new CommandShoulderAngle(theRobot.myShoulder);
-        // operatorCommands.put(1, cmd);
-        // operatorCommands.put(2, cmd);
-        // operatorCommands.put(4, cmd);
 
         cmd = new CommandIntakeIn(theRobot.myShoulder);
         operatorCommands.put(5, cmd);
@@ -93,23 +69,6 @@ public class OperatorCmdFactory {
         cmd = new CommandElevatorDown(theRobot.myElevator);
         operatorCommands.put(20, cmd);
 
-        // cmd = new CommandElevatorBottomHeight(theRobot.myElevator);
-        // operatorCommands.put(24, cmd);
-
-        // cmd = new CommandElevatorScaleHeight(theRobot.myElevator);
-        // operatorCommands.put(26, cmd);
-
-        // cmd = new CommandElevatorSwitchHeight(theRobot.myElevator);
-        // operatorCommands.put(25, cmd);
-
-        // cmd = new CommandWristManualOverride(theRobot.myShoulder);
-        // operatorCommands.put(7, cmd);
-        // operatorCommands.put(8, cmd);
-        // commandIntakeStraightOutAngle = new CommandIntakeStraightOutAngle(intake);
-
-        // cmd = new CommandIntakeOutFast(theRobot.myShoulder);
-        // operatorCommands.put(28, cmd);
-
         cmd = new CommandScoringPosition(theRobot);
         operatorCommands.put(1, cmd);
         operatorCommands.put(2, cmd);
@@ -119,12 +78,13 @@ public class OperatorCmdFactory {
         operatorCommands.put(24, cmd);
         operatorCommands.put(25, cmd);
         operatorCommands.put(26, cmd);
+        operatorCommands.put(7, cmd);
         
         cmd = new CommandWristUp(theRobot);
-        operatorCommands.put(27, cmd);
+        operatorCommands.put(28, cmd);
 
         cmd = new CommandWristDown(theRobot);
-        operatorCommands.put(28, cmd);
+        operatorCommands.put(27, cmd);
 
         // cmd = new CommandHatchRetract(theRobot);
         // operatorCommands.put(27, cmd);
@@ -132,7 +92,7 @@ public class OperatorCmdFactory {
         // cmd = new CommandHatchDeploy(theRobot);
         // operatorCommands.put(28, cmd);
 
-
+        
 
         return operatorCommands;
 

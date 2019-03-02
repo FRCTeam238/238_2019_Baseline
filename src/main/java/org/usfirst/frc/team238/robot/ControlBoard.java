@@ -3,6 +3,7 @@ package org.usfirst.frc.team238.robot;
 import java.util.*;
 import edu.wpi.first.wpilibj.Joystick;
 
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
 
@@ -103,11 +104,12 @@ public class ControlBoard {
         }else if(theJoyStick.getPOV() == 0) {
             buttonsPressed[arrayIterator++] = 26;     
                 
-        }else if(theJoyStick.getPOV() == 180) {
-            buttonsPressed[arrayIterator++] = 24;     
-                
+        } else if (theJoyStick.getPOV() == 180) {
+            buttonsPressed[arrayIterator++] = 24;
+
         }
-  
+        
+       // DashBoard238.getInstance().addOrUpdateElement("Elevator", "Buttons Pressed", buttonsPressed);
     	return buttonsPressed;
 	}
 	

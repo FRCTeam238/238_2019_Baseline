@@ -80,8 +80,6 @@ public class Robot extends TimedRobot {
     // Testing vars
     TestController myTestController;
 
-    public TestCoreObject myTestCoreObject;
-
     // There shouldn't be two of these
     Alliance myAllianceTeam;
 

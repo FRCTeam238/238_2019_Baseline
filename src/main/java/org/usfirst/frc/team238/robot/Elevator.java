@@ -33,7 +33,7 @@ public class Elevator {
     private double currentError = 0;
 
     // Really only a P loop
-    public boolean PIDEnabled = true;
+    private boolean PIDEnabled = true;
 
     TalonSRX elevatorMasterTalon;
     // TalonSRX elevatorSlaveTalon;
@@ -115,7 +115,7 @@ public class Elevator {
         elevatorMasterTalon.setSelectedSensorPosition(0, 0, 0);
 
         liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
-
+        Logger.Log("robot.Elevator.00++");
     }
 
     /**
@@ -144,6 +144,7 @@ public class Elevator {
             //int whereAmI = getEncoderTicks();
             //elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
             setpoint = getHeight();
+            //Without this line, setpoint goes far out of bounds, messing up the teleop manual commands
             elevatorDownPID();
             Logger.Log("Elevator.elevatorDown()");
         }
@@ -161,7 +162,9 @@ public class Elevator {
     }
 
     public void stop() {
-        elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
+        if (!PIDEnabled) {
+            elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
+        }
     }
 
     public void enablePID() {
@@ -175,20 +178,24 @@ public class Elevator {
     // set height of robot
     public void setSetpoint(double height) {
         PIDEnabled = true;
-        this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
+        // this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
+        double newSetpoint = Math.max(MIN_HEIGHT, height);
+        //makes sure setpoint is above min height, if not, sets to min height
+        this.setpoint = Math.min(MAX_HEIGHT, newSetpoint);
+        //makes sure setpoint is below max height, if not, sets to max height
         DashBoard238.getInstance().addOrUpdateElement("Elevator", "currentSetPoint", this.setpoint);
     }
 
-    public void tilt(double heightTilt) {
+    private void tilt(double heightTilt) {
         DashBoard238.getInstance().addOrUpdateElement("Elevator", "tilt", heightTilt);
-        setpoint += heightTilt;
-        this.setpoint = Math.min(Math.max(MIN_HEIGHT, setpoint), MAX_HEIGHT);
+        double newSetpoint = setpoint + heightTilt;
+        setSetpoint(newSetpoint);
         //Logger.Log("Elevator.tilt() : setpoint = " + setpoint);
     }
 
     private double prevError;
     int count = 0;
-    public void mainLoop() {
+    private void mainLoop() {
         // nominal voltage <-1,1> outpu for elevator based in P gain
         if (PIDEnabled) {
 
@@ -212,8 +219,8 @@ public class Elevator {
             String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
             if( count > 100){
-                Logger.Log(log1);
-                Logger.Log(log2);
+               // Logger.Log(log1);
+                //Logger.Log(log2);
                 count = 0;
             }
             count++;

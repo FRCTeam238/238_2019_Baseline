@@ -14,19 +14,26 @@ import org.usfirst.frc.team238.robot.Wrist;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-public class CommandScoringPosition extends AbstractCommand
+public class CommandExitSafeMode extends AbstractCommand
 {
 
+    //go up one inch, move shoulder out
+    //move to cargo level one
+    //
+    //
+    //
     Elevator theElevator;
     Shoulder theShoulder;
     Wrist theWrist;
     DashBoard238 dashboard;
     
+    int count = 0;
     double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
     double angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;
     boolean extended = CrusaderCommon.WRIST_FALSE;
+    int currentStep = 0;
 
-    public CommandScoringPosition(Robot theRobot) {
+    public CommandExitSafeMode(Robot theRobot) {
         this.theElevator = theRobot.myElevator;
         this.theShoulder = theRobot.myShoulder;
         this.theWrist = theRobot.myWrist;
@@ -45,8 +52,17 @@ public class CommandScoringPosition extends AbstractCommand
         theShoulder.setshoulder(angle);
         theElevator.setSetpoint(height);
         theWrist.setWrist(extended);
-        Logger.Log("CommandScoringPosition.execute(): height = " + height + "\n angle = " + angle + "\n extended = "
+        Logger.Log("CommandExitSafeMode.execute(): height = " + height + "\n angle = " + angle + "\n extended = "
                 + extended);
+        
+        if (currentStep == 0) {
+            setArmPositions(0, 2, false);
+            if (theElevator.getHeight() > 1.5){
+                currentStep = 1;
+            }
+        } else if (currentStep == 1) {
+            setArmPositions(20, -17, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+        }
     }
 
     @Override
@@ -54,55 +70,14 @@ public class CommandScoringPosition extends AbstractCommand
     {
         //execute();
 
-        switch(btnPressed)
-        {
-            case CrusaderCommon.CARGO_LEVEL_THREE:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
-                break;
+       
         
-            case CrusaderCommon.CARGO_LEVEL_TWO:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
-                break;
-        
-            case CrusaderCommon.CARGO_LEVEL_ONE:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
-                break;
-            
-            case CrusaderCommon.HATCH_LEVEL_THREE:
-                setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
-                CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, 
-                CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
-                break;
-        
-            case CrusaderCommon.HATCH_LEVEL_TWO:
-                setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_SHOULDER,
-                CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
-                break;
-        
-            case CrusaderCommon.HATCH_LEVEL_ONE:
-            setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, 
-                 CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
-                break;
-                
-            case CrusaderCommon.CARGO_SHIP_CARGO:
-                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
-                break;
-                
-            case 7:
-                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
-                break;
-                
-            case CrusaderCommon.SAFE_DRIVING_MODE:
                 setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
                 CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
-                break;
-                
-            case 42:
-                setArmPositions(angle, height, CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
-                break;
+               
 
         }
-    }
+    
 
 
     private void setArmPositions(double shoulderPos, double elevatorPos, boolean wristExtended) {
@@ -139,7 +114,7 @@ public class CommandScoringPosition extends AbstractCommand
         } else {
             extended = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST;
         }
-        Logger.Log("CommandScoringPosition():setParams(): Hight =  " + height + " Angle = " + angle );
+            
         // switch (whatLevel) {
         // case CrusaderCommon.CARGO_LEVEL_ONE:
         //     //get target values fro dashboard

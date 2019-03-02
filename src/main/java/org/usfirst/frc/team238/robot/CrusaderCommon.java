@@ -167,15 +167,15 @@ public class CrusaderCommon {
     //Scores hatch on Rocket Ship level one  will also do cargo ship
     public static final double HATCH_LEVEL_ONE_ELEVATOR = 0;
     public static final double HATCH_LEVEL_ONE_SHOULDER = 0;
-    public static final boolean HATCH_LEVEL_ONE_WRIST = true; //true means wrist is extended
+    public static final boolean HATCH_LEVEL_ONE_WRIST = false; //true means wrist is extended
 
     public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0; 
     public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 85; 
-    public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = true;
+    public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = false;
 
     public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 20;
     public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 100;
-    public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = true;
+    public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = false;
 
     public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;
     public static final boolean WRIST_FALSE = false;
@@ -189,7 +189,7 @@ public class CrusaderCommon {
 
     public static final double SAFE_DRIVING_MODE_ELEVATOR = 5;
     public static final double SAFE_DRIVING_MODE_SHOULDER = 3;
-    public static final boolean SAFE_DRIVING_MODE_WRIST = true;
+    public static final boolean SAFE_DRIVING_MODE_WRIST = false;
 
 	// CurrentDraw variable
 	public final static double CURRENT_DRAW_LIMIT = 20.0;

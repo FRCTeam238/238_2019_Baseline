@@ -217,7 +217,7 @@ public class DashBoard238 {
     }
     
     public void addOrUpdateElement(String tabName, String elementName, Object val){
-        String key = tabName + "$" + "elementName";
+        String key = tabName + "$" + elementName;
         NetworkTableEntry entry;
         if (!testSweetEntries.containsKey(key)){
             ShuffleboardTab tab = Shuffleboard.getTab(tabName);

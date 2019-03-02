@@ -13,7 +13,7 @@ public class Wrist
    
     public Wrist()
     {
-         solenoid = new DoubleSolenoid(0, 1);
+         solenoid = new DoubleSolenoid(1, 6);
 
     }
    
