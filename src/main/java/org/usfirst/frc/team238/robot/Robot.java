@@ -274,8 +274,8 @@ public class Robot extends TimedRobot {
 
         myHatch = new Hatch();
 
-        myCompressor = new Compressor();
-        myCompressor.setClosedLoopControl(false);
+        // myCompressor = new Compressor();
+        // myCompressor.setClosedLoopControl(false);
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
 

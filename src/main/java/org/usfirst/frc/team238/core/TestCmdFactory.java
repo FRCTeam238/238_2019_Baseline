@@ -7,6 +7,7 @@ import org.usfirst.frc.team238.testSteps.TestElevator;
 import org.usfirst.frc.team238.testSteps.TestShoulder;
 import org.usfirst.frc.team238.testSteps.TestStaticDriveTrainEncoders;
 import org.usfirst.frc.team238.testSteps.TestStepDriveTrainEncoders;
+import org.usfirst.frc.team238.testSteps.TestWrist;
 
 
 
@@ -48,6 +49,9 @@ public class TestCmdFactory {
         cmd = new TestStaticDriveTrainEncoders(theRobot);
         TestCommands.put("Encoder Test", cmd);
 
+        cmd = new TestWrist(theRobot);
+        TestCommands.put("Wrist Test", cmd);
+        
         return TestCommands;
 	}
 	

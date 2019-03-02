@@ -131,9 +131,9 @@ public class CrusaderCommon {
      public static final double ELEVATOR_LEVEL_THREE_HEIGHT = 30;
 
     //numbers are the buttons
-    public static final int CARGO_LEVEL_ONE = 4;
+    public static final int CARGO_LEVEL_ONE = 1;
     public static final int CARGO_LEVEL_TWO = 2;
-    public static final int CARGO_LEVEL_THREE = 1;
+    public static final int CARGO_LEVEL_THREE = 4;
 
     public static final int HATCH_LEVEL_ONE = 24;
     public static final int HATCH_LEVEL_TWO = 25;
@@ -150,15 +150,15 @@ public class CrusaderCommon {
 
     //scores cargo (ball  in Rocket ship)
     public static final double ROCKET_CARGO_LEVEL_ONE_ELEVATOR = 0;
-    public static final double ROCKET_CARGO_LEVEL_ONE_SHOULDER = 50;
+    public static final double ROCKET_CARGO_LEVEL_ONE_SHOULDER = 60;
     public static final boolean ROCKET_CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
 
     public static final double ROCKET_CARGO_LEVEL_TWO_ELEVATOR = 10;
-    public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 80;
+    public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 100;
     public static final boolean ROCKET_CARGO_LEVEL_TWO_WRIST = true;
 
     public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 30;
-    public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 80;
+    public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 100;
     public static final boolean ROCKET_CARGO_LEVEL_THREE_WRIST = true;
 
     public static final double ROCKET_CARGO_LEVEL_ZERO_VALUE = 0;
@@ -166,15 +166,15 @@ public class CrusaderCommon {
 
     //Scores hatch on Rocket Ship level one  will also do cargo ship
     public static final double HATCH_LEVEL_ONE_ELEVATOR = 0;
-    public static final double HATCH_LEVEL_ONE_SHOULDER = 50;
+    public static final double HATCH_LEVEL_ONE_SHOULDER = 0;
     public static final boolean HATCH_LEVEL_ONE_WRIST = true; //true means wrist is extended
 
     public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0; 
-    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 70; 
+    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 85; 
     public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = true;
 
-    public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 30;
-    public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 80;
+    public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 20;
+    public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 100;
     public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = true;
 
     public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;

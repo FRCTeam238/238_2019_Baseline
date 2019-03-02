@@ -52,7 +52,7 @@ public class CommandScoringPosition extends AbstractCommand
     @Override
     public void execute(int btnPressed)
     {
-        execute();
+        //execute();
 
         switch(btnPressed)
         {
@@ -69,15 +69,19 @@ public class CommandScoringPosition extends AbstractCommand
                 break;
             
             case CrusaderCommon.HATCH_LEVEL_THREE:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
+                CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, 
+                CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
         
             case CrusaderCommon.HATCH_LEVEL_TWO:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
+                setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_SHOULDER,
+                CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
                 break;
         
             case CrusaderCommon.HATCH_LEVEL_ONE:
-                setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_WRIST);
+            setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, 
+                 CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
                 
             case CrusaderCommon.CARGO_SHIP_CARGO:

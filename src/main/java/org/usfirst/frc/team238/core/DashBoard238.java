@@ -47,6 +47,8 @@ public class DashBoard238 {
     String shoulderTarget = "Shoulder Target";
     String shoulderHeight = "Shoulder Height";
 
+
+
     HashMap<String, NetworkTableEntry> testSweetEntries;
 
     private DashBoard238() {
@@ -110,7 +112,7 @@ public class DashBoard238 {
         testSelector.addOption("Elevator Test2", "Elevator Test2");
         testSelector.addOption("Elevator Test3", "Elevator Test3");
         testSelector.addOption("Shoulder Test", "Shoulder Test");
-        testSelector.addOption("Climber Test", "Climber Test");
+        testSelector.addOption("Wrist Test", "Wrist Test");
 
         Shuffleboard.selectTab("TestSweet");
         testSelector.setName("Test Section");
