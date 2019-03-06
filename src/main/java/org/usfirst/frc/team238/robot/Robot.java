@@ -359,6 +359,11 @@ public class Robot extends TimedRobot {
             theMACP2019.process();
             myNavigation.navxValues();
 
+            double s_height = myShoulder.getAngle();
+            double e_height = myElevator.getHeight();
+         
+            myDashBoard238.reflectPosition(s_height, e_height);
+
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.Log("Robot(): autonomousPeriodic() Exception: " + ex);
@@ -400,9 +405,9 @@ public class Robot extends TimedRobot {
             theMCP.joyStickCommandExecution(commandValues);
 
             double s_height = myShoulder.getAngle();
-                double e_height = myElevator.getHeight();
+            double e_height = myElevator.getHeight();
              
-                myDashBoard238.reflectPosition( s_height, e_height);
+            myDashBoard238.reflectPosition( s_height, e_height);
            
 
         } catch (Exception e) {

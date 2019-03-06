@@ -21,8 +21,9 @@ public class CommandScoringPosition extends AbstractCommand
     Shoulder theShoulder;
     Wrist theWrist;
     DashBoard238 dashboard;
+    boolean done = false;
     
-    double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
+    protected double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
     double angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;
     boolean extended = CrusaderCommon.WRIST_FALSE;
 
@@ -106,8 +107,11 @@ public class CommandScoringPosition extends AbstractCommand
 
 
     private void setArmPositions(double shoulderPos, double elevatorPos, boolean wristExtended) {
-
-        theShoulder.setshoulder(shoulderPos);
+        double currentDelta = Math.abs(theElevator.getHeight() - elevatorPos);
+        if (currentDelta <= 5) {
+            theShoulder.setshoulder(shoulderPos);
+            done = true;
+        }
         theElevator.setSetpoint(elevatorPos);
         theWrist.setWrist(wristExtended);
 
@@ -157,7 +161,8 @@ public class CommandScoringPosition extends AbstractCommand
     public boolean done()
     {
         // TODO Auto-generated method stub
-        return false;
+        return done;
     }
+
 
 }

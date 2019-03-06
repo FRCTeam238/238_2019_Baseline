@@ -225,7 +225,11 @@ public class Elevator {
             }
             count++;
             
-            if (height < 15 && setpoint < 4) {
+            //height:15 setpoint:4
+            //starting point in auto mode is 15 inches high on elevator
+            // setpoint and height are negative only at beginning of game, need to use math.abs to get abs value
+            //Math.abs is when we go negative at the start point
+            if (Math.abs(height) < 5 && Math.abs(setpoint) < 2) {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted * 0.35);
             } else {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted);
