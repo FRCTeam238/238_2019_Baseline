@@ -112,7 +112,8 @@ public class Elevator {
     public void resetEncoders() {
 
         elevatorMasterTalon.setSelectedSensorPosition(0, 0, 0);
-        setSetpoint(0);+
+        setSetpoint(0);
+    }
     /**
      * Sends the elevator up at the speed used for cubes
      */
