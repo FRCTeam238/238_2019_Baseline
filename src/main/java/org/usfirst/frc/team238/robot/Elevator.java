@@ -113,23 +113,23 @@ public class Elevator {
     public void resetEncoders() {
 
         elevatorMasterTalon.setSelectedSensorPosition(0, 0, 0);
-
-        liftEncoder = elevatorMasterTalon.getSelectedSensorPosition(0);
-        Logger.Log("robot.Elevator.00++");
-    }
-
+        setSetpoint(0);+
     /**
      * Sends the elevator up at the speed used for cubes
      */
 
     public void elevatorUp() {
 
-        // get encoder ticks
-        //PIDEnabled = false;
-        //int whereAmI = getEncoderTicks();
-        setpoint = getHeight();
-        elevatorUpPID();
+       
+        //setpoint = getHeight();
+        //elevatorUpPID();
+        //Without this line, setpoint goes far out of bounds, messing up the teleop manual commands
+        //elevatorDownPID();
 
+        double newSetPoint =  getHeight() + 3;
+        
+
+        setSetpoint(newSetPoint);
        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
         Logger.Log("Elevator.elevatorUp()");
     }
@@ -143,9 +143,11 @@ public class Elevator {
             // get encoder ticks
             //int whereAmI = getEncoderTicks();
             //elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
-            setpoint = getHeight();
+            double newSetPoint =  getHeight() - 3;
             //Without this line, setpoint goes far out of bounds, messing up the teleop manual commands
-            elevatorDownPID();
+            //elevatorDownPID();
+
+            setSetpoint(newSetPoint);
             Logger.Log("Elevator.elevatorDown()");
         }
 

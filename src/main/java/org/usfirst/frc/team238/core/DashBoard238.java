@@ -247,14 +247,14 @@ public class DashBoard238 {
 
     public String getSelectedAutonomousMode() {
         String selectedAutoMode = aModeSelector.getSelected();
-        Logger.Log("DashBoard238.getSelectedAutonomousMode(): Automode = " + selectedAutoMode);
+       // Logger.Log("DashBoard238.getSelectedAutonomousMode(): Automode = " + selectedAutoMode);
         return selectedAutoMode;
     }
 
     public String getSelectedAutonomousModeStep() {
         String selectedAutoModeStep = stepSelector.getSelected();
 
-        Logger.Log("DashBoard238.getSelectedAutonomousModeStep(): AutomodeStep = " + selectedAutoModeStep);
+      //  Logger.Log("DashBoard238.getSelectedAutonomousModeStep(): AutomodeStep = " + selectedAutoModeStep);
 
         return selectedAutoModeStep;
     }

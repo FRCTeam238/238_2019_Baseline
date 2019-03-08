@@ -118,20 +118,21 @@ public class Shoulder
     }
     
     
-    public void shoulderUp(){
-        setpoint = getAngle() + 1;
-
+    public void shoulderUp() {
+        
+        double newSetpoint = getAngle() + 15;
+        setshoulder(Math.abs(newSetpoint)); 
 
        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-        Logger.Log("Shoulder.ShoulderUp() setpoint = " + (setpoint + 1));
+        Logger.Log("Shoulder.ShoulderUp() newsetpoint = " + newSetpoint);
     }
 
     public void shoulderDown(){
-        setpoint = getAngle() - 1;
-      
+        double newSetpoint = getAngle() - 10;
+        setshoulder(Math.abs(newSetpoint)); 
 
        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-        Logger.Log("Shoulder.shoulderDown() setpoint = " + (setpoint - 1));
+       Logger.Log("Shoulder.ShoulderDown() newsetpoint = " + newSetpoint);
     }
 
     /**
@@ -258,7 +259,8 @@ public class Shoulder
     public void mainLoop() {
         if(PIDEnabled) {
             
-            currentError = setpoint - getAngle();
+            double theAngle = getAngle();
+            currentError = setpoint - theAngle;
             
             double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
             
@@ -266,6 +268,7 @@ public class Shoulder
             if (count > 100)
             {
                 Logger.Log("Shoulder.mainLoop() end: outputWanted = " + outputWanted);
+                Logger.Log("Shoulder.mainLoop() start: setpoint = " + setpoint + "  angle = " + theAngle);
                 Logger.Log("Shoulder.mainLoop() start: currentError = " + currentError);
                 count = 0;
             }
