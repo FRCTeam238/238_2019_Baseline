@@ -99,7 +99,7 @@ public class CommandScoringPosition extends AbstractCommand
                 break;
                 
             case 42:
-                setArmPositions(angle, height, CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+                setArmPositionsAuto(angle, height, CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
                 break;
 
         }
@@ -107,6 +107,15 @@ public class CommandScoringPosition extends AbstractCommand
 
 
     private void setArmPositions(double shoulderPos, double elevatorPos, boolean wristExtended) {
+        
+        theShoulder.setshoulder(shoulderPos);
+        theElevator.setSetpoint(elevatorPos);
+        theWrist.setWrist(wristExtended);
+        done = true;
+
+    } 
+
+    private void setArmPositionsAuto(double shoulderPos, double elevatorPos, boolean wristExtended) {
         double currentDelta = Math.abs(theElevator.getHeight() - elevatorPos);
         if (currentDelta <= 5) {
             theShoulder.setshoulder(shoulderPos);
@@ -116,7 +125,6 @@ public class CommandScoringPosition extends AbstractCommand
         theWrist.setWrist(wristExtended);
 
     } 
-
     @Override
     public void prepare()
     {

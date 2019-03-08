@@ -71,8 +71,7 @@ public class Elevator {
 
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        // elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
-        // LimitSwitchNormal.NormallyOpen, 0);
+        elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
 
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.configOpenloopRamp(0.2, 0);
@@ -208,11 +207,12 @@ public class Elevator {
             }
 
             currentError = setpoint - height;
-            double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD;
+            double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD; //used to slow down the motor as it reaches
 
             double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal
                     + CrusaderCommon.ELEVATOR_FEED_FORWARD;
-            //Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
+            
+                    //Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
             double origOutputWaned = outputWanted;
             outputWanted = Math.max(MIN_OUT, outputWanted);
             String log1 = "Elevator.mainLoop() Math.max(" + MIN_OUT + ", " + origOutputWaned + ") = " + outputWanted;

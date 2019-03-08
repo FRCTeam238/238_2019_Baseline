@@ -97,7 +97,7 @@ public class CrusaderCommon {
 	public static final int DRIVE_TRAIN_LEFT_SLAVE2 = 13;
 
 	public static final double ELEVATOR_KP = 0.067; 
-	public static final double ELEVATOR_KD = 0.037;
+	public static final double ELEVATOR_KD = 0.027; //.037
 	public static final double ELEVATOR_TICK_TO_IN = 2205.0;//7414
 	public static final int CW_ELEVATOR_MASTER = 8; 
 	public static final int CW_ELEVAOR_SLAVE_SRX = 11;
