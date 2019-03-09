@@ -197,6 +197,8 @@ public class Elevator {
 
     private double prevError;
     int count = 0;
+    private double prevHeight;
+
     private void mainLoop() {
         // nominal voltage <-1,1> outpu for elevator based in P gain
         if (PIDEnabled) {
@@ -205,6 +207,16 @@ public class Elevator {
             // setting the value for the lowest allowable elevator position
             if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && setpoint < 3) {
                 zeroHeight += height;
+            }
+            
+            double KD_VALUE;
+            if( prevHeight < height){
+                //going down
+                KD_VALUE = CrusaderCommon.ELEVATOR_KD_DOWN;
+            }
+            else{
+                //going up
+                KD_VALUE =  CrusaderCommon.ELEVATOR_KD_UP;
             }
 
             currentError = setpoint - height;
@@ -242,7 +254,7 @@ public class Elevator {
             //     Logger.Log("Elevator.mainloop() setPoint = " + setpoint + "  Height = " + height + "  currentError = " + currentError + "  Kd = " + dVal + "output wanted = " + outputWanted);
             // }
             
-            
+            prevHeight = height;
             prevError = currentError;
         }
     }
