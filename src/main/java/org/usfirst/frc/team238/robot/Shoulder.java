@@ -262,7 +262,7 @@ public class Shoulder
             double theAngle = getAngle();
             currentError = setpoint - theAngle;
             
-            double outputWanted = currentError * CrusaderCommon.INTAKE_KP;
+            double outputWanted = currentError * CrusaderCommon.SHOULDER_KP;
             
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted + 0.085), MAX_OUT);
             if (count > 100)

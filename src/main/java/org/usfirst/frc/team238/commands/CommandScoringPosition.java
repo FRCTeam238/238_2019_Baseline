@@ -57,35 +57,35 @@ public class CommandScoringPosition extends AbstractCommand
 
         switch(btnPressed)
         {
-            case CrusaderCommon.CARGO_LEVEL_THREE:
+            case CrusaderCommon.CARGO_LEVEL_THREE:   //4,   Xbox.Y
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_TWO:
+            case CrusaderCommon.CARGO_LEVEL_TWO:   //2,  Xbox.B
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_ONE:
+            case CrusaderCommon.CARGO_LEVEL_ONE:   //1,  Xbox.A
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
             
-            case CrusaderCommon.HATCH_LEVEL_THREE:
+            case CrusaderCommon.HATCH_LEVEL_THREE:   //26, Xbox.DPad.Down 
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, 
                 CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_TWO:
+            case CrusaderCommon.HATCH_LEVEL_TWO:   //25,  Xbox.DPad.Right
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_ONE:
+            case CrusaderCommon.HATCH_LEVEL_ONE:   //24,  Xbox.DPad.Up
             setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, 
                  CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
                 
-            case CrusaderCommon.CARGO_SHIP_CARGO:
+            case CrusaderCommon.CARGO_SHIP_CARGO:   //3,  Xbox.X
                 setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
@@ -93,7 +93,7 @@ public class CommandScoringPosition extends AbstractCommand
                 setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case CrusaderCommon.SAFE_DRIVING_MODE:
+            case CrusaderCommon.SAFE_DRIVING_MODE:  //8
                 setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
                 CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
                 break;

@@ -25,6 +25,7 @@ public class CommandStopEverything extends AbstractCommand {
   public void execute() {
         theRobot.myShoulder.stop();
         theRobot.myElevator.stop();
+        theRobot.myHatch.setHatch(false);
   }
 
   @Override

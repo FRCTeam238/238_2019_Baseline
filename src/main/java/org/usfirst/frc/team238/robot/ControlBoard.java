@@ -107,6 +107,8 @@ public class ControlBoard {
         } else if (theJoyStick.getPOV() == 180) {
             buttonsPressed[arrayIterator++] = 24;
 
+        } else if (theJoyStick.getPOV() == 270) {
+            buttonsPressed[arrayIterator++] = 29;
         }
         
        // DashBoard238.getInstance().addOrUpdateElement("Elevator", "Buttons Pressed", buttonsPressed);

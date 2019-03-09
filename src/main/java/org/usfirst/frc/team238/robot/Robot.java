@@ -195,7 +195,7 @@ public class Robot extends TimedRobot {
         //myDashBoard238.init();
         myDashBoard238 = DashBoard238.getInstance();
         aModeSelector = myDashBoard238.getAutonomusModeSelector();
-        robotPosition = myDashBoard238.getRobotPosition();
+        //robotPosition = myDashBoard238.getRobotPosition();
 
     }
 
@@ -389,14 +389,10 @@ public class Robot extends TimedRobot {
 
         HashMap<Integer, Integer[]> commandValues;
 
-        SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
-
+        myDashBoard238.putDrivetrainEncoders(myDriveTrain.getEncoderTicks2());
         int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
         int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
-
-        SmartDashboard.putNumber("Left Speed", speedLeft);
-        SmartDashboard.putNumber("Right Speed", speedRight);
-
+        
         try {
             // get the buttons that were pressed on the joySticks/controlBoard
             commandValues = myControlBoard.getControllerInputs();

@@ -180,10 +180,13 @@ public class Elevator {
     // set height of robot
     public void setSetpoint(double height) {
         PIDEnabled = true;
+        
         // this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
         double newSetpoint = Math.max(MIN_HEIGHT, height);
+        
         //makes sure setpoint is above min height, if not, sets to min height
         this.setpoint = Math.min(MAX_HEIGHT, newSetpoint);
+        
         //makes sure setpoint is below max height, if not, sets to max height
         DashBoard238.getInstance().addOrUpdateElement("Elevator", "currentSetPoint", this.setpoint);
     }
@@ -209,20 +212,20 @@ public class Elevator {
                 zeroHeight += height;
             }
             
-            double KD_VALUE;
+            double KP_VALUE;
             if( prevHeight < height){
                 //going down
-                KD_VALUE = CrusaderCommon.ELEVATOR_KD_DOWN;
+                KP_VALUE = CrusaderCommon.ELEVATOR_KP_DOWN;
             }
             else{
                 //going up
-                KD_VALUE =  CrusaderCommon.ELEVATOR_KD_UP;
+                KP_VALUE =  CrusaderCommon.ELEVATOR_KP_UP;
             }
 
             currentError = setpoint - height;
             double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD; //used to slow down the motor as it reaches
 
-            double outputWanted = currentError * CrusaderCommon.ELEVATOR_KP + dVal
+            double outputWanted = currentError * KP_VALUE + dVal
                     + CrusaderCommon.ELEVATOR_FEED_FORWARD;
             
                     //Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
