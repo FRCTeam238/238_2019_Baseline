@@ -80,8 +80,6 @@ public class Robot extends TimedRobot {
     // Testing vars
     TestController myTestController;
 
-    public TestCoreObject myTestCoreObject;
-
     // There shouldn't be two of these
     Alliance myAllianceTeam;
 
@@ -197,7 +195,7 @@ public class Robot extends TimedRobot {
         //myDashBoard238.init();
         myDashBoard238 = DashBoard238.getInstance();
         aModeSelector = myDashBoard238.getAutonomusModeSelector();
-        robotPosition = myDashBoard238.getRobotPosition();
+        //robotPosition = myDashBoard238.getRobotPosition();
 
     }
 
@@ -361,6 +359,11 @@ public class Robot extends TimedRobot {
             theMACP2019.process();
             myNavigation.navxValues();
 
+            double s_height = myShoulder.getAngle();
+            double e_height = myElevator.getHeight();
+         
+            myDashBoard238.reflectPosition(s_height, e_height);
+
         } catch (Exception ex) {
             ex.printStackTrace();
             Logger.Log("Robot(): autonomousPeriodic() Exception: " + ex);
@@ -386,14 +389,10 @@ public class Robot extends TimedRobot {
 
         HashMap<Integer, Integer[]> commandValues;
 
-        SmartDashboard.putNumber("Right Encoder", rightMasterDrive.getSelectedSensorPosition(0));
-
+        myDashBoard238.putDrivetrainEncoders(myDriveTrain.getEncoderTicks2());
         int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
         int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
-
-        SmartDashboard.putNumber("Left Speed", speedLeft);
-        SmartDashboard.putNumber("Right Speed", speedRight);
-
+        
         try {
             // get the buttons that were pressed on the joySticks/controlBoard
             commandValues = myControlBoard.getControllerInputs();
@@ -402,9 +401,9 @@ public class Robot extends TimedRobot {
             theMCP.joyStickCommandExecution(commandValues);
 
             double s_height = myShoulder.getAngle();
-                double e_height = myElevator.getHeight();
+            double e_height = myElevator.getHeight();
              
-                myDashBoard238.reflectPosition( s_height, e_height);
+            myDashBoard238.reflectPosition( s_height, e_height);
            
 
         } catch (Exception e) {

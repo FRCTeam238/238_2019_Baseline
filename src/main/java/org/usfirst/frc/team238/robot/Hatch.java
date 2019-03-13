@@ -1,6 +1,8 @@
 package org.usfirst.frc.team238.robot;
 
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
+
 
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -8,13 +10,15 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 public class Hatch
 {
 
+    DashBoard238 dashboard = DashBoard238.getInstance();
+
     DoubleSolenoid solenoid;
     
    
     public Hatch()
     {
-         solenoid = new DoubleSolenoid(2, 3);
-
+         solenoid = new DoubleSolenoid(2, 7);
+        setHatch(false);
     }
    
     
@@ -25,12 +29,15 @@ public class Hatch
     }
 
     public void setHatch(boolean position) {
-        if (position) {
-
+        if (!position) {
+            dashboard.setHatch(false);
             extendHatch();
+            
         } 
         else {
+            dashboard.setHatch(true);
             retractHatch();
+            
         }
         
 

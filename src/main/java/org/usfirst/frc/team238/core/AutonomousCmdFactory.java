@@ -7,6 +7,7 @@ import org.usfirst.frc.team238.commands.CommandDriveForward;
 import org.usfirst.frc.team238.commands.CommandDriveBackwards;
 import org.usfirst.frc.team238.commands.CommandTurnLeft;
 import org.usfirst.frc.team238.commands.CommandTurnRight;
+import org.usfirst.frc.team238.commands.CommandWaitForScoringPosition;
 import org.usfirst.frc.team238.lalaPaths.ScaleLeftOppositeSide;
 import org.usfirst.frc.team238.lalaPaths.SwitchEndLeft;
 import org.usfirst.frc.team238.lalaPaths.SwitchEndRight;
@@ -14,12 +15,14 @@ import org.usfirst.frc.team238.lalaPaths.goStraight;
 import org.usfirst.frc.team238.commands.CommandAutonLine;
 import org.usfirst.frc.team238.commands.CommandDelay;
 import org.usfirst.frc.team238.commands.CommandRunTrajectory;
+import org.usfirst.frc.team238.commands.CommandScoringPosition;
 import org.usfirst.frc.team238.lalaPaths.leftSwitch;
 import org.usfirst.frc.team238.lalaPaths.rightSwitch;
 import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTimeDriveFwd;
 import org.usfirst.frc.team238.commands.CommandTurn;
+import org.usfirst.frc.team238.commands.CommandResetElevatorEncoders;
 
 
 public class AutonomousCmdFactory {
@@ -91,7 +94,16 @@ public class AutonomousCmdFactory {
         
         cmd = new CommandTimeDriveFwd(myRobot);
         autonomousCommands.put("CommandTimeDriveFwd", cmd);
-        
+
+        cmd = new CommandScoringPosition(myRobot);
+        autonomousCommands.put("CommandScoringPosition", cmd);
+
+        cmd = new CommandResetElevatorEncoders(myRobot);
+        autonomousCommands.put("CommandResetElevatorEncoders", cmd);
+
+        cmd = new CommandWaitForScoringPosition(myRobot);
+        autonomousCommands.put("CommandWaitForScoringPosition", cmd);
+
 		return autonomousCommands;
 		
 	}

@@ -1,15 +1,12 @@
 package org.usfirst.frc.team238.core;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.shuffleboard.SimpleWidget;
@@ -47,12 +44,14 @@ public class DashBoard238 {
     String shoulderTarget = "Shoulder Target";
     String shoulderHeight = "Shoulder Height";
 
-
+    Robot myRobot;
 
     HashMap<String, NetworkTableEntry> testSweetEntries;
 
     private DashBoard238() {
+
     }
+
 
         // singleton pattern; we only ever want 1 dashboard instance
     public static DashBoard238 getInstance(){
@@ -94,12 +93,12 @@ public class DashBoard238 {
 
         testSweetEntries = new HashMap<String, NetworkTableEntry>();
 
-        positionSelector = new SendableChooser<String>();
-        positionSelector.setDefaultOption("ProgrammingStation", "ProgrammingStation");
-        positionSelector.addOption("Left", "Left");
-        positionSelector.addOption("Center", "Center");
-        positionSelector.addOption("Right", "Right");
-        SmartDashboard.putData("Robot Position", positionSelector);
+        // positionSelector = new SendableChooser<String>();
+        // positionSelector.setDefaultOption("ProgrammingStation", "ProgrammingStation");
+        // positionSelector.addOption("Left", "Left");
+        // positionSelector.addOption("Center", "Center");
+        // positionSelector.addOption("Right", "Right");
+        // SmartDashboard.putData("Robot Position", positionSelector);
 
         testSelector = new SendableChooser<String>();
         
@@ -177,6 +176,7 @@ public class DashBoard238 {
         initializeScoring();
 
         SmartDashboard.putBoolean("xBox", false);
+        setHatch(false);
         Logger.Log("DashBoard238.init() end");
 
         
@@ -217,7 +217,7 @@ public class DashBoard238 {
     }
     
     public void addOrUpdateElement(String tabName, String elementName, Object val){
-        String key = tabName + "$" + "elementName";
+        String key = tabName + "$" + elementName;
         NetworkTableEntry entry;
         if (!testSweetEntries.containsKey(key)){
             ShuffleboardTab tab = Shuffleboard.getTab(tabName);
@@ -235,10 +235,10 @@ public class DashBoard238 {
 
     }
 
-    public String getRobotPosition() {
+    //public String getRobotPosition() {
 
-        return positionSelector.getSelected();
-    }
+        //return positionSelector.getSelected();
+    //}
 
     public SendableChooser<String> getAutonomusModeSelector() {
 
@@ -247,14 +247,14 @@ public class DashBoard238 {
 
     public String getSelectedAutonomousMode() {
         String selectedAutoMode = aModeSelector.getSelected();
-        Logger.Log("DashBoard238.getSelectedAutonomousMode(): Automode = " + selectedAutoMode);
+       // Logger.Log("DashBoard238.getSelectedAutonomousMode(): Automode = " + selectedAutoMode);
         return selectedAutoMode;
     }
 
     public String getSelectedAutonomousModeStep() {
         String selectedAutoModeStep = stepSelector.getSelected();
 
-        Logger.Log("DashBoard238.getSelectedAutonomousModeStep(): AutomodeStep = " + selectedAutoModeStep);
+      //  Logger.Log("DashBoard238.getSelectedAutonomousModeStep(): AutomodeStep = " + selectedAutoModeStep);
 
         return selectedAutoModeStep;
     }
@@ -446,6 +446,22 @@ public class DashBoard238 {
         return new TapeStatus(yaw, detected);
     }
 
+    public void setHatch(boolean hatchExtended) {
+        SmartDashboard.putBoolean("Hatch", hatchExtended);
+        
+    }
+
+    public void putDrivetrainEncoders(EncoderValues drivetrainEncoders) {
+
+        SmartDashboard.putNumber("LeftDtEncoder", drivetrainEncoders.getLeftEncoder());
+        SmartDashboard.putNumber("RightDtEncoder", drivetrainEncoders.getRightEncoder());
+    }
+
+    public void putDrivetrainVelocities(int leftVelocity, int Rightvelocity) {
+
+        SmartDashboard.putNumber("Left Speed", leftVelocity);
+        SmartDashboard.putNumber("Right Speed", Rightvelocity);
+    }
  
     public void update() {
         Shuffleboard.update();

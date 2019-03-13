@@ -5,12 +5,12 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandScoringPosition;
+import org.usfirst.frc.team238.commands.CommandResetElevatorEncoders;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 
-public class StateCargoLevel implements AutonomousState
+public class StateResetElevatorEncoders implements AutonomousState
 {
-    CommandScoringPosition scoringPosition;
+    CommandResetElevatorEncoders resetElevatorEncodersCommand;
     String parameters[];
     
     boolean done = true;
@@ -26,15 +26,15 @@ public class StateCargoLevel implements AutonomousState
     public void prepare()
     {
         // TODO Auto-generated method stub
-        scoringPosition.prepare();
-        scoringPosition.setParams(parameters);
+        resetElevatorEncodersCommand.prepare();
+        resetElevatorEncodersCommand.setParams();
     }
 
     @Override
     public void init(String[] params, CommandController theMcp)
     {
         // TODO Auto-generated method stub
-        scoringPosition = (CommandScoringPosition) theMcp.getAutoCmd("CommandScoringPosition");
+        resetElevatorEncodersCommand = (CommandResetElevatorEncoders) theMcp.getAutoCmd("CommandResetElevatorEncoders");
 
         parameters = params;
     }
@@ -42,7 +42,7 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public void process()
     {
-      scoringPosition.execute(42);
+      resetElevatorEncodersCommand.execute();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class StateCargoLevel implements AutonomousState
     {
         // TODO Auto-generated method stub
 
-        return scoringPosition.done();
+        return done;
     }
 
     @Override

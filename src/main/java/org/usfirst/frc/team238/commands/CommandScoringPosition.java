@@ -21,8 +21,9 @@ public class CommandScoringPosition extends AbstractCommand
     Shoulder theShoulder;
     Wrist theWrist;
     DashBoard238 dashboard;
+    boolean done = false;
     
-    double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
+    protected double height = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;//77;
     double angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE;
     boolean extended = CrusaderCommon.WRIST_FALSE;
 
@@ -56,41 +57,49 @@ public class CommandScoringPosition extends AbstractCommand
 
         switch(btnPressed)
         {
-            case CrusaderCommon.CARGO_LEVEL_THREE:
+            case CrusaderCommon.CARGO_LEVEL_THREE:   //4,   Xbox.Y
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_TWO:
+            case CrusaderCommon.CARGO_LEVEL_TWO:   //2,  Xbox.B
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_ONE:
+            case CrusaderCommon.CARGO_LEVEL_ONE:   //1,  Xbox.A
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
             
-            case CrusaderCommon.HATCH_LEVEL_THREE:
+            case CrusaderCommon.HATCH_LEVEL_THREE:   //26, Xbox.DPad.Down 
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, 
                 CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_TWO:
+            case CrusaderCommon.HATCH_LEVEL_TWO:   //25,  Xbox.DPad.Right
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_ONE:
+            case CrusaderCommon.HATCH_LEVEL_ONE:   //24,  Xbox.DPad.Up
             setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, 
                  CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
                 
-            case CrusaderCommon.CARGO_SHIP_CARGO:
+            case CrusaderCommon.CARGO_SHIP_CARGO:   //3,  Xbox.X
                 setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-        case CrusaderCommon.SAFE_DRIVING_MODE:
+            case 7:
+                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+                break;
+                
+            case CrusaderCommon.SAFE_DRIVING_MODE:  //8
                 setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
                 CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+                break;
+                
+            case 42:
+                setArmPositionsAuto(angle, height, CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
                 break;
 
         }
@@ -98,13 +107,24 @@ public class CommandScoringPosition extends AbstractCommand
 
 
     private void setArmPositions(double shoulderPos, double elevatorPos, boolean wristExtended) {
-
+        
         theShoulder.setshoulder(shoulderPos);
+        theElevator.setSetpoint(elevatorPos);
+        theWrist.setWrist(wristExtended);
+        done = true;
+
+    } 
+
+    private void setArmPositionsAuto(double shoulderPos, double elevatorPos, boolean wristExtended) {
+        double currentDelta = Math.abs(theElevator.getHeight() - elevatorPos);
+        if (currentDelta <= 5) {
+            theShoulder.setshoulder(shoulderPos);
+            done = true;
+        }
         theElevator.setSetpoint(elevatorPos);
         theWrist.setWrist(wristExtended);
 
     } 
-
     @Override
     public void prepare()
     {
@@ -131,7 +151,7 @@ public class CommandScoringPosition extends AbstractCommand
         } else {
             extended = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST;
         }
-            
+        Logger.Log("CommandScoringPosition():setParams(): Hight =  " + height + " Angle = " + angle );
         // switch (whatLevel) {
         // case CrusaderCommon.CARGO_LEVEL_ONE:
         //     //get target values fro dashboard
@@ -149,7 +169,8 @@ public class CommandScoringPosition extends AbstractCommand
     public boolean done()
     {
         // TODO Auto-generated method stub
-        return false;
+        return done;
     }
+
 
 }
