@@ -117,10 +117,10 @@ public class Shoulder
         
     }
     
-    
+    //really down
     public void shoulderUp() {
         
-        double newSetpoint = getAngle() + 15;
+        double newSetpoint = getAngle() + 5; //7
         setshoulder(Math.abs(newSetpoint)); 
 
        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
@@ -128,7 +128,7 @@ public class Shoulder
     }
 
     public void shoulderDown(){
-        double newSetpoint = getAngle() - 10;
+        double newSetpoint = getAngle() - 8; //10
         setshoulder(Math.abs(newSetpoint)); 
 
        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
