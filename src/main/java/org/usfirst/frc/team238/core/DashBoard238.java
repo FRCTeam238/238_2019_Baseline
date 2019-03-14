@@ -348,7 +348,7 @@ public class DashBoard238 {
     public void setTargetValues() {
 
         TargetValues selectedTargetValues = getTargetValues();
-        SmartDashboard.putNumber("ElevatorOutput", selectedTargetValues.elevatorHeights);
+        SmartDashboard.putNumber("ElevatorOutput", selectedTargetValues.elevatorHeight);
         SmartDashboard.putNumber("ShoulderOutput", selectedTargetValues.shoulderAngle);
         SmartDashboard.putBoolean("WristOutput", selectedTargetValues.wristPosition);
     }

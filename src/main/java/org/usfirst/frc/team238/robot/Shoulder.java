@@ -89,7 +89,7 @@ public class Shoulder
     
     // angle is 0 at top (starting configuraition) and then positive as i goes down.
     public void setshoulder(double angle) {
-        
+        PIDEnabled = true;
         setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE); //nega
         inAutonomous = false;
     }
@@ -98,24 +98,7 @@ public class Shoulder
         setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE);
         inAutonomous = auto;
     }
-    
-    public boolean usingshoulder = false;
-    public void extendshoulder()
-    {
-        
-        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.INTAKE_SHOULDER_SPEED);
-        
-    }
-    
-    /**
-     * Retracts the shoulder out to hide our intake
-     */
-    public void retractshoulder()
-    {
-        
-        shoulderTalon.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SHOULDER_SPEED);
-        
-    }
+
     
     //really down
     public void shoulderUp() {
@@ -127,12 +110,28 @@ public class Shoulder
         Logger.Log("Shoulder.ShoulderUp() newsetpoint = " + newSetpoint);
     }
 
-    public void shoulderDown(){
+    public void shoulderDown() {
         double newSetpoint = getAngle() - 8; //10
-        setshoulder(Math.abs(newSetpoint)); 
+        setshoulder(Math.abs(newSetpoint));
 
-       // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
-       Logger.Log("Shoulder.ShoulderDown() newsetpoint = " + newSetpoint);
+        // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        Logger.Log("Shoulder.ShoulderDown() newsetpoint = " + newSetpoint);
+    }
+    
+       
+    //really down
+    public void shoulderUpManual() {
+        PIDEnabled = false;
+        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_UP);
+
+        //Logger.Log("Shoulder.ShoulderUp() newsetpoint = " + newSetpoint);
+    }
+
+    public void shoulderDownManual() {
+        PIDEnabled = false;
+        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_DOWN);
+
+        //Logger.Log("Shoulder.ShoulderDown() newsetpoint = " + newSetpoint);
     }
 
     /**
@@ -211,9 +210,7 @@ public class Shoulder
         PIDEnabled=false;
     }
     
-    public void intakeIn()
-    {
-     
+    public void intakeIn() {
         intakeMaster.set(ControlMode.PercentOutput, -CrusaderCommon.INTAKE_SPEED);
     }
     
@@ -247,10 +244,7 @@ public class Shoulder
         
         if(!PIDEnabled) {
             shoulderTalon.set(ControlMode.PercentOutput, 0.0);
-            SmartDashboard.putNumber("Retracting", 0.0);
-            SmartDashboard.putNumber("RetractingStatic", 0.0);
-            SmartDashboard.putNumber("Extending", 0.0);
-            SmartDashboard.putNumber("ExtendingStatic", 0.0);
+            setshoulder(getAngle());
         }
         
     }

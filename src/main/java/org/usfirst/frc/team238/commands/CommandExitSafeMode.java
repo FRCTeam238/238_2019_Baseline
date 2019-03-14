@@ -45,7 +45,7 @@ public class CommandExitSafeMode extends AbstractCommand
     public void execute()
     {
         TargetValues values = dashboard.getTargetValues();
-        height = values.getElevatorHeights();
+        height = values.getElevatorHeight();
         angle = values.getShoulderAngle();
         extended = values.getWristPosition();
 

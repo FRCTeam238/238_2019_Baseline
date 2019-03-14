@@ -39,7 +39,7 @@ public class Elevator {
     // TalonSRX elevatorSlaveTalon;
     // VictorSPX elevatorSlaveVictor;
 
-    //DoubleSolenoid solenoid;
+    // DoubleSolenoid solenoid;
 
     int liftEncoder;
 
@@ -71,14 +71,21 @@ public class Elevator {
 
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-        elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+
+        //TODO: uncomment this when limit switches installed 
+        // elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.
+        // .FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
+        elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated,
+                LimitSwitchNormal.NormallyOpen, 0);
+        elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated,
+                LimitSwitchNormal.NormallyOpen, 0);
 
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.configOpenloopRamp(0.2, 0);
         elevatorMasterTalon.config_kP(0, 0.004, 0);
         elevatorMasterTalon.setInverted(false);
 
-        //solenoid = new DoubleSolenoid(6, 7);
+        // solenoid = new DoubleSolenoid(6, 7);
 
         climbMode = false;
 
@@ -105,7 +112,7 @@ public class Elevator {
 
         liftEncoder = Math.abs(liftEncoder);
 
-        //SmartDashboard.putNumber("Lift Encoder", liftEncoder);
+        // SmartDashboard.putNumber("Lift Encoder", liftEncoder);
         return liftEncoder;
     }
 
@@ -114,38 +121,53 @@ public class Elevator {
         elevatorMasterTalon.setSelectedSensorPosition(0, 0, 0);
         setSetpoint(0);
     }
+
     /**
      * Sends the elevator up at the speed used for cubes
      */
-
     public void elevatorUp() {
+        PIDEnabled = false;
+        elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        Logger.Log("Elevator.elevatorUpManual()");
+    }
 
-       
-        //setpoint = getHeight();
-        //elevatorUpPID();
-        //Without this line, setpoint goes far out of bounds, messing up the teleop manual commands
-        //elevatorDownPID();
+    public void elevatorDown() {
 
-        double newSetPoint =  getHeight() + 3;
-        
+        PIDEnabled = false;
+        elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        Logger.Log("Elevator.elevatorDownManual()");
+    }
+
+    public void elevatorUpOld() {
+
+        // setpoint = getHeight();
+        // elevatorUpPID();
+        // Without this line, setpoint goes far out of bounds, messing up the teleop
+        // manual commands
+        // elevatorDownPID();
+
+        double newSetPoint = getHeight() + 3;
 
         setSetpoint(newSetPoint);
-       // elevatorMasterTalon.set(ControlMode.PercentOutput, CrusaderCommon.ELEVATOR_CUBE_SPEED);
+        // elevatorMasterTalon.set(ControlMode.PercentOutput,
+        // CrusaderCommon.ELEVATOR_CUBE_SPEED);
         Logger.Log("Elevator.elevatorUp()");
     }
 
     /**
      * Sends the elevator down at the speed used for cubes
      */
-    public void elevatorDown() {
+    public void elevatorDownOld() {
         {
-            //PIDEnabled = false;
+            // PIDEnabled = false;
             // get encoder ticks
-            //int whereAmI = getEncoderTicks();
-            //elevatorMasterTalon.set(ControlMode.PercentOutput, -CrusaderCommon.ELEVATOR_CUBE_SPEED);
-            double newSetPoint =  getHeight() - 3;
-            //Without this line, setpoint goes far out of bounds, messing up the teleop manual commands
-            //elevatorDownPID();
+            // int whereAmI = getEncoderTicks();
+            // elevatorMasterTalon.set(ControlMode.PercentOutput,
+            // -CrusaderCommon.ELEVATOR_CUBE_SPEED);
+            double newSetPoint = getHeight() - 3;
+            // Without this line, setpoint goes far out of bounds, messing up the teleop
+            // manual commands
+            // elevatorDownPID();
 
             setSetpoint(newSetPoint);
             Logger.Log("Elevator.elevatorDown()");
@@ -166,6 +188,7 @@ public class Elevator {
     public void stop() {
         if (!PIDEnabled) {
             elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
+            setSetpoint(getHeight());
         }
     }
 
@@ -180,14 +203,14 @@ public class Elevator {
     // set height of robot
     public void setSetpoint(double height) {
         PIDEnabled = true;
-        
+
         // this.setpoint = Math.min(Math.max(MIN_HEIGHT, height), MAX_HEIGHT);
         double newSetpoint = Math.max(MIN_HEIGHT, height);
-        
-        //makes sure setpoint is above min height, if not, sets to min height
+
+        // makes sure setpoint is above min height, if not, sets to min height
         this.setpoint = Math.min(MAX_HEIGHT, newSetpoint);
-        
-        //makes sure setpoint is below max height, if not, sets to max height
+
+        // makes sure setpoint is below max height, if not, sets to max height
         DashBoard238.getInstance().addOrUpdateElement("Elevator", "currentSetPoint", this.setpoint);
     }
 
@@ -195,7 +218,7 @@ public class Elevator {
         DashBoard238.getInstance().addOrUpdateElement("Elevator", "tilt", heightTilt);
         double newSetpoint = setpoint + heightTilt;
         setSetpoint(newSetpoint);
-        //Logger.Log("Elevator.tilt() : setpoint = " + setpoint);
+        // Logger.Log("Elevator.tilt() : setpoint = " + setpoint);
     }
 
     private double prevError;
@@ -211,24 +234,23 @@ public class Elevator {
             if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && setpoint < 3) {
                 zeroHeight += height;
             }
-            
+
             double KP_VALUE;
-            if( prevHeight < height){
-                //going down
+            if (prevHeight < height) {
+                // going down
                 KP_VALUE = CrusaderCommon.ELEVATOR_KP_DOWN;
-            }
-            else{
-                //going up
-                KP_VALUE =  CrusaderCommon.ELEVATOR_KP_UP;
+            } else {
+                // going up
+                KP_VALUE = CrusaderCommon.ELEVATOR_KP_UP;
             }
 
             currentError = setpoint - height;
-            double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD; //used to slow down the motor as it reaches
+            double dVal = (currentError - prevError) * CrusaderCommon.ELEVATOR_KD; // used to slow down the motor as it
+                                                                                   // reaches
 
-            double outputWanted = currentError * KP_VALUE + dVal
-                    + CrusaderCommon.ELEVATOR_FEED_FORWARD;
-            
-                    //Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
+            double outputWanted = currentError * KP_VALUE + dVal + CrusaderCommon.ELEVATOR_FEED_FORWARD;
+
+            // Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
             double origOutputWaned = outputWanted;
             outputWanted = Math.max(MIN_OUT, outputWanted);
             String log1 = "Elevator.mainLoop() Math.max(" + MIN_OUT + ", " + origOutputWaned + ") = " + outputWanted;
@@ -236,17 +258,28 @@ public class Elevator {
             outputWanted = Math.min(outputWanted, MAX_OUT);
             String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
-            if( count > 100){
-               // Logger.Log(log1);
-                //Logger.Log(log2);
+            // if ouputWanted positive and fwd limit switch on then set outputwanted to 0
+            //if (elevatorMasterTalon.getSensorCollection().isFwdLimitSwitchClosed() && outputWanted > 0) {
+            //    outputWanted = 0;
+            //}
+
+            // if ouputWanted negative and rev limit switch on then set outputwanted to 0
+            //if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && outputWanted < 0) {
+            //    outputWanted = 0;
+            //}
+
+            if (count > 100) {
+                // Logger.Log(log1);
+                // Logger.Log(log2);
                 count = 0;
             }
             count++;
-            
-            //height:15 setpoint:4
-            //starting point in auto mode is 15 inches high on elevator
-            // setpoint and height are negative only at beginning of game, need to use math.abs to get abs value
-            //Math.abs is when we go negative at the start point
+
+            // height:15 setpoint:4
+            // starting point in auto mode is 15 inches high on elevator
+            // setpoint and height are negative only at beginning of game, need to use
+            // math.abs to get abs value
+            // Math.abs is when we go negative at the start point
             if (Math.abs(height) < 5 && Math.abs(setpoint) < 2) {
                 elevatorMasterTalon.set(ControlMode.PercentOutput, outputWanted * 0.35);
             } else {
@@ -254,9 +287,11 @@ public class Elevator {
             }
 
             // if( prevError != currentError){
-            //     Logger.Log("Elevator.mainloop() setPoint = " + setpoint + "  Height = " + height + "  currentError = " + currentError + "  Kd = " + dVal + "output wanted = " + outputWanted);
+            // Logger.Log("Elevator.mainloop() setPoint = " + setpoint + " Height = " +
+            // height + " currentError = " + currentError + " Kd = " + dVal + "output wanted
+            // = " + outputWanted);
             // }
-            
+
             prevHeight = height;
             prevError = currentError;
         }
@@ -264,24 +299,23 @@ public class Elevator {
 
     // getHeight() gets the sensor position, converts it from ticks to inches, then
     // subtracts the zeroHeight
-    
+
     public double getHeight() {
 
         double elevatorSensorPosition = elevatorMasterTalon.getSelectedSensorPosition(0);
         double elevatorSensorInches = elevatorSensorPosition / CrusaderCommon.ELEVATOR_TICK_TO_IN;
-        
+
         // if( prevElevatorSensorPosition != elevatorSensorPosition)
         // {
-        //     Logger.Log(
-        //         "Elevator.getHeight() sensorPos = " + elevatorSensorPosition + " sensorInches = " + elevatorSensorInches
-        //                 + "  zeroHeight = " + zeroHeight + "  SETPOINT = " + setpoint + "    error:" + currentError);
+        // Logger.Log(
+        // "Elevator.getHeight() sensorPos = " + elevatorSensorPosition + " sensorInches
+        // = " + elevatorSensorInches
+        // + " zeroHeight = " + zeroHeight + " SETPOINT = " + setpoint + " error:" +
+        // currentError);
         // }
-        
-        
 
         elevatorSensorInches = elevatorSensorInches - zeroHeight;
 
-       
         return elevatorSensorInches;
         // -elevatorMasterTalon.getSelectedSensorPosition(0) /
         // CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;

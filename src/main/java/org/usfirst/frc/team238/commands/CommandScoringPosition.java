@@ -38,16 +38,15 @@ public class CommandScoringPosition extends AbstractCommand
     @Override
     public void execute()
     {
-        TargetValues values = dashboard.getTargetValues();
-        height = values.getElevatorHeights();
-        angle = values.getShoulderAngle();
-        extended = values.getWristPosition();
+        //TargetValues values = dashboard.getTargetValues();
+        //height = values.getElevatorHeight();
+        //angle = values.getShoulderAngle();
+        //extended = values.getWristPosition();
 
-        theShoulder.setshoulder(angle);
-        theElevator.setSetpoint(height);
-        theWrist.setWrist(extended);
-        Logger.Log("CommandScoringPosition.execute(): height = " + height + "\n angle = " + angle + "\n extended = "
-                + extended);
+        //theShoulder.setshoulder(angle);
+        //theElevator.setSetpoint(height);
+        //theWrist.setWrist(extended);
+        Logger.Log("CommandScoringPosition.execute(): This isn't the execute you're looking for." ) ;
     }
 
     @Override
@@ -93,9 +92,12 @@ public class CommandScoringPosition extends AbstractCommand
                 setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case CrusaderCommon.SAFE_DRIVING_MODE:  //8
-                setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
-                CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+            case CrusaderCommon.SAFE_DRIVING_MODE: //8
+                TargetValues targetValues = DashBoard238.getInstance().getTargetValues();
+                setArmPositions(targetValues.getShoulderAngle(), targetValues.getElevatorHeight(), targetValues.getWristPosition());
+                // targetValues.getElevatorHeights is singular
+                // setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
+                // CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
                 break;
                 
             case 42:

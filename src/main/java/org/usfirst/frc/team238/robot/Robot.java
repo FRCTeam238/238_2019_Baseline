@@ -20,6 +20,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 
 import java.util.HashMap;
@@ -272,6 +274,13 @@ public class Robot extends TimedRobot {
 
         myHatch = new Hatch();
 
+        try {
+        UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
+        camera.setFPS(20);
+        camera.setResolution(320, 240);
+        } catch (Exception ex){
+            Logger.Log("initRobotObjects: No Camera");
+        }
         // myCompressor = new Compressor();
         // myCompressor.setClosedLoopControl(false);
         // myTestCoreObject = new TestCoreObject();

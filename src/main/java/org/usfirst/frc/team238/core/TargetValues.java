@@ -13,12 +13,12 @@ package org.usfirst.frc.team238.core;
 public class TargetValues {
 
     double shoulderAngle;
-    double elevatorHeights;
+    double elevatorHeight;
     Boolean wristPosition; //True = extended, false = retracted
     
-    public TargetValues(double elevatorHeights, double shoulderAngle, Boolean wrist) {
+    public TargetValues(double elevatorHeight, double shoulderAngle, Boolean wrist) {
         this.shoulderAngle = shoulderAngle;
-        this.elevatorHeights = elevatorHeights;
+        this.elevatorHeight = elevatorHeight;
         this.wristPosition = wrist;
 
     }
@@ -26,8 +26,8 @@ public class TargetValues {
         return shoulderAngle;
 
     }
-    public double getElevatorHeights (){
-        return elevatorHeights;
+    public double getElevatorHeight (){
+        return elevatorHeight;
 
     }
     public Boolean getWristPosition(){
