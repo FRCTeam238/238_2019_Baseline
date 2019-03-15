@@ -5,6 +5,7 @@ import java.util.HashMap;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -177,6 +178,7 @@ public class DashBoard238 {
 
         SmartDashboard.putBoolean("xBox", false);
         setHatch(false);
+
         Logger.Log("DashBoard238.init() end");
 
         
@@ -466,5 +468,5 @@ public class DashBoard238 {
     public void update() {
         Shuffleboard.update();
     }
-
+    
 }

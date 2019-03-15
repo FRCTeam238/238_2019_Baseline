@@ -11,7 +11,7 @@ public class CommandWaitForScoringPosition extends CommandScoringPosition
     public boolean done() {
         
         double currentHeight = theElevator.getHeight();
-        if (currentHeight <= height) {
+        if (currentHeight <= height || theElevator.isBottomReached()) {
 
             return true;
         }

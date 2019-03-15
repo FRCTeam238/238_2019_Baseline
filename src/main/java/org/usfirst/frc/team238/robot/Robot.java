@@ -285,7 +285,6 @@ public class Robot extends TimedRobot {
         // myCompressor.setClosedLoopControl(false);
         // myTestCoreObject = new TestCoreObject();
         // myTestCoreObject.initTestCoreObject();
-
         Logger.Log("initRobotObjects Is Sucessful!");
     }
 

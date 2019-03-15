@@ -72,13 +72,15 @@ public class Elevator {
         elevatorMasterTalon.set(ControlMode.PercentOutput, 0);
         elevatorMasterTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 
-        //TODO: uncomment this when limit switches installed 
-        // elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.
-        // .FeedbackConnector, LimitSwitchNormal.NormallyOpen, 0);
-        elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated,
+        // TODO: uncomment this when limit switches installed
+        elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
                 LimitSwitchNormal.NormallyOpen, 0);
-        elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated,
+        elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
                 LimitSwitchNormal.NormallyOpen, 0);
+        // elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated,
+        // LimitSwitchNormal.NormallyOpen, 0);
+        // elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated,
+        // LimitSwitchNormal.NormallyOpen, 0);
 
         elevatorMasterTalon.setSensorPhase(true);
         elevatorMasterTalon.configOpenloopRamp(0.2, 0);
@@ -259,14 +261,16 @@ public class Elevator {
             String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
             // if ouputWanted positive and fwd limit switch on then set outputwanted to 0
-            //if (elevatorMasterTalon.getSensorCollection().isFwdLimitSwitchClosed() && outputWanted > 0) {
-            //    outputWanted = 0;
-            //}
+            // if (elevatorMasterTalon.getSensorCollection().isFwdLimitSwitchClosed() &&
+            // outputWanted > 0) {
+            // outputWanted = 0;
+            // }
 
             // if ouputWanted negative and rev limit switch on then set outputwanted to 0
-            //if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && outputWanted < 0) {
-            //    outputWanted = 0;
-            //}
+            // if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() &&
+            // outputWanted < 0) {
+            // outputWanted = 0;
+            // }
 
             if (count > 100) {
                 // Logger.Log(log1);
@@ -320,5 +324,10 @@ public class Elevator {
         // -elevatorMasterTalon.getSelectedSensorPosition(0) /
         // CrusaderCommon.ELEVATOR_TICK_TO_IN - zeroHeight;
 
+    }
+
+    public boolean isBottomReached() {
+
+        return elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed();
     }
 }
