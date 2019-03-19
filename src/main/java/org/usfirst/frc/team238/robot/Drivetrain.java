@@ -344,8 +344,8 @@ public class Drivetrain
     public void turnRight(double leftJsValue, double rightJsValue)
     {
 
-        leftFrontDrive.set(ControlMode.PercentOutput, leftJsValue);
-        rightFrontDrive.set(ControlMode.PercentOutput, -rightJsValue);
+        leftFrontDrive.set(ControlMode.PercentOutput, -leftJsValue);
+        rightFrontDrive.set(ControlMode.PercentOutput, rightJsValue);
 
     }
 

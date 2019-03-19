@@ -120,16 +120,16 @@ public class Shoulder
     
        
     //really down
-    public void shoulderUpManual() {
+    public void shoulderDownManual() {
         PIDEnabled = false;
-        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_UP);
+        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_DOWN);
 
         //Logger.Log("Shoulder.ShoulderUp() newsetpoint = " + newSetpoint);
     }
 
-    public void shoulderDownManual() {
+    public void shoulderUpManual() {
         PIDEnabled = false;
-        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_DOWN);
+        shoulderTalon.set(ControlMode.PercentOutput, CrusaderCommon.MANUAL_SHOULDER_SPEED_UP);
 
         //Logger.Log("Shoulder.ShoulderDown() newsetpoint = " + newSetpoint);
     }

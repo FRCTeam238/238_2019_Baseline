@@ -85,23 +85,24 @@ public class CommandScoringPosition extends AbstractCommand
                 break;
                 
             case CrusaderCommon.CARGO_SHIP_CARGO:   //3,  Xbox.X
-                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+                setArmPositions(105,0, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case 7:
+            case 7: 
                 setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
             case CrusaderCommon.SAFE_DRIVING_MODE: //8
-                TargetValues targetValues = DashBoard238.getInstance().getTargetValues();
-                setArmPositions(targetValues.getShoulderAngle(), targetValues.getElevatorHeight(), targetValues.getWristPosition());
-                // targetValues.getElevatorHeights is singular
+                // TargetValues targetValues = DashBoard238.getInstance().getTargetValues();
+                // setArmPositions(targetValues.getShoulderAngle(), targetValues.getElevatorHeight(), targetValues.getWristPosition());
+                //targetValues.getElevatorHeights is singular
                 // setArmPositions(CrusaderCommon.SAFE_DRIVING_MODE_SHOULDER, CrusaderCommon.SAFE_DRIVING_MODE_ELEVATOR, 
-                // CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+            // CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+                theElevator.resetEncoders();
                 break;
                 
             case 42:
-                setArmPositionsAuto(angle, height, CrusaderCommon.SAFE_DRIVING_MODE_WRIST);
+                setArmPositionsAuto(angle, height, CrusaderCommon.WRIST_FALSE);
                 break;
 
         }
@@ -148,8 +149,8 @@ public class CommandScoringPosition extends AbstractCommand
             angle = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER;
         }
 
-        if ((params[0] != null) || (!params[0].isEmpty())) {
-            extended = Boolean.parseBoolean(params[0]);
+        if ((params[2] != null) || (!params[2].isEmpty())) {
+            extended = Boolean.parseBoolean(params[2]);
         } else {
             extended = CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST;
         }

@@ -17,7 +17,9 @@ public class CommandShoulderUp extends AbstractCommand {
 	public void execute() {
 		// TODO Auto-generated method stub
 		
-		theShoulder.shoulderUp();
+        theShoulder.shoulderUp();
+        //theShoulder.shoulderUpManual();
+
 
 	}
 

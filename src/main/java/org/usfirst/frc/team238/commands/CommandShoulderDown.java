@@ -18,7 +18,8 @@ public class CommandShoulderDown extends AbstractCommand
     public void execute()
     {
         theShoulder.shoulderDown();
-        //theShoulder.retractShoulderPID();
+        
+        //theShoulder.shoulderDownManual();
 
     }
 

@@ -156,11 +156,12 @@ public class AutonLineRunnable implements Runnable {
             lastVelocity = currentVelocity;
            
             double currentDistance = driveTrain.leftDistanceTravelled();
-            if (currentDistance > distance)
+            if (Math.abs(currentDistance) > Math.abs(distance))
             {
                 stop = true;
                 Logger.Log("Stopping: " + currentDistance);
-            }
+                Logger.Log("Stopping: " + distance);
+            } 
             try
             {
                 //long endProcessingTime = System.currentTimeMillis();

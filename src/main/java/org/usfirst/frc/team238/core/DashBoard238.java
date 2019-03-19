@@ -178,6 +178,10 @@ public class DashBoard238 {
 
         SmartDashboard.putBoolean("xBox", false);
         setHatch(false);
+        setBottomElevatorLimit(false);
+        setTopElevatorLimit(false);
+
+        
 
         Logger.Log("DashBoard238.init() end");
 
@@ -450,6 +454,16 @@ public class DashBoard238 {
 
     public void setHatch(boolean hatchExtended) {
         SmartDashboard.putBoolean("Hatch", hatchExtended);
+
+    }
+    
+    public void setBottomElevatorLimit(boolean val) {
+        SmartDashboard.putBoolean("BottomElevatorLimit", val);
+
+    }
+    
+    public void setTopElevatorLimit(boolean val) {
+        SmartDashboard.putBoolean("TopElevatorLimit", val);
         
     }
 

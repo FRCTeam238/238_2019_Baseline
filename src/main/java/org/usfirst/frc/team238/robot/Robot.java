@@ -371,6 +371,9 @@ public class Robot extends TimedRobot {
             double e_height = myElevator.getHeight();
          
             myDashBoard238.reflectPosition(s_height, e_height);
+            if (theMACP2019.done()) {
+                teleopPeriodic();              
+            };
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -398,8 +401,8 @@ public class Robot extends TimedRobot {
         HashMap<Integer, Integer[]> commandValues;
 
         myDashBoard238.putDrivetrainEncoders(myDriveTrain.getEncoderTicks2());
-        int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
-        int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
+        // int speedLeft = leftMasterDrive.getSelectedSensorVelocity(0);
+        // int speedRight = rightMasterDrive.getSelectedSensorVelocity(0);
         
         try {
             // get the buttons that were pressed on the joySticks/controlBoard

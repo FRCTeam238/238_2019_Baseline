@@ -16,6 +16,7 @@ public class AutonomousController2019 implements AutonomousState {
 
     // Index for going through the autonomousModeList
     private int index = 0;
+    boolean stopState = false;
 
     // The states that it's currently processing through
     ArrayList<AutonomousState> steps;
@@ -96,8 +97,16 @@ public class AutonomousController2019 implements AutonomousState {
             this.currentState.process();
 
             if (this.currentState.done() == true) {
+                AutonomousState next = getNextState();
+                if (next == null) {
+                    stopState = true;
+                }
+                else {
+                    setState(next);
+                }
 
-                setState(getNextState());
+                
+
             }
 
             Logger.Log("AutonomousController2019.process(): State: " + currentState);
@@ -113,9 +122,11 @@ public class AutonomousController2019 implements AutonomousState {
      * @return
      */
     private AutonomousState getNextState() {
-
-        AutonomousState nextState = aModeIterator.next();
-        Logger.Log("AutonomousController2019.getNextState():  " + nextState.getClass().getName());
+        AutonomousState nextState = null;
+        if (aModeIterator.hasNext()) {
+            nextState = aModeIterator.next();
+        }
+        //Logger.Log("AutonomousController2019.getNextState():  " + nextState.getClass().getName());
 
         return (nextState);
     }
@@ -243,7 +254,7 @@ public class AutonomousController2019 implements AutonomousState {
     @Override
     public boolean done() {
 
-        return false;
+        return stopState;
     }
 
     @Override

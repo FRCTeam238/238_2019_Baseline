@@ -119,8 +119,8 @@ public class CrusaderCommon {
 	public static final double ELEVATOR_TOP_SOFT_STOP = 600000;
     public static final double ELEVATOR_FEED_FORWARD = 0.1;
     
-    public static final double MANUAL_SHOULDER_SPEED_UP = -0.3;
-	public static final double MANUAL_SHOULDER_SPEED_DOWN = 0.5;
+    public static final double MANUAL_SHOULDER_SPEED_DOWN = -0.05;
+	public static final double MANUAL_SHOULDER_SPEED_UP= 0.95; //.85
 	public static final double INTAKE_SPEED = 0.5;//0.8;
 	public static final double INTAKE_SPEED_FAST = 0.95;
     public static final double INTAKE_SPEED_SLOW = 0.3;
@@ -153,15 +153,15 @@ public class CrusaderCommon {
 
     //scores cargo (ball  in Rocket ship)
     public static final double ROCKET_CARGO_LEVEL_ONE_ELEVATOR = 0;
-    public static final double ROCKET_CARGO_LEVEL_ONE_SHOULDER = 60;
+    public static final double ROCKET_CARGO_LEVEL_ONE_SHOULDER = 79;//76 //50;//60;
     public static final boolean ROCKET_CARGO_LEVEL_ONE_WRIST = true; //true means wrist is extended
 
     public static final double ROCKET_CARGO_LEVEL_TWO_ELEVATOR = 10;
-    public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 100;
+    public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 117;//114;//84;//100
     public static final boolean ROCKET_CARGO_LEVEL_TWO_WRIST = true;
 
-    public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 30;
-    public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 100;
+    public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 31;//30;
+    public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 115;//100;
     public static final boolean ROCKET_CARGO_LEVEL_THREE_WRIST = true;
 
     public static final double ROCKET_CARGO_LEVEL_ZERO_VALUE = 0;
@@ -169,15 +169,15 @@ public class CrusaderCommon {
 
     //Scores hatch on Rocket Ship level one  will also do cargo ship
     public static final double HATCH_LEVEL_ONE_ELEVATOR = 2;
-    public static final double HATCH_LEVEL_ONE_SHOULDER = 3;
+    public static final double HATCH_LEVEL_ONE_SHOULDER = 30;//3;
     public static final boolean HATCH_LEVEL_ONE_WRIST = false; //true means wrist is extended
 
     public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0; 
-    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 75; 
+    public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 93;//75; 
     public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = false;
 
     public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 20;
-    public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 100;
+    public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 115;//100
     public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = false;
 
     public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;

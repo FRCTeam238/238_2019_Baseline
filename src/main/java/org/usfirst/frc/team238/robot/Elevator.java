@@ -77,6 +77,8 @@ public class Elevator {
                 LimitSwitchNormal.NormallyOpen, 0);
         elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.FeedbackConnector,
                 LimitSwitchNormal.NormallyOpen, 0);
+
+        //to disable limit switches uncommen these lines
         // elevatorMasterTalon.configReverseLimitSwitchSource(LimitSwitchSource.Deactivated,
         // LimitSwitchNormal.NormallyOpen, 0);
         // elevatorMasterTalon.configForwardLimitSwitchSource(LimitSwitchSource.Deactivated,
@@ -229,11 +231,13 @@ public class Elevator {
 
     private void mainLoop() {
         // nominal voltage <-1,1> outpu for elevator based in P gain
+        DashBoard238.getInstance().setBottomElevatorLimit(this.isBottomReached());
+        DashBoard238.getInstance().setTopElevatorLimit(this.isTopReached());
         if (PIDEnabled) {
 
             double height = getHeight();
             // setting the value for the lowest allowable elevator position
-            if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() && setpoint < 3) {
+            if (isBottomReached()) {  // && setpoint < 3) {
                 zeroHeight += height;
             }
 
@@ -260,14 +264,14 @@ public class Elevator {
             outputWanted = Math.min(outputWanted, MAX_OUT);
             String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
-            // if ouputWanted positive and fwd limit switch on then set outputwanted to 0
-            // if (elevatorMasterTalon.getSensorCollection().isFwdLimitSwitchClosed() &&
+            // if ouputWanted positive and rev limit switch on then set outputwanted to 0
+            // if (isTopReached() &&
             // outputWanted > 0) {
             // outputWanted = 0;
             // }
 
-            // if ouputWanted negative and rev limit switch on then set outputwanted to 0
-            // if (elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed() &&
+            // if ouputWanted negative and fwd limit switch on then set outputwanted to 0
+            // if (isBottomReached() &&
             // outputWanted < 0) {
             // outputWanted = 0;
             // }
@@ -329,5 +333,10 @@ public class Elevator {
     public boolean isBottomReached() {
 
         return elevatorMasterTalon.getSensorCollection().isRevLimitSwitchClosed();
+    }
+
+    public boolean isTopReached() {
+
+        return elevatorMasterTalon.getSensorCollection().isFwdLimitSwitchClosed();
     }
 }
