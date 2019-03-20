@@ -1,6 +1,8 @@
 package org.usfirst.frc.team238.robot;
 
 import java.util.*;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 
 import org.usfirst.frc.team238.core.DashBoard238;
@@ -17,13 +19,11 @@ public class ControlBoard {
 	
 	//static Joystick xboxController;
 	
-	HashMap<Integer, Integer[]> controllers; //Contains each joystick value and their button inputs
-	
+    HashMap<Integer, Integer[]> controllers; //Contains each joystick value and their button inputs
 	public void controlBoardInit()
 	{
 		try
 		{
-			
 			operatorJs = new Joystick(CrusaderCommon.OPR_CMD_LIST);
             driverJS = new Joystick(CrusaderCommon.DT_CMD_LIST);
             
@@ -51,65 +51,83 @@ public class ControlBoard {
 		int joyStickButtonCount = theJoyStick.getButtonCount();
 		Integer[] buttonsPressed;
 		buttonsPressed = new Integer[joyStickButtonCount + CrusaderCommon.Additional_Button_Mapppings];
-		int arrayIterator = 0;
-		
-		//interator = 11 and buttons do not count from zero
-		for(int i = 1; i <= joyStickButtonCount; i++) 
-		{
-		  
-			jsButtonValue = theJoyStick.getRawButton(i);
-			
-			//If a button is detected
-			if(jsButtonValue) 
-			{
-			  
-			  //Add that button to the collection of buttons pressed
-			  //buttonsPressed.put(i, jsButtonValue); 
-			  buttonsPressed[arrayIterator] = i;
-			  arrayIterator++;
-			  
-			}
-			
-		}
-		
-		//elevator 21 is up, 20 is down lefT JS
-		if( theJoyStick.getRawAxis(1) > 0.65) {
-            buttonsPressed[arrayIterator++] = 20;
-        }else if( theJoyStick.getRawAxis(1) < -0.65) {
-            buttonsPressed[arrayIterator++] = 21;
-        }
+        int arrayIterator = 0;
         
-        //wrist 23 is up 22 is down right JS
-        if( theJoyStick.getRawAxis(5) > 0.65) {
-            buttonsPressed[arrayIterator++] = 22;
-        }else if( theJoyStick.getRawAxis(5) < -0.65) {
-            buttonsPressed[arrayIterator++] = 23;
-        }
-        
+        boolean hasController = findController(theJoyStick);
+        if (hasController) {
 
-        //elevator shift
-        if( theJoyStick.getRawAxis(2) > 0.65) {
-            buttonsPressed[arrayIterator++] = 27;
+            //interator = 11 and buttons do not count from zero
+            for (int i = 1; i <= joyStickButtonCount; i++) {
+
+                jsButtonValue = theJoyStick.getRawButton(i);
+
+                //If a button is detected
+                if (jsButtonValue) {
+
+                    //Add that button to the collection of buttons pressed
+                    //buttonsPressed.put(i, jsButtonValue); 
+                    buttonsPressed[arrayIterator] = i;
+                    arrayIterator++;
+
+                }
+
+            }
+            double rawAxis = theJoyStick.getRawAxis(1);
+            Logger.Log("ControlBoard.getOperatorJoystickInputs.rawAxis = " + rawAxis);
+            //elevator 21 is up, 20 is down lefT JS
+            if (rawAxis > 0.65) {
+                buttonsPressed[arrayIterator++] = 20;
+            } else if (rawAxis < -0.65) {
+                buttonsPressed[arrayIterator++] = 21;
+
+            }
+
+            //shoulder 23 is up 22 is down right JS
+            if (theJoyStick.getRawAxis(5) > 0.65) {
+                buttonsPressed[arrayIterator++] = 22;
+            } else if (theJoyStick.getRawAxis(5) < -0.65) {
+                buttonsPressed[arrayIterator++] = 23;
+            }
+
+            //Wrist Down
+            if (theJoyStick.getRawAxis(2) > 0.65) {
+                buttonsPressed[arrayIterator++] = 27;
+            }
+
+            //Wrist Up
+            if (theJoyStick.getRawAxis(3) > 0.65) {
+                buttonsPressed[arrayIterator++] = 28;
+            }
+
+            //DPAD 180(down) down 24, 90(to the right) switch 25, 0(up) scale 26
+
+            switch (theJoyStick.getPOV()) {
+            case 0:
+                buttonsPressed[arrayIterator++] = 26;
+                break;
+            case 90:
+                buttonsPressed[arrayIterator++] = 25;
+                break;
+            case 180:
+                buttonsPressed[arrayIterator++] = 24;
+                break;
+            case 270:
+                //Deploying hatch
+                buttonsPressed[arrayIterator++] = 29;
+                break;
+            }
         }
-        
-        //intake out fast
-        if( theJoyStick.getRawAxis(3) > 0.65) {
-            buttonsPressed[arrayIterator++] = 28;
-        }
-        
-        //DPAD 180(down) down 24, 90(to the right) switch 25, 0(up) scale 26
-        
-        if(theJoyStick.getPOV() == 90) {
-            buttonsPressed[arrayIterator++] = 25;     
-        }else if(theJoyStick.getPOV() == 0) {
-            buttonsPressed[arrayIterator++] = 26;     
+        // if(theJoyStick.getPOV() == 90) {
+        //     buttonsPressed[arrayIterator++] = 25;     
+        // }else if(theJoyStick.getPOV() == 0) {
+        //     buttonsPressed[arrayIterator++] = 26;     
                 
-        } else if (theJoyStick.getPOV() == 180) {
-            buttonsPressed[arrayIterator++] = 24;
+        // } else if (theJoyStick.getPOV() == 180) {
+        //     buttonsPressed[arrayIterator++] = 24;
 
-        } else if (theJoyStick.getPOV() == 270) {
-            buttonsPressed[arrayIterator++] = 29;
-        }
+        // } else if (theJoyStick.getPOV() == 270) {
+        //     buttonsPressed[arrayIterator++] = 29; 
+        // }
         
        // DashBoard238.getInstance().addOrUpdateElement("Elevator", "Buttons Pressed", buttonsPressed);
     	return buttonsPressed;
@@ -208,7 +226,11 @@ public class ControlBoard {
 		return operatorJs;
     }
     
-    
+    public boolean findController(Joystick theController) {
+   
+        boolean XBox = DriverStation.getInstance().getJoystickIsXbox(CrusaderCommon.OPR_CMD_LIST);
+        return XBox;
+    }
 	
 	// public static double getHangerRightSide() {
 		

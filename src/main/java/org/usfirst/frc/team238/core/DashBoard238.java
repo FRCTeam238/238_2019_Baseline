@@ -45,6 +45,8 @@ public class DashBoard238 {
     String shoulderTarget = "Shoulder Target";
     String shoulderHeight = "Shoulder Height";
 
+    Boolean isXbox = false;
+
     Robot myRobot;
 
     HashMap<String, NetworkTableEntry> testSweetEntries;
@@ -102,7 +104,6 @@ public class DashBoard238 {
         // SmartDashboard.putData("Robot Position", positionSelector);
 
         testSelector = new SendableChooser<String>();
-        
 
         // Send able Chooser for the state update function
         testSelector.setDefaultOption("Stop Test", "Stop Test");
@@ -170,22 +171,23 @@ public class DashBoard238 {
                 .getSubTable("ChickenVision").getEntry("tapeDetected"));
 
         //for the logger 
-        SmartDashboard.putBoolean("Debug", true);    
+        SmartDashboard.putBoolean("Debug", true);
         SmartDashboard.putBoolean("Output Log to File", true);
         SmartDashboard.putNumber("Select Auto State", 0);
 
         initializeScoring();
 
-        SmartDashboard.putBoolean("xBox", false);
+        setXBox(false);
         setHatch(false);
         setBottomElevatorLimit(false);
         setTopElevatorLimit(false);
 
-        
-
         Logger.Log("DashBoard238.init() end");
 
-        
+    }
+
+    public void setXBox(boolean isXbox) {
+        SmartDashboard.putBoolean("xBox", isXbox);
     }
 
     void buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY) {
@@ -478,7 +480,7 @@ public class DashBoard238 {
         SmartDashboard.putNumber("Left Speed", leftVelocity);
         SmartDashboard.putNumber("Right Speed", Rightvelocity);
     }
- 
+
     public void update() {
         Shuffleboard.update();
     }
