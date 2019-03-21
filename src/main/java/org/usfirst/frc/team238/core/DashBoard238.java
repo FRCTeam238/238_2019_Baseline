@@ -45,18 +45,12 @@ public class DashBoard238 {
     String shoulderTarget = "Shoulder Target";
     String shoulderHeight = "Shoulder Height";
 
-    Boolean isXbox = false;
-
-    Robot myRobot;
-
     HashMap<String, NetworkTableEntry> testSweetEntries;
 
     private DashBoard238() {
-
     }
 
-
-        // singleton pattern; we only ever want 1 dashboard instance
+    // singleton pattern; we only ever want 1 dashboard instance
     public static DashBoard238 getInstance(){
         // check to see if the instance is already created
         if (instance == null){
@@ -190,38 +184,35 @@ public class DashBoard238 {
         SmartDashboard.putBoolean("xBox", isXbox);
     }
 
-    void buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY) {
-        SimpleWidget theWidget = testTab.add(elementName, value);
-        testSweetEntries.put(elementName, theWidget.getEntry());
-        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
-
-    }
-
-    void buildElement(String elementName, Double value, int sizeX, int sizeY, int posX, int posY) {
+    private void buildElement(String elementName, Boolean value, int sizeX, int sizeY, int posX, int posY) {
         SimpleWidget theWidget = testTab.add(elementName, value);
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
 
-    void buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY) {
+    private void buildElement(String elementName, Double value, int sizeX, int sizeY, int posX, int posY) {
+        SimpleWidget theWidget = testTab.add(elementName, value);
+        testSweetEntries.put(elementName, theWidget.getEntry());
+        theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
+    }
+
+    private void buildElement(String elementName, int value, int sizeX, int sizeY, int posX, int posY) {
         buildElement(testTab, elementName, value, sizeX, sizeY, posX, posY);
     }
 
-    void buildElement(ShuffleboardTab tab, String elementName, int value, int sizeX, int sizeY, int posX, int posY) {
+    private void buildElement(ShuffleboardTab tab, String elementName, int value, int sizeX, int sizeY, int posX, int posY) {
         SimpleWidget theWidget = tab.add(elementName, value);
         testSweetEntries.put(elementName, theWidget.getEntry());
         theWidget.withSize(sizeX, sizeY).withPosition(posX, posY);
     }
 
     public void initializeScoring() {
-        
         SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
         SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
         SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
         SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
         SmartDashboard.putBoolean("WristInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
         SmartDashboard.putBoolean("WristOutput", CrusaderCommon.WRIST_FALSE);
-
     }
     
     public void addOrUpdateElement(String tabName, String elementName, Object val){
@@ -238,9 +229,7 @@ public class DashBoard238 {
     }
 
     public String getSelectedTest() {
-
         return testSelector.getSelected();
-
     }
 
     //public String getRobotPosition() {
@@ -249,7 +238,6 @@ public class DashBoard238 {
     //}
 
     public SendableChooser<String> getAutonomusModeSelector() {
-
         return aModeSelector;
     }
 
@@ -281,7 +269,6 @@ public class DashBoard238 {
 
         testSweetEntries.get(leftDriveTrainEncoder).setNumber(leftDrivetrainEncoderValue);
         testSweetEntries.get(rightDriveTrainEncoder).setNumber(rightDrivetrainEncoderValue);
-
     }
 
     public double getElevator1() {

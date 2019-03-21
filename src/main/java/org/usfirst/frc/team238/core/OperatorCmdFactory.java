@@ -4,14 +4,13 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
+
 import org.usfirst.frc.team238.commands.CommandScoringPosition;
 import org.usfirst.frc.team238.commands.CommandElevatorDown;
 import org.usfirst.frc.team238.commands.CommandElevatorUp;
 import org.usfirst.frc.team238.commands.CommandHatchDeploy;
-import org.usfirst.frc.team238.commands.CommandHatchRetract;
 import org.usfirst.frc.team238.commands.CommandIntakeIn;
 import org.usfirst.frc.team238.commands.CommandIntakeOut;
-// import org.usfirst.frc.team238.commands.CommandIntakeOutFast;
 import org.usfirst.frc.team238.commands.CommandShoulderDown;
 import org.usfirst.frc.team238.commands.CommandShoulderUp;
 import org.usfirst.frc.team238.commands.CommandStopEverything;
@@ -20,14 +19,10 @@ import org.usfirst.frc.team238.commands.CommandWristUp;
 
 public class OperatorCmdFactory {
 
-    
-
     HashMap<Integer, Command> operatorCommands;
 
     public void init() {
-
         operatorCommands = new HashMap<Integer, Command>(50);
-
     }
 
     /**
@@ -45,53 +40,48 @@ public class OperatorCmdFactory {
         cmd = new CommandStopEverything(theRobot);
         operatorCommands.put(CrusaderCommon.stopEverythingInput, cmd);
 
-
         cmd = new CommandIntakeIn(theRobot.myShoulder);
-        operatorCommands.put(5, cmd);
+        operatorCommands.put(XBoxValues.LeftBumper, cmd); // (5, cmd);
 
         cmd = new CommandIntakeOut(theRobot.myShoulder);
-        operatorCommands.put(6, cmd);
+        operatorCommands.put(XBoxValues.RightBumper, cmd); // (6, cmd);
 
         //these next two are the manual shoulder
         cmd = new CommandShoulderUp(theRobot.myShoulder);
-        operatorCommands.put(22, cmd);
+        operatorCommands.put(XBoxValues.RightJoystickUp, cmd); //(22, cmd);
 
         cmd = new CommandShoulderDown(theRobot.myShoulder);
-        operatorCommands.put(23, cmd);
+        operatorCommands.put(XBoxValues.RightJoystickDown, cmd); // (23, cmd);
 
         cmd = new CommandElevatorUp(theRobot.myElevator);
-        operatorCommands.put(21, cmd);
+        operatorCommands.put(XBoxValues.LeftJoystickDown, cmd); // (21, cmd);
 
         cmd = new CommandElevatorDown(theRobot.myElevator);
-        operatorCommands.put(20, cmd);
+        operatorCommands.put(XBoxValues.LeftJoystickUp, cmd); // (20, cmd);
 
         cmd = new CommandScoringPosition(theRobot);
-        operatorCommands.put(1, cmd);
-        operatorCommands.put(2, cmd);
-        operatorCommands.put(4, cmd);
-        operatorCommands.put(3, cmd);
-        operatorCommands.put(8, cmd);
-        operatorCommands.put(24, cmd);
-        operatorCommands.put(25, cmd);
-        operatorCommands.put(26, cmd);
-        operatorCommands.put(7, cmd);
+        operatorCommands.put(XBoxValues.A, cmd); //1, cmd);
+        operatorCommands.put(XBoxValues.B, cmd); //2, cmd);
+        operatorCommands.put(XBoxValues.Y, cmd); //4, cmd);
+        operatorCommands.put(XBoxValues.X, cmd); //3, cmd);
+        operatorCommands.put(XBoxValues.Start, cmd); //8, cmd);
+        operatorCommands.put(XBoxValues.DPadUp, cmd); //24, cmd);
+        operatorCommands.put(XBoxValues.DPadRight, cmd); //25, cmd);
+        operatorCommands.put(XBoxValues.DPadDown, cmd); //26, cmd);
+        operatorCommands.put(XBoxValues.Back, cmd); //7, cmd);
         
         cmd = new CommandWristUp(theRobot);
-        operatorCommands.put(28, cmd);
+        operatorCommands.put(XBoxValues.TriggerRight, cmd); // (28, cmd);
 
         cmd = new CommandWristDown(theRobot);
-        operatorCommands.put(27, cmd);
+        operatorCommands.put(XBoxValues.TriggerLeft, cmd); // (27, cmd);
 
         // cmd = new CommandHatchRetract(theRobot);
         // operatorCommands.put(9, cmd);
 
         cmd = new CommandHatchDeploy(theRobot);
-        operatorCommands.put(29, cmd);
-
-        
+        operatorCommands.put(XBoxValues.DPadLeft, cmd); // (29, cmd);
 
         return operatorCommands;
-
     }
-
 }
