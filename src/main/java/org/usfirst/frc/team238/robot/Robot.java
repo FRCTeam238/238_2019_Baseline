@@ -144,8 +144,12 @@ public class Robot extends TimedRobot {
 
                 double s_height = myShoulder.getAngle();
                 double e_height = myElevator.getHeight();
+
+                myDashBoard238.reflectPosition(s_height, e_height);
+
+                double robotYaw = myNavigation.getYaw();
              
-                myDashBoard238.reflectPosition( s_height, e_height);
+                myDashBoard238.putRobotYaw(robotYaw);
             }
             
             count++;

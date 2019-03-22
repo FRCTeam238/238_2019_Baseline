@@ -186,8 +186,8 @@ public class CrusaderCommon {
 
     // hatch level 2 = 50
 
-    public static final double CARGO_SHIP_CARGO_ELEVATOR = 5;
-    public static final double CARGO_SHIP_CARGO_SHOULDER = 3;
+    public static final double CARGO_SHIP_CARGO_ELEVATOR = 0; //3
+    public static final double CARGO_SHIP_CARGO_SHOULDER = 105; //3
     public static final boolean CARGO_SHIP_CARGO_WRIST = true;
 
     public static final double SAFE_DRIVING_MODE_ELEVATOR = 5;

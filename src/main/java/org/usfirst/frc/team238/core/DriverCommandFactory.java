@@ -45,7 +45,6 @@ public class DriverCommandFactory
 	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
 		
         driverCommands.put(0, cmdToDriveTheRobot);
-      
 		
 		return driverCommands;
 		
@@ -102,8 +101,9 @@ public class DriverCommandFactory
 		//driverRightCommands.put(0, NoDriveCommand);
         
         CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
-		driverRightCommands.put(0, cmdToDriveTheRobot);
-		
+        driverRightCommands.put(0, cmdToDriveTheRobot);
+        driverRightCommands.put(2, cmdToDriveTheRobot);
+        		
 		return driverRightCommands;
 		
     }

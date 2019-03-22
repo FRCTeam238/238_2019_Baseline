@@ -47,6 +47,12 @@ public class CommandTankDrive extends AbstractCommand {
    
 
   }
+  
+    public void execute(int btnpressed) {
+        Logger.Log("CommandTankDrive.execute(int bnpressed): btnpressed = " + btnpressed);
 
+        myDrivetrain.drive(1, 1);
+
+    }
 
 }

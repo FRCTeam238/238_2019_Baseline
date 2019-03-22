@@ -80,6 +80,8 @@ public class CommandController {
         
         theDriverCommandFactory = new DriverCommandFactory(myRobot);
         driverCmdList = theDriverCommandFactory.createDriverCommands();
+        //driverLeftCmdList = theDriverCommandFactory.createDriverLeftCommands(myRobot);
+        driverRightCmdList = theDriverCommandFactory.createDriverRightCommands(myRobot);
     }
 
    
@@ -107,13 +109,15 @@ public class CommandController {
     public void joyStickCommandExecution(HashMap<Integer, Integer[]> commandValues) {
         Command commandForTheButtonPressed;
         Command operatorCommandsForTheButtonPressed;
-        
+        Command leftDriverCommandsForTheButtonPressed;
+        Command RightDriverCommandsForTheButtonPressed;
+
         Integer[] buttonPressed;
 
         //Just get the CommandTankDrive whose key is zero
         commandForTheButtonPressed = driverCmdList.get(0);
         commandForTheButtonPressed.execute();
-    
+
         // Check for inputs on the operator joystick
         buttonPressed = commandValues.get(CrusaderCommon.OPR_CMD_LIST);
 
@@ -123,22 +127,21 @@ public class CommandController {
 
             if (buttonPressed[i] != null) {
                 int index = buttonPressed[i];
-                Logger.Log("CommandController.josystickcommandexecution() actual button pressed =  " + index );
+                Logger.Log("CommandController.josystickcommandexecution() actual button pressed =  " + index);
                 if (index > 0) {
-                   
+
                     buttonIsPressed = true;
                     operatorCommandsForTheButtonPressed = operatorCmdList.get(index);
-                    if (operatorCommandsForTheButtonPressed == null)
-                    {
+                    if (operatorCommandsForTheButtonPressed == null) {
                         Logger.Log("CommandController.josystickcommandexecution() no command found");
-                    }
-                    else {
+                    } else {
                         /*
                          * if(buttonPressed[i] == 1 || buttonPressed[i] == 5) { int shootButton =
                          * buttonPressed[i]; operatorCommandsForTheButtonPressed.execute(shootButton); }
                          * else {
                          */
-                        if (index == 1 || index == 2 || index == 3 || index == 4 || index == 8 || index == 24 || index == 25 || index == 26) {
+                        if (index == 1 || index == 2 || index == 3 || index == 4 || index == 8 || index == 24
+                                || index == 25 || index == 26) {
                             operatorCommandsForTheButtonPressed.execute(index);
 
                         } else {
@@ -146,18 +149,85 @@ public class CommandController {
 
                         }
                     }
-                   
+
                 }
 
-               
             }
         }
         if (!buttonIsPressed) {
             operatorCommandsForTheButtonPressed = operatorCmdList.get(0);
             operatorCommandsForTheButtonPressed.execute();
         }
+        
+
+        // //Begin Left Driver Joystick
+        //  // Check for inputs on the left drivetrain joystick
+        //  buttonPressed = commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST);
+
+        //  buttonIsPressed = false;
+        //  //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
+        //  for (int i = 0; i < buttonPressed.length; i++) {
+ 
+        //      if (buttonPressed[i] != null) {
+        //          int index = buttonPressed[i];
+        //          Logger.Log("CommandController.josystickcommandexecution() actual LeftDT button pressed =  " + index);
+        //          if (index > 0) {
+ 
+        //              buttonIsPressed = true;
+        //              leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(index);
+        //              if (leftDriverCommandsForTheButtonPressed == null) {
+        //                  Logger.Log("CommandController.josystickcommandexecution() LeftDT no command found");
+        //              } else {
+                        
+        //                     leftDriverCommandsForTheButtonPressed.execute(index); // why are you null
+ 
+                         
+        //              }
+ 
+        //          }
+ 
+        //      }
+        //  }
+        // if (!buttonIsPressed) {
+        //     leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(0);
+        //     leftDriverCommandsForTheButtonPressed.execute();
+        // }
+         
+        // Begin Driver Right
+
+         // Check for inputs on the right driveTrain joystick
+         buttonPressed = commandValues.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST);
+
+         buttonIsPressed = false;
+         //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
+         for (int i = 0; i < buttonPressed.length; i++) {
+ 
+             if (buttonPressed[i] != null) {
+                 int index = buttonPressed[i];
+                 Logger.Log("CommandController.josystickcommandexecution() actual RightDT button pressed =  " + index);
+                 if (index > 0) {
+ 
+                     buttonIsPressed = true;
+                     RightDriverCommandsForTheButtonPressed = driverRightCmdList.get(index);
+                     if (RightDriverCommandsForTheButtonPressed == null) {
+                         Logger.Log("CommandController.josystickcommandexecution() RightDT no command found");
+                     } else {
+                         
+                            RightDriverCommandsForTheButtonPressed.execute(index); // why are you null
+                     }
+ 
+                 }
+ 
+             }
+         }
+         if (!buttonIsPressed) {
+            RightDriverCommandsForTheButtonPressed = driverRightCmdList.get(0);
+            RightDriverCommandsForTheButtonPressed.execute();
+         }
+         
     }
 
+    
      // 
         //if we do need a button then we need to uncomment below and be aware it could effect the driving
         //buttonPressed = commandValues.get(CrusaderCommon.DT_CMD_LIST);

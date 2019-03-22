@@ -5,9 +5,9 @@ import java.util.*;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 
-import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
+import org.usfirst.frc.team238.core.XBoxValues;
 
 public class ControlBoard { 
 
@@ -16,8 +16,7 @@ public class ControlBoard {
 	static Joystick driverJS;
 	private static Joystick driverLeftJs; 	// driveTrain left
 	private static Joystick driverRightJs; 	// driveTrain right
-	
-	//static Joystick xboxController;
+    private DriverStation driverStation;
 	
     HashMap<Integer, Integer[]> controllers; //Contains each joystick value and their button inputs
 	public void controlBoardInit()
@@ -31,7 +30,7 @@ public class ControlBoard {
             driverRightJs = new Joystick(CrusaderCommon.RIGHTDRIVER_CMD_LIST);
 
 			controllers = new HashMap<Integer,Integer[]>();
-			
+			driverStation = DriverStation.getInstance();
 		}
 		
 		catch(Exception ex)
@@ -45,8 +44,7 @@ public class ControlBoard {
 	 * @return command value
 	 */
 	public Integer[] getOperatorJoystickInputs(Joystick theJoyStick)
-	{
-		
+	{		
 		boolean jsButtonValue = false;
 		int joyStickButtonCount = theJoyStick.getButtonCount();
 		Integer[] buttonsPressed;
@@ -76,44 +74,45 @@ public class ControlBoard {
             Logger.Log("ControlBoard.getOperatorJoystickInputs.rawAxis = " + rawAxis);
             //elevator 21 is up, 20 is down lefT JS
             if (rawAxis > 0.65) {
-                buttonsPressed[arrayIterator++] = 20;
+                buttonsPressed[arrayIterator++] = XBoxValues.LeftJoystickUp; //20;
             } else if (rawAxis < -0.65) {
-                buttonsPressed[arrayIterator++] = 21;
+                buttonsPressed[arrayIterator++] = XBoxValues.LeftJoystickDown; //21;
 
             }
 
+            rawAxis = theJoyStick.getRawAxis(5);
             //shoulder 23 is up 22 is down right JS
-            if (theJoyStick.getRawAxis(5) > 0.65) {
-                buttonsPressed[arrayIterator++] = 22;
-            } else if (theJoyStick.getRawAxis(5) < -0.65) {
-                buttonsPressed[arrayIterator++] = 23;
+            if (rawAxis > 0.65) {
+                buttonsPressed[arrayIterator++] = XBoxValues.RightJoystickUp; //22;
+            } else if (rawAxis < -0.65) {
+                buttonsPressed[arrayIterator++] = XBoxValues.RightJoystickUp; //23;
             }
 
             //Wrist Down
             if (theJoyStick.getRawAxis(2) > 0.65) {
-                buttonsPressed[arrayIterator++] = 27;
+                buttonsPressed[arrayIterator++] = XBoxValues.TriggerLeft; // 27;
             }
 
             //Wrist Up
             if (theJoyStick.getRawAxis(3) > 0.65) {
-                buttonsPressed[arrayIterator++] = 28;
+                buttonsPressed[arrayIterator++] = XBoxValues.TriggerRight; //28;
             }
 
             //DPAD 180(down) down 24, 90(to the right) switch 25, 0(up) scale 26
 
             switch (theJoyStick.getPOV()) {
             case 0:
-                buttonsPressed[arrayIterator++] = 26;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadDown;//26;
                 break;
             case 90:
-                buttonsPressed[arrayIterator++] = 25;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadRight;//25;
                 break;
             case 180:
-                buttonsPressed[arrayIterator++] = 24;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadUp;// 24;
                 break;
             case 270:
                 //Deploying hatch
-                buttonsPressed[arrayIterator++] = 29;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadLeft; //29;
                 break;
             }
         }
@@ -176,8 +175,8 @@ public class ControlBoard {
         controllers.put(CrusaderCommon.OPR_CMD_LIST, getOperatorJoystickInputs(operatorJs));
         controllers.put(CrusaderCommon.DT_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
 
-        controllers.put(CrusaderCommon.LEFTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
-        controllers.put(CrusaderCommon.RIGHTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
+        controllers.put(CrusaderCommon.LEFTDRIVER_CMD_LIST, getDriverJoystickInput(driverLeftJs));
+        controllers.put(CrusaderCommon.RIGHTDRIVER_CMD_LIST, getDriverJoystickInput(driverRightJs));
 
 	  //ManualOverride Input
 		//controllers.put(0, getOperatorJoystickInputs(manualOverrideJs));
@@ -227,9 +226,7 @@ public class ControlBoard {
     }
     
     public boolean findController(Joystick theController) {
-   
-        boolean XBox = DriverStation.getInstance().getJoystickIsXbox(CrusaderCommon.OPR_CMD_LIST);
-        return XBox;
+        return driverStation.getJoystickIsXbox(theController.getPort());
     }
 	
 	// public static double getHangerRightSide() {

@@ -6,6 +6,7 @@ import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.DashboardValues;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TargetValues;
+import org.usfirst.frc.team238.core.XBoxValues;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Elevator;
 import org.usfirst.frc.team238.robot.Robot;
@@ -56,43 +57,43 @@ public class CommandScoringPosition extends AbstractCommand
 
         switch(btnPressed)
         {
-            case CrusaderCommon.CARGO_LEVEL_THREE:   //4,   Xbox.Y
+            case XBoxValues.Y:   //4,   Cargo Level Three
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_THREE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_TWO:   //2,  Xbox.B
+            case XBoxValues.B:   //2,  Cargo Level Two
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.CARGO_LEVEL_ONE:   //1,  Xbox.A
+            case XBoxValues.A:   //1,  Cargo Level One
                 setArmPositions(CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR, CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
                 break;
             
-            case CrusaderCommon.HATCH_LEVEL_THREE:   //26, Xbox.DPad.Down 
+            case XBoxValues.DPadDown:   //26, Hatch Level Three
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, 
                 CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_TWO:   //25,  Xbox.DPad.Right
+            case XBoxValues.DPadRight:   //25, Hatch Level Two
                 setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_SHOULDER,
                 CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_ELEVATOR, CrusaderCommon.ROCKET_HATCH_LEVEL_TWO_WRIST);
                 break;
         
-            case CrusaderCommon.HATCH_LEVEL_ONE:   //24,  Xbox.DPad.Up
+            case XBoxValues.DPadUp:   //24, Hatch Level One
             setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, 
                  CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
                 break;
                 
-            case CrusaderCommon.CARGO_SHIP_CARGO:   //3,  Xbox.X
-                setArmPositions(105,0, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+            case XBoxValues.X:   //3, Cargo Ship Cargo
+                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER, CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case 7: 
-                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER,CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
+            case XBoxValues.Back: //back
+                setArmPositions(CrusaderCommon.CARGO_SHIP_CARGO_SHOULDER, CrusaderCommon.CARGO_SHIP_CARGO_ELEVATOR, CrusaderCommon.CARGO_SHIP_CARGO_WRIST);
                 break;
                 
-            case CrusaderCommon.SAFE_DRIVING_MODE: //8
+            case XBoxValues.Start: //8 Tuning
                 // TargetValues targetValues = DashBoard238.getInstance().getTargetValues();
                 // setArmPositions(targetValues.getShoulderAngle(), targetValues.getElevatorHeight(), targetValues.getWristPosition());
                 //targetValues.getElevatorHeights is singular
