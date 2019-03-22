@@ -175,8 +175,8 @@ public class ControlBoard {
         controllers.put(CrusaderCommon.OPR_CMD_LIST, getOperatorJoystickInputs(operatorJs));
         controllers.put(CrusaderCommon.DT_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
 
-        controllers.put(CrusaderCommon.LEFTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
-        controllers.put(CrusaderCommon.RIGHTDRIVER_CMD_LIST, CrusaderCommon.DRIVE_TRAIN_CMD_IDX);
+        controllers.put(CrusaderCommon.LEFTDRIVER_CMD_LIST, getDriverJoystickInput(driverLeftJs));
+        controllers.put(CrusaderCommon.RIGHTDRIVER_CMD_LIST, getDriverJoystickInput(driverRightJs));
 
 	  //ManualOverride Input
 		//controllers.put(0, getOperatorJoystickInputs(manualOverrideJs));
@@ -226,7 +226,7 @@ public class ControlBoard {
     }
     
     public boolean findController(Joystick theController) {
-        return driverStation.getJoystickIsXbox(CrusaderCommon.OPR_CMD_LIST);
+        return driverStation.getJoystickIsXbox(theController.getPort());
     }
 	
 	// public static double getHangerRightSide() {

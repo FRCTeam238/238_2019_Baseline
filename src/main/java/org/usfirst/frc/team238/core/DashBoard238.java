@@ -471,5 +471,10 @@ public class DashBoard238 {
     public void update() {
         Shuffleboard.update();
     }
+
+    public void putRobotYaw(double yaw)
+    {
+        SmartDashboard.putNumber("Robot Yaw", yaw);
+    }
     
 }
