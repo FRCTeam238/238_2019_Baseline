@@ -94,7 +94,28 @@ public class AutonLineRunnable implements Runnable {
             double timeToStop = Math.abs(currentVelocity/acceleration);
             double distanceNeededToStop = (Math.abs(currentVelocity)/2) * timeToStop;
             
-            distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL +  driveTrain.rightDistanceTravelled() - initialPosR) / 2;
+            double leftEncoderPos = driveTrain.leftDistanceTravelled();
+            double rightEncoderPos = driveTrain.rightDistanceTravelled();
+
+            if (leftEncoderPos == 0){
+                if(rightEncoderPos  != 0){
+                    distanceTravelled=Math.abs( rightEncoderPos - initialPosR);    
+                }
+                else{
+                    stop = true;
+                }
+            }else if (rightEncoderPos == 0){
+                if(leftEncoderPos != 0){
+                    distanceTravelled=Math.abs( leftEncoderPos - initialPosL);    
+                }
+                else{
+                    stop = true;
+                }
+            }else{
+            
+                distanceTravelled=Math.abs( leftEncoderPos - initialPosL +  rightEncoderPos - initialPosR) / 2;
+            }
+           // distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL +  driveTrain.rightDistanceTravelled() - initialPosR) / 2;
             //Logger.Log("DISTANCETRAVELLED:" + distanceTravelled);
             //remainingdistance
             if(Math.abs(distance) - distanceTravelled<=distanceNeededToStop){
