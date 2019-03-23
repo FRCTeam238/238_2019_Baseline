@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
+import org.usfirst.frc.team238.robot.ScoringPosition;
+import org.usfirst.frc.team238.robot.ScoringPositionBuilder;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -207,12 +209,12 @@ public class DashBoard238 {
     }
 
     public void initializeScoring() {
-        SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
-        SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
-        SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
-        SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.ROCKET_CARGO_LEVEL_ZERO_VALUE);
-        SmartDashboard.putBoolean("WristInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
-        SmartDashboard.putBoolean("WristOutput", CrusaderCommon.WRIST_FALSE);
+        SmartDashboard.putNumber("ElevatorInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getElevatorHeight());
+        SmartDashboard.putNumber("ElevatorOutput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putNumber("ShoulderInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getShoulderAngle());
+        SmartDashboard.putNumber("ShoulderOutput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ZERO_VALUE);
+        SmartDashboard.putBoolean("WristInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getWristExtended());
+        SmartDashboard.putBoolean("WristOutput", CrusaderCommon.ScoringPositions.WRIST_FALSE);
     }
     
     public void addOrUpdateElement(String tabName, String elementName, Object val){
@@ -322,15 +324,18 @@ public class DashBoard238 {
 
         return testElevatorHeights;
     }
-    
 
-    public TargetValues getTargetValues() {
+    public ScoringPosition getTargetValues() {
 
-        double elevatorHeight = SmartDashboard.getNumber("ElevatorInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_ELEVATOR);
-        double shoulderAngle = SmartDashboard.getNumber("ShoulderInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_SHOULDER);
-        Boolean wristPosition = SmartDashboard.getBoolean("WristInput", CrusaderCommon.ROCKET_CARGO_LEVEL_ONE_WRIST);
+        double elevatorHeight = SmartDashboard.getNumber("ElevatorInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getElevatorHeight());
+        double shoulderAngle = SmartDashboard.getNumber("ShoulderInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getShoulderAngle());
+        Boolean wristPosition = SmartDashboard.getBoolean("WristInput", CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE.getWristExtended());
 
-        TargetValues values = new TargetValues(elevatorHeight, shoulderAngle, wristPosition);
+        ScoringPosition values = new ScoringPositionBuilder()
+            .elevator(elevatorHeight)
+            .shoulder(shoulderAngle)
+            .wrist(wristPosition)
+            .toScoringPosition();
         return values;
     }
 
@@ -342,10 +347,10 @@ public class DashBoard238 {
 
     public void setTargetValues() {
 
-        TargetValues selectedTargetValues = getTargetValues();
-        SmartDashboard.putNumber("ElevatorOutput", selectedTargetValues.elevatorHeight);
-        SmartDashboard.putNumber("ShoulderOutput", selectedTargetValues.shoulderAngle);
-        SmartDashboard.putBoolean("WristOutput", selectedTargetValues.wristPosition);
+        ScoringPosition selectedTargetValues = getTargetValues();
+        SmartDashboard.putNumber("ElevatorOutput", selectedTargetValues.getElevatorHeight());
+        SmartDashboard.putNumber("ShoulderOutput", selectedTargetValues.getShoulderAngle());
+        SmartDashboard.putBoolean("WristOutput", selectedTargetValues.getWristExtended());
     }
 
     public void putTestElevatorTestOne(double elevatorSetpointOneTest) {

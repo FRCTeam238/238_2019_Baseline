@@ -2,6 +2,7 @@ package org.usfirst.frc.team238.core;
 
 import java.util.HashMap;
 
+import org.usfirst.frc.team238.commands.CommandHatchDeploy;
 import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTankDrive;
@@ -78,9 +79,10 @@ public class DriverCommandFactory
 		
 		//driverLeftCommands.put(0, NoDriveCommand);
 
-        CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
-		driverLeftCommands.put(0, cmdToDriveTheRobot);
 
+        CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
+        driverLeftCommands.put(0, cmdToDriveTheRobot);
+        driverLeftCommands.put(2, cmdToDriveTheRobot);
 		
 		return driverLeftCommands;
 		
@@ -102,8 +104,10 @@ public class DriverCommandFactory
         
         CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
         driverRightCommands.put(0, cmdToDriveTheRobot);
-        driverRightCommands.put(2, cmdToDriveTheRobot);
-        		
+        
+        Command cmd = new CommandHatchDeploy(theRobot);
+        driverRightCommands.put(1, cmd);
+
 		return driverRightCommands;
 		
     }

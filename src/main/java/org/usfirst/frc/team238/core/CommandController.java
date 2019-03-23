@@ -80,7 +80,7 @@ public class CommandController {
         
         theDriverCommandFactory = new DriverCommandFactory(myRobot);
         driverCmdList = theDriverCommandFactory.createDriverCommands();
-        //driverLeftCmdList = theDriverCommandFactory.createDriverLeftCommands(myRobot);
+        driverLeftCmdList = theDriverCommandFactory.createDriverLeftCommands(myRobot);
         driverRightCmdList = theDriverCommandFactory.createDriverRightCommands(myRobot);
     }
 
@@ -160,38 +160,35 @@ public class CommandController {
         }
         
 
-        // //Begin Left Driver Joystick
-        //  // Check for inputs on the left drivetrain joystick
-        //  buttonPressed = commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST);
+        //Begin Left Driver Joystick
+         // Check for inputs on the left drivetrain joystick
+         buttonPressed = commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST);
 
-        //  buttonIsPressed = false;
-        //  //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
-        //  for (int i = 0; i < buttonPressed.length; i++) {
+         buttonIsPressed = false;
+         //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
+         for (int i = 0; i < buttonPressed.length; i++) {
  
-        //      if (buttonPressed[i] != null) {
-        //          int index = buttonPressed[i];
-        //          Logger.Log("CommandController.josystickcommandexecution() actual LeftDT button pressed =  " + index);
-        //          if (index > 0) {
+             if (buttonPressed[i] != null) {
+                 int index = buttonPressed[i];
+                 Logger.Log("CommandController.josystickcommandexecution() actual LeftDT button pressed =  " + index);
+                 if (index > 0) {
  
-        //              buttonIsPressed = true;
-        //              leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(index);
-        //              if (leftDriverCommandsForTheButtonPressed == null) {
-        //                  Logger.Log("CommandController.josystickcommandexecution() LeftDT no command found");
-        //              } else {
-                        
-        //                     leftDriverCommandsForTheButtonPressed.execute(index); // why are you null
+                     buttonIsPressed = true;
+                     leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(index);
+                     if (leftDriverCommandsForTheButtonPressed == null) {
+                         Logger.Log("CommandController.josystickcommandexecution() LeftDT no command found");
+                     } else {                        
+                            leftDriverCommandsForTheButtonPressed.execute(index); // why are you null
+                     }
  
-                         
-        //              }
+                 }
  
-        //          }
- 
-        //      }
-        //  }
-        // if (!buttonIsPressed) {
-        //     leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(0);
-        //     leftDriverCommandsForTheButtonPressed.execute();
-        // }
+             }
+         }
+        if (!buttonIsPressed) {
+            leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(0);
+            leftDriverCommandsForTheButtonPressed.execute();
+        }
          
         // Begin Driver Right
 
