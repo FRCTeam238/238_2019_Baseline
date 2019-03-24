@@ -85,7 +85,7 @@ public class ControlBoard {
             if (rawAxis > 0.65) {
                 buttonsPressed[arrayIterator++] = XBoxValues.RightJoystickUp; //22;
             } else if (rawAxis < -0.65) {
-                buttonsPressed[arrayIterator++] = XBoxValues.RightJoystickUp; //23;
+                buttonsPressed[arrayIterator++] = XBoxValues.RightJoystickDown; //23;
             }
 
             //Wrist Down
@@ -102,13 +102,13 @@ public class ControlBoard {
 
             switch (theJoyStick.getPOV()) {
             case 0:
-                buttonsPressed[arrayIterator++] = XBoxValues.DPadDown;//26;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadUp;
                 break;
             case 90:
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadRight;//25;
                 break;
             case 180:
-                buttonsPressed[arrayIterator++] = XBoxValues.DPadUp;// 24;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadDown;
                 break;
             case 270:
                 //Deploying hatch

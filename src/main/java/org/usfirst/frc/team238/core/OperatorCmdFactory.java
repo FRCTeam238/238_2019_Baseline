@@ -46,30 +46,30 @@ public class OperatorCmdFactory {
         cmd = new CommandIntakeOut(theRobot.myShoulder);
         operatorCommands.put(XBoxValues.RightBumper, cmd); // (6, cmd);
 
-        //these next two are the manual shoulder
+        // these next two are the manual shoulder
         cmd = new CommandShoulderUp(theRobot.myShoulder);
-        operatorCommands.put(XBoxValues.RightJoystickUp, cmd); //(22, cmd);
+        operatorCommands.put(XBoxValues.LeftJoystickUp, cmd); // (22, cmd);
 
         cmd = new CommandShoulderDown(theRobot.myShoulder);
-        operatorCommands.put(XBoxValues.RightJoystickDown, cmd); // (23, cmd);
+        operatorCommands.put(XBoxValues.LeftJoystickDown, cmd); // (23, cmd);
 
         cmd = new CommandElevatorUp(theRobot.myElevator);
-        operatorCommands.put(XBoxValues.LeftJoystickDown, cmd); // (21, cmd);
+        operatorCommands.put(XBoxValues.RightJoystickDown, cmd); // (21, cmd);
 
         cmd = new CommandElevatorDown(theRobot.myElevator);
-        operatorCommands.put(XBoxValues.LeftJoystickUp, cmd); // (20, cmd);
+        operatorCommands.put(XBoxValues.RightJoystickUp, cmd); // (20, cmd);
 
         cmd = new CommandScoringPosition(theRobot);
-        operatorCommands.put(XBoxValues.A, cmd); //1, cmd);
-        operatorCommands.put(XBoxValues.B, cmd); //2, cmd);
-        operatorCommands.put(XBoxValues.Y, cmd); //4, cmd);
-        operatorCommands.put(XBoxValues.X, cmd); //3, cmd);
-        operatorCommands.put(XBoxValues.Start, cmd); //8, cmd);
-        operatorCommands.put(XBoxValues.DPadUp, cmd); //24, cmd);
-        operatorCommands.put(XBoxValues.DPadRight, cmd); //25, cmd);
-        operatorCommands.put(XBoxValues.DPadDown, cmd); //26, cmd);
-        operatorCommands.put(XBoxValues.Back, cmd); //7, cmd);
-        
+        operatorCommands.put(XBoxValues.A, cmd); // 1, cmd);
+        operatorCommands.put(XBoxValues.B, cmd); // 2, cmd);
+        operatorCommands.put(XBoxValues.Y, cmd); // 4, cmd);
+        operatorCommands.put(XBoxValues.X, cmd); // 3, cmd);
+        operatorCommands.put(XBoxValues.Start, cmd); // 8, cmd);
+        operatorCommands.put(XBoxValues.DPadUp, cmd); // 24, cmd);
+        operatorCommands.put(XBoxValues.DPadRight, cmd); // 25, cmd);
+        operatorCommands.put(XBoxValues.DPadDown, cmd); // 26, cmd);
+        operatorCommands.put(XBoxValues.Back, cmd); // 7, cmd);
+
         cmd = new CommandWristUp(theRobot);
         operatorCommands.put(XBoxValues.TriggerRight, cmd); // (28, cmd);
 

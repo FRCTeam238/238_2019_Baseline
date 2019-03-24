@@ -6,6 +6,7 @@ import org.usfirst.frc.team238.commands.CommandHatchDeploy;
 import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTankDrive;
+import org.usfirst.frc.team238.commands.CommandTankDriveTurbo;
 import org.usfirst.frc.team238.commands.NoDriverCommand;
 import org.usfirst.frc.team238.robot.Robot;
 
@@ -18,15 +19,15 @@ public class DriverCommandFactory
     
     Robot theRobot;
 
-    HashMap <Integer, Command> driverCommands;
-    HashMap <Integer, Command> driverLeftCommands;
-    HashMap <Integer, Command> driverRightCommands;
+    //HashMap <Integer, Command> driverCommands;
+    //HashMap <Integer, Command> driverLeftCommands;
+    //HashMap <Integer, Command> driverRightCommands;
     
     public DriverCommandFactory( Robot myRobot) {
 
-        driverCommands = new HashMap<Integer, Command>(10);
-        driverLeftCommands = new HashMap<Integer, Command>(10);
-        driverRightCommands = new HashMap<Integer, Command>(10);
+        //driverCommands = new HashMap<Integer, Command>(10);
+        //driverLeftCommands = new HashMap<Integer, Command>(10);
+        //driverRightCommands = new HashMap<Integer, Command>(10);
         
         this.theRobot = myRobot;
     }
@@ -42,12 +43,12 @@ public class DriverCommandFactory
 	 */
 	public HashMap<Integer, Command> createDriverCommands()
 	{
-		
+		HashMap<Integer, Command> commands = new HashMap<Integer, Command>(10);
 	 	CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
 		
-        driverCommands.put(0, cmdToDriveTheRobot);
+         commands.put(0, cmdToDriveTheRobot);
 		
-		return driverCommands;
+		return commands;
 		
     }
     
@@ -74,18 +75,17 @@ public class DriverCommandFactory
 	 */
 	public HashMap<Integer, Command> createDriverLeftCommands(Robot myRobot)
 	{
+		HashMap<Integer, Command> commands = new HashMap<Integer, Command>(10);
 		
 		//NoDriveCommand = new NoDriverCommand(myRobot, true);
 		
 		//driverLeftCommands.put(0, NoDriveCommand);
-
-
         CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
-        driverLeftCommands.put(0, cmdToDriveTheRobot);
-        driverLeftCommands.put(2, cmdToDriveTheRobot);
-		
-		return driverLeftCommands;
-		
+        commands.put(0, cmdToDriveTheRobot);
+        CommandTankDriveTurbo cmdTurbo = new CommandTankDriveTurbo(myRobot, 1, 1);
+        commands.put(1, cmdTurbo);
+
+		return commands;
 	}
 
 	/**
@@ -98,18 +98,18 @@ public class DriverCommandFactory
 	 */
 	public HashMap<Integer, Command> createDriverRightCommands(Robot myRobot)
 	{
+		HashMap<Integer, Command> commands = new HashMap<Integer, Command>(10);
 	  
 		//NoDriveCommand  = new NoDriverCommand(myRobot, false);
 		//driverRightCommands.put(0, NoDriveCommand);
         
         CommandTankDrive cmdToDriveTheRobot = new CommandTankDrive(theRobot);
-        driverRightCommands.put(0, cmdToDriveTheRobot);
+        commands.put(0, cmdToDriveTheRobot);
         
-        Command cmd = new CommandHatchDeploy(theRobot);
-        driverRightCommands.put(1, cmd);
+        CommandTankDriveTurbo cmdTurbo = new CommandTankDriveTurbo(myRobot, 1, 1);
+        commands.put(1, cmdTurbo);
 
-		return driverRightCommands;
-		
+        return commands;
     }
     
 }

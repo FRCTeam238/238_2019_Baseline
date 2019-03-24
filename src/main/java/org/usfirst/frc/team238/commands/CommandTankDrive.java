@@ -28,8 +28,8 @@ public class CommandTankDrive extends AbstractCommand {
     
     double tuningValue = SmartDashboard.getNumber("DRIVETRAIN TUNING", 0.2);
    
-    Boolean xBox = SmartDashboard.getBoolean("xBox", false);
-    DriverInput driverJS = ControlBoard.getDriverInput(xBox);
+    //Boolean xBox = SmartDashboard.getBoolean("xBox", false);
+    DriverInput driverJS = ControlBoard.getDriverInput(false);
     
     
     leftJsValue = driverJS.leftSide;

@@ -5,7 +5,6 @@ import java.util.HashMap;
 //import org.usfirst.frc.team238.robot.AutonomousDrive;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
 
 
@@ -109,8 +108,8 @@ public class CommandController {
     public void joyStickCommandExecution(HashMap<Integer, Integer[]> commandValues) {
         Command commandForTheButtonPressed;
         Command operatorCommandsForTheButtonPressed;
-        Command leftDriverCommandsForTheButtonPressed;
-        Command RightDriverCommandsForTheButtonPressed;
+        //Command leftDriverCommandsForTheButtonPressed;
+        //Command RightDriverCommandsForTheButtonPressed;
 
         Integer[] buttonPressed;
 
@@ -158,70 +157,36 @@ public class CommandController {
             operatorCommandsForTheButtonPressed = operatorCmdList.get(0);
             operatorCommandsForTheButtonPressed.execute();
         }
-        
 
-        //Begin Left Driver Joystick
-         // Check for inputs on the left drivetrain joystick
-         buttonPressed = commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST);
+        executeDriverCommands(commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST), driverLeftCmdList);
+        executeDriverCommands(commandValues.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST), driverRightCmdList);
+    }
 
-         buttonIsPressed = false;
-         //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
-         for (int i = 0; i < buttonPressed.length; i++) {
- 
-             if (buttonPressed[i] != null) {
-                 int index = buttonPressed[i];
-                 Logger.Log("CommandController.josystickcommandexecution() actual LeftDT button pressed =  " + index);
-                 if (index > 0) {
- 
-                     buttonIsPressed = true;
-                     leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(index);
-                     if (leftDriverCommandsForTheButtonPressed == null) {
-                         Logger.Log("CommandController.josystickcommandexecution() LeftDT no command found");
-                     } else {                        
-                            leftDriverCommandsForTheButtonPressed.execute(index); // why are you null
-                     }
- 
-                 }
- 
-             }
-         }
-        if (!buttonIsPressed) {
-            leftDriverCommandsForTheButtonPressed = driverLeftCmdList.get(0);
-            leftDriverCommandsForTheButtonPressed.execute();
+    private static void executeDriverCommands(Integer[] buttonsPressed, HashMap<Integer, Command> commmands) {       
+
+        boolean buttonIsPressed = false;
+        //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
+        for (int i = 0; i < buttonsPressed.length; i++) {
+
+            if (buttonsPressed[i] != null) {
+                int index = buttonsPressed[i];
+                Logger.Log("CommandController.executeDriverCommands() actual button pressed =  " + index);
+                if (index > 0) {
+
+                    buttonIsPressed = true;
+                    Command command = commmands.get(index);
+                    if (command == null) {
+                        Logger.Log("CommandController.executeDriverCommands() no command found");
+                    } else {
+                        command.execute(); // why are you null
+                    }
+                }
+            }
         }
-         
-        // Begin Driver Right
-
-         // Check for inputs on the right driveTrain joystick
-         buttonPressed = commandValues.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST);
-
-         buttonIsPressed = false;
-         //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
-         for (int i = 0; i < buttonPressed.length; i++) {
- 
-             if (buttonPressed[i] != null) {
-                 int index = buttonPressed[i];
-                 Logger.Log("CommandController.josystickcommandexecution() actual RightDT button pressed =  " + index);
-                 if (index > 0) {
- 
-                     buttonIsPressed = true;
-                     RightDriverCommandsForTheButtonPressed = driverRightCmdList.get(index);
-                     if (RightDriverCommandsForTheButtonPressed == null) {
-                         Logger.Log("CommandController.josystickcommandexecution() RightDT no command found");
-                     } else {
-                         
-                            RightDriverCommandsForTheButtonPressed.execute(index); // why are you null
-                     }
- 
-                 }
- 
-             }
-         }
-         if (!buttonIsPressed) {
-            RightDriverCommandsForTheButtonPressed = driverRightCmdList.get(0);
-            RightDriverCommandsForTheButtonPressed.execute();
-         }
-         
+        if (!buttonIsPressed) {
+            Command command = commmands.get(0);
+            command.execute();
+        }
     }
 
     

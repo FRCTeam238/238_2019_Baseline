@@ -60,7 +60,7 @@ public class CommandScoringPosition extends AbstractCommand {
             setArmPositions(CrusaderCommon.ScoringPositions.ROCKET_CARGO_LEVEL_ONE);
             break;
 
-        case XBoxValues.DPadDown: // 26, Hatch Level Three
+        case XBoxValues.DPadUp: // 26, Hatch Level Three
             // setArmPositions(CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_SHOULDER,
             // CrusaderCommon.ROCKET_HATCH_LEVEL_THREE_ELEVATOR, CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
             setArmPositions(CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_THREE);
@@ -72,7 +72,7 @@ public class CommandScoringPosition extends AbstractCommand {
             setArmPositions(CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_TWO);
             break;
 
-        case XBoxValues.DPadUp: // 24, Hatch Level One
+        case XBoxValues.DPadDown: // 24, Hatch Level One
             // setArmPositions(CrusaderCommon.HATCH_LEVEL_ONE_SHOULDER, CrusaderCommon.HATCH_LEVEL_ONE_ELEVATOR,
             //         CrusaderCommon.HATCH_LEVEL_ONE_WRIST);
             setArmPositions(CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_ONE);
