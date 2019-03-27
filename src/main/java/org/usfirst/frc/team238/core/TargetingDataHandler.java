@@ -79,12 +79,12 @@ public class TargetingDataHandler implements AutonomousState{
 	
 	
 	/**
-	 * Starts up the JSONHandler
-	 * @param theMCP (The control scheme that's being used)
-	 */
+     * Starts up the JSONHandler
+     * @param theMCP (The control scheme that's being used)
+     */
 	public void init(CommandController theMCP)
 	{
-		targetChooser = new SendableChooser();
+		targetChooser = new SendableChooser<String>();
 		//readJson(theMCP);
 	}
 	
@@ -117,7 +117,8 @@ public class TargetingDataHandler implements AutonomousState{
 	 * Reads the JSON file and creates a list of autonmousStates for each autonomousMode
 	 * @param theMCP: Uses theMCP to create new state objects
 	 */
-	@SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "deprecation" })
+    //@SuppressWarnings("deprecation")
 	public void readJson(CommandController theMCP) {
 		try {
 			
@@ -172,10 +173,10 @@ public class TargetingDataHandler implements AutonomousState{
             	
             	//Start building the list of selectable targetSolutions on the dashboard
             	if(targetSolutionsIteratorIndexCounter == 1){
-            		targetChooser.addDefault(name, String.valueOf(targetSolutionsIteratorIndexCounter));
+            		targetChooser.setDefaultOption(name, String.valueOf(targetSolutionsIteratorIndexCounter));
             	}
             	else{
-            		targetChooser.addObject(name,String.valueOf(targetSolutionsIteratorIndexCounter));
+            		targetChooser.addOption(name,String.valueOf(targetSolutionsIteratorIndexCounter));
             	}
             	
             	//Create an array/iterator of commands from the AutoMode it's currently cycling through
@@ -390,13 +391,12 @@ public class TargetingDataHandler implements AutonomousState{
 	public void dump(){
 		int base = 0;
 		
-		@SuppressWarnings("deprecation")
-    int index = (int) SmartDashboard.getNumber("TargetStateCmdIndex", base);
+        int index = (int) SmartDashboard.getNumber("TargetStateCmdIndex", base);
 		int count = 0;
 		String selection = (String) targetChooser.getSelected();
 		int targetSolutionSelection = Integer.parseInt(selection);
 		String name;
-		String targetStatesList = String.valueOf(targetChooser.getSelected() + ": ");
+		//String targetStatesList = String.valueOf(targetChooser.getSelected() + ": ");
 		
 		//Substitutes for the 'steps' variable from the AutonomousController
 		
@@ -409,7 +409,7 @@ public class TargetingDataHandler implements AutonomousState{
 			AutonomousState thisState = targetSolutionIterator.next();
 			name =  thisState.getClass().getName();
 			name = name.substring(41);
-			targetStatesList = "TargetStateList " + count + " ";
+			//targetStatesList = "TargetStateList " + count + " ";
 			//RM SmartDashboard.putString( targetStatesList, name);
 			Logger.Log("TargetingDataHandler() : dump() : TargetSolution Name " + name);
 		
@@ -428,7 +428,7 @@ public class TargetingDataHandler implements AutonomousState{
 		
 		while(count < targetSolutionStates.size()){ 
 			
-		  targetStatesList = "AutoStateList " + count + " ";
+		  //targetStatesList = "AutoStateList " + count + " ";
 			//RM SmartDashboard.putString( targetStatesList, " ");
 			count++;
 			
@@ -559,10 +559,10 @@ public class TargetingDataHandler implements AutonomousState{
 public void pickAMode(int mode){
   targetSolutionStates = targetSolutionCommandList [mode];
   
-  AutonomousState currentTargetSolution = targetSolutionStates.get(0);
+  //AutonomousState currentTargetSolution = targetSolutionStates.get(0);
   
-  String angle = currentTargetSolution.getParam(0);
-  String motorSpeed = currentTargetSolution.getParam(1);
+  //String angle = currentTargetSolution.getParam(0);
+  //String motorSpeed = currentTargetSolution.getParam(1);
   
   
 

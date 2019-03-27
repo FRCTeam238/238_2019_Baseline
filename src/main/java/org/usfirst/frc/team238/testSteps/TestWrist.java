@@ -9,7 +9,6 @@ package org.usfirst.frc.team238.testSteps;
 
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TestStep;
-import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.Wrist;
 

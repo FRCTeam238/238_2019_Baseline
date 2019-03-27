@@ -11,7 +11,7 @@ public class TrajectoryFactory
         for(Object[] moment : moments)
         {
             System.out.println(i++);
-            double timestamp = (double) moment[0];
+            //double timestamp = (double) moment[0];
             double leftVelocity = (double) moment[1];
             double rightVelocity = (double) moment[2];
             double gyro = (double) moment[3];

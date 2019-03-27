@@ -3,8 +3,6 @@ package org.usfirst.frc.team238.autonomousStates;
 import org.usfirst.frc.team238.core.AutonomousState;
 import org.usfirst.frc.team238.core.CommandController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team238.commands.CommandElevatorSwitchHeight;
 
 

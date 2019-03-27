@@ -6,8 +6,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Shoulder
@@ -17,8 +15,8 @@ public class Shoulder
     private static final double MAX_OUT = 0.6;
     private static final double MIN_OUT = -0.6;
     
-    private static final double AUTO_MAX_OUT = 0.3;
-    private static final double AUTO_MIN_OUT = -0.3;
+    // private static final double AUTO_MAX_OUT = 0.3;
+    // private static final double AUTO_MIN_OUT = -0.3;
     
     private static final double MIN_ANGLE = -120;
     private static final double MAX_ANGLE = -3;
@@ -28,7 +26,7 @@ public class Shoulder
     private double currentError =0;
     
     private boolean PIDEnabled = true;
-    private boolean inAutonomous = false;
+    // private boolean inAutonomous = false;
     
     TalonSRX shoulderTalon;
     TalonSRX intakeMaster;
@@ -91,12 +89,12 @@ public class Shoulder
     public void setshoulder(double angle) {
         PIDEnabled = true;
         setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE); //nega
-        inAutonomous = false;
+        // inAutonomous = false;
     }
     
     public void setshoulder(double angle, boolean auto) {
         setpoint = Math.min(Math.max(MIN_ANGLE, -angle), MAX_ANGLE);
-        inAutonomous = auto;
+        // inAutonomous = auto;
     }
 
     

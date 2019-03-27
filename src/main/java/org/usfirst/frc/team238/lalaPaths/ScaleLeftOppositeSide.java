@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class ScaleLeftOppositeSide{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.03992927718998198 , 0.04007072281001802 , 359.99973648233754},

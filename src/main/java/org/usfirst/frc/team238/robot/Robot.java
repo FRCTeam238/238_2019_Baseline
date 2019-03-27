@@ -12,8 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 
-import java.util.ArrayList;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,23 +24,16 @@ import edu.wpi.first.wpilibj.Compressor;
 
 import java.util.HashMap;
 
-import org.usfirst.frc.team238.core.AutonomousController;
 import org.usfirst.frc.team238.core.AutonomousController2019;
-import org.usfirst.frc.team238.core.AutonomousDataHandler;
 import org.usfirst.frc.team238.core.CommandController;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TestCmdFactory;
 import org.usfirst.frc.team238.core.TestController;
 import org.usfirst.frc.team238.core.TestStep;
 import org.usfirst.frc.team238.robot.Navigation;
-import org.usfirst.frc.team238.testSteps.TestElevator;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import RealBot.TrajectoryIntepreter;
-import RealBot.TrajectoryFactory;
-import RealBot.Trajectory;
 import org.usfirst.frc.team238.core.DashBoard238;
-import org.usfirst.frc.team238.lalaPaths.leftSwitch;
-
 
 /**
  * The VM is configured to automatically run this class, and to call the

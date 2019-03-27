@@ -6,7 +6,6 @@ import org.usfirst.frc.team238.core.CommandController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team238.commands.CommandScoringPosition;
-import org.usfirst.frc.team238.commands.CommandElevatorUp;
 
 public class StateCargoLevel implements AutonomousState
 {
@@ -18,14 +17,11 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public void init()
     {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void prepare()
     {
-        // TODO Auto-generated method stub
         scoringPosition.prepare();
         scoringPosition.setParams(parameters);
     }
@@ -33,7 +29,6 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public void init(String[] params, CommandController theMcp)
     {
-        // TODO Auto-generated method stub
         scoringPosition = (CommandScoringPosition) theMcp.getAutoCmd("CommandScoringPosition");
 
         parameters = params;
@@ -48,16 +43,12 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public boolean done()
     {
-        // TODO Auto-generated method stub
-
         return scoringPosition.done();
     }
 
     @Override
     public void reset()
     {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -70,12 +61,11 @@ public class StateCargoLevel implements AutonomousState
     @Override
     public void updateParams()
     {
-        // TODO Auto-generated method stub
         String param1;
         String param2;
         String param3;
         String param4;
-        String param5;
+        //String param5;
 
         param1 = SmartDashboard.getString("Param 1 - targetValue", "");
         parameters[0] = param1;
@@ -85,7 +75,7 @@ public class StateCargoLevel implements AutonomousState
         parameters[2] = param3;
         param4 = SmartDashboard.getString("Param 4 - ultrasonicTarget", "");
         parameters[3] = param4;
-        param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
+        //param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
         // parameters[4] = param5;
     }
 

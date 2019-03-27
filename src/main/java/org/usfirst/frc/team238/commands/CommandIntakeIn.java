@@ -1,7 +1,6 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
-import org.usfirst.frc.team238.core.Command;
 
 import org.usfirst.frc.team238.robot.Shoulder;
 

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class leftSwitchOld{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.031179964900674168 , 0.048820035099325844 , 359.9727793882889},

@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class leftScale{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.03709725819502592 , 0.04290274180497407 , 359.994182137888},

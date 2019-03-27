@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class SCalibration{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.04332990011366653 , 0.036670099886333477 , 0.012516370220036963},

@@ -3,11 +3,7 @@ package org.usfirst.frc.team238.autonomousStates;
 import org.usfirst.frc.team238.core.AutonomousState;
 import org.usfirst.frc.team238.core.CommandController;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
 import org.usfirst.frc.team238.commands.CommandElevatorBottomHeight;
-import org.usfirst.frc.team238.commands.CommandElevatorScaleHeight;
-import org.usfirst.frc.team238.commands.CommandElevatorUp;
 
 public class StateElevatorBottomHeight implements AutonomousState
 {

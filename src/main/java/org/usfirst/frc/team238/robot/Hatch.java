@@ -1,10 +1,6 @@
 package org.usfirst.frc.team238.robot;
 
 import org.usfirst.frc.team238.core.DashBoard238;
-import org.usfirst.frc.team238.core.Logger;
-
-
-
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class Hatch

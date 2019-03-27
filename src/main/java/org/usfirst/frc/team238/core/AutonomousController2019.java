@@ -15,7 +15,7 @@ public class AutonomousController2019 implements AutonomousState {
     private AutonomousState currentState;
 
     // Index for going through the autonomousModeList
-    private int index = 0;
+    //private int index = 0;
     boolean stopState = false;
 
     // The states that it's currently processing through
@@ -71,7 +71,7 @@ public class AutonomousController2019 implements AutonomousState {
 
         steps = autonomousModeList.get("Overline");
         setState(steps.get(0));
-        index = 0;
+        //index = 0;
     }
 
     /**
@@ -233,7 +233,7 @@ public class AutonomousController2019 implements AutonomousState {
     @Override
     public void reset() {
 
-        index = 0;
+        //index = 0;
     }
 
     @Override

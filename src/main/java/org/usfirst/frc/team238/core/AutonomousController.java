@@ -92,7 +92,8 @@ public class AutonomousController implements AutonomousState {
 
             Logger.Log("AutonomousController(): Dump Loaded States():" + thisState.getClass().getName());
 
-            aModeSelector.addObject(thisState.getClass().getName(), count.toString());
+            //aModeSelector.addObject(thisState.getClass().getName(), count.toString());
+            aModeSelector.addOption(thisState.getClass().getName(), count.toString());
             count++;
         }
 

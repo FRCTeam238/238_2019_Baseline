@@ -16,6 +16,7 @@ import org.usfirst.frc.team238.robot.Navigation;
  *
  *
  */
+@SuppressWarnings("all")
 public class TrajectoryIntepreter implements Runnable{
 
     private ArrayList<Trajectory> trajectories;
@@ -60,7 +61,7 @@ public class TrajectoryIntepreter implements Runnable{
     private void createLoop(){
         loop = () ->{
             playing=true;
-            double wholeStartTime = System.currentTimeMillis();
+            //double wholeStartTime = System.currentTimeMillis();
 
             //will throw error if there is not atleast 2 moments in trajcetory, but there should always be more than 2
             
@@ -69,7 +70,7 @@ public class TrajectoryIntepreter implements Runnable{
             
             
             for(Trajectory t:trajectories){
-                int index=0;
+                //int index=0;
                 //delT is in millis
                 ArrayList<Moment> thisMoment = trajectories.get(0).getMoments();
                  
@@ -124,7 +125,7 @@ public class TrajectoryIntepreter implements Runnable{
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    index++;
+                    //index++;
                 }
                 
 

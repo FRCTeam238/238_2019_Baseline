@@ -3,20 +3,12 @@ package org.usfirst.frc.team238.robot;
 import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.LimitSwitchNormal;
 import com.ctre.phoenix.motorcontrol.LimitSwitchSource;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.Solenoid;
 
 //import sun.rmi.runtime.Log;
 
@@ -257,12 +249,12 @@ public class Elevator {
             double outputWanted = currentError * KP_VALUE + dVal + CrusaderCommon.ELEVATOR_FEED_FORWARD;
 
             // Logger.Log("Elevator.mainloop() outputWanted = " + outputWanted);
-            double origOutputWaned = outputWanted;
+            //double origOutputWaned = outputWanted;
             outputWanted = Math.max(MIN_OUT, outputWanted);
-            String log1 = "Elevator.mainLoop() Math.max(" + MIN_OUT + ", " + origOutputWaned + ") = " + outputWanted;
-            origOutputWaned = outputWanted;
+            //String log1 = "Elevator.mainLoop() Math.max(" + MIN_OUT + ", " + origOutputWaned + ") = " + outputWanted;
+            //origOutputWaned = outputWanted;
             outputWanted = Math.min(outputWanted, MAX_OUT);
-            String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
+            //String log2 = "Elevator.mainLoop() Math.min(" + origOutputWaned + ", " + MAX_OUT + ") = " + outputWanted;
 
             // if ouputWanted positive and rev limit switch on then set outputwanted to 0
             // if (isTopReached() &&

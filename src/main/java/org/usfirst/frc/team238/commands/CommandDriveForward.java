@@ -81,7 +81,7 @@ public class CommandDriveForward extends AbstractCommand {
                          CrusaderCommon.STRAIGHT_I_VALUE);
                         
     
-    double convert = CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+    //double convert = CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
     double currentYaw = myNavigation.getYaw();
     double yawError = currentYaw - yawValue; // Positive yaw is right turn so positive error is right turn
     double yawCorrection = yawPConstant * yawError * motorValue;

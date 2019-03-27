@@ -1,9 +1,7 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
-import org.usfirst.frc.team238.core.Command;
 import org.usfirst.frc.team238.core.DashBoard238;
-import org.usfirst.frc.team238.core.DashboardValues;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Elevator;
@@ -11,8 +9,6 @@ import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.ScoringPosition;
 import org.usfirst.frc.team238.robot.Shoulder;
 import org.usfirst.frc.team238.robot.Wrist;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandExitSafeMode extends AbstractCommand {
 

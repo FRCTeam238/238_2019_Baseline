@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class rightSwitch{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.046548580596507946 , 0.033451419403492055 , 0.01713252326815814},

@@ -73,8 +73,8 @@ public class StateTimeDriveForward implements AutonomousState {
 
     String param1;
     String param2;
-    String param3;
-    String param4;
+    //String param3;
+    //String param4;
 
     param1 = SmartDashboard.getString("Param 1 - targetValue", "");
     parameters[0] = param1;

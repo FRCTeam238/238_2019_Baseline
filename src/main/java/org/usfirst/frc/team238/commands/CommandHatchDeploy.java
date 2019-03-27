@@ -2,7 +2,6 @@ package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.Logger;
-import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Hatch;
 import org.usfirst.frc.team238.robot.Robot;
 

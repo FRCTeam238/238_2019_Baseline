@@ -17,7 +17,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
@@ -437,9 +436,9 @@ public class AutonomousDataHandler implements AutonomousState {
      * parameters
      */
     public void dump() {
-        int count = 0;
+        //int count = 0;
         String name;
-        String statesList;
+        //String statesList;
 
         Iterator<Entry<String, ArrayList<AutonomousState>>> autonomousModeIterator = autonomousModeCommandList2
                 .entrySet().iterator();
@@ -457,13 +456,13 @@ public class AutonomousDataHandler implements AutonomousState {
                 AutonomousState thisState = aModeIterator.next();
                 name = thisState.getClass().getName();
                 name = name.substring(41);
-                statesList = "AutoStateList " + count + " ";
+                //statesList = "AutoStateList " + count + " ";
                 Logger.Log("AutonomousDataHandler(): dump(): State Name" + name);
 
             }
         }
 
-        count++;
+        //count++;
     }
 
     /*

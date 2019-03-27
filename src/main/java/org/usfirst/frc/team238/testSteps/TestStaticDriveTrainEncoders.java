@@ -1,7 +1,6 @@
 package org.usfirst.frc.team238.testSteps;
 
 import org.usfirst.frc.team238.core.TestStep;
-import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.core.EncoderValues;
 import org.usfirst.frc.team238.core.Logger;
@@ -13,8 +12,8 @@ public class TestStaticDriveTrainEncoders implements TestStep {
     String parameters[];
     boolean done = false;
     private Robot myRobot;
-    private long startTime;
-    private int counter = 0;
+    // private long startTime;
+    // private int counter = 0;
 
     public TestStaticDriveTrainEncoders(Robot robot) {
 

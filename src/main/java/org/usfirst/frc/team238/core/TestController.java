@@ -1,12 +1,9 @@
 package org.usfirst.frc.team238.core;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
-import org.usfirst.frc.team238.testSteps.TestElevator;
-import org.usfirst.frc.team238.testSteps.TestStepDriveTrainEncoders;
 import org.usfirst.frc.team238.testSteps.TestStepFinished;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -65,7 +62,7 @@ public class TestController implements TestStep{
 			
 			Logger.Log(" TestController(): Dump Loaded States():" + thisState.getClass().getName());
 			
-			aModeSelector.addObject(thisState.getClass().getName(), count.toString());
+			aModeSelector.addOption(thisState.getClass().getName(), count.toString());
 			count++;	  
 		}
 		

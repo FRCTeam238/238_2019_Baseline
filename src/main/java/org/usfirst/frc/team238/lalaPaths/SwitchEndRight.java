@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class SwitchEndRight{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.04615704860022166 , 0.033842951399778345 , 0.009147829499320146},

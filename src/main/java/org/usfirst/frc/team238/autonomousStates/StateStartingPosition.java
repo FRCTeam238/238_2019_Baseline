@@ -5,9 +5,7 @@ import org.usfirst.frc.team238.core.CommandController;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team238.commands.CommandScoringPosition;
 import org.usfirst.frc.team238.commands.CommandWaitForScoringPosition;
-import org.usfirst.frc.team238.commands.CommandElevatorUp;
 
 public class StateStartingPosition implements AutonomousState
 {
@@ -76,7 +74,7 @@ public class StateStartingPosition implements AutonomousState
         String param2;
         String param3;
         String param4;
-        String param5;
+        //String param5;
 
         param1 = SmartDashboard.getString("Param 1 - targetValue", "");
         parameters[0] = param1;
@@ -86,7 +84,7 @@ public class StateStartingPosition implements AutonomousState
         parameters[2] = param3;
         param4 = SmartDashboard.getString("Param 4 - ultrasonicTarget", "");
         parameters[3] = param4;
-        param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
+        //param5 = SmartDashboard.getString("Param 5 - collisionToggle", "");
         // parameters[4] = param5;
     }
 

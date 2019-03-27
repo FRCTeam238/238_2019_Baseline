@@ -7,8 +7,6 @@ import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
-
 public class CommandTurnLeft extends AbstractCommand {
 
   Drivetrain myRobotDrive;

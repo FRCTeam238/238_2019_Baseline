@@ -1,7 +1,5 @@
 package org.usfirst.frc.team238.lalaPaths;
 
-import java.util.ArrayList;
-
 public class goStraight{
 	public static Object[][] objects = new Object[][]{
 		{0.01 , 0.04 , 0.04 , 0.0},

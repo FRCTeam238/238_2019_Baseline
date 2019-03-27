@@ -2,13 +2,7 @@
 package org.usfirst.frc.team238.commands;
 
 import org.usfirst.frc.team238.core.AbstractCommand;
-import org.usfirst.frc.team238.core.Logger;
-import org.usfirst.frc.team238.robot.CrusaderCommon;
-import org.usfirst.frc.team238.robot.Drivetrain;
-import org.usfirst.frc.team238.robot.Navigation;
 import org.usfirst.frc.team238.robot.Robot;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandAutonLine extends AbstractCommand {
 

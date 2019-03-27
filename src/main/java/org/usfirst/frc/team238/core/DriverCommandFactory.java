@@ -2,7 +2,6 @@ package org.usfirst.frc.team238.core;
 
 import java.util.HashMap;
 
-import org.usfirst.frc.team238.commands.CommandHatchDeploy;
 import org.usfirst.frc.team238.commands.CommandShiftHigh;
 import org.usfirst.frc.team238.commands.CommandShiftLow;
 import org.usfirst.frc.team238.commands.CommandTankDrive;

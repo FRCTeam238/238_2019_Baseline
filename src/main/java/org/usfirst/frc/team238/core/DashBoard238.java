@@ -3,11 +3,9 @@ package org.usfirst.frc.team238.core;
 import java.util.HashMap;
 
 import org.usfirst.frc.team238.robot.CrusaderCommon;
-import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.ScoringPosition;
 import org.usfirst.frc.team238.robot.ScoringPositionBuilder;
 
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
@@ -23,7 +21,6 @@ public class DashBoard238 {
     private SendableChooser<String> stepSelector;
     private SendableChooser<String> stepParamSelector;
     private SendableChooser<String> testSelector;
-    private SendableChooser<String> positionSelector;
 
     public SimpleWidget robotPosition;
     ShuffleboardTab testTab;
@@ -431,8 +428,14 @@ public class DashBoard238 {
     }
 
     public void setParamSelection(){
+        String param = null;
+        if (stepParamSelector != null) {
+            param = stepParamSelector.getSelected();
+        }
 
-        String param = stepParamSelector.getSelected();
+        if (param == null){
+            param = "";
+        }
 
         SmartDashboard.putString("ParamValue", param);
 

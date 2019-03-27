@@ -2,9 +2,6 @@ package org.usfirst.frc.team238.autonomousStates;
 
 import org.usfirst.frc.team238.core.AutonomousState;
 import org.usfirst.frc.team238.core.CommandController;
-import org.usfirst.frc.team238.core.Logger;
-
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class StateFinished implements AutonomousState {
 

@@ -2,8 +2,6 @@ package org.usfirst.frc.team238.testSteps;
 
 import org.usfirst.frc.team238.core.TestStep;
 
-import org.usfirst.frc.team238.core.Logger;
-
 public class TestStepFinished implements TestStep {
 
   String[] parameters;

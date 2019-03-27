@@ -1,5 +1,6 @@
 package org.usfirst.frc.team238.core;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,31 +14,32 @@ import org.json.simple.parser.JSONParser;
 public class AutonomousPlay {
 	
 	/** Read the Autonomous Plays file and return a HashMap. 
-	 * 
-	 * This function will read the provided JSON file (play238.txt).
-	 * 
-	 * When reading the contents of each play will be read into 
-	 * the HashMap.
-	 * 
-	 * Play names are currently:
-	 *   L_LL, L_LR, L_RR, L_RL
-	 *   C_LL, C_LR, C_RR, C_RL
-	 *   R_LL, R_LR, R_RR, R_RL
-	 *   
-	 * The leading L, C, or R represents the starting field position. The
-	 * remaining LL, LR, RR, and RL are the field disposition.
-	 * 
-	 * Generating the keys to access this hash should take the selected playgroup
-	 * ("primary" or "secondary") concatenated with the field position ("L", "C", or "R")
-	 * an underscore and the field disposition (lighting positions read from the dash 
-	 * board.
-	 * 
-	 *    [playgroup][field position]_[field disposition]
-	 * 
-	 * @param filepath The file to load.
-	 * @return A HashMap of the contents of the file.
-	 * 
-	 */
+     * 
+     * This function will read the provided JSON file (play238.txt).
+     * 
+     * When reading the contents of each play will be read into 
+     * the HashMap.
+     * 
+     * Play names are currently:
+     *   L_LL, L_LR, L_RR, L_RL
+     *   C_LL, C_LR, C_RR, C_RL
+     *   R_LL, R_LR, R_RR, R_RL
+     *   
+     * The leading L, C, or R represents the starting field position. The
+     * remaining LL, LR, RR, and RL are the field disposition.
+     * 
+     * Generating the keys to access this hash should take the selected playgroup
+     * ("primary" or "secondary") concatenated with the field position ("L", "C", or "R")
+     * an underscore and the field disposition (lighting positions read from the dash 
+     * board.
+     * 
+     *    [playgroup][field position]_[field disposition]
+     * 
+     * @param filepath The file to load.
+     * @return A HashMap of the contents of the file.
+     * 
+     */
+    @SuppressWarnings("unchecked") 
 	public static HashMap<String, ArrayList<String> > readJson(String filepath)
 	{
 		HashMap<String, ArrayList<String> > autonomousPlays = new HashMap<String, ArrayList<String> >();
@@ -47,12 +49,14 @@ public class AutonomousPlay {
 			//System.out.println("AutonomousPlay.readJson(): BEGIN");
 			JSONParser parser = new JSONParser();
 			
-			System.out.println("AutonomousPlay: Create FileReader:filepath=" + filepath);
-			FileReader playsFile = new FileReader(filepath);
-			
-			if (playsFile == null)
-			{
-				System.out.println("AutonomousPlay: playsFile is null");
+            System.out.println("AutonomousPlay: Create FileReader:filepath=" + filepath);
+            FileReader playsFile = null;
+            try {
+			    playsFile = new FileReader(filepath);
+            } catch (FileNotFoundException ex) {
+			//if (playsFile == null)
+			//{
+				System.out.println("AutonomousPlay: playsFile not found");
 			}
 	
 			System.out.println("AutonomousPlay: JSON parse");
@@ -72,7 +76,8 @@ public class AutonomousPlay {
 				System.out.println("AutonomousPlay: targetPlays is null");
 			}
 			System.out.println("AutonomousPlay: targetPlays=" + targetPlays);
-			System.out.println(String.format("AutonomousPlay: targetPlays.size=%d", targetPlays.size()));
+            System.out.println(String.format("AutonomousPlay: targetPlays.size=%d", targetPlays.size()));
+            
 			Iterator<JSONObject> targetPlaysIterator = targetPlays.iterator();
 			while (targetPlaysIterator.hasNext())
 			{
