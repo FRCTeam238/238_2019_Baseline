@@ -88,6 +88,7 @@ public class CommandScoringPosition extends AbstractCommand {
         case XBoxValues.Back: // back Tuning
             //            ScoringPosition scoringPosition = DashBoard238.getInstance().getTargetValues();
             //            setArmPositions(scoringPosition);
+            setArmPositionsAuto(CrusaderCommon.ScoringPositions.SAFE_DRIVING_MODE);
             break;
 
         case XBoxValues.Start: // 8 Tuning
@@ -111,6 +112,11 @@ public class CommandScoringPosition extends AbstractCommand {
         theElevator.setSetpoint(elevatorPos);
         theWrist.setWrist(wristExtended);
         done = true;
+    }
+
+    private void setArmPositionsAuto(ScoringPosition scoringPosition) {
+        setArmPositionsAuto(scoringPosition.getShoulderAngle(), scoringPosition.getElevatorHeight(),
+                scoringPosition.getWristExtended());
     }
 
     private void setArmPositionsAuto(double shoulderPos, double elevatorPos, boolean wristExtended) {

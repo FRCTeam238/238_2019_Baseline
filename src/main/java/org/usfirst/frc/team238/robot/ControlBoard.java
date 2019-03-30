@@ -71,7 +71,7 @@ public class ControlBoard {
 
             }
             double rawAxis = theJoyStick.getRawAxis(1);
-            Logger.Log("ControlBoard.getOperatorJoystickInputs.rawAxis = " + rawAxis);
+            //Logger.Log("ControlBoard.getOperatorJoystickInputs.rawAxis = " + rawAxis);
             //elevator 21 is up, 20 is down lefT JS
             if (rawAxis > 0.65) {
                 buttonsPressed[arrayIterator++] = XBoxValues.LeftJoystickUp; //20;

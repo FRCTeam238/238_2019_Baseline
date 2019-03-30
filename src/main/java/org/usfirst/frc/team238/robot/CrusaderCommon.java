@@ -209,8 +209,8 @@ public final class CrusaderCommon {
         // public static final double SAFE_DRIVING_MODE_SHOULDER = 3;
         // public static final boolean SAFE_DRIVING_MODE_WRIST = false;
         public static final ScoringPosition SAFE_DRIVING_MODE = new ScoringPositionBuilder()
-            .elevator(5)
-            .shoulder(3)
+            .elevator(17)
+            .shoulder(10)
             .wrist(false).toScoringPosition();
 
         // public static final double SHOULDER_LEVEL_ONE_ANGLE = 0;

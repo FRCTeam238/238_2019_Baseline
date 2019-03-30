@@ -9,7 +9,7 @@ import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.ScoringPosition;
 import org.usfirst.frc.team238.robot.Shoulder;
 import org.usfirst.frc.team238.robot.Wrist;
-
+/*
 public class CommandExitSafeMode extends AbstractCommand {
 
     // go up one inch, move shoulder out
@@ -118,3 +118,4 @@ public class CommandExitSafeMode extends AbstractCommand {
     }
 
 }
+*/
