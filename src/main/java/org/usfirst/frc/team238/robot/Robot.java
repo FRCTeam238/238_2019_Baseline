@@ -271,8 +271,8 @@ public class Robot extends TimedRobot {
 
         try {
         UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
-        camera.setFPS(20);
-        camera.setResolution(320, 240);
+            camera.setFPS(24);
+            camera.setResolution(196, 144);
         } catch (Exception ex){
             Logger.Log("initRobotObjects: No Camera");
         }

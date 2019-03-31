@@ -121,7 +121,7 @@ public final class CrusaderCommon {
 
     public static final double MANUAL_SHOULDER_SPEED_DOWN = -0.5;
     public static final double MANUAL_SHOULDER_SPEED_UP = 0.5; // .85
-    public static final double INTAKE_SPEED = 0.5;// 0.8;
+    public static final double INTAKE_SPEED = 0.8;// 0.8;
     public static final double INTAKE_SPEED_FAST = 0.95;
     public static final double INTAKE_SPEED_SLOW = 0.3;
 
@@ -208,10 +208,8 @@ public final class CrusaderCommon {
         // public static final double SAFE_DRIVING_MODE_ELEVATOR = 5;
         // public static final double SAFE_DRIVING_MODE_SHOULDER = 3;
         // public static final boolean SAFE_DRIVING_MODE_WRIST = false;
-        public static final ScoringPosition SAFE_DRIVING_MODE = new ScoringPositionBuilder()
-            .elevator(17)
-            .shoulder(10)
-            .wrist(false).toScoringPosition();
+        public static final ScoringPosition SAFE_DRIVING_MODE = new ScoringPositionBuilder().elevator(17).shoulder(10)
+                .wrist(false).toScoringPosition();
 
         // public static final double SHOULDER_LEVEL_ONE_ANGLE = 0;
         // public static final double SHOULDER_LEVEL_TWO_ANGLE = 10;
@@ -244,29 +242,22 @@ public final class CrusaderCommon {
         // //50;//60;
         // public static final boolean ROCKET_CARGO_LEVEL_ONE_WRIST = true; //true means
         // wrist is extended
-        public static final ScoringPosition ROCKET_CARGO_LEVEL_ONE = new ScoringPositionBuilder()
-                .elevator(0)
-                .shoulder(85) //79
-                .wrist(true)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_CARGO_LEVEL_ONE = new ScoringPositionBuilder().elevator(0)
+                .shoulder(85) // 79
+                .wrist(true).toScoringPosition();
 
         // public static final double ROCKET_CARGO_LEVEL_TWO_ELEVATOR = 10;
-        // public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER = 117;//114;//84;//100
+        // public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER =
+        // 117;//114;//84;//100
         // public static final boolean ROCKET_CARGO_LEVEL_TWO_WRIST = true;
-        public static final ScoringPosition ROCKET_CARGO_LEVEL_TWO = new ScoringPositionBuilder()
-                .elevator(13) // 10
-                .shoulder(117)
-                .wrist(true)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_CARGO_LEVEL_TWO = new ScoringPositionBuilder().elevator(13) // 10
+                .shoulder(117).wrist(true).toScoringPosition();
 
         // public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 31;//30;
         // public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 115;//100;
         // public static final boolean ROCKET_CARGO_LEVEL_THREE_WRIST = true;
-        public static final ScoringPosition ROCKET_CARGO_LEVEL_THREE = new ScoringPositionBuilder()
-                .elevator(31)
-                .shoulder(115)
-                .wrist(true)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_CARGO_LEVEL_THREE = new ScoringPositionBuilder().elevator(31)
+                .shoulder(115).wrist(true).toScoringPosition();
 
         public static final double ROCKET_CARGO_LEVEL_ZERO_VALUE = 0;
 
@@ -275,29 +266,20 @@ public final class CrusaderCommon {
         // public static final double HATCH_LEVEL_ONE_SHOULDER = 30;//3;
         // public static final boolean HATCH_LEVEL_ONE_WRIST = false; //true means wrist
         // is extended
-        public static final ScoringPosition ROCKET_HATCH_LEVEL_ONE = new ScoringPositionBuilder()
-                .elevator(2)
-                .shoulder(40)
-                .wrist(false)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_HATCH_LEVEL_ONE = new ScoringPositionBuilder().elevator(2)
+                .shoulder(40).wrist(false).toScoringPosition();
 
         // public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0;
         // public static final double ROCKET_HATCH_LEVEL_TWO_SHOULDER = 93;//75;
         // public static final boolean ROCKET_HATCH_LEVEL_TWO_WRIST = false;
-        public static final ScoringPosition ROCKET_HATCH_LEVEL_TWO = new ScoringPositionBuilder()
-                .elevator(6)
-                .shoulder(93)
-                .wrist(false)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_HATCH_LEVEL_TWO = new ScoringPositionBuilder().elevator(6)
+                .shoulder(93).wrist(false).toScoringPosition();
 
         // public static final double ROCKET_HATCH_LEVEL_THREE_ELEVATOR = 20;
         // public static final double ROCKET_HATCH_LEVEL_THREE_SHOULDER = 115;//100
         // public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = false;
-        public static final ScoringPosition ROCKET_HATCH_LEVEL_THREE = new ScoringPositionBuilder()
-                .elevator(24)
-                .shoulder(115)
-                .wrist(false)
-                .toScoringPosition();
+        public static final ScoringPosition ROCKET_HATCH_LEVEL_THREE = new ScoringPositionBuilder().elevator(24)
+                .shoulder(115).wrist(false).toScoringPosition();
 
         public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;
         public static final boolean WRIST_FALSE = false;
@@ -305,11 +287,8 @@ public final class CrusaderCommon {
 
         // hatch level 2 = 50
 
-        public static final ScoringPosition CARGO_SHIP_CARGO = new ScoringPositionBuilder()
-                .elevator(0)
-                .shoulder(110) //105
-                .wrist(true)
-                .toScoringPosition();
+        public static final ScoringPosition CARGO_SHIP_CARGO = new ScoringPositionBuilder().elevator(0).shoulder(110) // 105
+                .wrist(true).toScoringPosition();
 
         // public static final double CARGO_SHIP_CARGO_ELEVATOR = 0; //3
         // public static final double CARGO_SHIP_CARGO_SHOULDER = 105; //3
