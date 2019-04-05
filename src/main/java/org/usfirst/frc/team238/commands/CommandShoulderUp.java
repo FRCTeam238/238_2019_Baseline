@@ -13,39 +13,32 @@ public class CommandShoulderUp extends AbstractCommand {
 
 	@Override
 	public void execute() {
-		// TODO Auto-generated method stub
-		
         theShoulder.shoulderUp();
         //theShoulder.shoulderUpManual();
-
-
 	}
 
 	@Override
 	public void execute(int btnPressed) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void prepare() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void setParams() {
-		// TODO Auto-generated method stub
+    public void setParams() {
 
-	}
-	
+    }
+    
+    @Override
 	public void stop() {
 	    theShoulder.stop();
 	}
 
 	@Override
 	public boolean done() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

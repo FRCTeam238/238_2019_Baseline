@@ -15,9 +15,7 @@ public class CommandElevatorDown extends AbstractCommand
     public void execute()
     {
         theElevator.elevatorDown();
-
-        // TODO Auto-generated method stub
-/*        if(theElevator.climbMode) {
+/*      if(theElevator.climbMode) {
             theElevator.elevatorClimbDown();
         }
         else
@@ -29,29 +27,31 @@ public class CommandElevatorDown extends AbstractCommand
     @Override
     public void execute(int btnPressed)
     {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void prepare()
     {
-        // TODO Auto-generated method stub
 
     }
 
     @Override
     public void setParams()
     {
-        // TODO Auto-generated method stub
+ 
 
     }
 
     @Override
     public boolean done()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
+    @Override
+    public void stop()
+    {
+        theElevator.stop();
+    }
 }

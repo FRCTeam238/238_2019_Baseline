@@ -1,5 +1,5 @@
 package org.usfirst.frc.team238.commands;
-
+/*
 import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
@@ -9,7 +9,7 @@ import org.usfirst.frc.team238.robot.Robot;
 import org.usfirst.frc.team238.robot.ScoringPosition;
 import org.usfirst.frc.team238.robot.Shoulder;
 import org.usfirst.frc.team238.robot.Wrist;
-/*
+
 public class CommandExitSafeMode extends AbstractCommand {
 
     // go up one inch, move shoulder out

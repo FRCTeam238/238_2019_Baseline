@@ -182,4 +182,9 @@ public class AbstractCommand implements Command
         theElapsed = 0;
     }
 
+    @Override
+    public void stop() {
+
+    }
+
 }

@@ -68,6 +68,7 @@ public class OperatorCmdFactory {
         operatorCommands.put(XBoxValues.DPadUp, cmd); // 24, cmd);
         operatorCommands.put(XBoxValues.DPadRight, cmd); // 25, cmd);
         operatorCommands.put(XBoxValues.DPadDown, cmd); // 26, cmd);
+        operatorCommands.put(XBoxValues.DPadDownLeft, cmd); // 30, cmd);
         operatorCommands.put(XBoxValues.Back, cmd); // 7, cmd);
 
         cmd = new CommandWristUp(theRobot);

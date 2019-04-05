@@ -44,14 +44,15 @@ public class CommandIntakeOut extends AbstractCommand
     
     public void setParams(String params[])
     {
-    	if ((params[0] != null) || (!params[0].isEmpty())) {
-    	      targetValue = Double.parseDouble(params[0]) ;
-    	    } else {
-    	      targetValue = 0;
-    	    }
+        if ((params[0] != null) || (!params[0].isEmpty())) {
+            targetValue = Double.parseDouble(params[0]);
+        } else {
+            targetValue = 0;
+        }
 
     }
     
+    @Override
     public void stop() {
         theIntake.stop();
     }

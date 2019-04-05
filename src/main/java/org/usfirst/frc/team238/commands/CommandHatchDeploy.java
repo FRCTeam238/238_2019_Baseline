@@ -26,16 +26,18 @@ public class CommandHatchDeploy extends AbstractCommand {
 
   // @Override
   public void execute(double overRideValue) {
-
-    // TODO Auto-generated method stub
   }
 
   public void setParams() {
 
   }
 
-  public boolean complete() {
+    public boolean complete() {
         return true;
-  }
+    }
 
+    @Override
+    public void stop() {
+        theHatch.setHatch(false);
+    }
 }

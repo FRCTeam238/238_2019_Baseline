@@ -48,10 +48,4 @@ public class Hatch
         solenoid.set(DoubleSolenoid.Value.kReverse);
     }
 
-    
-    public void stop()
-    {
-        
-    }
-    
 }

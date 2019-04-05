@@ -39,6 +39,7 @@ public class CommandIntakeOutFast extends AbstractCommand
 
     }
     
+    @Override
     public void stop() {
         theIntake.stop();
     }

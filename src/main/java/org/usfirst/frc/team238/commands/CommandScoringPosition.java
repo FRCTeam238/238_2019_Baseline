@@ -94,7 +94,10 @@ public class CommandScoringPosition extends AbstractCommand {
         case XBoxValues.Start: // 8 Tuning
             theElevator.resetEncoders();
             break;
-
+        case XBoxValues.DPadDownLeft:
+            setArmPositions(CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_TWO.getShoulderAngle(),
+                    CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_TWO.getElevatorHeight(), !CrusaderCommon.ScoringPositions.ROCKET_HATCH_LEVEL_TWO.getWristExtended());
+            break;
         case 42:
             setArmPositionsAuto(angle, height, CrusaderCommon.ScoringPositions.WRIST_FALSE);
             break;

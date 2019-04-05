@@ -46,6 +46,7 @@ public class CommandElevatorUp extends AbstractCommand
 
     }
     
+    @Override
     public void stop() {
         theElevator.stop();
     }

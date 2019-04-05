@@ -9,10 +9,16 @@ public class CommandIntakeIn extends AbstractCommand {
 	
 	Shoulder intake;
 	public CommandIntakeIn(Shoulder myintake)
-	{
-		this.intake = myintake;
-		
-	}
+    {
+        this.intake = myintake;
+
+    }
+    
+    @Override
+    public void stop() 
+    {
+        intake.stop();
+    }
 
 	@Override
 	public void execute() {
