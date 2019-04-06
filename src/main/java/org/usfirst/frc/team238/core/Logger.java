@@ -25,7 +25,7 @@ public class Logger {
 	public static Boolean isDebug()
 	{
 		
-		isDebug = SmartDashboard.getBoolean("Debug", true);
+		isDebug = SmartDashboard.getBoolean("Debug", false);
 		
 		return isDebug;
 	}

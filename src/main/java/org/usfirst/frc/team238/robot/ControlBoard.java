@@ -104,8 +104,14 @@ public class ControlBoard {
             case 0:
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadUp;
                 break;
+            case 45:
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadUpRight;
+                break;
             case 90:
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadRight;//25;
+                break;
+            case 135:
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadDownRight;//33;
                 break;
             case 180:
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadDown;
@@ -116,6 +122,9 @@ public class ControlBoard {
             case 270:
                 //Deploying hatch
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadLeft; //29;
+                break;
+            case 315:
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadUpLeft; //29;
                 break;
             }
         }

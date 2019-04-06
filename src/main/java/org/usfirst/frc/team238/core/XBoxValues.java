@@ -17,6 +17,9 @@ public final class XBoxValues {
     public static final int DPadDown = 26;
     public static final int DPadLeft = 29;
     public static final int DPadDownLeft = 30;
+    public static final int DPadUpLeft = 31;
+    public static final int DPadUpRight = 32;
+    public static final int DPadDownRight = 33;
 
     public static final int LeftJoystickButton = 9;
     public static final int LeftJoystickUp = 20;

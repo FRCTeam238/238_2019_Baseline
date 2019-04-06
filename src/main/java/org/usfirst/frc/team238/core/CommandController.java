@@ -1,13 +1,10 @@
 package org.usfirst.frc.team238.core;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 
 //import org.usfirst.frc.team238.robot.AutonomousDrive;
 import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Robot;
-import org.usfirst.frc.team238.core.Logger;
 
 
 public class CommandController {
@@ -108,12 +105,11 @@ public class CommandController {
      * @param commandValues
      */
     public void joyStickCommandExecution(HashMap<Integer, Integer[]> commandValues) {
-        // keep track of buttons previous iteration
-        // compare previous and present buttons
-        // if previous was pressed but no longer pressed then stop that certain button
-        // if buton is pressed exectue its command
-        // go back to step one and repeat 
 
+        if (commandValues == null) {
+            return;
+        }
+        
         Command commandForTheButtonPressed;
         Command operatorCommandsForTheButtonPressed;
         //Command leftDriverCommandsForTheButtonPressed;
@@ -122,48 +118,18 @@ public class CommandController {
         Integer[] buttonPressed;
 
         //Just get the CommandTankDrive whose key is zero
-        commandForTheButtonPressed = driverCmdList.get(0);
-        commandForTheButtonPressed.execute();
+        //commandForTheButtonPressed = driverCmdList.get(0);
+        //commandForTheButtonPressed.execute();
 
+        
+        if (previousButtons != null) {
+            stopUnpressedButtons(previousButtons.get(CrusaderCommon.OPR_CMD_LIST), commandValues.get(CrusaderCommon.OPR_CMD_LIST), operatorCmdList);
+            stopUnpressedButtons(previousButtons.get(CrusaderCommon.LEFTDRIVER_CMD_LIST),commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST), driverLeftCmdList);
+            stopUnpressedButtons(previousButtons.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST),commandValues.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST), driverRightCmdList);
+        }
+       
         // Check for inputs on the operator joystick
         buttonPressed = commandValues.get(CrusaderCommon.OPR_CMD_LIST);
-        // if buttons are not null...
-        if (previousButtons != null) {
-            //if the previous button conains the value of the joystick is in the crusader common operator list...
-            if (previousButtons.containsKey(CrusaderCommon.OPR_CMD_LIST)) {
-                Integer[] previousButtonsOperator = previousButtons.get(CrusaderCommon.OPR_CMD_LIST);
-                //Logger.Log(previousButtonsOperator.toString());
-                if (previousButtonsOperator != null && previousButtonsOperator.length > 0) {
-                    //makes a list of buttons
-                    //List<Integer> buttonPressList = Arrays.asList(buttonPressed);
-                    // for each previous button in the previous button operator array...
-                    for (int i = 0; i < previousButtonsOperator.length; i++) {
-                        if (previousButtonsOperator[i] != null) {
-
-                            int previousButton = previousButtonsOperator[i];
-                            if (previousButton != 0) {
-                                //if the current button list does not contain previos button...
-                                boolean found = false;
-                                for (int j = 0; j < buttonPressed.length; j++) {
-                                    if (buttonPressed[j] != null && buttonPressed[j] == previousButton) {
-                                        found = true;
-                                        break;
-                                    }
-                                }
-                                Logger.Log("CommandController.joyStickCommandExecution: PreviousButton = "
-                                        + previousButton + " Found: = " + found);
-
-                                if (!found) {
-                                    var commandToStop = operatorCmdList.get(previousButton);
-                                    commandToStop.stop();
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
         boolean buttonIsPressed = false;
         //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
         for (int i = 0; i < buttonPressed.length; i++) {
@@ -178,11 +144,7 @@ public class CommandController {
                     if (operatorCommandsForTheButtonPressed == null) {
                         Logger.Log("CommandController.josystickcommandexecution() no command found");
                     } else {
-                        /*
-                         * if(buttonPressed[i] == 1 || buttonPressed[i] == 5) { int shootButton =
-                         * buttonPressed[i]; operatorCommandsForTheButtonPressed.execute(shootButton); }
-                         * else {
-                         */
+                        
                         if (index == 1 || index == 2 || index == 3 || index == 4 || index == 7 || index == 8
                                 || index == 24 || index == 25 || index == 26 || index == 30) {
                             operatorCommandsForTheButtonPressed.execute(index);
@@ -204,28 +166,60 @@ public class CommandController {
         executeDriverCommands(commandValues.get(CrusaderCommon.LEFTDRIVER_CMD_LIST), driverLeftCmdList);
         executeDriverCommands(commandValues.get(CrusaderCommon.RIGHTDRIVER_CMD_LIST), driverRightCmdList);
 
-        previousButtons = new HashMap<Integer, Integer[]>();
-        for (Integer joystick : commandValues.keySet()) {
-            Integer[] currentButtons = commandValues.get(joystick);
-            // Integer[] buttons = currentButtons.clone();//new Integer[currentButtons.length];
-            // for (int i = 0; i < currentButtons.length; i++) {
-            //     buttons[i] = currentButtons[i];
-            // }
-            previousButtons.put(joystick, currentButtons.clone());
-        }
-        //previousButtons = (HashMap<Integer, Integer[]>) commandValues.clone();
+        previousButtons = cloneButtons(commandValues);
     }
     
+    private static void stopUnpressedButtons(Integer[] previousButtons,
+            Integer[] currentButtons, HashMap<Integer, Command> commandList) {
+        if (previousButtons != null && previousButtons.length > 0) {
+
+            for (int i = 0; i < previousButtons.length; i++) {
+                if (previousButtons[i] != null) {
+
+                    int previousButton = previousButtons[i];
+                    if (previousButton != 0) {
+                        //if the current button list does not contain previos button...
+                        boolean found = false;
+                        for (int j = 0; j < currentButtons.length; j++) {
+                            if (currentButtons[j] != null && currentButtons[j] == previousButton) {
+                                found = true;
+                                break;
+                            }
+                        }
+                        // Logger.Log("CommandController.joyStickCommandExecution: PreviousButton = "
+                        //         + previousButton + " Found: = " + found);
+
+                        if (!found) {
+                            var commandToStop = commandList.get(previousButton);
+                            if (commandToStop != null) {
+                                commandToStop.stop();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private static HashMap<Integer, Integer[]> cloneButtons(HashMap<Integer, Integer[]> toBeCloned) {
+        HashMap<Integer, Integer[]> target = new HashMap<Integer, Integer[]>();
+        for (Integer joystick : toBeCloned.keySet()) {
+            Integer[] currentButtons = toBeCloned.get(joystick);
+
+            target.put(joystick, currentButtons.clone());
+        }
+        return target;
+    } 
 
     private static void executeDriverCommands(Integer[] buttonsPressed, HashMap<Integer, Command> commmands) {       
 
         boolean buttonIsPressed = false;
-        //Logger.Log("CommandController.josystickcommandexecution() : " + buttonPressed.length);
+       
         for (int i = 0; i < buttonsPressed.length; i++) {
 
             if (buttonsPressed[i] != null) {
                 int index = buttonsPressed[i];
-                Logger.Log("CommandController.executeDriverCommands() actual button pressed =  " + index);
+                // Logger.Log("CommandController.executeDriverCommands() actual button pressed =  " + index);
                 if (index > 0) {
 
                     buttonIsPressed = true;
@@ -246,31 +240,7 @@ public class CommandController {
 
     
      // 
-        //if we do need a button then we need to uncomment below and be aware it could effect the driving
-        //buttonPressed = commandValues.get(CrusaderCommon.DT_CMD_LIST);
-
-        // boolean driverButtonPressed = false;
-        // for (int d = 0; d < buttonPressed.length; d++) {
-        //     if (buttonPressed[d] != null) {
-        //         int index = buttonPressed[d];
-        //         Logger.Log("CommandController.joyStickCommandExecution() - " + index);
-        //         if (index > 0) {
-                   
-        //             commandForTheButtonPressed = driverCmdList.get(index);
-        //             if(commandForTheButtonPressed != null){
-        //                 commandForTheButtonPressed.execute(); 
-        //             }
-                    
-                   
-        //         }
-
-        //     }
-        // }
-        //if (!driverButtonPressed) {
-         //   commandForTheButtonPressed = driverCmdList.get(0);
-        //   commandForTheButtonPressed.execute();
-        //}
-
+        
     /**
      * OLD STYLE 2 DRIVER JOYSTICHS
      *HashMap<Integer, Command> driverLeftCmdList;

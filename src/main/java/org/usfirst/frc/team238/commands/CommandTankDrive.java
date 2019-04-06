@@ -11,7 +11,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandTankDrive extends AbstractCommand {
 
-  Drivetrain myDrivetrain;
+    Drivetrain myDrivetrain;
+    private double speedAdjustment = 1.0;
 
   public CommandTankDrive(Robot myRobot) {
 	    this.myDrivetrain = myRobot.myDriveTrain;
@@ -32,11 +33,13 @@ public class CommandTankDrive extends AbstractCommand {
     DriverInput driverJS = ControlBoard.getDriverInput(false);
     
     
-    leftJsValue = driverJS.leftSide;
-    rightJsValue = driverJS.rightSide;
+    leftJsValue = driverJS.leftSide * speedAdjustment;
+    rightJsValue = driverJS.rightSide * speedAdjustment;
     
     
-    //This represents x = ax^3+(1-a)x where leftJsValue = x; tuningValue = a;
+        //This represents x = ax^3+(1-a)x where leftJsValue = x; tuningValue = a;
+        //the math is easy... but why are we doing this???
+    /// maybe scaling the stick to power ratio -- accelate the "power" the closer you get to the high or low position on the sitck 
     leftJsValue = (tuningValue * (leftJsValue * leftJsValue * leftJsValue) + (1-tuningValue) * leftJsValue);
     rightJsValue = (tuningValue * (rightJsValue * rightJsValue * rightJsValue) + (1-tuningValue) * rightJsValue);
     
@@ -53,6 +56,21 @@ public class CommandTankDrive extends AbstractCommand {
 
         myDrivetrain.drive(1, 1);
 
+    }
+
+    public void setSpeedAdjustment(double val) {
+        if (val > 1) {
+            val = 1;
+        }
+
+        if (val < 0) {
+            val = 0;
+        }
+        speedAdjustment = val;
+    }
+
+    public double getSpeedAdjustment() {
+        return speedAdjustment;
     }
 
 }

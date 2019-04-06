@@ -250,13 +250,13 @@ public final class CrusaderCommon {
         // public static final double ROCKET_CARGO_LEVEL_TWO_SHOULDER =
         // 117;//114;//84;//100
         // public static final boolean ROCKET_CARGO_LEVEL_TWO_WRIST = true;
-        public static final ScoringPosition ROCKET_CARGO_LEVEL_TWO = new ScoringPositionBuilder().elevator(13) // 10
+        public static final ScoringPosition ROCKET_CARGO_LEVEL_TWO = new ScoringPositionBuilder().elevator(14) // 10
                 .shoulder(117).wrist(true).toScoringPosition();
 
         // public static final double ROCKET_CARGO_LEVEL_THREE_ELEVATOR = 31;//30;
         // public static final double ROCKET_CARGO_LEVEL_THREE_SHOULDER = 115;//100;
         // public static final boolean ROCKET_CARGO_LEVEL_THREE_WRIST = true;
-        public static final ScoringPosition ROCKET_CARGO_LEVEL_THREE = new ScoringPositionBuilder().elevator(31)
+        public static final ScoringPosition ROCKET_CARGO_LEVEL_THREE = new ScoringPositionBuilder().elevator(32)
                 .shoulder(115).wrist(true).toScoringPosition();
 
         public static final double ROCKET_CARGO_LEVEL_ZERO_VALUE = 0;
@@ -266,7 +266,7 @@ public final class CrusaderCommon {
         // public static final double HATCH_LEVEL_ONE_SHOULDER = 30;//3;
         // public static final boolean HATCH_LEVEL_ONE_WRIST = false; //true means wrist
         // is extended
-        public static final ScoringPosition ROCKET_HATCH_LEVEL_ONE = new ScoringPositionBuilder().elevator(2)
+        public static final ScoringPosition FLOOR_PICKUP = new ScoringPositionBuilder().elevator(2)
                 .shoulder(40).wrist(false).toScoringPosition();
 
         // public static final double ROCKET_HATCH_LEVEL_TWO_ELEVATOR = 0;
@@ -280,6 +280,9 @@ public final class CrusaderCommon {
         // public static final boolean ROCKET_HATCH_LEVEL_THREE_WRIST = false;
         public static final ScoringPosition ROCKET_HATCH_LEVEL_THREE = new ScoringPositionBuilder().elevator(24)
                 .shoulder(115).wrist(false).toScoringPosition();
+
+        public static final ScoringPosition ROCKET_HATCH_LEVEL_ONE = new ScoringPositionBuilder().elevator(6)
+        .shoulder(40).wrist(false).toScoringPosition();
 
         public static final double ROCKET_HATCH_LEVEL_ZERO_VALUE = 0;
         public static final boolean WRIST_FALSE = false;
