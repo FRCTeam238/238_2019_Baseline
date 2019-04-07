@@ -25,7 +25,8 @@ public class CommandAutonLine extends AbstractCommand {
 
   public void prepare() {
      
-	 run = new AutonLineRunnable(myRobot, distance, topSpeed,navObject);
+     
+    run = new AutonLineRunnable(myRobot, distance, topSpeed,navObject);
      started=false;
      //myRobot.myDriveTrain.shiftHigh();
     

@@ -65,7 +65,8 @@ public class AutonLineRunnable implements Runnable {
     public static final double delT = 50.0;
     public void run(){
 
-    	boolean deAccelerate = false;   
+        boolean deAccelerate = false;
+        driveTrain.resetEncoders();
         double initialPosL = driveTrain.leftDistanceTravelled();
         double initialPosR = driveTrain.rightDistanceTravelled();
         double distanceTravelled =0;
@@ -91,24 +92,24 @@ public class AutonLineRunnable implements Runnable {
             double leftEncoderPos = driveTrain.leftDistanceTravelled();
             double rightEncoderPos = driveTrain.rightDistanceTravelled();
 
-            if (leftEncoderPos == 0){
-                if(rightEncoderPos  != 0){
-                    distanceTravelled=Math.abs( rightEncoderPos - initialPosR);    
-                }
-                else{
-                    stop = true;
-                }
-            }else if (rightEncoderPos == 0){
-                if(leftEncoderPos != 0){
-                    distanceTravelled=Math.abs( leftEncoderPos - initialPosL);    
-                }
-                else{
-                    stop = true;
-                }
-            }else{
+            // if (leftEncoderPos == 0){
+            //     if(rightEncoderPos  != 0){
+            //         distanceTravelled=Math.abs( rightEncoderPos - initialPosR);    
+            //     }
+            //     else{
+            //         stop = true;
+            //     }
+            // }else if (rightEncoderPos == 0){
+            //     if(leftEncoderPos != 0){
+            //         distanceTravelled=Math.abs( leftEncoderPos - initialPosL);    
+            //     }
+            //     else{
+            //         stop = true;
+            //     }
+            // }else{
             
                 distanceTravelled=Math.abs( leftEncoderPos - initialPosL +  rightEncoderPos - initialPosR) / 2;
-            }
+            //}
            // distanceTravelled=Math.abs(driveTrain.leftDistanceTravelled() - initialPosL +  driveTrain.rightDistanceTravelled() - initialPosR) / 2;
             //Logger.Log("DISTANCETRAVELLED:" + distanceTravelled);
             //remainingdistance
@@ -146,16 +147,16 @@ public class AutonLineRunnable implements Runnable {
             }
             Logger.Log("TIME:" + System.currentTimeMillis());
             Logger.Log("AutonlineForward.Run() " + 
-                        "%n Distance =" + distanceTravelled + 
-                        "%n Time Need to stop = " + timeToStop +
-                        "%n Dist Need to stop = " + distanceNeededToStop +
-                        "%n DeAccelerate = " + deAccelerate + 
-                        "%n Angle = " + angle + 
-                        "%n Yaw Value =  " + yaw +
-                        "%n AngleError = " + angleError +
-                        "%n AngleVelocityAdded = " + angleVelocityAddend + 
-                        "%n CurrentVelocity = " + currentVelocity + 
-                        "%n CurrentAccel = " + currentAccel);
+                        "   Distance =" + distanceTravelled + 
+                        "   Time Need to stop = " + timeToStop +
+                        "   Dist Need to stop = " + distanceNeededToStop +
+                        "   DeAccelerate = " + deAccelerate + 
+                        "   Angle = " + angle + 
+                        "   Yaw Value =  " + yaw +
+                        "   AngleError = " + angleError +
+                        "   AngleVelocityAdded = " + angleVelocityAddend + 
+                        "   CurrentVelocity = " + currentVelocity + 
+                        "   CurrentAccel = " + currentAccel);
 
             driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,currentAccel,currentAccel);
  
