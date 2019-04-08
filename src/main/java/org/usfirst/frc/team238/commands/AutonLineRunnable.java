@@ -145,21 +145,21 @@ public class AutonLineRunnable implements Runnable {
             if(Math.abs(topSpeed - Math.abs(currentVelocity))<0.5) {
                 currentAccel=0;
             }
-            Logger.Log("TIME:" + System.currentTimeMillis());
-            Logger.Log("AutonlineForward.Run() " + 
-                        "   Distance =" + distanceTravelled + 
-                        "   Time Need to stop = " + timeToStop +
-                        "   Dist Need to stop = " + distanceNeededToStop +
-                        "   DeAccelerate = " + deAccelerate + 
-                        "   Angle = " + angle + 
-                        "   Yaw Value =  " + yaw +
-                        "   AngleError = " + angleError +
-                        "   AngleVelocityAdded = " + angleVelocityAddend + 
-                        "   CurrentVelocity = " + currentVelocity + 
-                        "   CurrentAccel = " + currentAccel);
+            // Logger.Log("TIME:" + System.currentTimeMillis());
+            // Logger.Log("AutonlineForward.Run() ");
+            // Logger.Log("    Distance =" + distanceTravelled );
+            // Logger.Log("    Time Need to stop = " + timeToStop );
+            // Logger.Log("    Dist Need to stop = " + distanceNeededToStop );
+            // Logger.Log("    DeAccelerate = " + deAccelerate ); 
+            // Logger.Log("    Angle = " + angle ); 
+            // Logger.Log( "   Yaw Value =  " + yaw );
+            // Logger.Log("    AngleError = " + angleError );
+            // Logger.Log("    AngleVelocityAdded = " + angleVelocityAddend );
+            // Logger.Log("    CurrentVelocity = " + currentVelocity );
+            // Logger.Log("    CurrentAccel = " + currentAccel);
 
+            //driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, 0,currentAccel,0);
             driveTrain.driveSpeedAccel(currentVelocity + angleVelocityAddend, currentVelocity - angleVelocityAddend,currentAccel,currentAccel);
- 
             if(backwards){
                 if(currentVelocity>=0 && lastVelocity<0){
                     stop=true;

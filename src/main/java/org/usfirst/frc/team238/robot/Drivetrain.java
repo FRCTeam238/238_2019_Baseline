@@ -571,14 +571,19 @@ public class Drivetrain
     // return distance travelled in inches
     public double leftDistanceTravelled()
     {
-        Logger.Log("LEFT TICKS: " + leftFrontDrive.getSelectedSensorPosition(0));
-        return Math.abs(leftFrontDrive.getSelectedSensorPosition(0)  / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);
+        double leftTicks = leftFrontDrive.getSelectedSensorPosition(0);
+        double leftDistanceTravelled = leftTicks / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+        Logger.Log("LEFT TICKS: " + leftTicks + "  Left Distance Travelled  " + leftDistanceTravelled );
+        return leftDistanceTravelled;
     }
 
     // return distance travelled in inches
     public double rightDistanceTravelled()
     {
-        Logger.Log("RIGHT TICKS: " + rightFrontDrive.getSelectedSensorPosition(0));
-        return Math.abs(rightFrontDrive.getSelectedSensorPosition(0) / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH);    }
+        double rightTicks = rightFrontDrive.getSelectedSensorPosition(0);
+        double rightDistanceTravelled = rightTicks / CrusaderCommon.DRIVE_FORWARD_ENCODER_TICKS_PER_INCH;
+        Logger.Log("RIGHT TICKS: " + rightTicks);
+        return rightDistanceTravelled;    
+    }
 
 }

@@ -259,9 +259,9 @@ public class Shoulder
             outputWanted = Math.min(Math.max(MIN_OUT, outputWanted + 0.085), MAX_OUT);
             if (count > 100)
             {
-                Logger.Log("Shoulder.mainLoop() end: outputWanted = " + outputWanted);
-                Logger.Log("Shoulder.mainLoop() start: setpoint = " + setpoint + "  angle = " + theAngle);
-                Logger.Log("Shoulder.mainLoop() start: currentError = " + currentError);
+                // Logger.Log("Shoulder.mainLoop() end: outputWanted = " + outputWanted);
+                // Logger.Log("Shoulder.mainLoop() start: setpoint = " + setpoint + "  angle = " + theAngle);
+                // Logger.Log("Shoulder.mainLoop() start: currentError = " + currentError);
                 count = 0;
             }
             count++;
