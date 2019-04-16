@@ -146,7 +146,7 @@ public class CommandController {
                     } else {
                         
                         if (index == 1 || index == 2 || index == 3 || index == 4 || index == 7 || index == 8
-                                || index == 24 || index == 25 || index == 26 || index == 30) {
+                                || index == 24 || index == 25 || index == 26) { // || index == 30) {
                             operatorCommandsForTheButtonPressed.execute(index);
 
                         } else {

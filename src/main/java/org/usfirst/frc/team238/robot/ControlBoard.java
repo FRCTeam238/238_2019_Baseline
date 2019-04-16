@@ -116,15 +116,21 @@ public class ControlBoard {
             case 180:
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadDown;
                 break;
+            //mapping all left side angles to left button due to finger
+            //when holding button to extend finger someimes the contolloer cycles
+            //between left and up left or down left
+            //mapping all to left SHOULDsolve this problem
             case 225:
-                buttonsPressed[arrayIterator++] = XBoxValues.DPadDownLeft; //30;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadLeft;
+                //buttonsPressed[arrayIterator++] = XBoxValues.DPadDownLeft; //30;
                 break;
             case 270:
                 //Deploying hatch
                 buttonsPressed[arrayIterator++] = XBoxValues.DPadLeft; //29;
                 break;
             case 315:
-                buttonsPressed[arrayIterator++] = XBoxValues.DPadUpLeft; //29;
+                buttonsPressed[arrayIterator++] = XBoxValues.DPadLeft;
+                //buttonsPressed[arrayIterator++] = XBoxValues.DPadUpLeft; //29;
                 break;
             }
         }

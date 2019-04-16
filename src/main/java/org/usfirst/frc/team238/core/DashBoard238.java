@@ -164,8 +164,8 @@ public class DashBoard238 {
                 .getSubTable("ChickenVision").getEntry("tapeDetected"));
 
         //for the logger 
-        SmartDashboard.putBoolean("Debug", true);
-        SmartDashboard.putBoolean("Output Log to File", true);
+        SmartDashboard.putBoolean("Debug", false);
+        SmartDashboard.putBoolean("Output Log to File", false);
         SmartDashboard.putNumber("Select Auto State", 0);
 
         initializeScoring();

@@ -121,7 +121,7 @@ public final class CrusaderCommon {
 
     public static final double MANUAL_SHOULDER_SPEED_DOWN = -0.5;
     public static final double MANUAL_SHOULDER_SPEED_UP = 0.5; // .85
-    public static final double INTAKE_SPEED = 0.8;// 0.8;
+    public static final double INTAKE_SPEED = 0.7;// 0.8;
     public static final double INTAKE_SPEED_FAST = 0.95;
     public static final double INTAKE_SPEED_SLOW = 0.3;
 

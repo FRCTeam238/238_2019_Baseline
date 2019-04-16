@@ -68,20 +68,23 @@ public class OperatorCmdFactory {
         operatorCommands.put(XBoxValues.DPadUp, cmd); // 24, cmd);
         operatorCommands.put(XBoxValues.DPadRight, cmd); // 25, cmd);
         operatorCommands.put(XBoxValues.DPadDown, cmd); // 26, cmd);
-        operatorCommands.put(XBoxValues.DPadDownLeft, cmd); // 30, cmd);
+        //operatorCommands.put(XBoxValues.DPadDownLeft, cmd); // 30, cmd);
         operatorCommands.put(XBoxValues.Back, cmd); // 7, cmd);
 
         cmd = new CommandWristUp(theRobot);
-        operatorCommands.put(XBoxValues.TriggerRight, cmd); // (28, cmd);
+        operatorCommands.put(XBoxValues.TriggerLeft, cmd); // (28, cmd);
 
         cmd = new CommandWristDown(theRobot);
-        operatorCommands.put(XBoxValues.TriggerLeft, cmd); // (27, cmd);
+        operatorCommands.put(XBoxValues.TriggerRight, cmd); // (27, cmd);
 
         // cmd = new CommandHatchRetract(theRobot);
         // operatorCommands.put(9, cmd);
 
         cmd = new CommandHatchDeploy(theRobot);
         operatorCommands.put(XBoxValues.DPadLeft, cmd); // (29, cmd);
+        //mapped DPadLeft, DPadDownLeft, DPadUpLeft all to DPadLeft
+        //operatorCommands.put(XBoxValues.DPadDownLeft, cmd); // (29, cmd);
+        //operatorCommands.put(XBoxValues.DPadUpLeft, cmd); // (29, cmd);
 
         return operatorCommands;
     }
