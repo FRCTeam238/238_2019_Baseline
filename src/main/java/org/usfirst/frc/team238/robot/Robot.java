@@ -7,33 +7,34 @@
 
 package org.usfirst.frc.team238.robot;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import java.util.HashMap;
+
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
-
-import edu.wpi.first.wpilibj.TimedRobot;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.DriverStation.Alliance;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.wpilibj.Compressor;
-
-import java.util.HashMap;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import org.usfirst.frc.team238.core.AutonomousController2019;
 import org.usfirst.frc.team238.core.CommandController;
+import org.usfirst.frc.team238.core.DashBoard238;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.core.TestCmdFactory;
 import org.usfirst.frc.team238.core.TestController;
 import org.usfirst.frc.team238.core.TestStep;
-import org.usfirst.frc.team238.robot.Navigation;
-import org.usfirst.frc.team238.robot.Drivetrain;
+
 import RealBot.TrajectoryIntepreter;
-import org.usfirst.frc.team238.core.DashBoard238;
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -149,7 +150,20 @@ public class Robot extends TimedRobot {
             e.printStackTrace();
             Logger.Log("Robot(): disabledPeriodic(): disabledPriodic exception: " + e);
         }
+        
+        // Limelight testing numbers
+        NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+        table.getEntry("pipeline").setNumber(0);
+        table.getEntry("camMode").setNumber(0);
 
+        if(table.getEntry("tv").getDouble(0) == 1){ // If limelight has a valid target
+            NetworkTableEntry tx = table.getEntry("tx");
+            NetworkTableEntry ty = table.getEntry("ty");
+            double x = tx.getDouble(0); // X value read by limelight
+            double y = ty.getDouble(0); // Y value read by limelight
+            SmartDashboard.putNumber("Limelight tx", x);
+            SmartDashboard.putNumber("Limelight ty", y);
+        }
     }
 
     /**

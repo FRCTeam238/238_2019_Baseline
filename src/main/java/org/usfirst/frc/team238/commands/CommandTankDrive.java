@@ -4,15 +4,21 @@ import org.usfirst.frc.team238.core.AbstractCommand;
 import org.usfirst.frc.team238.core.DriverInput;
 import org.usfirst.frc.team238.core.Logger;
 import org.usfirst.frc.team238.robot.ControlBoard;
+import org.usfirst.frc.team238.robot.CrusaderCommon;
 import org.usfirst.frc.team238.robot.Drivetrain;
 import org.usfirst.frc.team238.robot.Robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class CommandTankDrive extends AbstractCommand {
 
     Drivetrain myDrivetrain;
     private double speedAdjustment = 1.0;
+    Joystick rightStick = new Joystick(0);
 
   public CommandTankDrive(Robot myRobot) {
 	    this.myDrivetrain = myRobot.myDriveTrain;
@@ -43,8 +49,34 @@ public class CommandTankDrive extends AbstractCommand {
     leftJsValue = (tuningValue * (leftJsValue * leftJsValue * leftJsValue) + (1-tuningValue) * leftJsValue);
     rightJsValue = (tuningValue * (rightJsValue * rightJsValue * rightJsValue) + (1-tuningValue) * rightJsValue);
     
-    myDrivetrain.drive(leftJsValue, rightJsValue);
-    
+    NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+    table.getEntry("pipeline").setNumber(0); // Pipeline 0
+
+    // This codebase is odd
+    if(rightStick.getRawButton(1)){
+        table.getEntry("camMode").setNumber(0); // Vision mode
+        table.getEntry("ledMode").setNumber(3); // Force LEDs on
+        NetworkTableEntry tx = table.getEntry("tx");
+        NetworkTableEntry ty = table.getEntry("ty");
+
+        double x = tx.getDouble(0); // X value read by limelight
+        double y = ty.getDouble(0); // Y value read by limelight
+
+        double heightDifference = CrusaderCommon.LIMELIGHT_HEIGHT - CrusaderCommon.HATCH_TARGET_HEIGHT; // Difference in height between camera and target
+        double yTangent = Math.tan(Math.toRadians(90 - CrusaderCommon.LIMELIGHT_ANGLE - y)); // Tangent of total angle
+        double distance = yTangent * heightDifference; // Distance between camera and target
+
+        double throttle = distance * 0.5; // Scale-up for throttle - make this not a magic number later
+        double sideToSide = x * 0.5; // Scale-up for angular adjustment - make this not a magic number later
+        // Note that these scalars are seperate from universal P value - they merely exist to 
+        // normalize throttle and side-to-side adjust in relation to each other
+
+        myDrivetrain.drive(throttle - sideToSide, throttle + sideToSide); // Drive using calculated values
+    }else{ // When tracking button is not pressed
+        table.getEntry("camMode").setNumber(1); // Camera mode
+        table.getEntry("ledMode").setNumber(1); // Force LEDs off
+        myDrivetrain.drive(leftJsValue, rightJsValue); // Drive using joystick input
+    }
    // Logger.Log("Left Motor Value in TELEOP = " + leftJsValue);
     //Logger.Log("Right Motor Value in TELEOP = " + rightJsValue);
    

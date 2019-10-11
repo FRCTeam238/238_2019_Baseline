@@ -204,6 +204,10 @@ public final class CrusaderCommon {
 
     public static final double SHOULDER_TARGET_TOLERANCE = 5;
 
+    public static final double HATCH_TARGET_HEIGHT = 29.5;
+    public static final double LIMELIGHT_HEIGHT = 40; // STUB VALUE
+    public static final double LIMELIGHT_ANGLE = 5; // STUB VALUE
+
     public static class ScoringPositions {
         // public static final double SAFE_DRIVING_MODE_ELEVATOR = 5;
         // public static final double SAFE_DRIVING_MODE_SHOULDER = 3;
